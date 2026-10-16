@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "corpus_id": "fin-dex-empirical-evaluation-v1",
+  "corpus_sha256": "fdabe877a1c203b749d64eb156a2b44ffac0e80fb31ec39db6b827fd6e0b81ca",
+  "fixture_set_id": "fin-dex-evaluation-fixtures-v1",
+  "fixtures_sha256": "2ef8d3d8f28a02bd683b7f1176b0fcd734c8f1cd7ea8461512071494915ebfe3",
+  "protocol_version": 1,
+  "protocol_sha256": "6901cec7952e786806a3ef15072624c5b03fefe6739ce12685cac72cb87ed7cc"
+}

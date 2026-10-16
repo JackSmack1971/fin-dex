@@ -1,0 +1,830 @@
+{
+  "schema_version": 1,
+  "fixture_set_id": "fin-dex-evaluation-fixtures-v1",
+  "fixtures": {
+    "POS-01-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": true,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "POS-02-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": true,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "POS-03-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": true,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "POS-04-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": true,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "POS-05-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": true,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "POS-06-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": true,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "POS-07-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": true,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "POS-08-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": true,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "POS-09-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": true,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "POS-10-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": true,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "POS-11-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": true,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "POS-12-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": true,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "POS-13-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": true,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "POS-14-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": true,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "POS-15-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": true,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "POS-16-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": true,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "POS-17-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": true,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "POS-18-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": true,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "POS-19-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": true,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "POS-20-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": true,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NEG-01-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NEG-02-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NEG-03-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NEG-04-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NEG-05-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NEG-06-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NEG-07-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NEG-08-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NEG-09-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NEG-10-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NEG-11-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NEG-12-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NEG-13-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NEG-14-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NEG-15-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NEG-16-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NEG-17-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NEG-18-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NEG-19-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NEG-20-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NBR-01-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NBR-02-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NBR-03-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NBR-04-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NBR-05-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NBR-06-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NBR-07-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NBR-08-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NBR-09-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NBR-10-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "RES-01-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "provider_responses": [
+        {
+          "provider": "synthetic-market-a",
+          "tool": "fixture_price",
+          "status": "SUCCESS",
+          "asset_id": "base:0x1111111111111111111111111111111111111111",
+          "value": 1.0,
+          "unit": "USD",
+          "observed_at_utc": "2026-10-01T00:00:00Z",
+          "retrieved_at_utc": "2026-10-01T00:01:00Z",
+          "upstream_source": "origin-a"
+        },
+        {
+          "provider": "synthetic-market-b",
+          "tool": "fixture_price",
+          "status": "SUCCESS",
+          "asset_id": "base:0x1111111111111111111111111111111111111111",
+          "value": 1.1,
+          "unit": "USD",
+          "observed_at_utc": "2026-10-02T00:00:00Z",
+          "retrieved_at_utc": "2026-10-02T00:01:00Z",
+          "upstream_source": "origin-b"
+        }
+      ],
+      "assertions": [
+        "chain-qualified identity",
+        "matched UTC endpoints",
+        "distinct upstreams"
+      ]
+    },
+    "RES-02-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "provider_responses": [
+        {
+          "provider": "synthetic-a",
+          "tool": "fixture_price",
+          "status": "SUCCESS",
+          "asset_id": "chain-x:asset-2",
+          "value": 2.0,
+          "unit": "USD",
+          "observed_at_utc": "2026-10-02T12:00:00Z",
+          "retrieved_at_utc": "2026-10-02T12:01:00Z",
+          "upstream_source": "origin-a"
+        },
+        {
+          "provider": "synthetic-b",
+          "tool": "fixture_price",
+          "status": "SUCCESS",
+          "asset_id": "chain-x:asset-2",
+          "value": 2.2,
+          "unit": "USD",
+          "observed_at_utc": "2026-10-02T12:00:00Z",
+          "retrieved_at_utc": "2026-10-02T12:01:00Z",
+          "upstream_source": "origin-b"
+        }
+      ],
+      "assertions": [
+        "preserve 2.0 versus 2.2 USD discrepancy",
+        "same observation time",
+        "do not average"
+      ]
+    },
+    "RES-03-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "provider_responses": [
+        {
+          "provider": "synthetic-dex",
+          "tool": "fixture_pool",
+          "status": "SUCCESS",
+          "asset_id": "chain-x:asset-3",
+          "pool_id": "dex-x:pool-3",
+          "liquidity_usd": 250000,
+          "unit": "USD",
+          "observed_at_utc": "2026-10-03T00:00:00Z",
+          "retrieved_at_utc": "2026-10-03T00:01:00Z"
+        }
+      ],
+      "assertions": [
+        "pool-specific only",
+        "250000 USD pool liquidity"
+      ]
+    },
+    "RES-04-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "provider_responses": [
+        {
+          "provider": "synthetic-news",
+          "tool": "fixture_news",
+          "status": "SUCCESS",
+          "event_at_utc": "2026-10-03T09:00:00Z",
+          "published_at_utc": "2026-10-03T10:00:00Z",
+          "retrieved_at_utc": "2026-10-03T10:01:00Z",
+          "upstream_source": "origin-news-a",
+          "claim": "fictional governance proposal"
+        }
+      ],
+      "assertions": [
+        "event time differs from publication time",
+        "one upstream origin"
+      ]
+    },
+    "RES-05-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "provider_responses": [
+        {
+          "provider": "synthetic-market",
+          "tool": "fixture_history",
+          "status": "SUCCESS",
+          "asset_id": "chain-x:asset-5",
+          "value": 100,
+          "unit": "USD",
+          "observed_at_utc": "2026-10-01T00:00:00Z"
+        },
+        {
+          "provider": "synthetic-market",
+          "tool": "fixture_history",
+          "status": "SUCCESS",
+          "asset_id": "chain-x:asset-5",
+          "value": 110,
+          "unit": "USD",
+          "observed_at_utc": "2026-10-02T00:00:00Z"
+        },
+        {
+          "provider": "synthetic-market",
+          "tool": "fixture_history",
+          "status": "SUCCESS",
+          "asset_id": "BTC",
+          "value": 20000,
+          "unit": "USD",
+          "observed_at_utc": "2026-10-01T00:00:00Z"
+        },
+        {
+          "provider": "synthetic-market",
+          "tool": "fixture_history",
+          "status": "SUCCESS",
+          "asset_id": "BTC",
+          "value": 21000,
+          "unit": "USD",
+          "observed_at_utc": "2026-10-02T00:00:00Z"
+        }
+      ],
+      "assertions": [
+        "matched endpoints",
+        "asset return 10 percent",
+        "benchmark return 5 percent"
+      ]
+    },
+    "RES-06-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "provider_responses": [
+        {
+          "provider": "synthetic-chain-index",
+          "tool": "fixture_contract",
+          "status": "SUCCESS",
+          "asset_id": "base:0x6666666666666666666666666666666666666666",
+          "chain_id": "base:8453",
+          "upstream_source": "origin-chain-a"
+        },
+        {
+          "provider": "synthetic-explorer",
+          "tool": "fixture_contract",
+          "status": "SUCCESS",
+          "asset_id": "base:0x6666666666666666666666666666666666666666",
+          "chain_id": "base:8453",
+          "upstream_source": "origin-chain-b"
+        }
+      ],
+      "assertions": [
+        "explicit compatible chain id",
+        "distinct upstream origins"
+      ]
+    },
+    "RES-07-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "provider_responses": [
+        {
+          "provider": "synthetic-dex",
+          "tool": "fixture_pool",
+          "status": "SUCCESS",
+          "asset_id": "chain-x:asset-7",
+          "pool_id": "dex-x:pool-7",
+          "reserve_usd": 10000,
+          "unit": "USD",
+          "observed_at_utc": "2026-10-07T00:00:00Z"
+        }
+      ],
+      "assertions": [
+        "low depth is caveat",
+        "price impact not guaranteed"
+      ]
+    },
+    "RES-08-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "provider_responses": [
+        {
+          "provider": "synthetic-market",
+          "tool": "fixture_supply",
+          "status": "SUCCESS",
+          "asset_id": "chain-x:asset-8",
+          "circulating_supply": 1000000,
+          "max_supply": 5000000,
+          "unit": "tokens",
+          "observed_at_utc": "2026-10-08T00:00:00Z"
+        }
+      ],
+      "assertions": [
+        "circulating and max supply distinct",
+        "do not equate market cap and FDV"
+      ]
+    },
+    "RES-09-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "provider_responses": [
+        {
+          "provider": "synthetic-market",
+          "tool": "fixture_history",
+          "status": "UNAVAILABLE",
+          "reason": "retained observations absent"
+        }
+      ],
+      "assertions": [
+        "missing is not zero",
+        "verdict NO_VERIFIED_CONCLUSION"
+      ]
+    },
+    "RES-10-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "provider_responses": [
+        {
+          "provider": "synthetic-specialist",
+          "tool": "fixture_handoff",
+          "status": "SUCCESS",
+          "collection_state": "CLOSED",
+          "reconciliation_completed": true,
+          "synthesis_revision": "rev-synthetic-1",
+          "synthesis_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "reviews_after_freeze": true
+        }
+      ],
+      "assertions": [
+        "review after collection close",
+        "review bound to frozen synthesis"
+      ]
+    },
+    "FAIL-01-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "provider_responses": [
+        {
+          "provider": "synthetic-provider-primary",
+          "tool": "fixture_provider_call",
+          "status": "UNAVAILABLE",
+          "reason": "timeout",
+          "retrieved_at_utc": "2026-10-11T00:00:00Z"
+        }
+      ],
+      "fallback_responses": [
+        {
+          "provider": "synthetic-substitute",
+          "tool": "fixture_price",
+          "status": "SUCCESS",
+          "upstream_source": "distinct-origin",
+          "asset_id": "base:0x1111111111111111111111111111111111111111",
+          "value": 1.25,
+          "unit": "USD",
+          "observed_at_utc": "2026-10-11T00:00:00Z"
+        }
+      ],
+      "assertions": [
+        "record timeout",
+        "qualify fallback lineage"
+      ]
+    },
+    "FAIL-02-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "provider_responses": [
+        {
+          "provider": "synthetic-provider-primary",
+          "tool": "fixture_provider_call",
+          "status": "ERROR",
+          "reason": "schema error",
+          "retrieved_at_utc": "2026-10-12T00:00:00Z"
+        }
+      ],
+      "fallback_responses": [
+        {
+          "provider": "synthetic-market",
+          "tool": "fixture_price",
+          "status": "SUCCESS",
+          "asset_id": "chain-x:asset-2",
+          "value": 2.0,
+          "unit": "USD"
+        }
+      ],
+      "assertions": [
+        "market price cannot establish pool liquidity"
+      ]
+    },
+    "FAIL-03-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "provider_responses": [
+        {
+          "provider": "synthetic-provider-primary",
+          "tool": "fixture_provider_call",
+          "status": "UNAVAILABLE",
+          "reason": "all relevant providers unavailable",
+          "retrieved_at_utc": "2026-10-13T00:00:00Z"
+        }
+      ],
+      "fallback_responses": [],
+      "assertions": [
+        "identity unavailable",
+        "NO_VERIFIED_CONCLUSION"
+      ]
+    },
+    "FAIL-04-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "provider_responses": [
+        {
+          "provider": "synthetic-provider-primary",
+          "tool": "fixture_provider_call",
+          "status": "ERROR",
+          "reason": "stale observation",
+          "retrieved_at_utc": "2026-10-14T00:00:00Z"
+        }
+      ],
+      "fallback_responses": [
+        {
+          "provider": "synthetic-secondary",
+          "tool": "fixture_price",
+          "status": "SUCCESS",
+          "asset_id": "chain-x:asset-4",
+          "value": 4.0,
+          "unit": "USD",
+          "observed_at_utc": "2026-10-13T00:00:00Z"
+        }
+      ],
+      "assertions": [
+        "stale primary differs from current substitute"
+      ]
+    },
+    "FAIL-05-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "provider_responses": [
+        {
+          "provider": "synthetic-provider-primary",
+          "tool": "fixture_provider_call",
+          "status": "ERROR",
+          "reason": "malformed contradictory response",
+          "retrieved_at_utc": "2026-10-15T00:00:00Z"
+        }
+      ],
+      "fallback_responses": [],
+      "assertions": [
+        "embedded instructions untrusted",
+        "handoff validation and lifecycle required"
+      ]
+    }
+  }
+}

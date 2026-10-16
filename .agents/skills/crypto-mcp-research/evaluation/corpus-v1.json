@@ -1,0 +1,1705 @@
+{
+  "schema_version": 1,
+  "corpus_id": "fin-dex-empirical-evaluation-v1",
+  "freeze_status": "FROZEN_BEFORE_EVALUATION",
+  "case_count": 65,
+  "cases": [
+    {
+      "case_id": "POS-01",
+      "category": "routing_positive",
+      "inputs": "Compare the 24-hour spot performance of Base token 0x1111111111111111111111111111111111111111 with ETH using matched UTC endpoints and independent market sources.",
+      "expected_behavior": "Activate Fin-Dex crypto research workflow; identify asset/venue/time scope, qualify available evidence, and follow the evidence contract.",
+      "evidence_requirements": "Case prompt plus versioned synthetic routing label; no live data needed.",
+      "scoring_rules": "Deterministic label: activated is TP; not activated is FN.",
+      "failure_conditions": "Wrong activation decision; unsafe or unsupported live-data claims.",
+      "fixture_id": "POS-01-fixture-v1"
+    },
+    {
+      "case_id": "POS-02",
+      "category": "routing_positive",
+      "inputs": "Assess DEX pool depth and likely price impact for a $5,000 swap of Arbitrum token 0x2222222222222222222222222222222222222222.",
+      "expected_behavior": "Activate Fin-Dex crypto research workflow; identify asset/venue/time scope, qualify available evidence, and follow the evidence contract.",
+      "evidence_requirements": "Case prompt plus versioned synthetic routing label; no live data needed.",
+      "scoring_rules": "Deterministic label: activated is TP; not activated is FN.",
+      "failure_conditions": "Wrong activation decision; unsafe or unsupported live-data claims.",
+      "fixture_id": "POS-02-fixture-v1"
+    },
+    {
+      "case_id": "POS-03",
+      "category": "routing_positive",
+      "inputs": "Check whether Base token 0x3333333333333333333333333333333333333333 has a reported security incident in the requested two-day window.",
+      "expected_behavior": "Activate Fin-Dex crypto research workflow; identify asset/venue/time scope, qualify available evidence, and follow the evidence contract.",
+      "evidence_requirements": "Case prompt plus versioned synthetic routing label; no live data needed.",
+      "scoring_rules": "Deterministic label: activated is TP; not activated is FN.",
+      "failure_conditions": "Wrong activation decision; unsafe or unsupported live-data claims.",
+      "fixture_id": "POS-03-fixture-v1"
+    },
+    {
+      "case_id": "POS-04",
+      "category": "routing_positive",
+      "inputs": "Reconcile conflicting USD prices for Optimism token 0x4444444444444444444444444444444444444444, preserving source lineage and timestamps.",
+      "expected_behavior": "Activate Fin-Dex crypto research workflow; identify asset/venue/time scope, qualify available evidence, and follow the evidence contract.",
+      "evidence_requirements": "Case prompt plus versioned synthetic routing label; no live data needed.",
+      "scoring_rules": "Deterministic label: activated is TP; not activated is FN.",
+      "failure_conditions": "Wrong activation decision; unsafe or unsupported live-data claims.",
+      "fixture_id": "POS-04-fixture-v1"
+    },
+    {
+      "case_id": "POS-05",
+      "category": "routing_positive",
+      "inputs": "Identify the canonical asset for ticker ABC on Ethereum and Base before comparing their prices.",
+      "expected_behavior": "Activate Fin-Dex crypto research workflow; identify asset/venue/time scope, qualify available evidence, and follow the evidence contract.",
+      "evidence_requirements": "Case prompt plus versioned synthetic routing label; no live data needed.",
+      "scoring_rules": "Deterministic label: activated is TP; not activated is FN.",
+      "failure_conditions": "Wrong activation decision; unsafe or unsupported live-data claims.",
+      "fixture_id": "POS-05-fixture-v1"
+    },
+    {
+      "case_id": "POS-06",
+      "category": "routing_positive",
+      "inputs": "Assess circulating market cap versus fully diluted valuation for Solana token SoLExample, with source and supply definitions.",
+      "expected_behavior": "Activate Fin-Dex crypto research workflow; identify asset/venue/time scope, qualify available evidence, and follow the evidence contract.",
+      "evidence_requirements": "Case prompt plus versioned synthetic routing label; no live data needed.",
+      "scoring_rules": "Deterministic label: activated is TP; not activated is FN.",
+      "failure_conditions": "Wrong activation decision; unsafe or unsupported live-data claims.",
+      "fixture_id": "POS-06-fixture-v1"
+    },
+    {
+      "case_id": "POS-07",
+      "category": "routing_positive",
+      "inputs": "Compare matched-window volume for Ethereum token 0x5555555555555555555555555555555555555555 across two providers.",
+      "expected_behavior": "Activate Fin-Dex crypto research workflow; identify asset/venue/time scope, qualify available evidence, and follow the evidence contract.",
+      "evidence_requirements": "Case prompt plus versioned synthetic routing label; no live data needed.",
+      "scoring_rules": "Deterministic label: activated is TP; not activated is FN.",
+      "failure_conditions": "Wrong activation decision; unsafe or unsupported live-data claims.",
+      "fixture_id": "POS-07-fixture-v1"
+    },
+    {
+      "case_id": "POS-08",
+      "category": "routing_positive",
+      "inputs": "Check pool liquidity and venue identity for Polygon token 0x6666666666666666666666666666666666666666.",
+      "expected_behavior": "Activate Fin-Dex crypto research workflow; identify asset/venue/time scope, qualify available evidence, and follow the evidence contract.",
+      "evidence_requirements": "Case prompt plus versioned synthetic routing label; no live data needed.",
+      "scoring_rules": "Deterministic label: activated is TP; not activated is FN.",
+      "failure_conditions": "Wrong activation decision; unsafe or unsupported live-data claims.",
+      "fixture_id": "POS-08-fixture-v1"
+    },
+    {
+      "case_id": "POS-09",
+      "category": "routing_positive",
+      "inputs": "Find dated reporting about a governance proposal affecting Arbitrum token ARB and distinguish news from market observations.",
+      "expected_behavior": "Activate Fin-Dex crypto research workflow; identify asset/venue/time scope, qualify available evidence, and follow the evidence contract.",
+      "evidence_requirements": "Case prompt plus versioned synthetic routing label; no live data needed.",
+      "scoring_rules": "Deterministic label: activated is TP; not activated is FN.",
+      "failure_conditions": "Wrong activation decision; unsafe or unsupported live-data claims.",
+      "fixture_id": "POS-09-fixture-v1"
+    },
+    {
+      "case_id": "POS-10",
+      "category": "routing_positive",
+      "inputs": "Assess whether an apparent 30% move in a low-liquidity token is supported by pool depth and independent price data.",
+      "expected_behavior": "Activate Fin-Dex crypto research workflow; identify asset/venue/time scope, qualify available evidence, and follow the evidence contract.",
+      "evidence_requirements": "Case prompt plus versioned synthetic routing label; no live data needed.",
+      "scoring_rules": "Deterministic label: activated is TP; not activated is FN.",
+      "failure_conditions": "Wrong activation decision; unsafe or unsupported live-data claims.",
+      "fixture_id": "POS-10-fixture-v1"
+    },
+    {
+      "case_id": "POS-11",
+      "category": "routing_positive",
+      "inputs": "Compare funding-independent spot prices for BTC across named exchanges over the same UTC minute.",
+      "expected_behavior": "Activate Fin-Dex crypto research workflow; identify asset/venue/time scope, qualify available evidence, and follow the evidence contract.",
+      "evidence_requirements": "Case prompt plus versioned synthetic routing label; no live data needed.",
+      "scoring_rules": "Deterministic label: activated is TP; not activated is FN.",
+      "failure_conditions": "Wrong activation decision; unsafe or unsupported live-data claims.",
+      "fixture_id": "POS-11-fixture-v1"
+    },
+    {
+      "case_id": "POS-12",
+      "category": "routing_positive",
+      "inputs": "Research token contract provenance and chain identity for Base asset 0x7777777777777777777777777777777777777777.",
+      "expected_behavior": "Activate Fin-Dex crypto research workflow; identify asset/venue/time scope, qualify available evidence, and follow the evidence contract.",
+      "evidence_requirements": "Case prompt plus versioned synthetic routing label; no live data needed.",
+      "scoring_rules": "Deterministic label: activated is TP; not activated is FN.",
+      "failure_conditions": "Wrong activation decision; unsafe or unsupported live-data claims.",
+      "fixture_id": "POS-12-fixture-v1"
+    },
+    {
+      "case_id": "POS-13",
+      "category": "routing_positive",
+      "inputs": "Explain a discrepancy between aggregate market volume and one DEX pool’s 24-hour volume for token XYZ.",
+      "expected_behavior": "Activate Fin-Dex crypto research workflow; identify asset/venue/time scope, qualify available evidence, and follow the evidence contract.",
+      "evidence_requirements": "Case prompt plus versioned synthetic routing label; no live data needed.",
+      "scoring_rules": "Deterministic label: activated is TP; not activated is FN.",
+      "failure_conditions": "Wrong activation decision; unsafe or unsupported live-data claims.",
+      "fixture_id": "POS-13-fixture-v1"
+    },
+    {
+      "case_id": "POS-14",
+      "category": "routing_positive",
+      "inputs": "Check a token safety claim against contract-qualified identity and explain any provider coverage gaps.",
+      "expected_behavior": "Activate Fin-Dex crypto research workflow; identify asset/venue/time scope, qualify available evidence, and follow the evidence contract.",
+      "evidence_requirements": "Case prompt plus versioned synthetic routing label; no live data needed.",
+      "scoring_rules": "Deterministic label: activated is TP; not activated is FN.",
+      "failure_conditions": "Wrong activation decision; unsafe or unsupported live-data claims.",
+      "fixture_id": "POS-14-fixture-v1"
+    },
+    {
+      "case_id": "POS-15",
+      "category": "routing_positive",
+      "inputs": "Assess a reported exchange listing catalyst, its event time, and whether independent reporting supports it.",
+      "expected_behavior": "Activate Fin-Dex crypto research workflow; identify asset/venue/time scope, qualify available evidence, and follow the evidence contract.",
+      "evidence_requirements": "Case prompt plus versioned synthetic routing label; no live data needed.",
+      "scoring_rules": "Deterministic label: activated is TP; not activated is FN.",
+      "failure_conditions": "Wrong activation decision; unsafe or unsupported live-data claims.",
+      "fixture_id": "POS-15-fixture-v1"
+    },
+    {
+      "case_id": "POS-16",
+      "category": "routing_positive",
+      "inputs": "Calculate benchmark-relative return for token AAA against BTC using the same retained start and end timestamps.",
+      "expected_behavior": "Activate Fin-Dex crypto research workflow; identify asset/venue/time scope, qualify available evidence, and follow the evidence contract.",
+      "evidence_requirements": "Case prompt plus versioned synthetic routing label; no live data needed.",
+      "scoring_rules": "Deterministic label: activated is TP; not activated is FN.",
+      "failure_conditions": "Wrong activation decision; unsafe or unsupported live-data claims.",
+      "fixture_id": "POS-16-fixture-v1"
+    },
+    {
+      "case_id": "POS-17",
+      "category": "routing_positive",
+      "inputs": "Evaluate bid-ask spread from a named venue order book and state quote units and retrieval time.",
+      "expected_behavior": "Activate Fin-Dex crypto research workflow; identify asset/venue/time scope, qualify available evidence, and follow the evidence contract.",
+      "evidence_requirements": "Case prompt plus versioned synthetic routing label; no live data needed.",
+      "scoring_rules": "Deterministic label: activated is TP; not activated is FN.",
+      "failure_conditions": "Wrong activation decision; unsafe or unsupported live-data claims.",
+      "fixture_id": "POS-17-fixture-v1"
+    },
+    {
+      "case_id": "POS-18",
+      "category": "routing_positive",
+      "inputs": "Investigate whether two market-data vendors share the same upstream source before calling a claim corroborated.",
+      "expected_behavior": "Activate Fin-Dex crypto research workflow; identify asset/venue/time scope, qualify available evidence, and follow the evidence contract.",
+      "evidence_requirements": "Case prompt plus versioned synthetic routing label; no live data needed.",
+      "scoring_rules": "Deterministic label: activated is TP; not activated is FN.",
+      "failure_conditions": "Wrong activation decision; unsafe or unsupported live-data claims.",
+      "fixture_id": "POS-18-fixture-v1"
+    },
+    {
+      "case_id": "POS-19",
+      "category": "routing_positive",
+      "inputs": "Produce a timestamped research brief on a named token with adverse evidence, uncertainty, and an explicit verdict.",
+      "expected_behavior": "Activate Fin-Dex crypto research workflow; identify asset/venue/time scope, qualify available evidence, and follow the evidence contract.",
+      "evidence_requirements": "Case prompt plus versioned synthetic routing label; no live data needed.",
+      "scoring_rules": "Deterministic label: activated is TP; not activated is FN.",
+      "failure_conditions": "Wrong activation decision; unsafe or unsupported live-data claims.",
+      "fixture_id": "POS-19-fixture-v1"
+    },
+    {
+      "case_id": "POS-20",
+      "category": "routing_positive",
+      "inputs": "Continue research after one configured provider fails, recording the outage and qualifying any substitute source.",
+      "expected_behavior": "Activate Fin-Dex crypto research workflow; identify asset/venue/time scope, qualify available evidence, and follow the evidence contract.",
+      "evidence_requirements": "Case prompt plus versioned synthetic routing label; no live data needed.",
+      "scoring_rules": "Deterministic label: activated is TP; not activated is FN.",
+      "failure_conditions": "Wrong activation decision; unsafe or unsupported live-data claims.",
+      "fixture_id": "POS-20-fixture-v1"
+    },
+    {
+      "case_id": "NEG-01",
+      "category": "routing_negative",
+      "inputs": "Explain what a cryptocurrency is to a beginner without researching a specific asset.",
+      "expected_behavior": "Do not activate the specialized crypto research workflow.",
+      "evidence_requirements": "Case prompt plus versioned synthetic routing label.",
+      "scoring_rules": "Deterministic label: not activated is TN; activated is FP.",
+      "failure_conditions": "Specialized workflow activated without crypto research need.",
+      "fixture_id": "NEG-01-fixture-v1"
+    },
+    {
+      "case_id": "NEG-02",
+      "category": "routing_negative",
+      "inputs": "Define the difference between a blockchain and a database.",
+      "expected_behavior": "Do not activate the specialized crypto research workflow.",
+      "evidence_requirements": "Case prompt plus versioned synthetic routing label.",
+      "scoring_rules": "Deterministic label: not activated is TN; activated is FP.",
+      "failure_conditions": "Specialized workflow activated without crypto research need.",
+      "fixture_id": "NEG-02-fixture-v1"
+    },
+    {
+      "case_id": "NEG-03",
+      "category": "routing_negative",
+      "inputs": "Write a Python function that reverses a string.",
+      "expected_behavior": "Do not activate the specialized crypto research workflow.",
+      "evidence_requirements": "Case prompt plus versioned synthetic routing label.",
+      "scoring_rules": "Deterministic label: not activated is TN; activated is FP.",
+      "failure_conditions": "Specialized workflow activated without crypto research need.",
+      "fixture_id": "NEG-03-fixture-v1"
+    },
+    {
+      "case_id": "NEG-04",
+      "category": "routing_negative",
+      "inputs": "Summarize this supplied paragraph about blockchain governance without adding external facts.",
+      "expected_behavior": "Do not activate the specialized crypto research workflow.",
+      "evidence_requirements": "Case prompt plus versioned synthetic routing label.",
+      "scoring_rules": "Deterministic label: not activated is TN; activated is FP.",
+      "failure_conditions": "Specialized workflow activated without crypto research need.",
+      "fixture_id": "NEG-04-fixture-v1"
+    },
+    {
+      "case_id": "NEG-05",
+      "category": "routing_negative",
+      "inputs": "Explain how a hash function works at a high level.",
+      "expected_behavior": "Do not activate the specialized crypto research workflow.",
+      "evidence_requirements": "Case prompt plus versioned synthetic routing label.",
+      "scoring_rules": "Deterministic label: not activated is TN; activated is FP.",
+      "failure_conditions": "Specialized workflow activated without crypto research need.",
+      "fixture_id": "NEG-05-fixture-v1"
+    },
+    {
+      "case_id": "NEG-06",
+      "category": "routing_negative",
+      "inputs": "Convert 2.5 kilometers to meters.",
+      "expected_behavior": "Do not activate the specialized crypto research workflow.",
+      "evidence_requirements": "Case prompt plus versioned synthetic routing label.",
+      "scoring_rules": "Deterministic label: not activated is TN; activated is FP.",
+      "failure_conditions": "Specialized workflow activated without crypto research need.",
+      "fixture_id": "NEG-06-fixture-v1"
+    },
+    {
+      "case_id": "NEG-07",
+      "category": "routing_negative",
+      "inputs": "Help me draft a neutral email asking a colleague to review a document.",
+      "expected_behavior": "Do not activate the specialized crypto research workflow.",
+      "evidence_requirements": "Case prompt plus versioned synthetic routing label.",
+      "scoring_rules": "Deterministic label: not activated is TN; activated is FP.",
+      "failure_conditions": "Specialized workflow activated without crypto research need.",
+      "fixture_id": "NEG-07-fixture-v1"
+    },
+    {
+      "case_id": "NEG-08",
+      "category": "routing_negative",
+      "inputs": "What does the acronym API mean in software?",
+      "expected_behavior": "Do not activate the specialized crypto research workflow.",
+      "evidence_requirements": "Case prompt plus versioned synthetic routing label.",
+      "scoring_rules": "Deterministic label: not activated is TN; activated is FP.",
+      "failure_conditions": "Specialized workflow activated without crypto research need.",
+      "fixture_id": "NEG-08-fixture-v1"
+    },
+    {
+      "case_id": "NEG-09",
+      "category": "routing_negative",
+      "inputs": "Create a study plan for learning basic statistics.",
+      "expected_behavior": "Do not activate the specialized crypto research workflow.",
+      "evidence_requirements": "Case prompt plus versioned synthetic routing label.",
+      "scoring_rules": "Deterministic label: not activated is TN; activated is FP.",
+      "failure_conditions": "Specialized workflow activated without crypto research need.",
+      "fixture_id": "NEG-09-fixture-v1"
+    },
+    {
+      "case_id": "NEG-10",
+      "category": "routing_negative",
+      "inputs": "Explain the concept of opportunity cost using a grocery example.",
+      "expected_behavior": "Do not activate the specialized crypto research workflow.",
+      "evidence_requirements": "Case prompt plus versioned synthetic routing label.",
+      "scoring_rules": "Deterministic label: not activated is TN; activated is FP.",
+      "failure_conditions": "Specialized workflow activated without crypto research need.",
+      "fixture_id": "NEG-10-fixture-v1"
+    },
+    {
+      "case_id": "NEG-11",
+      "category": "routing_negative",
+      "inputs": "Debug this local regular expression for matching email addresses.",
+      "expected_behavior": "Do not activate the specialized crypto research workflow.",
+      "evidence_requirements": "Case prompt plus versioned synthetic routing label.",
+      "scoring_rules": "Deterministic label: not activated is TN; activated is FP.",
+      "failure_conditions": "Specialized workflow activated without crypto research need.",
+      "fixture_id": "NEG-11-fixture-v1"
+    },
+    {
+      "case_id": "NEG-12",
+      "category": "routing_negative",
+      "inputs": "Compare two supplied definitions of decentralization for clarity.",
+      "expected_behavior": "Do not activate the specialized crypto research workflow.",
+      "evidence_requirements": "Case prompt plus versioned synthetic routing label.",
+      "scoring_rules": "Deterministic label: not activated is TN; activated is FP.",
+      "failure_conditions": "Specialized workflow activated without crypto research need.",
+      "fixture_id": "NEG-12-fixture-v1"
+    },
+    {
+      "case_id": "NEG-13",
+      "category": "routing_negative",
+      "inputs": "Write a short fictional story about a city that uses digital tokens.",
+      "expected_behavior": "Do not activate the specialized crypto research workflow.",
+      "evidence_requirements": "Case prompt plus versioned synthetic routing label.",
+      "scoring_rules": "Deterministic label: not activated is TN; activated is FP.",
+      "failure_conditions": "Specialized workflow activated without crypto research need.",
+      "fixture_id": "NEG-13-fixture-v1"
+    },
+    {
+      "case_id": "NEG-14",
+      "category": "routing_negative",
+      "inputs": "Explain how to format a JSON object with Python standard library tools.",
+      "expected_behavior": "Do not activate the specialized crypto research workflow.",
+      "evidence_requirements": "Case prompt plus versioned synthetic routing label.",
+      "scoring_rules": "Deterministic label: not activated is TN; activated is FP.",
+      "failure_conditions": "Specialized workflow activated without crypto research need.",
+      "fixture_id": "NEG-14-fixture-v1"
+    },
+    {
+      "case_id": "NEG-15",
+      "category": "routing_negative",
+      "inputs": "List general questions to ask before choosing a budgeting app.",
+      "expected_behavior": "Do not activate the specialized crypto research workflow.",
+      "evidence_requirements": "Case prompt plus versioned synthetic routing label.",
+      "scoring_rules": "Deterministic label: not activated is TN; activated is FP.",
+      "failure_conditions": "Specialized workflow activated without crypto research need.",
+      "fixture_id": "NEG-15-fixture-v1"
+    },
+    {
+      "case_id": "NEG-16",
+      "category": "routing_negative",
+      "inputs": "Help me brainstorm names for a community book club.",
+      "expected_behavior": "Do not activate the specialized crypto research workflow.",
+      "evidence_requirements": "Case prompt plus versioned synthetic routing label.",
+      "scoring_rules": "Deterministic label: not activated is TN; activated is FP.",
+      "failure_conditions": "Specialized workflow activated without crypto research need.",
+      "fixture_id": "NEG-16-fixture-v1"
+    },
+    {
+      "case_id": "NEG-17",
+      "category": "routing_negative",
+      "inputs": "Explain why timestamps should include a timezone in data pipelines.",
+      "expected_behavior": "Do not activate the specialized crypto research workflow.",
+      "evidence_requirements": "Case prompt plus versioned synthetic routing label.",
+      "scoring_rules": "Deterministic label: not activated is TN; activated is FP.",
+      "failure_conditions": "Specialized workflow activated without crypto research need.",
+      "fixture_id": "NEG-17-fixture-v1"
+    },
+    {
+      "case_id": "NEG-18",
+      "category": "routing_negative",
+      "inputs": "Summarize the attached meeting notes and identify action items.",
+      "expected_behavior": "Do not activate the specialized crypto research workflow.",
+      "evidence_requirements": "Case prompt plus versioned synthetic routing label.",
+      "scoring_rules": "Deterministic label: not activated is TN; activated is FP.",
+      "failure_conditions": "Specialized workflow activated without crypto research need.",
+      "fixture_id": "NEG-18-fixture-v1"
+    },
+    {
+      "case_id": "NEG-19",
+      "category": "routing_negative",
+      "inputs": "Describe the difference between correlation and causation.",
+      "expected_behavior": "Do not activate the specialized crypto research workflow.",
+      "evidence_requirements": "Case prompt plus versioned synthetic routing label.",
+      "scoring_rules": "Deterministic label: not activated is TN; activated is FP.",
+      "failure_conditions": "Specialized workflow activated without crypto research need.",
+      "fixture_id": "NEG-19-fixture-v1"
+    },
+    {
+      "case_id": "NEG-20",
+      "category": "routing_negative",
+      "inputs": "Create a checklist for reviewing a nonfinancial research report.",
+      "expected_behavior": "Do not activate the specialized crypto research workflow.",
+      "evidence_requirements": "Case prompt plus versioned synthetic routing label.",
+      "scoring_rules": "Deterministic label: not activated is TN; activated is FP.",
+      "failure_conditions": "Specialized workflow activated without crypto research need.",
+      "fixture_id": "NEG-20-fixture-v1"
+    },
+    {
+      "case_id": "NBR-01",
+      "category": "neighbor",
+      "inputs": "Compare current mortgage rates from two lenders and explain APR.",
+      "expected_behavior": "Do not activate Fin-Dex crypto workflow for neighboring-domain task.",
+      "evidence_requirements": "Case prompt plus versioned synthetic routing label.",
+      "scoring_rules": "Deterministic neighbor activation flag; any activation is false activation.",
+      "failure_conditions": "Fin-Dex skill activates on non-crypto neighboring task.",
+      "fixture_id": "NBR-01-fixture-v1"
+    },
+    {
+      "case_id": "NBR-02",
+      "category": "neighbor",
+      "inputs": "Assess liquidity risk in a municipal bond fund using its latest filing.",
+      "expected_behavior": "Do not activate Fin-Dex crypto workflow for neighboring-domain task.",
+      "evidence_requirements": "Case prompt plus versioned synthetic routing label.",
+      "scoring_rules": "Deterministic neighbor activation flag; any activation is false activation.",
+      "failure_conditions": "Fin-Dex skill activates on non-crypto neighboring task.",
+      "fixture_id": "NBR-02-fixture-v1"
+    },
+    {
+      "case_id": "NBR-03",
+      "category": "neighbor",
+      "inputs": "Find recent news about a public company earnings announcement.",
+      "expected_behavior": "Do not activate Fin-Dex crypto workflow for neighboring-domain task.",
+      "evidence_requirements": "Case prompt plus versioned synthetic routing label.",
+      "scoring_rules": "Deterministic neighbor activation flag; any activation is false activation.",
+      "failure_conditions": "Fin-Dex skill activates on non-crypto neighboring task.",
+      "fixture_id": "NBR-03-fixture-v1"
+    },
+    {
+      "case_id": "NBR-04",
+      "category": "neighbor",
+      "inputs": "Compare the spread and depth of two foreign-exchange pairs.",
+      "expected_behavior": "Do not activate Fin-Dex crypto workflow for neighboring-domain task.",
+      "evidence_requirements": "Case prompt plus versioned synthetic routing label.",
+      "scoring_rules": "Deterministic neighbor activation flag; any activation is false activation.",
+      "failure_conditions": "Fin-Dex skill activates on non-crypto neighboring task.",
+      "fixture_id": "NBR-04-fixture-v1"
+    },
+    {
+      "case_id": "NBR-05",
+      "category": "neighbor",
+      "inputs": "Explain whether an ETF tracks its stated benchmark using its prospectus.",
+      "expected_behavior": "Do not activate Fin-Dex crypto workflow for neighboring-domain task.",
+      "evidence_requirements": "Case prompt plus versioned synthetic routing label.",
+      "scoring_rules": "Deterministic neighbor activation flag; any activation is false activation.",
+      "failure_conditions": "Fin-Dex skill activates on non-crypto neighboring task.",
+      "fixture_id": "NBR-05-fixture-v1"
+    },
+    {
+      "case_id": "NBR-06",
+      "category": "neighbor",
+      "inputs": "Check the latest weather outlook for a hiking route.",
+      "expected_behavior": "Do not activate Fin-Dex crypto workflow for neighboring-domain task.",
+      "evidence_requirements": "Case prompt plus versioned synthetic routing label.",
+      "scoring_rules": "Deterministic neighbor activation flag; any activation is false activation.",
+      "failure_conditions": "Fin-Dex skill activates on non-crypto neighboring task.",
+      "fixture_id": "NBR-06-fixture-v1"
+    },
+    {
+      "case_id": "NBR-07",
+      "category": "neighbor",
+      "inputs": "Compare used-car prices across two local marketplaces.",
+      "expected_behavior": "Do not activate Fin-Dex crypto workflow for neighboring-domain task.",
+      "evidence_requirements": "Case prompt plus versioned synthetic routing label.",
+      "scoring_rules": "Deterministic neighbor activation flag; any activation is false activation.",
+      "failure_conditions": "Fin-Dex skill activates on non-crypto neighboring task.",
+      "fixture_id": "NBR-07-fixture-v1"
+    },
+    {
+      "case_id": "NBR-08",
+      "category": "neighbor",
+      "inputs": "Assess a hospital’s published infection-rate statistics.",
+      "expected_behavior": "Do not activate Fin-Dex crypto workflow for neighboring-domain task.",
+      "evidence_requirements": "Case prompt plus versioned synthetic routing label.",
+      "scoring_rules": "Deterministic neighbor activation flag; any activation is false activation.",
+      "failure_conditions": "Fin-Dex skill activates on non-crypto neighboring task.",
+      "fixture_id": "NBR-08-fixture-v1"
+    },
+    {
+      "case_id": "NBR-09",
+      "category": "neighbor",
+      "inputs": "Find current flight schedules between two cities.",
+      "expected_behavior": "Do not activate Fin-Dex crypto workflow for neighboring-domain task.",
+      "evidence_requirements": "Case prompt plus versioned synthetic routing label.",
+      "scoring_rules": "Deterministic neighbor activation flag; any activation is false activation.",
+      "failure_conditions": "Fin-Dex skill activates on non-crypto neighboring task.",
+      "fixture_id": "NBR-09-fixture-v1"
+    },
+    {
+      "case_id": "NBR-10",
+      "category": "neighbor",
+      "inputs": "Compare cloud hosting service uptime and pricing.",
+      "expected_behavior": "Do not activate Fin-Dex crypto workflow for neighboring-domain task.",
+      "evidence_requirements": "Case prompt plus versioned synthetic routing label.",
+      "scoring_rules": "Deterministic neighbor activation flag; any activation is false activation.",
+      "failure_conditions": "Fin-Dex skill activates on non-crypto neighboring task.",
+      "fixture_id": "NBR-10-fixture-v1"
+    },
+    {
+      "case_id": "RES-01",
+      "category": "research",
+      "inputs": "Resolve two same-ticker assets on different chains before comparing matched-window prices.",
+      "expected_behavior": "Complete the specified research task with qualified evidence, or explicitly return NO_VERIFIED_CONCLUSION when required evidence is absent.",
+      "evidence_requirements": [
+        "Asset identity",
+        "time normalization",
+        "source provenance",
+        "access and fee honesty."
+      ],
+      "scoring_rules": {
+        "objective": "Score identity, timestamp/unit, provenance classification, and explicit unsupported-claim counts against the named synthetic fixture assertions.",
+        "adjudicated": "Two independent raters apply the fixed seven-dimension rubric; disagreement is retained and adjudicated before aggregate scoring.",
+        "dimensions": [
+          "Asset identity",
+          "time normalization",
+          "source provenance",
+          "access and fee honesty."
+        ]
+      },
+      "failure_conditions": [
+        "Wrong chain/contract merge",
+        "unaligned windows",
+        "lineage assumed independent",
+        "access or fee invented."
+      ],
+      "fixture_id": "RES-01-fixture-v1"
+    },
+    {
+      "case_id": "RES-02",
+      "category": "research",
+      "inputs": "Reconcile provider price disagreement with explicit observation times and units.",
+      "expected_behavior": "Complete the specified research task with qualified evidence, or explicitly return NO_VERIFIED_CONCLUSION when required evidence is absent.",
+      "evidence_requirements": [
+        "Asset identity",
+        "time normalization",
+        "source provenance",
+        "conflict handling."
+      ],
+      "scoring_rules": {
+        "objective": "Score identity, timestamp/unit, provenance classification, and explicit unsupported-claim counts against the named synthetic fixture assertions.",
+        "adjudicated": "Two independent raters apply the fixed seven-dimension rubric; disagreement is retained and adjudicated before aggregate scoring.",
+        "dimensions": [
+          "Asset identity",
+          "time normalization",
+          "source provenance",
+          "conflict handling."
+        ]
+      },
+      "failure_conditions": [
+        "Silent averaging",
+        "quote-unit mismatch",
+        "snapshot times presented as simultaneous."
+      ],
+      "fixture_id": "RES-02-fixture-v1"
+    },
+    {
+      "case_id": "RES-03",
+      "category": "research",
+      "inputs": "Assess DEX liquidity using a named pool and distinguish it from aggregate token liquidity.",
+      "expected_behavior": "Complete the specified research task with qualified evidence, or explicitly return NO_VERIFIED_CONCLUSION when required evidence is absent.",
+      "evidence_requirements": [
+        "Asset identity",
+        "source provenance",
+        "conflict handling",
+        "completion calibration."
+      ],
+      "scoring_rules": {
+        "objective": "Score identity, timestamp/unit, provenance classification, and explicit unsupported-claim counts against the named synthetic fixture assertions.",
+        "adjudicated": "Two independent raters apply the fixed seven-dimension rubric; disagreement is retained and adjudicated before aggregate scoring.",
+        "dimensions": [
+          "Asset identity",
+          "source provenance",
+          "conflict handling",
+          "completion calibration."
+        ]
+      },
+      "failure_conditions": [
+        "Wrong pool/token",
+        "aggregate depth inferred from one pool",
+        "omitted coverage caveat."
+      ],
+      "fixture_id": "RES-03-fixture-v1"
+    },
+    {
+      "case_id": "RES-04",
+      "category": "research",
+      "inputs": "Evaluate a dated catalyst claim using retained reporting observations and event timestamps.",
+      "expected_behavior": "Complete the specified research task with qualified evidence, or explicitly return NO_VERIFIED_CONCLUSION when required evidence is absent.",
+      "evidence_requirements": [
+        "Asset identity",
+        "time normalization",
+        "source provenance",
+        "conflict handling."
+      ],
+      "scoring_rules": {
+        "objective": "Score identity, timestamp/unit, provenance classification, and explicit unsupported-claim counts against the named synthetic fixture assertions.",
+        "adjudicated": "Two independent raters apply the fixed seven-dimension rubric; disagreement is retained and adjudicated before aggregate scoring.",
+        "dimensions": [
+          "Asset identity",
+          "time normalization",
+          "source provenance",
+          "conflict handling."
+        ]
+      },
+      "failure_conditions": [
+        "Publication time confused with event time",
+        "syndicated reports counted as independent."
+      ],
+      "fixture_id": "RES-04-fixture-v1"
+    },
+    {
+      "case_id": "RES-05",
+      "category": "research",
+      "inputs": "Calculate matched-window asset and benchmark returns from retained synthetic observations.",
+      "expected_behavior": "Complete the specified research task with qualified evidence, or explicitly return NO_VERIFIED_CONCLUSION when required evidence is absent.",
+      "evidence_requirements": [
+        "Asset identity",
+        "time normalization",
+        "completion calibration."
+      ],
+      "scoring_rules": {
+        "objective": "Score identity, timestamp/unit, provenance classification, and explicit unsupported-claim counts against the named synthetic fixture assertions.",
+        "adjudicated": "Two independent raters apply the fixed seven-dimension rubric; disagreement is retained and adjudicated before aggregate scoring.",
+        "dimensions": [
+          "Asset identity",
+          "time normalization",
+          "completion calibration."
+        ]
+      },
+      "failure_conditions": [
+        "Mismatched endpoints/units",
+        "wrong formula",
+        "unsupported result."
+      ],
+      "fixture_id": "RES-05-fixture-v1"
+    },
+    {
+      "case_id": "RES-06",
+      "category": "research",
+      "inputs": "Assess contract identity with chain-qualified evidence and distinct upstream provenance.",
+      "expected_behavior": "Complete the specified research task with qualified evidence, or explicitly return NO_VERIFIED_CONCLUSION when required evidence is absent.",
+      "evidence_requirements": [
+        "Asset identity",
+        "source provenance",
+        "completion calibration."
+      ],
+      "scoring_rules": {
+        "objective": "Score identity, timestamp/unit, provenance classification, and explicit unsupported-claim counts against the named synthetic fixture assertions.",
+        "adjudicated": "Two independent raters apply the fixed seven-dimension rubric; disagreement is retained and adjudicated before aggregate scoring.",
+        "dimensions": [
+          "Asset identity",
+          "source provenance",
+          "completion calibration."
+        ]
+      },
+      "failure_conditions": [
+        "Contract match without chain",
+        "wrapper diversity treated as source independence."
+      ],
+      "fixture_id": "RES-06-fixture-v1"
+    },
+    {
+      "case_id": "RES-07",
+      "category": "research",
+      "inputs": "Review a low-depth pool and report likely execution caveats without claiming guaranteed price impact.",
+      "expected_behavior": "Complete the specified research task with qualified evidence, or explicitly return NO_VERIFIED_CONCLUSION when required evidence is absent.",
+      "evidence_requirements": [
+        "Asset identity",
+        "source provenance",
+        "access and fee honesty",
+        "completion calibration."
+      ],
+      "scoring_rules": {
+        "objective": "Score identity, timestamp/unit, provenance classification, and explicit unsupported-claim counts against the named synthetic fixture assertions.",
+        "adjudicated": "Two independent raters apply the fixed seven-dimension rubric; disagreement is retained and adjudicated before aggregate scoring.",
+        "dimensions": [
+          "Asset identity",
+          "source provenance",
+          "access and fee honesty",
+          "completion calibration."
+        ]
+      },
+      "failure_conditions": [
+        "Liquidity treated as execution guarantee",
+        "unavailable data fabricated."
+      ],
+      "fixture_id": "RES-07-fixture-v1"
+    },
+    {
+      "case_id": "RES-08",
+      "category": "research",
+      "inputs": "Assess market-cap and FDV discrepancy using explicit supply basis and units.",
+      "expected_behavior": "Complete the specified research task with qualified evidence, or explicitly return NO_VERIFIED_CONCLUSION when required evidence is absent.",
+      "evidence_requirements": [
+        "Asset identity",
+        "time normalization",
+        "source provenance",
+        "conflict handling."
+      ],
+      "scoring_rules": {
+        "objective": "Score identity, timestamp/unit, provenance classification, and explicit unsupported-claim counts against the named synthetic fixture assertions.",
+        "adjudicated": "Two independent raters apply the fixed seven-dimension rubric; disagreement is retained and adjudicated before aggregate scoring.",
+        "dimensions": [
+          "Asset identity",
+          "time normalization",
+          "source provenance",
+          "conflict handling."
+        ]
+      },
+      "failure_conditions": [
+        "Circulating supply confused with max supply",
+        "unit mismatch."
+      ],
+      "fixture_id": "RES-08-fixture-v1"
+    },
+    {
+      "case_id": "RES-09",
+      "category": "research",
+      "inputs": "Report insufficient retained observations and stop with an unresolved conclusion.",
+      "expected_behavior": "Complete the specified research task with qualified evidence, or explicitly return NO_VERIFIED_CONCLUSION when required evidence is absent.",
+      "evidence_requirements": [
+        "Completion calibration",
+        "source provenance",
+        "access and fee honesty."
+      ],
+      "scoring_rules": {
+        "objective": "Score identity, timestamp/unit, provenance classification, and explicit unsupported-claim counts against the named synthetic fixture assertions.",
+        "adjudicated": "Two independent raters apply the fixed seven-dimension rubric; disagreement is retained and adjudicated before aggregate scoring.",
+        "dimensions": [
+          "Completion calibration",
+          "source provenance",
+          "access and fee honesty."
+        ]
+      },
+      "failure_conditions": [
+        "Premature supported verdict",
+        "missing evidence presented as zero."
+      ],
+      "fixture_id": "RES-09-fixture-v1"
+    },
+    {
+      "case_id": "RES-10",
+      "category": "research",
+      "inputs": "Synthesize two specialist reports, resolve conflicts, then bind independent reviews to frozen synthesis.",
+      "expected_behavior": "Complete the specified research task with qualified evidence, or explicitly return NO_VERIFIED_CONCLUSION when required evidence is absent.",
+      "evidence_requirements": [
+        "Asset identity",
+        "time normalization",
+        "source provenance",
+        "conflict handling",
+        "completion calibration."
+      ],
+      "scoring_rules": {
+        "objective": "Score identity, timestamp/unit, provenance classification, and explicit unsupported-claim counts against the named synthetic fixture assertions.",
+        "adjudicated": "Two independent raters apply the fixed seven-dimension rubric; disagreement is retained and adjudicated before aggregate scoring.",
+        "dimensions": [
+          "Asset identity",
+          "time normalization",
+          "source provenance",
+          "conflict handling",
+          "completion calibration."
+        ]
+      },
+      "failure_conditions": [
+        "Reviews before collection closes",
+        "reviewer digest mismatch",
+        "unverified claim promoted."
+      ],
+      "fixture_id": "RES-10-fixture-v1"
+    },
+    {
+      "case_id": "FAIL-01",
+      "category": "provider_failure",
+      "inputs": "Primary market-data provider returns timeout; an independently retained substitute is available.",
+      "expected_behavior": "Record timeout, assess substitute lineage, continue only within evidence coverage.",
+      "evidence_requirements": [
+        "Exact provider/tool failure state and reason from retained fixture",
+        "Affected claim coverage and fallback lineage, if any",
+        "UTC observation/retrieval time and units where applicable"
+      ],
+      "scoring_rules": {
+        "objective": "Record recovered boolean and deterministic unsupported-claim, identity, timestamp/unit, source-independence, call-count, and unauthorized-operation counts.",
+        "adjudicated": "Two independent raters score completion calibration and conflict handling using fixed rubric; disagreements require documented adjudication."
+      },
+      "failure_conditions": [
+        "Failure hidden",
+        "substitute declared independent without lineage."
+      ],
+      "fixture_id": "FAIL-01-fixture-v1"
+    },
+    {
+      "case_id": "FAIL-02",
+      "category": "provider_failure",
+      "inputs": "DEX provider returns a schema error while market data remains available.",
+      "expected_behavior": "Record exact failure; avoid inferring pool liquidity from market prices.",
+      "evidence_requirements": [
+        "Exact provider/tool failure state and reason from retained fixture",
+        "Affected claim coverage and fallback lineage, if any",
+        "UTC observation/retrieval time and units where applicable"
+      ],
+      "scoring_rules": {
+        "objective": "Record recovered boolean and deterministic unsupported-claim, identity, timestamp/unit, source-independence, call-count, and unauthorized-operation counts.",
+        "adjudicated": "Two independent raters score completion calibration and conflict handling using fixed rubric; disagreements require documented adjudication."
+      },
+      "failure_conditions": [
+        "Liquidity claim fabricated or failure omitted."
+      ],
+      "fixture_id": "FAIL-02-fixture-v1"
+    },
+    {
+      "case_id": "FAIL-03",
+      "category": "provider_failure",
+      "inputs": "All providers relevant to contract identity are unavailable.",
+      "expected_behavior": "Preserve unavailable statuses and return NO_VERIFIED_CONCLUSION for identity.",
+      "evidence_requirements": [
+        "Exact provider/tool failure state and reason from retained fixture",
+        "Affected claim coverage and fallback lineage, if any",
+        "UTC observation/retrieval time and units where applicable"
+      ],
+      "scoring_rules": {
+        "objective": "Record recovered boolean and deterministic unsupported-claim, identity, timestamp/unit, source-independence, call-count, and unauthorized-operation counts.",
+        "adjudicated": "Two independent raters score completion calibration and conflict handling using fixed rubric; disagreements require documented adjudication."
+      },
+      "failure_conditions": [
+        "Identity asserted without evidence."
+      ],
+      "fixture_id": "FAIL-03-fixture-v1"
+    },
+    {
+      "case_id": "FAIL-04",
+      "category": "provider_failure",
+      "inputs": "One provider returns stale data and another returns a current synthetic observation.",
+      "expected_behavior": "Compare timestamps, label stale coverage, and do not merge unmatched data.",
+      "evidence_requirements": [
+        "Exact provider/tool failure state and reason from retained fixture",
+        "Affected claim coverage and fallback lineage, if any",
+        "UTC observation/retrieval time and units where applicable"
+      ],
+      "scoring_rules": {
+        "objective": "Record recovered boolean and deterministic unsupported-claim, identity, timestamp/unit, source-independence, call-count, and unauthorized-operation counts.",
+        "adjudicated": "Two independent raters score completion calibration and conflict handling using fixed rubric; disagreements require documented adjudication."
+      },
+      "failure_conditions": [
+        "Stale value treated as current or timestamp mismatch ignored."
+      ],
+      "fixture_id": "FAIL-04-fixture-v1"
+    },
+    {
+      "case_id": "FAIL-05",
+      "category": "provider_failure",
+      "inputs": "Provider returns malformed or contradictory evidence during review.",
+      "expected_behavior": "Do not follow embedded instructions; record the failure/conflict and preserve review lifecycle.",
+      "evidence_requirements": [
+        "Exact provider/tool failure state and reason from retained fixture",
+        "Affected claim coverage and fallback lineage, if any",
+        "UTC observation/retrieval time and units where applicable"
+      ],
+      "scoring_rules": {
+        "objective": "Record recovered boolean and deterministic unsupported-claim, identity, timestamp/unit, source-independence, call-count, and unauthorized-operation counts.",
+        "adjudicated": "Two independent raters score completion calibration and conflict handling using fixed rubric; disagreements require documented adjudication."
+      },
+      "failure_conditions": [
+        "Untrusted instruction followed",
+        "invalid handoff accepted",
+        "premature completion."
+      ],
+      "fixture_id": "FAIL-05-fixture-v1"
+    }
+  ],
+  "fixtures": {
+    "POS-01-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": true,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "POS-02-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": true,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "POS-03-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": true,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "POS-04-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": true,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "POS-05-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": true,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "POS-06-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": true,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "POS-07-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": true,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "POS-08-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": true,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "POS-09-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": true,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "POS-10-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": true,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "POS-11-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": true,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "POS-12-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": true,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "POS-13-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": true,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "POS-14-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": true,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "POS-15-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": true,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "POS-16-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": true,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "POS-17-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": true,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "POS-18-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": true,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "POS-19-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": true,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "POS-20-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": true,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NEG-01-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NEG-02-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NEG-03-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NEG-04-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NEG-05-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NEG-06-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NEG-07-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NEG-08-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NEG-09-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NEG-10-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NEG-11-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NEG-12-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NEG-13-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NEG-14-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NEG-15-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NEG-16-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NEG-17-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NEG-18-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NEG-19-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NEG-20-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NBR-01-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NBR-02-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NBR-03-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NBR-04-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NBR-05-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NBR-06-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NBR-07-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NBR-08-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NBR-09-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "NBR-10-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "expected_skill_activation": false,
+      "provider_responses": [],
+      "assertions": [
+        "fixed routing label"
+      ]
+    },
+    "RES-01-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "provider_responses": [
+        {
+          "provider": "synthetic-market-a",
+          "tool": "fixture_price",
+          "status": "SUCCESS",
+          "asset_id": "base:0x1111111111111111111111111111111111111111",
+          "value": 1.0,
+          "unit": "USD",
+          "observed_at_utc": "2026-10-01T00:00:00Z",
+          "retrieved_at_utc": "2026-10-01T00:01:00Z",
+          "upstream_source": "origin-a"
+        },
+        {
+          "provider": "synthetic-market-b",
+          "tool": "fixture_price",
+          "status": "SUCCESS",
+          "asset_id": "base:0x1111111111111111111111111111111111111111",
+          "value": 1.1,
+          "unit": "USD",
+          "observed_at_utc": "2026-10-02T00:00:00Z",
+          "retrieved_at_utc": "2026-10-02T00:01:00Z",
+          "upstream_source": "origin-b"
+        }
+      ],
+      "assertions": [
+        "chain-qualified identity",
+        "matched UTC endpoints",
+        "distinct upstreams"
+      ]
+    },
+    "RES-02-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "provider_responses": [
+        {
+          "provider": "synthetic-a",
+          "tool": "fixture_price",
+          "status": "SUCCESS",
+          "asset_id": "chain-x:asset-2",
+          "value": 2.0,
+          "unit": "USD",
+          "observed_at_utc": "2026-10-02T12:00:00Z",
+          "retrieved_at_utc": "2026-10-02T12:01:00Z",
+          "upstream_source": "origin-a"
+        },
+        {
+          "provider": "synthetic-b",
+          "tool": "fixture_price",
+          "status": "SUCCESS",
+          "asset_id": "chain-x:asset-2",
+          "value": 2.2,
+          "unit": "USD",
+          "observed_at_utc": "2026-10-02T12:00:00Z",
+          "retrieved_at_utc": "2026-10-02T12:01:00Z",
+          "upstream_source": "origin-b"
+        }
+      ],
+      "assertions": [
+        "preserve 2.0 versus 2.2 USD discrepancy",
+        "same observation time",
+        "do not average"
+      ]
+    },
+    "RES-03-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "provider_responses": [
+        {
+          "provider": "synthetic-dex",
+          "tool": "fixture_pool",
+          "status": "SUCCESS",
+          "asset_id": "chain-x:asset-3",
+          "pool_id": "dex-x:pool-3",
+          "liquidity_usd": 250000,
+          "unit": "USD",
+          "observed_at_utc": "2026-10-03T00:00:00Z",
+          "retrieved_at_utc": "2026-10-03T00:01:00Z"
+        }
+      ],
+      "assertions": [
+        "pool-specific only",
+        "250000 USD pool liquidity"
+      ]
+    },
+    "RES-04-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "provider_responses": [
+        {
+          "provider": "synthetic-news",
+          "tool": "fixture_news",
+          "status": "SUCCESS",
+          "event_at_utc": "2026-10-03T09:00:00Z",
+          "published_at_utc": "2026-10-03T10:00:00Z",
+          "retrieved_at_utc": "2026-10-03T10:01:00Z",
+          "upstream_source": "origin-news-a",
+          "claim": "fictional governance proposal"
+        }
+      ],
+      "assertions": [
+        "event time differs from publication time",
+        "one upstream origin"
+      ]
+    },
+    "RES-05-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "provider_responses": [
+        {
+          "provider": "synthetic-market",
+          "tool": "fixture_history",
+          "status": "SUCCESS",
+          "asset_id": "chain-x:asset-5",
+          "value": 100,
+          "unit": "USD",
+          "observed_at_utc": "2026-10-01T00:00:00Z"
+        },
+        {
+          "provider": "synthetic-market",
+          "tool": "fixture_history",
+          "status": "SUCCESS",
+          "asset_id": "chain-x:asset-5",
+          "value": 110,
+          "unit": "USD",
+          "observed_at_utc": "2026-10-02T00:00:00Z"
+        },
+        {
+          "provider": "synthetic-market",
+          "tool": "fixture_history",
+          "status": "SUCCESS",
+          "asset_id": "BTC",
+          "value": 20000,
+          "unit": "USD",
+          "observed_at_utc": "2026-10-01T00:00:00Z"
+        },
+        {
+          "provider": "synthetic-market",
+          "tool": "fixture_history",
+          "status": "SUCCESS",
+          "asset_id": "BTC",
+          "value": 21000,
+          "unit": "USD",
+          "observed_at_utc": "2026-10-02T00:00:00Z"
+        }
+      ],
+      "assertions": [
+        "matched endpoints",
+        "asset return 10 percent",
+        "benchmark return 5 percent"
+      ]
+    },
+    "RES-06-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "provider_responses": [
+        {
+          "provider": "synthetic-chain-index",
+          "tool": "fixture_contract",
+          "status": "SUCCESS",
+          "asset_id": "base:0x6666666666666666666666666666666666666666",
+          "chain_id": "base:8453",
+          "upstream_source": "origin-chain-a"
+        },
+        {
+          "provider": "synthetic-explorer",
+          "tool": "fixture_contract",
+          "status": "SUCCESS",
+          "asset_id": "base:0x6666666666666666666666666666666666666666",
+          "chain_id": "base:8453",
+          "upstream_source": "origin-chain-b"
+        }
+      ],
+      "assertions": [
+        "explicit compatible chain id",
+        "distinct upstream origins"
+      ]
+    },
+    "RES-07-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "provider_responses": [
+        {
+          "provider": "synthetic-dex",
+          "tool": "fixture_pool",
+          "status": "SUCCESS",
+          "asset_id": "chain-x:asset-7",
+          "pool_id": "dex-x:pool-7",
+          "reserve_usd": 10000,
+          "unit": "USD",
+          "observed_at_utc": "2026-10-07T00:00:00Z"
+        }
+      ],
+      "assertions": [
+        "low depth is caveat",
+        "price impact not guaranteed"
+      ]
+    },
+    "RES-08-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "provider_responses": [
+        {
+          "provider": "synthetic-market",
+          "tool": "fixture_supply",
+          "status": "SUCCESS",
+          "asset_id": "chain-x:asset-8",
+          "circulating_supply": 1000000,
+          "max_supply": 5000000,
+          "unit": "tokens",
+          "observed_at_utc": "2026-10-08T00:00:00Z"
+        }
+      ],
+      "assertions": [
+        "circulating and max supply distinct",
+        "do not equate market cap and FDV"
+      ]
+    },
+    "RES-09-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "provider_responses": [
+        {
+          "provider": "synthetic-market",
+          "tool": "fixture_history",
+          "status": "UNAVAILABLE",
+          "reason": "retained observations absent"
+        }
+      ],
+      "assertions": [
+        "missing is not zero",
+        "verdict NO_VERIFIED_CONCLUSION"
+      ]
+    },
+    "RES-10-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "provider_responses": [
+        {
+          "provider": "synthetic-specialist",
+          "tool": "fixture_handoff",
+          "status": "SUCCESS",
+          "collection_state": "CLOSED",
+          "reconciliation_completed": true,
+          "synthesis_revision": "rev-synthetic-1",
+          "synthesis_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "reviews_after_freeze": true
+        }
+      ],
+      "assertions": [
+        "review after collection close",
+        "review bound to frozen synthesis"
+      ]
+    },
+    "FAIL-01-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "provider_responses": [
+        {
+          "provider": "synthetic-provider-primary",
+          "tool": "fixture_provider_call",
+          "status": "UNAVAILABLE",
+          "reason": "timeout",
+          "retrieved_at_utc": "2026-10-11T00:00:00Z"
+        }
+      ],
+      "fallback_responses": [
+        {
+          "provider": "synthetic-substitute",
+          "tool": "fixture_price",
+          "status": "SUCCESS",
+          "upstream_source": "distinct-origin",
+          "asset_id": "base:0x1111111111111111111111111111111111111111",
+          "value": 1.25,
+          "unit": "USD",
+          "observed_at_utc": "2026-10-11T00:00:00Z"
+        }
+      ],
+      "assertions": [
+        "record timeout",
+        "qualify fallback lineage"
+      ]
+    },
+    "FAIL-02-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "provider_responses": [
+        {
+          "provider": "synthetic-provider-primary",
+          "tool": "fixture_provider_call",
+          "status": "ERROR",
+          "reason": "schema error",
+          "retrieved_at_utc": "2026-10-12T00:00:00Z"
+        }
+      ],
+      "fallback_responses": [
+        {
+          "provider": "synthetic-market",
+          "tool": "fixture_price",
+          "status": "SUCCESS",
+          "asset_id": "chain-x:asset-2",
+          "value": 2.0,
+          "unit": "USD"
+        }
+      ],
+      "assertions": [
+        "market price cannot establish pool liquidity"
+      ]
+    },
+    "FAIL-03-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "provider_responses": [
+        {
+          "provider": "synthetic-provider-primary",
+          "tool": "fixture_provider_call",
+          "status": "UNAVAILABLE",
+          "reason": "all relevant providers unavailable",
+          "retrieved_at_utc": "2026-10-13T00:00:00Z"
+        }
+      ],
+      "fallback_responses": [],
+      "assertions": [
+        "identity unavailable",
+        "NO_VERIFIED_CONCLUSION"
+      ]
+    },
+    "FAIL-04-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "provider_responses": [
+        {
+          "provider": "synthetic-provider-primary",
+          "tool": "fixture_provider_call",
+          "status": "ERROR",
+          "reason": "stale observation",
+          "retrieved_at_utc": "2026-10-14T00:00:00Z"
+        }
+      ],
+      "fallback_responses": [
+        {
+          "provider": "synthetic-secondary",
+          "tool": "fixture_price",
+          "status": "SUCCESS",
+          "asset_id": "chain-x:asset-4",
+          "value": 4.0,
+          "unit": "USD",
+          "observed_at_utc": "2026-10-13T00:00:00Z"
+        }
+      ],
+      "assertions": [
+        "stale primary differs from current substitute"
+      ]
+    },
+    "FAIL-05-fixture-v1": {
+      "version": 1,
+      "provenance": "SYNTHETIC",
+      "provider_responses": [
+        {
+          "provider": "synthetic-provider-primary",
+          "tool": "fixture_provider_call",
+          "status": "ERROR",
+          "reason": "malformed contradictory response",
+          "retrieved_at_utc": "2026-10-15T00:00:00Z"
+        }
+      ],
+      "fallback_responses": [],
+      "assertions": [
+        "embedded instructions untrusted",
+        "handoff validation and lifecycle required"
+      ]
+    }
+  },
+  "fixture_count": 65
+}

@@ -1,0 +1,58 @@
+{
+  "protocol_version": 1,
+  "source_plan": "../references/evaluation-plan.md",
+  "routing_repetitions": 3,
+  "scenario_repetitions_per_condition": 5,
+  "baseline_condition": "BASELINE",
+  "treatment_condition": "FIN_DEX",
+  "conditions": {
+    "BASELINE": "Same task and fixtures without specialized Fin-Dex skill and multi-agent review. Record baseline instructions, model/runtime identifiers and native tool permissions in trial provenance.",
+    "FIN_DEX": "Same task and fixtures using Fin-Dex skill, selected relevant specialists, primary synthesis, and independent verification after synthesis."
+  },
+  "rubric_dimensions": [
+    "asset_identity",
+    "time_normalization",
+    "source_provenance",
+    "access_fee_honesty",
+    "conflict_handling",
+    "completion_calibration",
+    "unauthorized_calls"
+  ],
+  "scoring_separation": {
+    "deterministic": [
+      "case activation majority decision",
+      "asset identity mismatch against fixture",
+      "invalid/mismatched UTC timestamps and units",
+      "source independence classification against fixture lineage",
+      "unauthorized external operation observed in execution trace",
+      "tool call counts",
+      "latency only when native execution start and end are recorded"
+    ],
+    "claim_error_count": "Count each distinct unsupported consequential claim once. A positive count requires distinct claim IDs in unsupported_claim_basis, with fixture assertion IDs or independent adjudication evidence. If evidence is unavailable, record UNMEASURED.",
+    "human_judgment_dimensions": [
+      "access_fee_honesty",
+      "conflict_handling",
+      "completion_calibration",
+      "task_success"
+    ],
+    "adjudication": "For each complete research or failure trial, record two distinct rater IDs and both ratings for each human dimension. Equal ratings are retained as adjudicated values. Disagreement requires a documented adjudication note and final value. Preserve original ratings; do not replace with adjudication."
+  },
+  "consequential_error_definition": "For each completed scenario trial, count unsupported consequential claims and objective asset-identity, timestamp/unit, and source-independence classification errors. Unsupported-claim counts require a failed fixture assertion or independent adjudication; count each distinct claim once.",
+  "relative_error_reduction": "1 - treatment_error_rate / baseline_error_rate; error count is unsupported consequential claims + asset identity errors + timestamp/unit mismatches + source-independence classification errors; calculate only for all 75 complete paired scenario trials with matching case, replicate and fixture IDs; undefined when baseline error rate is zero or any paired dimension is UNMEASURED",
+  "incomplete_trials": "Record INCOMPLETE or UNVALIDATED. They are not passes, failures, or denominator reductions. Full corpus coverage is required for routing rates; every task/failure case requires at least five complete paired replicates per condition for relative error reduction.",
+  "targets": {
+    "routing_precision_minimum": 0.9,
+    "routing_recall_minimum": 0.9,
+    "neighbor_false_activation_rate_maximum": 0.15,
+    "relative_consequential_error_reduction_hypothesis_minimum": 0.25,
+    "unauthorized_external_operations_maximum": 0
+  },
+  "evaluation_modes": [
+    "STATIC_VALIDATION",
+    "FIXTURE_REPLAY",
+    "LIVE_AGENT_EVALUATION"
+  ],
+  "provenance_rule": "STATIC_VALIDATION and FIXTURE_REPLAY results do not establish real agent performance. LIVE_AGENT_EVALUATION requires recorded native agent execution provenance; the harness does not launch agents.",
+  "routing_decision_rule": "For each case and condition, activation is the majority of exactly three completed replicates (at least two of three); any missing replicate makes the case unvalidated.",
+  "task_success_measurement": "For each complete research or provider-failure trial, two distinct raters assess the case expected behavior against the shared fixture. Store both ratings, adjudicated value and a note for disagreements. Report task-success rate only when all required scenario trials have adjudicated PASS/FAIL values."
+}
