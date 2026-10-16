@@ -40,6 +40,35 @@
     "response": "res-01-r04.response.txt",
     "stderr": "res-01-r04.stderr.txt"
   },
-  "completion_status": "RESPONSE_CAPTURED",
-  "adjudication_status": "PENDING_OBJECTIVE_REVIEW_AND_DUAL_RATER_JUDGMENT"
+  "completion_status": "NATIVE_SESSION_COMPLETED_RESPONSE_RETAINED",
+  "adjudication_status": "PENDING_OBJECTIVE_REVIEW_AND_DUAL_RATER_JUDGMENT",
+  "tool_call_outcomes": [],
+  "unsupported_claims": {
+    "status": "PENDING_INDEPENDENT_ADJUDICATION",
+    "distinct_claim_ids": []
+  },
+  "objective_errors": {
+    "status": "PENDING_DETERMINISTIC_OR_INDEPENDENT_ADJUDICATION",
+    "asset_identity_errors": "UNMEASURED",
+    "timestamp_unit_mismatches": "UNMEASURED",
+    "source_independence_errors": "UNMEASURED",
+    "unauthorized_external_operations": 0,
+    "routing_decision_to_skill_activation_mapping": "NOT_APPLICABLE"
+  },
+  "evidence_references": {
+    "frozen_case_source": "../../corpus-v1.json#cases/RES-01",
+    "fixture_source": "../../fixtures-v1.json#/fixtures/RES-01-fixture-v1",
+    "full_fixture_content_sha256": "7163bafb78cc14b381acd54ba4687d25db0eeb71450cacd67df79dc8b2a8a1cc",
+    "fixture_oracle_assertions_withheld_from_model": true,
+    "native_response_file": "res-01-r04.response.txt",
+    "native_event_stream_file": "res-01-r04.events.jsonl"
+  },
+  "effective_instruction_digests": {
+    "shared_pilot_instructions_sha256": "e2aba9d52ebf18949616f7cd3c584f7a4d9fedc8e0d56a9f5136614960843d70",
+    "baseline_condition_instructions_sha256": "1e5206f86d5f94e8e868980c3c3b853afc31d40540ecaee1c2cc7120b37dda6a",
+    "full_runner_instruction_scaffold_sha256": "5d587c223ada0484f782a7fe9e5c74c59aae2929fd9f42d0595f654cbe7e899d",
+    "repository_AGENTS_md": "NOT_LOADED_ISOLATED_WORKING_DIRECTORY",
+    "fin_dex_skill": "NOT_AVAILABLE_IN_ISOLATED_WORKING_DIRECTORY",
+    "codex_internal_system_prompt": "NOT_EXPOSED_BY_CLI"
+  }
 }

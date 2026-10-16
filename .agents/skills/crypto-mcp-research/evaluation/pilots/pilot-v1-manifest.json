@@ -173,9 +173,10 @@
         ]
       },
       "mcp_endpoint_configuration_digest": "fe4bcaf14d05563ab163fa8e94f01f674804ba4c1951af36c01a20cfc655225f",
-      "runner_instruction_sha256": "bc1b02b7a53ab5be860972c37e2efc9039f6f77fe6769947d7a5430015e09402",
+      "runner_instruction_sha256": "5d587c223ada0484f782a7fe9e5c74c59aae2929fd9f42d0595f654cbe7e899d",
       "tool_calls_prohibited_by_runner_instruction": true,
-      "fixture_policy": "Only frozen synthetic fixture evidence was supplied for research/failure trials; fixture oracle assertions were withheld. No live data calls were requested."
+      "fixture_policy": "Only frozen synthetic fixture evidence was supplied for research/failure trials; fixture oracle assertions were withheld. No live data calls were requested.",
+      "runner_instruction_digest_scope": "Exact common runner preamble plus recorded shared and BASELINE condition instructions; original case input and fixture payload are separately hashed per trial."
     }
   },
   "trials": [
@@ -257,6 +258,14 @@
           "fixture_oracle_assertions_withheld_from_model": true,
           "native_response_file": "pos-01-r01.response.txt",
           "native_event_stream_file": "pos-01-r01.events.jsonl"
+        },
+        "effective_instruction_digests": {
+          "shared_pilot_instructions_sha256": "e2aba9d52ebf18949616f7cd3c584f7a4d9fedc8e0d56a9f5136614960843d70",
+          "baseline_condition_instructions_sha256": "1e5206f86d5f94e8e868980c3c3b853afc31d40540ecaee1c2cc7120b37dda6a",
+          "full_runner_instruction_scaffold_sha256": "5d587c223ada0484f782a7fe9e5c74c59aae2929fd9f42d0595f654cbe7e899d",
+          "repository_AGENTS_md": "NOT_LOADED_ISOLATED_WORKING_DIRECTORY",
+          "fin_dex_skill": "NOT_AVAILABLE_IN_ISOLATED_WORKING_DIRECTORY",
+          "codex_internal_system_prompt": "NOT_EXPOSED_BY_CLI"
         }
       },
       "provenance": "recorded_native_agent_execution"
@@ -339,6 +348,14 @@
           "fixture_oracle_assertions_withheld_from_model": true,
           "native_response_file": "pos-01-r02.response.txt",
           "native_event_stream_file": "pos-01-r02.events.jsonl"
+        },
+        "effective_instruction_digests": {
+          "shared_pilot_instructions_sha256": "e2aba9d52ebf18949616f7cd3c584f7a4d9fedc8e0d56a9f5136614960843d70",
+          "baseline_condition_instructions_sha256": "1e5206f86d5f94e8e868980c3c3b853afc31d40540ecaee1c2cc7120b37dda6a",
+          "full_runner_instruction_scaffold_sha256": "5d587c223ada0484f782a7fe9e5c74c59aae2929fd9f42d0595f654cbe7e899d",
+          "repository_AGENTS_md": "NOT_LOADED_ISOLATED_WORKING_DIRECTORY",
+          "fin_dex_skill": "NOT_AVAILABLE_IN_ISOLATED_WORKING_DIRECTORY",
+          "codex_internal_system_prompt": "NOT_EXPOSED_BY_CLI"
         }
       }
     },
@@ -420,6 +437,14 @@
           "fixture_oracle_assertions_withheld_from_model": true,
           "native_response_file": "pos-01-r03.response.txt",
           "native_event_stream_file": "pos-01-r03.events.jsonl"
+        },
+        "effective_instruction_digests": {
+          "shared_pilot_instructions_sha256": "e2aba9d52ebf18949616f7cd3c584f7a4d9fedc8e0d56a9f5136614960843d70",
+          "baseline_condition_instructions_sha256": "1e5206f86d5f94e8e868980c3c3b853afc31d40540ecaee1c2cc7120b37dda6a",
+          "full_runner_instruction_scaffold_sha256": "5d587c223ada0484f782a7fe9e5c74c59aae2929fd9f42d0595f654cbe7e899d",
+          "repository_AGENTS_md": "NOT_LOADED_ISOLATED_WORKING_DIRECTORY",
+          "fin_dex_skill": "NOT_AVAILABLE_IN_ISOLATED_WORKING_DIRECTORY",
+          "codex_internal_system_prompt": "NOT_EXPOSED_BY_CLI"
         }
       },
       "provenance": "recorded_native_agent_execution"
@@ -547,6 +572,14 @@
           "fixture_oracle_assertions_withheld_from_model": true,
           "native_response_file": "neg-01-r01.response.txt",
           "native_event_stream_file": "neg-01-r01.events.jsonl"
+        },
+        "effective_instruction_digests": {
+          "shared_pilot_instructions_sha256": "e2aba9d52ebf18949616f7cd3c584f7a4d9fedc8e0d56a9f5136614960843d70",
+          "baseline_condition_instructions_sha256": "1e5206f86d5f94e8e868980c3c3b853afc31d40540ecaee1c2cc7120b37dda6a",
+          "full_runner_instruction_scaffold_sha256": "5d587c223ada0484f782a7fe9e5c74c59aae2929fd9f42d0595f654cbe7e899d",
+          "repository_AGENTS_md": "NOT_LOADED_ISOLATED_WORKING_DIRECTORY",
+          "fin_dex_skill": "NOT_AVAILABLE_IN_ISOLATED_WORKING_DIRECTORY",
+          "codex_internal_system_prompt": "NOT_EXPOSED_BY_CLI"
         }
       }
     },
@@ -628,6 +661,14 @@
           "fixture_oracle_assertions_withheld_from_model": true,
           "native_response_file": "neg-01-r02.response.txt",
           "native_event_stream_file": "neg-01-r02.events.jsonl"
+        },
+        "effective_instruction_digests": {
+          "shared_pilot_instructions_sha256": "e2aba9d52ebf18949616f7cd3c584f7a4d9fedc8e0d56a9f5136614960843d70",
+          "baseline_condition_instructions_sha256": "1e5206f86d5f94e8e868980c3c3b853afc31d40540ecaee1c2cc7120b37dda6a",
+          "full_runner_instruction_scaffold_sha256": "5d587c223ada0484f782a7fe9e5c74c59aae2929fd9f42d0595f654cbe7e899d",
+          "repository_AGENTS_md": "NOT_LOADED_ISOLATED_WORKING_DIRECTORY",
+          "fin_dex_skill": "NOT_AVAILABLE_IN_ISOLATED_WORKING_DIRECTORY",
+          "codex_internal_system_prompt": "NOT_EXPOSED_BY_CLI"
         }
       }
     },
@@ -709,6 +750,14 @@
           "fixture_oracle_assertions_withheld_from_model": true,
           "native_response_file": "neg-01-r03.response.txt",
           "native_event_stream_file": "neg-01-r03.events.jsonl"
+        },
+        "effective_instruction_digests": {
+          "shared_pilot_instructions_sha256": "e2aba9d52ebf18949616f7cd3c584f7a4d9fedc8e0d56a9f5136614960843d70",
+          "baseline_condition_instructions_sha256": "1e5206f86d5f94e8e868980c3c3b853afc31d40540ecaee1c2cc7120b37dda6a",
+          "full_runner_instruction_scaffold_sha256": "5d587c223ada0484f782a7fe9e5c74c59aae2929fd9f42d0595f654cbe7e899d",
+          "repository_AGENTS_md": "NOT_LOADED_ISOLATED_WORKING_DIRECTORY",
+          "fin_dex_skill": "NOT_AVAILABLE_IN_ISOLATED_WORKING_DIRECTORY",
+          "codex_internal_system_prompt": "NOT_EXPOSED_BY_CLI"
         }
       }
     },
@@ -835,6 +884,14 @@
           "fixture_oracle_assertions_withheld_from_model": true,
           "native_response_file": "res-01-r01.response.txt",
           "native_event_stream_file": "res-01-r01.events.jsonl"
+        },
+        "effective_instruction_digests": {
+          "shared_pilot_instructions_sha256": "e2aba9d52ebf18949616f7cd3c584f7a4d9fedc8e0d56a9f5136614960843d70",
+          "baseline_condition_instructions_sha256": "1e5206f86d5f94e8e868980c3c3b853afc31d40540ecaee1c2cc7120b37dda6a",
+          "full_runner_instruction_scaffold_sha256": "5d587c223ada0484f782a7fe9e5c74c59aae2929fd9f42d0595f654cbe7e899d",
+          "repository_AGENTS_md": "NOT_LOADED_ISOLATED_WORKING_DIRECTORY",
+          "fin_dex_skill": "NOT_AVAILABLE_IN_ISOLATED_WORKING_DIRECTORY",
+          "codex_internal_system_prompt": "NOT_EXPOSED_BY_CLI"
         }
       },
       "provenance": "recorded_native_agent_execution"
@@ -917,6 +974,14 @@
           "fixture_oracle_assertions_withheld_from_model": true,
           "native_response_file": "res-01-r02.response.txt",
           "native_event_stream_file": "res-01-r02.events.jsonl"
+        },
+        "effective_instruction_digests": {
+          "shared_pilot_instructions_sha256": "e2aba9d52ebf18949616f7cd3c584f7a4d9fedc8e0d56a9f5136614960843d70",
+          "baseline_condition_instructions_sha256": "1e5206f86d5f94e8e868980c3c3b853afc31d40540ecaee1c2cc7120b37dda6a",
+          "full_runner_instruction_scaffold_sha256": "5d587c223ada0484f782a7fe9e5c74c59aae2929fd9f42d0595f654cbe7e899d",
+          "repository_AGENTS_md": "NOT_LOADED_ISOLATED_WORKING_DIRECTORY",
+          "fin_dex_skill": "NOT_AVAILABLE_IN_ISOLATED_WORKING_DIRECTORY",
+          "codex_internal_system_prompt": "NOT_EXPOSED_BY_CLI"
         }
       },
       "provenance": "recorded_native_agent_execution"
@@ -999,6 +1064,14 @@
           "fixture_oracle_assertions_withheld_from_model": true,
           "native_response_file": "res-01-r03.response.txt",
           "native_event_stream_file": "res-01-r03.events.jsonl"
+        },
+        "effective_instruction_digests": {
+          "shared_pilot_instructions_sha256": "e2aba9d52ebf18949616f7cd3c584f7a4d9fedc8e0d56a9f5136614960843d70",
+          "baseline_condition_instructions_sha256": "1e5206f86d5f94e8e868980c3c3b853afc31d40540ecaee1c2cc7120b37dda6a",
+          "full_runner_instruction_scaffold_sha256": "5d587c223ada0484f782a7fe9e5c74c59aae2929fd9f42d0595f654cbe7e899d",
+          "repository_AGENTS_md": "NOT_LOADED_ISOLATED_WORKING_DIRECTORY",
+          "fin_dex_skill": "NOT_AVAILABLE_IN_ISOLATED_WORKING_DIRECTORY",
+          "codex_internal_system_prompt": "NOT_EXPOSED_BY_CLI"
         }
       },
       "provenance": "recorded_native_agent_execution"
@@ -1081,6 +1154,14 @@
           "fixture_oracle_assertions_withheld_from_model": true,
           "native_response_file": "res-01-r04.response.txt",
           "native_event_stream_file": "res-01-r04.events.jsonl"
+        },
+        "effective_instruction_digests": {
+          "shared_pilot_instructions_sha256": "e2aba9d52ebf18949616f7cd3c584f7a4d9fedc8e0d56a9f5136614960843d70",
+          "baseline_condition_instructions_sha256": "1e5206f86d5f94e8e868980c3c3b853afc31d40540ecaee1c2cc7120b37dda6a",
+          "full_runner_instruction_scaffold_sha256": "5d587c223ada0484f782a7fe9e5c74c59aae2929fd9f42d0595f654cbe7e899d",
+          "repository_AGENTS_md": "NOT_LOADED_ISOLATED_WORKING_DIRECTORY",
+          "fin_dex_skill": "NOT_AVAILABLE_IN_ISOLATED_WORKING_DIRECTORY",
+          "codex_internal_system_prompt": "NOT_EXPOSED_BY_CLI"
         }
       },
       "provenance": "recorded_native_agent_execution"
@@ -1163,6 +1244,14 @@
           "fixture_oracle_assertions_withheld_from_model": true,
           "native_response_file": "res-01-r05.response.txt",
           "native_event_stream_file": "res-01-r05.events.jsonl"
+        },
+        "effective_instruction_digests": {
+          "shared_pilot_instructions_sha256": "e2aba9d52ebf18949616f7cd3c584f7a4d9fedc8e0d56a9f5136614960843d70",
+          "baseline_condition_instructions_sha256": "1e5206f86d5f94e8e868980c3c3b853afc31d40540ecaee1c2cc7120b37dda6a",
+          "full_runner_instruction_scaffold_sha256": "5d587c223ada0484f782a7fe9e5c74c59aae2929fd9f42d0595f654cbe7e899d",
+          "repository_AGENTS_md": "NOT_LOADED_ISOLATED_WORKING_DIRECTORY",
+          "fin_dex_skill": "NOT_AVAILABLE_IN_ISOLATED_WORKING_DIRECTORY",
+          "codex_internal_system_prompt": "NOT_EXPOSED_BY_CLI"
         }
       },
       "provenance": "recorded_native_agent_execution"
@@ -1350,6 +1439,14 @@
           "fixture_oracle_assertions_withheld_from_model": true,
           "native_response_file": "fail-01-r01.response.txt",
           "native_event_stream_file": "fail-01-r01.events.jsonl"
+        },
+        "effective_instruction_digests": {
+          "shared_pilot_instructions_sha256": "e2aba9d52ebf18949616f7cd3c584f7a4d9fedc8e0d56a9f5136614960843d70",
+          "baseline_condition_instructions_sha256": "1e5206f86d5f94e8e868980c3c3b853afc31d40540ecaee1c2cc7120b37dda6a",
+          "full_runner_instruction_scaffold_sha256": "5d587c223ada0484f782a7fe9e5c74c59aae2929fd9f42d0595f654cbe7e899d",
+          "repository_AGENTS_md": "NOT_LOADED_ISOLATED_WORKING_DIRECTORY",
+          "fin_dex_skill": "NOT_AVAILABLE_IN_ISOLATED_WORKING_DIRECTORY",
+          "codex_internal_system_prompt": "NOT_EXPOSED_BY_CLI"
         }
       },
       "provenance": "recorded_native_agent_execution"
@@ -1432,6 +1529,14 @@
           "fixture_oracle_assertions_withheld_from_model": true,
           "native_response_file": "fail-01-r02.response.txt",
           "native_event_stream_file": "fail-01-r02.events.jsonl"
+        },
+        "effective_instruction_digests": {
+          "shared_pilot_instructions_sha256": "e2aba9d52ebf18949616f7cd3c584f7a4d9fedc8e0d56a9f5136614960843d70",
+          "baseline_condition_instructions_sha256": "1e5206f86d5f94e8e868980c3c3b853afc31d40540ecaee1c2cc7120b37dda6a",
+          "full_runner_instruction_scaffold_sha256": "5d587c223ada0484f782a7fe9e5c74c59aae2929fd9f42d0595f654cbe7e899d",
+          "repository_AGENTS_md": "NOT_LOADED_ISOLATED_WORKING_DIRECTORY",
+          "fin_dex_skill": "NOT_AVAILABLE_IN_ISOLATED_WORKING_DIRECTORY",
+          "codex_internal_system_prompt": "NOT_EXPOSED_BY_CLI"
         }
       },
       "provenance": "recorded_native_agent_execution"
@@ -1514,6 +1619,14 @@
           "fixture_oracle_assertions_withheld_from_model": true,
           "native_response_file": "fail-01-r03.response.txt",
           "native_event_stream_file": "fail-01-r03.events.jsonl"
+        },
+        "effective_instruction_digests": {
+          "shared_pilot_instructions_sha256": "e2aba9d52ebf18949616f7cd3c584f7a4d9fedc8e0d56a9f5136614960843d70",
+          "baseline_condition_instructions_sha256": "1e5206f86d5f94e8e868980c3c3b853afc31d40540ecaee1c2cc7120b37dda6a",
+          "full_runner_instruction_scaffold_sha256": "5d587c223ada0484f782a7fe9e5c74c59aae2929fd9f42d0595f654cbe7e899d",
+          "repository_AGENTS_md": "NOT_LOADED_ISOLATED_WORKING_DIRECTORY",
+          "fin_dex_skill": "NOT_AVAILABLE_IN_ISOLATED_WORKING_DIRECTORY",
+          "codex_internal_system_prompt": "NOT_EXPOSED_BY_CLI"
         }
       },
       "provenance": "recorded_native_agent_execution"
@@ -1596,6 +1709,14 @@
           "fixture_oracle_assertions_withheld_from_model": true,
           "native_response_file": "fail-01-r04.response.txt",
           "native_event_stream_file": "fail-01-r04.events.jsonl"
+        },
+        "effective_instruction_digests": {
+          "shared_pilot_instructions_sha256": "e2aba9d52ebf18949616f7cd3c584f7a4d9fedc8e0d56a9f5136614960843d70",
+          "baseline_condition_instructions_sha256": "1e5206f86d5f94e8e868980c3c3b853afc31d40540ecaee1c2cc7120b37dda6a",
+          "full_runner_instruction_scaffold_sha256": "5d587c223ada0484f782a7fe9e5c74c59aae2929fd9f42d0595f654cbe7e899d",
+          "repository_AGENTS_md": "NOT_LOADED_ISOLATED_WORKING_DIRECTORY",
+          "fin_dex_skill": "NOT_AVAILABLE_IN_ISOLATED_WORKING_DIRECTORY",
+          "codex_internal_system_prompt": "NOT_EXPOSED_BY_CLI"
         }
       },
       "provenance": "recorded_native_agent_execution"
@@ -1678,6 +1799,14 @@
           "fixture_oracle_assertions_withheld_from_model": true,
           "native_response_file": "fail-01-r05.response.txt",
           "native_event_stream_file": "fail-01-r05.events.jsonl"
+        },
+        "effective_instruction_digests": {
+          "shared_pilot_instructions_sha256": "e2aba9d52ebf18949616f7cd3c584f7a4d9fedc8e0d56a9f5136614960843d70",
+          "baseline_condition_instructions_sha256": "1e5206f86d5f94e8e868980c3c3b853afc31d40540ecaee1c2cc7120b37dda6a",
+          "full_runner_instruction_scaffold_sha256": "5d587c223ada0484f782a7fe9e5c74c59aae2929fd9f42d0595f654cbe7e899d",
+          "repository_AGENTS_md": "NOT_LOADED_ISOLATED_WORKING_DIRECTORY",
+          "fin_dex_skill": "NOT_AVAILABLE_IN_ISOLATED_WORKING_DIRECTORY",
+          "codex_internal_system_prompt": "NOT_EXPOSED_BY_CLI"
         }
       },
       "provenance": "recorded_native_agent_execution"

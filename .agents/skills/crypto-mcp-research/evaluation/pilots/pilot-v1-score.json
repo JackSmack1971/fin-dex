@@ -73,7 +73,8 @@
         ]
       },
       "repository_instructions_loaded": false,
-      "runner_instruction_sha256": "bc1b02b7a53ab5be860972c37e2efc9039f6f77fe6769947d7a5430015e09402",
+      "runner_instruction_digest_scope": "Exact common runner preamble plus recorded shared and BASELINE condition instructions; original case input and fixture payload are separately hashed per trial.",
+      "runner_instruction_sha256": "5d587c223ada0484f782a7fe9e5c74c59aae2929fd9f42d0595f654cbe7e899d",
       "tool_calls_prohibited_by_runner_instruction": true,
       "working_directory": "C:\\Users\\click\\AppData\\Local\\Temp\\findex-baseline-isolated-ez5jr96i"
     },
