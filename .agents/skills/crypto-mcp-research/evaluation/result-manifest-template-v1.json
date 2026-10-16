@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "evaluation_id": "example-unexecuted",
+  "evaluation_mode": "STATIC_VALIDATION",
+  "evidence_state": "STATIC_VALIDATION",
+  "corpus_sha256": "fdabe877a1c203b749d64eb156a2b44ffac0e80fb31ec39db6b827fd6e0b81ca",
+  "protocol": {
+    "routing_repetitions": 3,
+    "scenario_repetitions_per_condition": 5,
+    "baseline_condition": "BASELINE",
+    "treatment_condition": "FIN_DEX",
+    "rubric_dimensions": [
+      "asset_identity",
+      "time_normalization",
+      "source_provenance",
+      "access_fee_honesty",
+      "conflict_handling",
+      "completion_calibration",
+      "unauthorized_calls"
+    ],
+    "relative_error_reduction": "1 - treatment_error_rate / baseline_error_rate; error count is unsupported consequential claims + asset identity errors + timestamp/unit mismatches + source-independence classification errors; calculate only for all 75 complete paired scenario trials with matching case, replicate and fixture IDs; undefined when baseline error rate is zero or any paired dimension is UNMEASURED"
+  },
+  "baseline_provenance": {
+    "description": "Unexecuted template. Before trials, record baseline model/runtime, instructions, tool permissions, fixture set, and execution provenance."
+  },
+  "trials": [],
+  "fixtures_sha256": "2ef8d3d8f28a02bd683b7f1176b0fcd734c8f1cd7ea8461512071494915ebfe3",
+  "protocol_sha256": "6901cec7952e786806a3ef15072624c5b03fefe6739ce12685cac72cb87ed7cc"
+}
