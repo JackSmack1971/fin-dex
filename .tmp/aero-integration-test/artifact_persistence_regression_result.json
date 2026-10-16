@@ -1,0 +1,26 @@
+{
+  "test": "artifact_persistence_regression",
+  "scope": "temporary local fixtures only; no repository source/configuration changed",
+  "cases": [
+    {
+      "fixture": "empty.json",
+      "validator_exit": 1,
+      "expected_rejection": true,
+      "output": "ERROR: .tmp\\aero-integration-test\\empty.json: cannot read JSON: Expecting value: line 1 column 1 (char 0)\nFAIL: 1 handoff/lifecycle error(s); factual truth is not verified"
+    },
+    {
+      "fixture": "malformed.json",
+      "validator_exit": 1,
+      "expected_rejection": true,
+      "output": "ERROR: .tmp\\aero-integration-test\\malformed.json: cannot read JSON: Expecting property name enclosed in double quotes: line 1 column 3 (char 2)\nFAIL: 1 handoff/lifecycle error(s); factual truth is not verified"
+    }
+  ],
+  "reconstructed_handoff_valid": true,
+  "reconstructed_observation_ids": [
+    "gdelt-query-1",
+    "gdelt-query-2"
+  ],
+  "frozen_digest": "544aefae81dc9570bc4ac6b5f264ce4a00903f1547696ebd7faf553d3caf28ec",
+  "review_bindings_match": true,
+  "result": "PASS"
+}

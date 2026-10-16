@@ -1,0 +1,275 @@
+{
+  "schema_version": 1,
+  "agent_id": "market_analyst",
+  "task_id": "aero-market-2026-10-16",
+  "status": "PARTIAL",
+  "asset_scope": [
+    {
+      "asset_id": "aero-aerodrome-finance",
+      "chain_id": 8453,
+      "contract": "0x940181a94A35A4569E4529A3CDfB74e38FD98631",
+      "instrument": "Spot token; CoinPaprika coin-ID aggregate, USD quote"
+    },
+    {
+      "asset_id": "btc-bitcoin",
+      "instrument": "Spot benchmark; CoinPaprika coin-ID aggregate, USD quote"
+    },
+    {
+      "asset_id": "eth-ethereum",
+      "instrument": "Spot benchmark; CoinPaprika coin-ID aggregate, USD quote"
+    }
+  ],
+  "claims": [
+    {
+      "id": "AERO-IDENTITY",
+      "statement": "CoinPaprika resolved AERO to Aerodrome Finance, coin ID aero-aerodrome-finance, and returned contract 0x940181a94A35A4569E4529A3CDfB74e38FD98631. The returned contract entry is typed 'Other'; this response does not independently establish Base chain attribution.",
+      "status": "SINGLE_SOURCE",
+      "observation_ids": [
+        "OBS-CP-RESOLVE-AERO"
+      ]
+    },
+    {
+      "id": "AERO-CURRENT",
+      "statement": "At CoinPaprika last_updated 2026-10-16T11:15:15Z, AERO was $0.9250627991 USD, with reported market cap $928,958,574, 24-hour volume $87,855,316.63, circulating supply 1,004,211,363 AERO, and total supply 2,002,379,494 AERO. CoinPaprika's returned circulating supply is the basis associated with its market cap; its supply methodology was not included in the response.",
+      "status": "SINGLE_SOURCE",
+      "observation_ids": [
+        "OBS-CP-AERO-TICKER"
+      ]
+    },
+    {
+      "id": "AERO-RETURNS",
+      "statement": "Using CoinPaprika daily USD point-in-time prices at 00:00 UTC on 2026-10-16 versus matching 00:00 UTC endpoints: AERO returned +14.18% over 7 days (0.815465 to 0.931106), +18.15% over 14 days (0.788059 to 0.931106), and +20.39% over 21 days (0.773378 to 0.931106). Formula: (ending price / starting price - 1) × 100.",
+      "status": "SINGLE_SOURCE",
+      "observation_ids": [
+        "OBS-CP-AERO-HISTORY"
+      ]
+    },
+    {
+      "id": "AERO-RELATIVE-STRENGTH",
+      "statement": "On the same daily USD endpoints and formula, BTC returned -0.49%, -3.94%, and -2.46% over 7, 14, and 21 days; ETH returned -1.78%, -9.81%, and -9.12%. AERO outperformed BTC by 14.67, 22.09, and 22.85 percentage points, and ETH by 15.96, 27.96, and 29.51 percentage points, respectively. These are matched price-return comparisons, not risk-adjusted returns.",
+      "status": "SINGLE_SOURCE",
+      "observation_ids": [
+        "OBS-CP-BTC-HISTORY",
+        "OBS-CP-ETH-HISTORY",
+        "OBS-CP-AERO-HISTORY"
+      ]
+    },
+    {
+      "id": "AERO-OBSERVED-RANGE",
+      "statement": "Across the returned 21-day daily observations, AERO's lowest and highest sampled prices were $0.773378 on 2026-09-25 and $0.954614 on 2026-10-11. These are observed daily sample extrema, not independently validated support or resistance levels.",
+      "status": "SINGLE_SOURCE",
+      "observation_ids": [
+        "OBS-CP-AERO-HISTORY"
+      ]
+    },
+    {
+      "id": "AERO-SPOT-TIMING",
+      "statement": "The current ticker quote was updated at 11:15:15Z on 2026-10-16 and reports +13.86% over 7 days, while matched 00:00 UTC daily history endpoints yield +14.18%. The values use different observation times/windows and are not treated as a conflict.",
+      "status": "SINGLE_SOURCE",
+      "observation_ids": [
+        "OBS-CP-AERO-TICKER",
+        "OBS-CP-AERO-HISTORY"
+      ]
+    }
+  ],
+  "observations": [
+    {
+      "id": "OBS-CP-RESOLVE-AERO",
+      "source": "CoinPaprika",
+      "tool": "mcp__coinpaprika__resolveId",
+      "upstream_provenance": "CoinPaprika hosted MCP response; no source URL or provider observation ID returned.",
+      "asset_id": "aero-aerodrome-finance",
+      "venue": null,
+      "metric": "identity_resolution",
+      "value": {
+        "name": "Aerodrome Finance",
+        "symbol": "AERO",
+        "rank": 91,
+        "type": "token",
+        "active": true,
+        "contract_address": "0x940181a94A35A4569E4529A3CDfB74e38FD98631",
+        "contract_type": "Other"
+      },
+      "unit": "provider identity fields",
+      "observed_at_utc": "2026-10-16T11:16:11Z",
+      "retrieved_at_utc": "2026-10-16T11:16:11Z",
+      "methodology": "CoinPaprika fuzzy resolution query 'Aerodrome Finance AERO'; the tool returned one matching candidate.",
+      "coverage": "Confirms provider identity and contract string. Returned contract type does not establish Base chain."
+    },
+    {
+      "id": "OBS-CP-AERO-TICKER",
+      "source": "CoinPaprika",
+      "tool": "mcp__coinpaprika__getTickersById",
+      "upstream_provenance": "CoinPaprika hosted MCP response; no source URL or provider observation ID returned.",
+      "asset_id": "aero-aerodrome-finance",
+      "venue": null,
+      "metric": "current_market_snapshot",
+      "value": {
+        "last_updated": "2026-10-16T11:15:15Z",
+        "price": 0.9250627991049734,
+        "market_cap": 928958574,
+        "volume_24h": 87855316.631732,
+        "circulating_supply": 1004211363,
+        "total_supply": 2002379494,
+        "max_supply": 0,
+        "percent_change_24h": 10.729999542236328,
+        "percent_change_7d": 13.859999656677246,
+        "market_cap_change_24h_percent": 10.710000038146973
+      },
+      "unit": "price, market cap and volume in USD; supply in AERO; changes in percent",
+      "observed_at_utc": "2026-10-16T11:15:15Z",
+      "retrieved_at_utc": "2026-10-16T11:16:11Z",
+      "methodology": "CoinPaprika current ticker response for canonical ID aero-aerodrome-finance, USD quote.",
+      "coverage": "Aggregate provider market snapshot; not a Base-only venue or pool measurement. Supply methodology was not returned. max_supply=0 is retained as returned and not interpreted."
+    },
+    {
+      "id": "OBS-CP-AERO-HISTORY",
+      "source": "CoinPaprika",
+      "tool": "mcp__coinpaprika__getTickersHistoricalById",
+      "upstream_provenance": "CoinPaprika hosted MCP response; no source URL or provider observation ID returned.",
+      "asset_id": "aero-aerodrome-finance",
+      "venue": null,
+      "metric": "daily_usd_price_series",
+      "value": {
+        "coverage_start_utc": "2026-09-25T00:00:00Z",
+        "coverage_end_utc": "2026-10-16T00:00:00Z",
+        "sample_count": 22,
+        "horizon_endpoints": {
+          "7d": {
+            "start_utc": "2026-10-09T00:00:00Z",
+            "start_price_usd": 0.815465,
+            "end_utc": "2026-10-16T00:00:00Z",
+            "end_price_usd": 0.931106,
+            "return_percent": 14.181
+          },
+          "14d": {
+            "start_utc": "2026-10-02T00:00:00Z",
+            "start_price_usd": 0.788059,
+            "end_utc": "2026-10-16T00:00:00Z",
+            "end_price_usd": 0.931106,
+            "return_percent": 18.1518
+          },
+          "21d": {
+            "start_utc": "2026-09-25T00:00:00Z",
+            "start_price_usd": 0.773378,
+            "end_utc": "2026-10-16T00:00:00Z",
+            "end_price_usd": 0.931106,
+            "return_percent": 20.3947
+          },
+          "sampled_low": {
+            "timestamp_utc": "2026-09-25T00:00:00Z",
+            "price_usd": 0.773378
+          },
+          "sampled_high": {
+            "timestamp_utc": "2026-10-11T00:00:00Z",
+            "price_usd": 0.954614
+          }
+        }
+      },
+      "unit": "USD per AERO",
+      "observed_at_utc": "2026-10-16T00:00:00Z",
+      "retrieved_at_utc": "2026-10-16T11:16:11Z",
+      "methodology": "Daily point-in-time historical ticker snapshots, interval 1d, quote USD. Returns computed from matching timestamps as (end/start - 1) × 100.",
+      "coverage": "22 daily points from Sep 25 through Oct 16 inclusive. Oct 16 point is the provider's 00:00 UTC snapshot, not the later live ticker quote."
+    },
+    {
+      "id": "OBS-CP-BTC-HISTORY",
+      "source": "CoinPaprika",
+      "tool": "mcp__coinpaprika__getTickersHistoricalById",
+      "upstream_provenance": "CoinPaprika hosted MCP response; no source URL or provider observation ID returned.",
+      "asset_id": "btc-bitcoin",
+      "venue": null,
+      "metric": "daily_usd_price_series",
+      "value": {
+        "coverage_start_utc": "2026-09-25T00:00:00Z",
+        "coverage_end_utc": "2026-10-16T00:00:00Z",
+        "sample_count": 22,
+        "horizon_returns_percent": {
+          "7d": -0.4935,
+          "14d": -3.9386,
+          "21d": -2.4587
+        }
+      },
+      "unit": "USD per BTC",
+      "observed_at_utc": "2026-10-16T00:00:00Z",
+      "retrieved_at_utc": "2026-10-16T11:16:11Z",
+      "methodology": "Daily point-in-time historical ticker snapshots, interval 1d, quote USD; horizons aligned to the AERO timestamps.",
+      "coverage": "22 daily points; benchmark market aggregate and provider methodology not independently checked."
+    },
+    {
+      "id": "OBS-CP-ETH-HISTORY",
+      "source": "CoinPaprika",
+      "tool": "mcp__coinpaprika__getTickersHistoricalById",
+      "upstream_provenance": "CoinPaprika hosted MCP response; no source URL or provider observation ID returned.",
+      "asset_id": "eth-ethereum",
+      "venue": null,
+      "metric": "daily_usd_price_series",
+      "value": {
+        "coverage_start_utc": "2026-09-25T00:00:00Z",
+        "coverage_end_utc": "2026-10-16T00:00:00Z",
+        "sample_count": 22,
+        "horizon_returns_percent": {
+          "7d": -1.7844,
+          "14d": -9.8093,
+          "21d": -9.115
+        }
+      },
+      "unit": "USD per ETH",
+      "observed_at_utc": "2026-10-16T00:00:00Z",
+      "retrieved_at_utc": "2026-10-16T11:16:11Z",
+      "methodology": "Daily point-in-time historical ticker snapshots, interval 1d, quote USD; horizons aligned to the AERO timestamps.",
+      "coverage": "22 daily points; benchmark market aggregate and provider methodology not independently checked."
+    }
+  ],
+  "conflicts": [],
+  "coverage_gaps": [
+    {
+      "id": "GAP-BASE-IDENTITY",
+      "description": "CoinPaprika resolution returned the AERO contract with contract type 'Other' and did not return a chain/platform identifier. Therefore this response alone does not verify that the asset record is specifically the Base deployment."
+    },
+    {
+      "id": "GAP-INDEPENDENT-PRICE",
+      "description": "No second qualified market-data provider was used. CoinGecko's only allowlisted tool in the repository capability snapshot is search_docs; its execute tool is UNKNOWN and not allowlisted, so no CoinGecko market observation was retrieved."
+    },
+    {
+      "id": "GAP-TECHNICAL",
+      "description": "No qualified technical-indicator or OHLCV source was available within the used allowlist. Daily sampled extrema are reported as historical observations only, not formal support/resistance."
+    },
+    {
+      "id": "GAP-SUPPLY-METHOD",
+      "description": "CoinPaprika returned circulating and total supply values, but this response did not provide the supply calculation methodology or unlock/emissions schedule."
+    }
+  ],
+  "tool_calls": [
+    {
+      "tool": "mcp__coinpaprika__getCapabilities",
+      "source": "CoinPaprika",
+      "outcome": "SUCCESS",
+      "call_count": 1,
+      "retrieved_at_utc": "2026-10-16T11:16:11Z"
+    },
+    {
+      "tool": "mcp__coinpaprika__resolveId",
+      "source": "CoinPaprika",
+      "outcome": "SUCCESS",
+      "call_count": 3,
+      "retrieved_at_utc": "2026-10-16T11:16:11Z",
+      "reason": "Resolved AERO, BTC, and ETH canonical IDs. Only AERO resolution returned a contract address."
+    },
+    {
+      "tool": "mcp__coinpaprika__getTickersById",
+      "source": "CoinPaprika",
+      "outcome": "SUCCESS",
+      "call_count": 1,
+      "retrieved_at_utc": "2026-10-16T11:16:11Z"
+    },
+    {
+      "tool": "mcp__coinpaprika__getTickersHistoricalById",
+      "source": "CoinPaprika",
+      "outcome": "SUCCESS",
+      "call_count": 3,
+      "retrieved_at_utc": "2026-10-16T11:16:11Z",
+      "reason": "Fetched daily USD snapshots for AERO, BTC, and ETH over 2026-09-25 through 2026-10-16; free-tier daily history was used."
+    }
+  ]
+}

@@ -1,0 +1,721 @@
+{
+  "schema_version": 1,
+  "agent_id": "adversarial_reviewer",
+  "task_id": "aero-adversarial-review-2026-10-16-r1",
+  "status": "COMPLETE",
+  "asset_scope": [
+    {
+      "asset_id": "AERO",
+      "chain_id": "8453",
+      "contract": "0x940181a94A35A4569E4529A3CDfB74e38FD98631",
+      "instrument": "spot token"
+    }
+  ],
+  "claims": [
+    {
+      "id": "AERO-IDENTITY",
+      "statement": "Identity evidence maps the symbol and contract string to CoinPaprika coin ID aero-aerodrome-finance, but the contract type is \"Other\" and does not identify a chain; this is not independently verified chain attribution.",
+      "status": "SINGLE_SOURCE",
+      "observation_ids": [
+        "OBS-CP-RESOLVE-AERO"
+      ]
+    },
+    {
+      "id": "AERO-CURRENT",
+      "statement": "The reported quote, market cap and volume are one CoinPaprika aggregate snapshot with no supply methodology or independent market source. Its timestamp is current for the snapshot but does not establish current executable price.",
+      "status": "SINGLE_SOURCE",
+      "observation_ids": [
+        "OBS-CP-AERO-TICKER"
+      ]
+    },
+    {
+      "id": "AERO-RETURNS",
+      "statement": "The 7/14/21-day returns are arithmetic over 22 daily samples from one provider. They are reproducible from the summarized endpoints, but do not establish intraday path, volatility, or a robust trend; endpoint choice may materially affect this short window.",
+      "status": "SINGLE_SOURCE",
+      "observation_ids": [
+        "OBS-CP-AERO-HISTORY"
+      ]
+    },
+    {
+      "id": "AERO-RELATIVE-STRENGTH",
+      "statement": "AERO outperformance is a matched USD price comparison within the same CoinPaprika dataset, not independent confirmation or risk-adjusted alpha. No beta, volatility, or alternative venue check is supplied.",
+      "status": "SINGLE_SOURCE",
+      "observation_ids": [
+        "OBS-CP-BTC-HISTORY",
+        "OBS-CP-ETH-HISTORY",
+        "OBS-CP-AERO-HISTORY"
+      ]
+    },
+    {
+      "id": "AERO-OBSERVED-RANGE",
+      "statement": "Daily sample extrema are not validated technical support/resistance. The observation cannot establish intraday extremes or repeated price reactions.",
+      "status": "SINGLE_SOURCE",
+      "observation_ids": [
+        "OBS-CP-AERO-HISTORY"
+      ]
+    },
+    {
+      "id": "AERO-SPOT-TIMING",
+      "statement": "The ticker and history endpoints differ in time and period; describing them as non-conflicting is reasonable, but does not reconcile venue coverage or identify the ticker quote construction.",
+      "status": "SINGLE_SOURCE",
+      "observation_ids": [
+        "OBS-CP-AERO-TICKER",
+        "OBS-CP-AERO-HISTORY"
+      ]
+    },
+    {
+      "id": "liq-aero-main-pool",
+      "statement": "DexPaprika pool identity and reserve/TVL snapshot are specific, but the provider is the sole source. Approximate reserves/TVL are not independently reconciled to on-chain state, active liquidity, or price impact.",
+      "status": "SINGLE_SOURCE",
+      "observation_ids": [
+        "liq-networks",
+        "liq-token-pools",
+        "liq-main-details"
+      ]
+    },
+    {
+      "id": "liq-pool-concentration",
+      "statement": "Top-10 liquidity-sorted results are a truncated, non-exhaustive sample (more pages exist); distribution claims are limited to returned pools. The >6 turnover/TVL ratio flags a diligence question only and is not evidence of wash trading or concentration without wallet/swap-level analysis.",
+      "status": "SINGLE_SOURCE",
+      "observation_ids": [
+        "liq-token-pools",
+        "liq-cbbtc-details"
+      ]
+    },
+    {
+      "id": "liq-usdc-slipstream",
+      "statement": "The same pool has $6.17M search liquidity versus $7.50M details liquidity (about 21.6% higher); details internal price_time is 15 minutes earlier than retrieval. This unresolved difference materially weakens the point estimate and may reflect methodology or stale subfields.",
+      "status": "CONFLICTED",
+      "observation_ids": [
+        "liq-token-pools",
+        "liq-usdc-slip-details"
+      ]
+    },
+    {
+      "id": "liq-cex-book",
+      "statement": "AEROUSD ticker metadata and book do not bind the centralized instrument to the Base contract. The spread is calculable (0.68%) but the best ask shows only 1.4 AERO and best bid 11.9 AERO; these top levels cannot support a broader liquidity claim, and no full ladder totals are summarized.",
+      "status": "SINGLE_SOURCE",
+      "observation_ids": [
+        "liq-crypto-instruments",
+        "liq-crypto-instrument",
+        "liq-crypto-book"
+      ]
+    },
+    {
+      "id": "liq-execution-capacity",
+      "statement": "No size-specific Base DEX quote or depth curve exists, so execution capacity is correctly unverified. The CEX book is neither contract-linked nor a DEX quote; its 20-level existence alone cannot fill that gap.",
+      "status": "UNVERIFIED",
+      "observation_ids": [
+        "liq-main-details",
+        "liq-usdc-slip-details",
+        "liq-cbbtc-details",
+        "liq-crypto-book"
+      ]
+    },
+    {
+      "id": "SYN-AERO-BASE-IDENTITY",
+      "statement": "The same address in DexPaprika Base pool results and CoinPaprika contract field supports cross-source matching, but CoinPaprika itself does not attribute the contract to Base. The Base attribution comes from DexPaprika context; qualify this as cross-source identity support rather than two independently chain-qualified token registries.",
+      "status": "SINGLE_SOURCE",
+      "observation_ids": [
+        "OBS-CP-RESOLVE-AERO",
+        "liq-token-pools"
+      ]
+    },
+    {
+      "id": "SYN-CATALYST-UNKNOWN",
+      "statement": "Two GDELT 429 responses establish only failed discovery attempts. They cannot support the broader inference that no material catalyst exists; no primary announcements were collected and the upcoming 21-day calendar was not searched.",
+      "status": "UNVERIFIED",
+      "observation_ids": [
+        "gdelt-query-1",
+        "gdelt-query-2"
+      ]
+    }
+  ],
+  "observations": [
+    {
+      "id": "OBS-CP-RESOLVE-AERO",
+      "source": "CoinPaprika",
+      "tool": "mcp__coinpaprika__resolveId",
+      "upstream_provenance": "CoinPaprika hosted MCP response; no source URL or provider observation ID returned.",
+      "asset_id": "aero-aerodrome-finance",
+      "venue": null,
+      "metric": "identity_resolution",
+      "value": {
+        "name": "Aerodrome Finance",
+        "symbol": "AERO",
+        "rank": 91,
+        "type": "token",
+        "active": true,
+        "contract_address": "0x940181a94A35A4569E4529A3CDfB74e38FD98631",
+        "contract_type": "Other"
+      },
+      "unit": "provider identity fields",
+      "observed_at_utc": "2026-10-16T11:16:11Z",
+      "retrieved_at_utc": "2026-10-16T11:16:11Z",
+      "methodology": "CoinPaprika fuzzy resolution query 'Aerodrome Finance AERO'; the tool returned one matching candidate.",
+      "coverage": "Confirms provider identity and contract string. Returned contract type does not establish Base chain."
+    },
+    {
+      "id": "OBS-CP-AERO-TICKER",
+      "source": "CoinPaprika",
+      "tool": "mcp__coinpaprika__getTickersById",
+      "upstream_provenance": "CoinPaprika hosted MCP response; no source URL or provider observation ID returned.",
+      "asset_id": "aero-aerodrome-finance",
+      "venue": null,
+      "metric": "current_market_snapshot",
+      "value": {
+        "last_updated": "2026-10-16T11:15:15Z",
+        "price": 0.9250627991049734,
+        "market_cap": 928958574,
+        "volume_24h": 87855316.631732,
+        "circulating_supply": 1004211363,
+        "total_supply": 2002379494,
+        "max_supply": 0,
+        "percent_change_24h": 10.729999542236328,
+        "percent_change_7d": 13.859999656677246,
+        "market_cap_change_24h_percent": 10.710000038146973
+      },
+      "unit": "price, market cap and volume in USD; supply in AERO; changes in percent",
+      "observed_at_utc": "2026-10-16T11:15:15Z",
+      "retrieved_at_utc": "2026-10-16T11:16:11Z",
+      "methodology": "CoinPaprika current ticker response for canonical ID aero-aerodrome-finance, USD quote.",
+      "coverage": "Aggregate provider market snapshot; not a Base-only venue or pool measurement. Supply methodology was not returned. max_supply=0 is retained as returned and not interpreted."
+    },
+    {
+      "id": "OBS-CP-AERO-HISTORY",
+      "source": "CoinPaprika",
+      "tool": "mcp__coinpaprika__getTickersHistoricalById",
+      "upstream_provenance": "CoinPaprika hosted MCP response; no source URL or provider observation ID returned.",
+      "asset_id": "aero-aerodrome-finance",
+      "venue": null,
+      "metric": "daily_usd_price_series",
+      "value": {
+        "coverage_start_utc": "2026-09-25T00:00:00Z",
+        "coverage_end_utc": "2026-10-16T00:00:00Z",
+        "sample_count": 22,
+        "horizon_endpoints": {
+          "7d": {
+            "start_utc": "2026-10-09T00:00:00Z",
+            "start_price_usd": 0.815465,
+            "end_utc": "2026-10-16T00:00:00Z",
+            "end_price_usd": 0.931106,
+            "return_percent": 14.181
+          },
+          "14d": {
+            "start_utc": "2026-10-02T00:00:00Z",
+            "start_price_usd": 0.788059,
+            "end_utc": "2026-10-16T00:00:00Z",
+            "end_price_usd": 0.931106,
+            "return_percent": 18.1518
+          },
+          "21d": {
+            "start_utc": "2026-09-25T00:00:00Z",
+            "start_price_usd": 0.773378,
+            "end_utc": "2026-10-16T00:00:00Z",
+            "end_price_usd": 0.931106,
+            "return_percent": 20.3947
+          },
+          "sampled_low": {
+            "timestamp_utc": "2026-09-25T00:00:00Z",
+            "price_usd": 0.773378
+          },
+          "sampled_high": {
+            "timestamp_utc": "2026-10-11T00:00:00Z",
+            "price_usd": 0.954614
+          }
+        }
+      },
+      "unit": "USD per AERO",
+      "observed_at_utc": "2026-10-16T00:00:00Z",
+      "retrieved_at_utc": "2026-10-16T11:16:11Z",
+      "methodology": "Daily point-in-time historical ticker snapshots, interval 1d, quote USD. Returns computed from matching timestamps as (end/start - 1) × 100.",
+      "coverage": "22 daily points from Sep 25 through Oct 16 inclusive. Oct 16 point is the provider's 00:00 UTC snapshot, not the later live ticker quote."
+    },
+    {
+      "id": "OBS-CP-BTC-HISTORY",
+      "source": "CoinPaprika",
+      "tool": "mcp__coinpaprika__getTickersHistoricalById",
+      "upstream_provenance": "CoinPaprika hosted MCP response; no source URL or provider observation ID returned.",
+      "asset_id": "btc-bitcoin",
+      "venue": null,
+      "metric": "daily_usd_price_series",
+      "value": {
+        "coverage_start_utc": "2026-09-25T00:00:00Z",
+        "coverage_end_utc": "2026-10-16T00:00:00Z",
+        "sample_count": 22,
+        "horizon_returns_percent": {
+          "7d": -0.4935,
+          "14d": -3.9386,
+          "21d": -2.4587
+        }
+      },
+      "unit": "USD per BTC",
+      "observed_at_utc": "2026-10-16T00:00:00Z",
+      "retrieved_at_utc": "2026-10-16T11:16:11Z",
+      "methodology": "Daily point-in-time historical ticker snapshots, interval 1d, quote USD; horizons aligned to the AERO timestamps.",
+      "coverage": "22 daily points; benchmark market aggregate and provider methodology not independently checked."
+    },
+    {
+      "id": "OBS-CP-ETH-HISTORY",
+      "source": "CoinPaprika",
+      "tool": "mcp__coinpaprika__getTickersHistoricalById",
+      "upstream_provenance": "CoinPaprika hosted MCP response; no source URL or provider observation ID returned.",
+      "asset_id": "eth-ethereum",
+      "venue": null,
+      "metric": "daily_usd_price_series",
+      "value": {
+        "coverage_start_utc": "2026-09-25T00:00:00Z",
+        "coverage_end_utc": "2026-10-16T00:00:00Z",
+        "sample_count": 22,
+        "horizon_returns_percent": {
+          "7d": -1.7844,
+          "14d": -9.8093,
+          "21d": -9.115
+        }
+      },
+      "unit": "USD per ETH",
+      "observed_at_utc": "2026-10-16T00:00:00Z",
+      "retrieved_at_utc": "2026-10-16T11:16:11Z",
+      "methodology": "Daily point-in-time historical ticker snapshots, interval 1d, quote USD; horizons aligned to the AERO timestamps.",
+      "coverage": "22 daily points; benchmark market aggregate and provider methodology not independently checked."
+    },
+    {
+      "id": "liq-networks",
+      "source": "DexPaprika",
+      "tool": "mcp__dexpaprika__getNetworks",
+      "upstream_provenance": null,
+      "asset_id": "Base network",
+      "venue": null,
+      "metric": "supported_network",
+      "value": {
+        "id": "base",
+        "display_name": "Base",
+        "volume_usd_24h": 1229531363.3633072,
+        "txns_24h": 2064451,
+        "pools_count": 15126
+      },
+      "unit": "network record; USD turnover and counts as returned",
+      "observed_at_utc": "2026-10-16T11:14:57Z",
+      "retrieved_at_utc": "2026-10-16T11:14:57Z",
+      "methodology": "Provider network discovery response.",
+      "coverage": "Establishes the provider's Base network slug; network aggregates are not AERO-specific."
+    },
+    {
+      "id": "liq-token-pools",
+      "source": "DexPaprika",
+      "tool": "mcp__dexpaprika__getTokenPools",
+      "upstream_provenance": null,
+      "asset_id": "Base:0x940181a94a35a4569e4529a3cdfb74e38fd98631",
+      "venue": "Multiple Base DEXes; pool results include Aerodrome, Aerodrome SlipStream, and Uniswap V3",
+      "metric": "top_10_pools_by_liquidity_usd",
+      "value": [
+        {
+          "pool": "0x6cdcb1c4a4d1c3c6d054b27ac5b77e89eafb971d",
+          "dex": "Aerodrome",
+          "pair_contracts": [
+            "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+            "0x940181a94a35a4569e4529a3cdfb74e38fd98631"
+          ],
+          "liquidity_usd": 47245779.87834266,
+          "volume_usd_24h": 7392789.4043618115,
+          "transactions_24h": 17617
+        },
+        {
+          "pool": "0xbe00ff35af70e8415d0eb605a286d8a45466a4c1",
+          "dex": "Aerodrome SlipStream",
+          "pair_contracts": [
+            "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+            "0x940181a94a35a4569e4529a3cdfb74e38fd98631"
+          ],
+          "liquidity_usd": 6168998.048705852,
+          "volume_usd_24h": 1164416.2774363167,
+          "transactions_24h": 962
+        },
+        {
+          "pool": "0xbbf71aad6e1f8d180d3b1d898528654c1d18b2ff",
+          "dex": "Aerodrome",
+          "pair_contracts": [
+            "0x74ccbe53f77b08632ce0cb91d3a545bf6b8e0979",
+            "0x940181a94a35a4569e4529a3cdfb74e38fd98631"
+          ],
+          "liquidity_usd": 5528307.011062844,
+          "volume_usd_24h": 32897.36551695584,
+          "transactions_24h": 126
+        },
+        {
+          "pool": "0x7f670f78b17dec44d5ef68a48740b6f8849cc2e6",
+          "dex": "Aerodrome",
+          "pair_contracts": [
+            "0x4200000000000000000000000000000000000006",
+            "0x940181a94a35a4569e4529a3cdfb74e38fd98631"
+          ],
+          "liquidity_usd": 3577389.8905908014,
+          "volume_usd_24h": 173781.27087705696,
+          "transactions_24h": 848
+        },
+        {
+          "pool": "0x4e506648d493c8870f55e870480f92f2f33ece51",
+          "dex": "Aerodrome SlipStream 3",
+          "pair_contracts": [
+            "0x4200000000000000000000000000000000000006",
+            "0x940181a94a35a4569e4529a3cdfb74e38fd98631"
+          ],
+          "liquidity_usd": 3468723.8535750695,
+          "volume_usd_24h": 5794867.167643788,
+          "transactions_24h": 3570
+        },
+        {
+          "pool": "0xdfe5f275020def30993f042174fc2d335678b626",
+          "dex": "Aerodrome SlipStream",
+          "pair_contracts": [
+            "0x940181a94a35a4569e4529a3cdfb74e38fd98631",
+            "0xcbb7c0000ab88b473b1f5afd9ef808440eed33bf"
+          ],
+          "liquidity_usd": 2708118.5325892684,
+          "volume_usd_24h": 16348402.152278874,
+          "transactions_24h": 7221
+        },
+        {
+          "pool": "0x3d5d143381916280ff91407febeb52f2b60f33cf",
+          "dex": "Uniswap V3",
+          "pair_contracts": [
+            "0x4200000000000000000000000000000000000006",
+            "0x940181a94a35a4569e4529a3cdfb74e38fd98631"
+          ],
+          "liquidity_usd": 1586161.855291569,
+          "volume_usd_24h": 664776.1792220224,
+          "transactions_24h": 3014
+        },
+        {
+          "pool": "0x82321f3beb69f503380d6b233857d5c43562e2d0",
+          "dex": "Aerodrome SlipStream",
+          "pair_contracts": [
+            "0x4200000000000000000000000000000000000006",
+            "0x940181a94a35a4569e4529a3cdfb74e38fd98631"
+          ],
+          "liquidity_usd": 1507627.701601909,
+          "volume_usd_24h": 3238938.0619816273,
+          "transactions_24h": 3230
+        },
+        {
+          "pool": "0xa4fdd479eda160671636e2ecf8f993cbf86258a8",
+          "dex": "Aerodrome SlipStream",
+          "pair_contracts": [
+            "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+            "0x940181a94a35a4569e4529a3cdfb74e38fd98631"
+          ],
+          "liquidity_usd": 840276.1748642239,
+          "volume_usd_24h": 2051071.7067609958,
+          "transactions_24h": 15009
+        },
+        {
+          "pool": "0x95180496adabc8380fca36ec81bae131ca97cd3b",
+          "dex": "Aerodrome SlipStream 2",
+          "pair_contracts": [
+            "0x1a85b97f8b0e1cee4d5500e093f5970a2aeb3fb8",
+            "0x940181a94a35a4569e4529a3cdfb74e38fd98631"
+          ],
+          "liquidity_usd": 675140.9473929955,
+          "volume_usd_24h": 3201.8556664947455,
+          "transactions_24h": 9
+        }
+      ],
+      "unit": "USD for liquidity and turnover; count for transactions; pool contracts for identifiers",
+      "observed_at_utc": "2026-10-16T11:15:15Z",
+      "retrieved_at_utc": "2026-10-16T11:15:15Z",
+      "methodology": "DexPaprika token-pool search, sorted by liquidity_usd descending, limit 10. Provider returns pool-level liquidity, reported turnover, transactions, token contract IDs, and pagination metadata.",
+      "coverage": "First 10 results only; has_next_page was true. Fee fields were null. Liquidity is not trade-size-specific depth; concentrated-liquidity active ranges and slippage are not established."
+    },
+    {
+      "id": "liq-main-details",
+      "source": "DexPaprika",
+      "tool": "mcp__dexpaprika__getPoolDetails",
+      "upstream_provenance": null,
+      "asset_id": "Base:0x940181a94a35a4569e4529a3cdfb74e38fd98631",
+      "venue": "Aerodrome pool 0x6cdcb1c4a4d1c3c6d054b27ac5b77e89eafb971d; AERO/USDC",
+      "metric": "pool reserves, TVL, turnover and transactions",
+      "value": {
+        "pool": "0x6cdcb1c4a4d1c3c6d054b27ac5b77e89eafb971d",
+        "base_token_id": "0x940181a94a35a4569e4529a3cdfb74e38fd98631",
+        "quote_token_id": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+        "token_reserves": [
+          {
+            "token_id": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+            "reserve": 23601830726603,
+            "reserve_usd": 23707270.787403807
+          },
+          {
+            "token_id": "0x940181a94a35a4569e4529a3cdfb74e38fd98631",
+            "reserve": 2.551562063876072e+25,
+            "reserve_usd": 23537808.85200167
+          }
+        ],
+        "reported_liquidity_usd": 47245779.87834266,
+        "volume_usd_24h": 7392789.4043618115,
+        "transactions_24h": 17617,
+        "price_time": "2026-10-16T11:14:57Z",
+        "last_updated": "2026-10-16T11:15:15Z"
+      },
+      "unit": "Raw reserve units as returned plus USD-valued reserves; USD for TVL and 24h turnover; count for transactions",
+      "observed_at_utc": "2026-10-16T11:15:15Z",
+      "retrieved_at_utc": "2026-10-16T11:15:15Z",
+      "methodology": "Current pool detail snapshot. Provider's last_price_usd was $0.9224862364; reserves are reported separately from liquidity and turnover.",
+      "coverage": "No trade-size quote or slippage curve. Fee reported null. Reserve unit scaling is not independently verified beyond token metadata decimals."
+    },
+    {
+      "id": "liq-cbbtc-details",
+      "source": "DexPaprika",
+      "tool": "mcp__dexpaprika__getPoolDetails",
+      "upstream_provenance": null,
+      "asset_id": "Base:0x940181a94a35a4569e4529a3cdfb74e38fd98631",
+      "venue": "Aerodrome SlipStream pool 0xdfe5f275020def30993f042174fc2d335678b626; AERO/cbBTC",
+      "metric": "pool reserves, reported TVL and 24h turnover",
+      "value": {
+        "pool": "0xdfe5f275020def30993f042174fc2d335678b626",
+        "reported_liquidity_usd": 2633379.881387963,
+        "token_reserves": [
+          {
+            "token_id": "0x940181a94a35a4569e4529a3cdfb74e38fd98631",
+            "reserve": 6.778285583879028e+23,
+            "reserve_usd": 627550.9965981187
+          },
+          {
+            "token_id": "0xcbb7c0000ab88b473b1f5afd9ef808440eed33bf",
+            "reserve": 2254796715,
+            "reserve_usd": 1862747.5650417034
+          }
+        ],
+        "volume_usd_24h": 16372220.923683312,
+        "transactions_24h": 7227,
+        "price_time": "2026-10-16T11:16:01Z",
+        "last_updated": "2026-10-16T11:16:10.239235798Z"
+      },
+      "unit": "USD for liquidity and turnover; raw reserve units plus USD-valued reserves",
+      "observed_at_utc": "2026-10-16T11:16:10Z",
+      "retrieved_at_utc": "2026-10-16T11:16:10Z",
+      "methodology": "Current pool detail snapshot. Turnover-to-liquidity comparison is simple division of provider-reported 24h turnover by provider-reported liquidity; it is not an execution-depth estimate.",
+      "coverage": "Provider does not expose active tick/range depth or a trade-size quote here. High turnover relative to TVL can have multiple causes and is not proof of wash trading."
+    },
+    {
+      "id": "liq-usdc-slip-details",
+      "source": "DexPaprika",
+      "tool": "mcp__dexpaprika__getPoolDetails",
+      "upstream_provenance": null,
+      "asset_id": "Base:0x940181a94a35a4569e4529a3cdfb74e38fd98631",
+      "venue": "Aerodrome SlipStream pool 0xbe00ff35af70e8415d0eb605a286d8a45466a4c1; AERO/USDC",
+      "metric": "pool reserves, reported TVL and 24h turnover",
+      "value": {
+        "pool": "0xbe00ff35af70e8415d0eb605a286d8a45466a4c1",
+        "reported_liquidity_usd": 7501217.967661709,
+        "token_reserves": [
+          {
+            "token_id": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+            "reserve": 3530598884735,
+            "reserve_usd": 3533937.229912698
+          },
+          {
+            "token_id": "0x940181a94a35a4569e4529a3cdfb74e38fd98631",
+            "reserve": 4.295765362456128e+24,
+            "reserve_usd": 3928294.8133464023
+          }
+        ],
+        "volume_usd_24h": 1164416.2774363167,
+        "transactions_24h": 962,
+        "price_time": "2026-10-16T11:00:35Z",
+        "last_updated": "2026-10-16T11:16:07.239482007Z"
+      },
+      "unit": "USD for liquidity and turnover; raw reserve units plus USD-valued reserves",
+      "observed_at_utc": "2026-10-16T11:16:07Z",
+      "retrieved_at_utc": "2026-10-16T11:16:07Z",
+      "methodology": "Pool detail response compared with the preceding token-pool search response for the same pool.",
+      "coverage": "Search and details liquidity snapshots disagree; no independent source or underlying timestamp alignment available. Fee null; no trade-size execution quote."
+    },
+    {
+      "id": "liq-crypto-instruments",
+      "source": "Crypto.com Exchange Market Data",
+      "tool": "mcp__cryptocom_market__get_instruments",
+      "upstream_provenance": null,
+      "asset_id": "AERO",
+      "venue": "Crypto.com Exchange",
+      "metric": "listed_instrument_match",
+      "value": "AEROUSD",
+      "unit": "exchange instrument identifier",
+      "observed_at_utc": "2026-10-16T11:16:19Z",
+      "retrieved_at_utc": "2026-10-16T11:16:19Z",
+      "methodology": "Instrument list contained the exact AEROUSD identifier.",
+      "coverage": "Instrument list does not establish Base token contract linkage."
+    },
+    {
+      "id": "liq-crypto-instrument",
+      "source": "Crypto.com Exchange Market Data",
+      "tool": "mcp__cryptocom_market__get_instrument",
+      "upstream_provenance": null,
+      "asset_id": "AEROUSD",
+      "venue": "Crypto.com Exchange",
+      "metric": "instrument_specification",
+      "value": {
+        "instrument_name": "AEROUSD",
+        "base_ccy": "AERO",
+        "quote_ccy": "USD",
+        "display_name": "AERO/USD",
+        "inst_type": "CCY_PAIR",
+        "tradable": true,
+        "price_tick_size": "0.0001",
+        "qty_tick_size": "0.1",
+        "quantity_decimals": 1
+      },
+      "unit": "instrument metadata",
+      "observed_at_utc": "2026-10-16T11:16:19Z",
+      "retrieved_at_utc": "2026-10-16T11:16:19Z",
+      "methodology": "Exchange instrument metadata response.",
+      "coverage": "Instrument metadata does not identify blockchain contract or establish direct linkage to Base AERO."
+    },
+    {
+      "id": "liq-crypto-book",
+      "source": "Crypto.com Exchange Market Data",
+      "tool": "mcp__cryptocom_market__get_book",
+      "upstream_provenance": null,
+      "asset_id": "AEROUSD",
+      "venue": "Crypto.com Exchange",
+      "metric": "order_book_snapshot_20_levels",
+      "value": {
+        "instrument_name": "AEROUSD",
+        "timestamp": "2026-10-16T11:16:19Z",
+        "depth_levels_per_side": 20,
+        "best_bid": {
+          "price_usd_per_aero": 0.9175,
+          "quantity_aero": 11.9
+        },
+        "best_ask": {
+          "price_usd_per_aero": 0.9238,
+          "quantity_aero": 1.4
+        },
+        "displayed_bids_and_asks": "Twenty price/quantity levels per side returned; full ladder retained in the original provider response, not copied into this summary."
+      },
+      "unit": "USD per AERO and AERO quantity",
+      "observed_at_utc": "2026-10-16T11:16:19Z",
+      "retrieved_at_utc": "2026-10-16T11:16:19Z",
+      "methodology": "Quoted spread computed as best ask minus best bid; midpoint is arithmetic mean of best ask and best bid. No fee or fill simulation.",
+      "coverage": "Centralized order-book snapshot; displayed orders may change/cancel. No trade-size assumption. Not a Base DEX quote or order book."
+    },
+    {
+      "id": "gdelt-query-1",
+      "source": "GDELT DOC API via configured GDELT MCP",
+      "tool": "mcp__gdelt__gdelt_search_articles",
+      "upstream_provenance": "GDELT DOC API; request ID XRC3J-E35ZN",
+      "asset_id": "Aerodrome Finance (AERO) project",
+      "venue": null,
+      "metric": "Event-discovery query outcome",
+      "value": {
+        "query": "\"Aerodrome Finance\" OR \"Aerodrome\" (Base OR AERO)",
+        "startDatetime": "20260925000000",
+        "endDatetime": "20261016235959",
+        "maxRecords": 30,
+        "sort": "dateDesc",
+        "result": "HTTP 429 rate limited; no articles returned"
+      },
+      "unit": "tool response",
+      "observed_at_utc": "2026-10-16T11:17:01Z",
+      "retrieved_at_utc": "2026-10-16T11:17:01Z",
+      "methodology": "Bounded GDELT DOC article search, covering the 21-day research window. GDELT is discovery only and would not establish that an event occurred.",
+      "coverage": "No article records, URLs, publication timestamps, or event timestamps were returned. Upstream request ID: XRC3J-E35ZN."
+    },
+    {
+      "id": "gdelt-query-2",
+      "source": "GDELT DOC API via configured GDELT MCP",
+      "tool": "mcp__gdelt__gdelt_search_articles",
+      "upstream_provenance": "GDELT DOC API; request ID A1GFA-0S7JP",
+      "asset_id": "Aerodrome Finance (AERO) project",
+      "venue": null,
+      "metric": "Event-discovery retry outcome",
+      "value": {
+        "query": "\"Aerodrome Finance\" OR \"Aerodrome\" (Base OR AERO)",
+        "startDatetime": "20260925000000",
+        "endDatetime": "20261016235959",
+        "maxRecords": 30,
+        "sort": "dateDesc",
+        "result": "HTTP 429 rate limited again; no articles returned"
+      },
+      "unit": "tool response",
+      "observed_at_utc": "2026-10-16T11:17:01Z",
+      "retrieved_at_utc": "2026-10-16T11:17:01Z",
+      "methodology": "One retry after waiting 6.5 seconds, following the provider's returned recovery hint.",
+      "coverage": "No article records, URLs, publication timestamps, or event timestamps were returned. Upstream request ID: A1GFA-0S7JP."
+    }
+  ],
+  "conflicts": [
+    {
+      "id": "REV-CONFLICT-IDENTITY",
+      "claim_ids": [
+        "AERO-IDENTITY",
+        "SYN-AERO-BASE-IDENTITY"
+      ],
+      "description": "CoinPaprika reports contract_type Other with no platform/chain attribution; DexPaprika pool results place the same contract on Base. Snapshot synthesis overstates independent chain corroboration if read as two independently chain-qualified identity sources.",
+      "resolution_test": "Check the exact contract on Base using an independent chain-aware token registry or read-only on-chain metadata and confirm the pool token address."
+    },
+    {
+      "id": "REV-CONFLICT-DEX-LIQUIDITY",
+      "claim_ids": [
+        "liq-usdc-slipstream",
+        "liq-aero-main-pool"
+      ],
+      "description": "For SlipStream AERO/USDC pool 0xbe00ff35af70e8415d0eb605a286d8a45466a4c1, token-pool search says $6.17M liquidity while details says $7.50M; ~21.6% difference. Internal price_time in details predates retrieval by ~15m, leaving point-in-time mismatch unresolved.",
+      "resolution_test": "Repeat pool search and details close together; compare raw token reserves, price timestamp and provider liquidity formula; independently query chain state if approved/read-only."
+    },
+    {
+      "id": "REV-CONFLICT-CATALYST-ABSENCE",
+      "claim_ids": [
+        "SYN-CATALYST-UNKNOWN"
+      ],
+      "description": "A pair of rate-limit errors is evidence of unavailable news discovery, not evidence that no material catalyst exists; no primary source search or future calendar evidence appears in the snapshot.",
+      "resolution_test": "Search Aerodrome primary governance/blog/social announcements and Base protocol calendar over the 21-day horizon; record dated original sources and explicitly report search coverage."
+    }
+  ],
+  "coverage_gaps": [
+    {
+      "id": "REV-GAP-MARKET-INDEPENDENCE",
+      "description": "Only CoinPaprika supplies spot and matched-history observations. No independent qualified venue/provider check of aggregate price or sampled history; no raw OHLCV series in snapshot to independently recalculate returns.",
+      "provider_status": "UNVERIFIED"
+    },
+    {
+      "id": "REV-GAP-DEX-DEPTH",
+      "description": "No executable trade-size quote, active concentrated-liquidity range, fee/routing estimate or independent reserve observation. Top-10 results are truncated and do not establish total pool concentration.",
+      "provider_status": "UNVERIFIED"
+    },
+    {
+      "id": "REV-GAP-CEFI-LINK",
+      "description": "Crypto.com AEROUSD instrument has no contract reference and best-level quantities are small; cannot attribute it to the exact Base token or generalize snapshot depth.",
+      "provider_status": "UNVERIFIED"
+    },
+    {
+      "id": "REV-GAP-CATALYSTS",
+      "description": "GDELT queries both rate-limited; no original announcements or future scheduled events captured. Catalyst absence is unverified and negative evidence incomplete.",
+      "provider_status": "UNAVAILABLE"
+    },
+    {
+      "id": "REV-GAP-PRICE-SOURCE-LINEAGE",
+      "description": "Provider responses expose no underlying market venue lineage, so source independence and possible upstream overlap cannot be assessed.",
+      "provider_status": "UNVERIFIED"
+    }
+  ],
+  "tool_calls": [],
+  "review": {
+    "synthesis_revision": "aero-2026-10-16-r1",
+    "synthesis_sha256": "544aefae81dc9570bc4ac6b5f264ce4a00903f1547696ebd7faf553d3caf28ec",
+    "claim_ids": [
+      "AERO-IDENTITY",
+      "AERO-CURRENT",
+      "AERO-RETURNS",
+      "AERO-RELATIVE-STRENGTH",
+      "AERO-OBSERVED-RANGE",
+      "AERO-SPOT-TIMING",
+      "liq-aero-main-pool",
+      "liq-pool-concentration",
+      "liq-usdc-slipstream",
+      "liq-cex-book",
+      "liq-execution-capacity",
+      "SYN-AERO-BASE-IDENTITY",
+      "SYN-CATALYST-UNKNOWN"
+    ]
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "artifact_type": "REPLAY_INPUT_GAP_ASSESSMENT",
+  "source": ".tmp/aero-integration-test/synthesis_snapshot.json",
+  "policy": "Retain only observations actually present in the frozen synthesis. Do not infer or regenerate historical market observations from current prices or summary returns.",
+  "calculations": [
+    {
+      "claim_id": "AERO-RELATIVE-STRENGTH",
+      "observation_ids": ["OBS-CP-BTC-HISTORY", "OBS-CP-ETH-HISTORY"],
+      "retained": "7d, 14d, and 21d return percentages and 22-point coverage bounds",
+      "missing_inputs": "Matched start and end USD prices for each BTC and ETH horizon",
+      "minimum_additional_retained_input": "Original historical response or, per asset, four dated USD prices at 2026-09-25T00:00:00Z, 2026-10-02T00:00:00Z, 2026-10-09T00:00:00Z, and 2026-10-16T00:00:00Z, with provider identity and capture timestamps",
+      "replay_status": "NOT_REPLAYABLE_FROM_RETAINED_EVIDENCE"
+    },
+    {
+      "claim_id": "AERO-OBSERVED-RANGE",
+      "observation_ids": ["OBS-CP-AERO-HISTORY"],
+      "retained": "Reported low (2026-09-25, 0.773378 USD) and high (2026-10-11, 0.954614 USD), plus 22-point count and coverage bounds",
+      "missing_inputs": "The complete dated 22-point AERO daily price series needed to independently replay sample minimum and maximum",
+      "minimum_additional_retained_input": "Original historical response or a point fixture containing all 22 dated USD prices with provider identity and capture timestamps",
+      "replay_status": "NOT_REPLAYABLE_FROM_RETAINED_EVIDENCE"
+    }
+  ],
+  "reconstruction_performed": false
+}

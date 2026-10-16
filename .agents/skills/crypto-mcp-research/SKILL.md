@@ -18,9 +18,13 @@ This skill exists to produce an evidence-qualified crypto research brief **when 
 7. **Verify independently.** Before calling a brief complete, check identifiers, time alignment, source references, conflicts, material missing evidence, and any quantitative transformations. If a structured observations ledger is created, run `python scripts/validate_evidence.py path/to/evidence.json`; fix errors or report their exact reason. Do not claim a live connectivity test unless MCP tools were actually invoked.
 8. **Stop and report.** Deliver timestamped findings, falsifiers, an evidence/coverage table, confidence labels, blockers and actionable follow-up checks. State explicitly whether the evidence supports a conclusion or `NO_VERIFIED_CONCLUSION`. Stop when the requested question is answered with adequate evidence or a concrete blocker prevents a defensible answer.
 
+For native-agent orchestration, follow `references/agent-handoffs.md` and validate each JSON return with `python scripts/validate_handoffs.py`. The handoff execution status is distinct from evidence claim status. Do not start reviewer agents until selected specialist collection is closed and reconciled.
+
 ## Authority and safety boundary
 
 - **Read-only research:** Do not place orders, modify portfolios, connect wallets, sign transactions, make payments, submit information to third parties, or enable paid endpoints. If a tool advertises mutation or unclear side effects, do not call it without separate explicit user authorization and risk review. Free access is never assumed from a configured URL.
+- **Capability qualification:** `.codex/provider-capabilities.json` records the current tool metadata snapshot, effect classifications, and automatic-research allowlists. `enabled_tools` controls which exact server tools Codex exposes; registration or exposure does not grant authorization. Only tools classified `READ_ONLY` and explicitly allowlisted are eligible for automatic research. `STATEFUL` and `UNKNOWN` tools, including feedback, wallet, trading, credential-changing, and unknown-effect operations, stay excluded. Review metadata again when a server changes its advertised tools.
+- **Offline versus live:** Run `python scripts/validate_capabilities.py` for local configuration and policy checks only. Its `PASS` does not establish connectivity, successful responses, provider qualification, or entitlements. Advance a provider to `RESPONDED` only after recording a successful call; advance to `QUALIFIED` only after recording that call and a qualification check. Keep live connectivity checks separate and low-impact.
 - **No silent fallback:** If any provider fails, record `UNAVAILABLE` with the observed reason and either use independently qualified substitutes or downgrade the claim. Do not quietly substitute unverifiable web snippets for market observations. User-authorized external sources may be added with their provenance distinguished.
 - **No fabricated freshness:** A retrieval timestamp is not a market-data timestamp. If timestamps, windows, or upstream lineage are unavailable, say so.
 - **No investment automation:** Analysis may discuss scenarios and invalidation; execution, position sizing of real accounts, and operational risk permission are outside this skill.
@@ -30,7 +34,10 @@ This skill exists to produce an evidence-qualified crypto research brief **when 
 - Load `references/provider-routing.md` when choosing or diagnosing data suppliers.
 - Load `references/reconciliation.md` for cross-provider disagreement, derived metrics, or timelines.
 - Load `references/evidence-contract.md` when generating a structured ledger, confidence labels, or publication-ready report.
+- Load `references/agent-handoffs.md` when dispatching native Codex sub-agents or validating their structured returns.
 
 ## Completion contract
 
 Report: precise question and as-of time; asset identity; source/tool coverage; verified findings with units/windows; conflicts and adverse evidence; meaningful gaps; verdict/status; next check. Claim success only for the portions supported by observed tool responses; report tool limitations separately.
+
+For reproducible local run records, follow `references/research-runs.md` and validate/replay with `python scripts/validate_research_run.py path/to/manifest.json --replay`. Retained responses establish what was captured; calculations over retained fixtures are replayable, but provider truth is not.

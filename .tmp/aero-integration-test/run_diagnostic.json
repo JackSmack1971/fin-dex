@@ -1,0 +1,16 @@
+{
+  "diagnostic_type": "RECOVERED_ARTIFACT",
+  "classification_status": "PROPOSED_FIN_DEX_CLASSIFICATION_NOT_NATIVE_CODEX_STATUS",
+  "agent_id": "catalyst_analyst",
+  "artifact_path": ".tmp/aero-integration-test/catalyst_analyst.json",
+  "initial_persistence_result": "EMPTY_FILE (0 bytes); JSON parse failed at line 1 column 1",
+  "agent_reported_result": "Agent reported successful persistence and valid JSON, but the artifact was empty when inspected.",
+  "recovery": "Primary agent reconstructed the artifact from the catalyst agent structured return preserved in the conversation; no evidence was added or altered.",
+  "validation_before_synthesis": {
+    "command": "python -m json.tool .tmp/aero-integration-test/catalyst_analyst.json",
+    "result": "PASS: 0 handoff/lifecycle error(s); factual truth is not verified",
+    "handoff_command": "python .agents/skills/crypto-mcp-research/scripts/validate_handoffs.py .tmp/aero-integration-test/market_analyst.json .tmp/aero-integration-test/liquidity_analyst.json .tmp/aero-integration-test/catalyst_analyst.json"
+  },
+  "review_binding": "Both reviewers were dispatched only after reconstructed specialist handoffs passed validation and synthesis was frozen. They bound to the actual snapshot digest 544aefae81dc9570bc4ac6b5f264ce4a00903f1547696ebd7faf553d3caf28ec.",
+  "integrity_note": "Original catalyst handoff content preserved from the structured return, including both GDELT request IDs, timestamps, tool result, claims array, coverage gaps, and ERROR summary."
+}
