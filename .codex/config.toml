@@ -1,0 +1,40 @@
+# Project-scoped MCP servers for Codex CLI.
+# Place at <repository>/.codex/config.toml.
+# Codex loads project configuration only for trusted projects.
+# All six use hosted Streamable HTTP; no local MCP package installation.
+# Research-only intent. Inspect discovered tools before using them.
+
+[mcp_servers.coingecko]
+url = "https://mcp.api.coingecko.com/mcp"
+enabled = true
+startup_timeout_sec = 30
+
+[mcp_servers.coinpaprika]
+url = "https://mcp.coinpaprika.com/streamable-http"
+enabled = true
+startup_timeout_sec = 30
+
+[mcp_servers.dexpaprika]
+url = "https://mcp.dexpaprika.com/streamable-http"
+enabled = true
+startup_timeout_sec = 30
+
+[mcp_servers.cryptocom_market]
+url = "https://mcp.crypto.com/market-data/mcp"
+enabled = true
+startup_timeout_sec = 30
+
+[mcp_servers.hive]
+url = "https://mcp.hiveintelligence.xyz/mcp"
+enabled = true
+startup_timeout_sec = 30
+
+[mcp_servers.gdelt]
+url = "https://gdelt.caseyjhand.com/mcp"
+enabled = true
+startup_timeout_sec = 30
+
+# Native Codex subagents; this limits concurrency, not tool authorization.
+[agents]
+enabled = true
+max_concurrent_threads_per_session = 4

@@ -1,0 +1,5 @@
+# Empirical evaluation protocol (not run)
+
+Value hypothesis: compared with no skill, reduce consequential unsupported or mismatched crypto claims by >=25% relative while keeping critical unauthorized external actions at zero.
+
+Before testing, freeze a 20-positive/20-negative/10-neighbor routing corpus and a 10-task/5-failure scenario corpus. Run each routing case 3 times, paired task and failure cases at least 5 times per condition, identical contexts/tool fixtures for skill and baseline. Rubrics fixed before results: asset identity; time normalization; source provenance; honest access/fee limits; conflict handling; completion calibration; unauthorized calls. Measure precision/recall/neighbor false activation, task success, relative error reduction, recovery, critical violations, premature completion, time and tool calls. Target precision/recall >=.90 and neighbor false activation <=.15. Record unexecuted trials as unvalidated, not failures or passes. A static check cannot establish G5.
