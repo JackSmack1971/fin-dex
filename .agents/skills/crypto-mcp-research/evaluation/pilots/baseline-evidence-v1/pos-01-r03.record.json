@@ -1,0 +1,45 @@
+{
+  "native_execution": true,
+  "execution_status": "PROCESS_EXITED",
+  "exit_code": 0,
+  "session_ids": [
+    "01a146ed-85d3-7e71-b94f-bd06f759c107"
+  ],
+  "runtime": "codex-cli 0.163.0",
+  "requested_model": "gpt-6-luna",
+  "model_runtime_id": "codex-cli 0.163.0|gpt-6-luna",
+  "condition": "BASELINE",
+  "case_id": "POS-01",
+  "replicate": 3,
+  "started_at_utc": "2026-10-16T22:55:33.566212Z",
+  "finished_at_utc": "2026-10-16T22:55:38.762619Z",
+  "elapsed_ms": 5196.423,
+  "frozen_input_sha256": "eeba5356fe8bae42c32fa0b14aa64ba4c3db974b7775ab4c6b904173c13cb91f",
+  "submitted_prompt_sha256": "e343237c73ff4c988a2cc521a4c83a5e33c0b2381c3ed1d6316698cd56aef263",
+  "fixture_id": "POS-01-fixture-v1",
+  "fixture_content_sha256": "a0b7300eaccf6fc249a22f04a28c0b3961b35b4caf86b7474de84f82753460e1",
+  "fixture_evidence_submitted_sha256": null,
+  "base_instructions_sha256": "e2aba9d52ebf18949616f7cd3c584f7a4d9fedc8e0d56a9f5136614960843d70",
+  "condition_instructions_sha256": "1e5206f86d5f94e8e868980c3c3b853afc31d40540ecaee1c2cc7120b37dda6a",
+  "tool_permissions_sha256": "55c40942d2c84a8df70aec3f445a4eb946ae548d837ec0570a6bf6b9b9dabac4",
+  "configured_tool_servers": [
+    "coingecko",
+    "coinpaprika",
+    "dexpaprika",
+    "cryptocom_market",
+    "hive",
+    "gdelt"
+  ],
+  "actual_tool_call_events": [],
+  "actual_tool_call_count": 0,
+  "observed_response": "{\"routing_decision\":true,\"rationale\":\"Comparing 24-hour spot performance for a specific token against ETH requires matched UTC endpoints and independent market sources, so a specialized crypto research workflow would be warranted if available.\"}",
+  "native_model_metadata_events": [],
+  "evidence_files": {
+    "prompt": "pos-01-r03.prompt.txt",
+    "events": "pos-01-r03.events.jsonl",
+    "response": "pos-01-r03.response.txt",
+    "stderr": "pos-01-r03.stderr.txt"
+  },
+  "completion_status": "RESPONSE_CAPTURED",
+  "adjudication_status": "ROUTING_DECISION_EXTRACTED_DETERMINISTICALLY"
+}

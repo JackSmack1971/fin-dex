@@ -1,0 +1,1 @@
+{"routing_decision":false,"rationale":"This is a synthetic provider-failure case with a supplied substitute response; answer from the fixture without activating a specialized workflow. The primary provider timed out. The fixture reports a substitute price of USD 1.25 for the specified asset, observed at 2026-10-11T00:00:00Z. No live execution is verified."}

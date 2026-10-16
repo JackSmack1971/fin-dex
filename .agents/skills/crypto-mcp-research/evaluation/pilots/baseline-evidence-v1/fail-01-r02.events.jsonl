@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a146ee-67d5-7bc3-afdf-9dc7b6d2bd6a"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"{\"routing_decision\":false,\"rationale\":\"This is a synthetic provider-timeout fixture with a retained substitute response. The supplied evidence supports only that the primary was unavailable and the substitute returned USD 1.25 for the stated asset and timestamp; it does not warrant a specialized crypto research workflow.\"}"}}
+{"type":"turn.completed","usage":{"input_tokens":16890,"cached_input_tokens":16128,"cache_write_input_tokens":0,"output_tokens":65,"reasoning_output_tokens":0}}

@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a146ee-7e03-7b61-95bd-8c26199720c6"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"{\"primary_provider_status\":\"UNAVAILABLE\",\"primary_provider_reason\":\"timeout\",\"fallback_status\":\"SUCCESS\",\"fallback_value\":1.25,\"fallback_unit\":\"USD\",\"fallback_asset_id\":\"base:0x1111111111111111111111111111111111111111\",\"fallback_provider\":\"synthetic-substitute\",\"fallback_upstream_source\":\"distinct-origin\",\"fallback_observed_at_utc\":\"2026-10-11T00:00:00Z\",\"provenance\":\"SYNTHETIC\",\"live_execution_claimed\":false}"}}
+{"type":"turn.completed","usage":{"input_tokens":16890,"cached_input_tokens":16128,"cache_write_input_tokens":0,"output_tokens":112,"reasoning_output_tokens":0}}

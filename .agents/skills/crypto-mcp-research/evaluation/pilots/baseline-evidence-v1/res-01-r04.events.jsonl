@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a146ee-1f51-7c02-a1f5-84ed066759b9"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"NO_VERIFIED_CONCLUSION — The fixture contains two successful USD observations for the same Base asset on different dates, but no second-chain asset or matched-window observations. It cannot resolve two same-ticker assets across chains or support a price comparison."}}
+{"type":"turn.completed","usage":{"input_tokens":16958,"cached_input_tokens":0,"cache_write_input_tokens":0,"output_tokens":52,"reasoning_output_tokens":0}}

@@ -1,0 +1,1 @@
+{"routing_decision":true,"rationale":"Comparing 24-hour spot performance for a specific token against ETH requires matched UTC endpoints and independent market sources, so a specialized crypto research workflow would be warranted if available."}

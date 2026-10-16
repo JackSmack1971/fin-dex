@@ -1,0 +1,1 @@
+NO_VERIFIED_CONCLUSION — the fixture contains prices for one asset on Base, from two providers, at two timestamps. It contains no second-chain asset or matched-window prices for a second asset, so the requested cross-chain comparison cannot be established.

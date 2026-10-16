@@ -1,0 +1,1 @@
+{"routing_decision":false,"rationale":"This is a synthetic provider-timeout fixture with a retained substitute response. The supplied evidence supports only that the primary was unavailable and the substitute returned USD 1.25 for the stated asset and timestamp; it does not warrant a specialized crypto research workflow."}

@@ -1,0 +1,45 @@
+{
+  "native_execution": true,
+  "execution_status": "PROCESS_EXITED",
+  "exit_code": 0,
+  "session_ids": [
+    "01a146ed-c85a-7a11-ab8d-d6c0e901fd2c"
+  ],
+  "runtime": "codex-cli 0.163.0",
+  "requested_model": "gpt-6-luna",
+  "model_runtime_id": "codex-cli 0.163.0|gpt-6-luna",
+  "condition": "BASELINE",
+  "case_id": "NEG-01",
+  "replicate": 3,
+  "started_at_utc": "2026-10-16T22:55:50.686103Z",
+  "finished_at_utc": "2026-10-16T22:55:56.251275Z",
+  "elapsed_ms": 5565.172,
+  "frozen_input_sha256": "d635c02fa8337e141998a2a11c859326a9233e0ed828fddac49744621972047e",
+  "submitted_prompt_sha256": "313bcd2c40714fa0ac3099ed70d2b7f1229ef2194fb700d6e445bfd3a5a4e2d3",
+  "fixture_id": "NEG-01-fixture-v1",
+  "fixture_content_sha256": "0c2c0ec54d9a967fb06d24ab0666d22395dd9663a682b28f077a1b8281a19c01",
+  "fixture_evidence_submitted_sha256": null,
+  "base_instructions_sha256": "e2aba9d52ebf18949616f7cd3c584f7a4d9fedc8e0d56a9f5136614960843d70",
+  "condition_instructions_sha256": "1e5206f86d5f94e8e868980c3c3b853afc31d40540ecaee1c2cc7120b37dda6a",
+  "tool_permissions_sha256": "55c40942d2c84a8df70aec3f445a4eb946ae548d837ec0570a6bf6b9b9dabac4",
+  "configured_tool_servers": [
+    "coingecko",
+    "coinpaprika",
+    "dexpaprika",
+    "cryptocom_market",
+    "hive",
+    "gdelt"
+  ],
+  "actual_tool_call_events": [],
+  "actual_tool_call_count": 0,
+  "observed_response": "A cryptocurrency is a digital asset designed to be transferred and recorded electronically, often using a shared database called a blockchain. Many cryptocurrencies use cryptography to help secure transactions, and some networks operate without a central bank or payment company. The details vary: some are used for payments, while others serve different purposes. Their value can fluctuate, and using them can involve risks such as losing access to funds or sending a payment that cannot be reversed.",
+  "native_model_metadata_events": [],
+  "evidence_files": {
+    "prompt": "neg-01-r03.prompt.txt",
+    "events": "neg-01-r03.events.jsonl",
+    "response": "neg-01-r03.response.txt",
+    "stderr": "neg-01-r03.stderr.txt"
+  },
+  "completion_status": "RESPONSE_CAPTURED",
+  "adjudication_status": "PENDING_ROUTING_EXTRACTION"
+}

@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a146ee-abe1-7171-8f51-d33bba774df9"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"NO_VERIFIED_CONCLUSION — the primary provider timed out, and the fixture contains one successful substitute price of USD 1.25 for the specified asset at 2026-10-11T00:00:00Z. This supports only that fixture observation; it does not establish a broader or current market price."}}
+{"type":"turn.completed","usage":{"input_tokens":16890,"cached_input_tokens":16128,"cache_write_input_tokens":0,"output_tokens":68,"reasoning_output_tokens":0}}

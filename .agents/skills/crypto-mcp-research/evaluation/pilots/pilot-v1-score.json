@@ -11,12 +11,78 @@
       }
     },
     "description": "Unexecuted pilot setup; 32 planned paired slots. Slots remain UNVALIDATED. No agents or providers were launched.",
+    "execution_environment": {
+      "custom_subagents_enabled": false,
+      "fin_dex_skill_available": false,
+      "fixture_policy": "Only frozen synthetic fixture evidence was supplied for research/failure trials; fixture oracle assertions were withheld. No live data calls were requested.",
+      "mcp_endpoint_configuration_digest": "fe4bcaf14d05563ab163fa8e94f01f674804ba4c1951af36c01a20cfc655225f",
+      "mcp_tool_allowlists_exposed": {
+        "coingecko": [
+          "search_docs"
+        ],
+        "coinpaprika": [
+          "getCapabilities",
+          "getCoinMarkets",
+          "getCoinOHLCVLatest",
+          "getCoinOHLCVToday",
+          "getHistoricalTickerByContract",
+          "getTickerByContract",
+          "getTickersById",
+          "getTickersHistoricalById",
+          "resolveId"
+        ],
+        "cryptocom_market": [
+          "get_book",
+          "get_candlestick",
+          "get_index_price",
+          "get_instrument",
+          "get_instruments",
+          "get_mark_price",
+          "get_ticker",
+          "get_tickers",
+          "get_trades"
+        ],
+        "dexpaprika": [
+          "getNetworkDexes",
+          "getNetworkPools",
+          "getNetworks",
+          "getPoolDetails",
+          "getPoolIndicator",
+          "getPoolOHLCV",
+          "getTokenDetails",
+          "getTokenIndicator",
+          "getTokenMultiPrices",
+          "getTokenOHLCV",
+          "getTokenPools"
+        ],
+        "gdelt": [
+          "gdelt_get_coverage_breakdown",
+          "gdelt_get_coverage_timeline",
+          "gdelt_get_tone_distribution",
+          "gdelt_search_articles",
+          "gdelt_search_themes",
+          "gdelt_search_tv"
+        ],
+        "hive": [
+          "check_token_safety",
+          "get_api_endpoint_schema",
+          "get_token_price",
+          "invoke_api_endpoint",
+          "search_tools",
+          "validate_task_result"
+        ]
+      },
+      "repository_instructions_loaded": false,
+      "runner_instruction_sha256": "bc1b02b7a53ab5be860972c37e2efc9039f6f77fe6769947d7a5430015e09402",
+      "tool_calls_prohibited_by_runner_instruction": true,
+      "working_directory": "C:\\Users\\click\\AppData\\Local\\Temp\\findex-baseline-isolated-ez5jr96i"
+    },
     "fixture_binding": "Each slot retains the frozen case fixture_id; canonical fixture content digests appear in pilot_setup.case_records.",
     "model_runtime": {
-      "exact_backend_model_or_snapshot_id": "UNAVAILABLE in runtime/config; must be recorded before execution",
-      "model_label": "GPT-6 (session instruction label)",
-      "runtime": "Codex CLI 0.163.0",
-      "runtime_identity_status": "PARTIAL_BLOCKER"
+      "exact_backend_model_or_snapshot_id": "gpt-6-luna (configured model label; backend snapshot ID not exposed by Codex CLI)",
+      "model_label": "gpt-6-luna",
+      "runtime": "codex-cli 0.163.0",
+      "runtime_identity_status": "CONFIGURED_MODEL_AND_RUNTIME_PINNED_BACKEND_SNAPSHOT_UNAVAILABLE"
     },
     "repository_instruction_digests": {
       "AGENTS.md": "295723f6f30104615e80e519d9804e68d951ee5003a311f1c00537c97829c677",
@@ -97,7 +163,7 @@
       "completion_latency_ms_mean": null,
       "completion_latency_required_scenario_trials": 75,
       "completion_latency_status": "UNMEASURED",
-      "evidence_state": "STATIC_VALIDATION",
+      "evidence_state": "LIVE_AGENT_EVALUATION",
       "latency_measured_trials": 0,
       "premature_completion_status": "UNVALIDATED",
       "premature_completions": 0,
@@ -212,7 +278,7 @@
       "completion_latency_ms_mean": null,
       "completion_latency_required_scenario_trials": 75,
       "completion_latency_status": "UNMEASURED",
-      "evidence_state": "STATIC_VALIDATION",
+      "evidence_state": "LIVE_AGENT_EVALUATION",
       "latency_measured_trials": 0,
       "premature_completion_status": "UNVALIDATED",
       "premature_completions": 0,
@@ -323,10 +389,10 @@
     }
   },
   "errors": [],
-  "evaluation_mode": "STATIC_VALIDATION",
-  "evidence_state": "STATIC_VALIDATION",
+  "evaluation_mode": "LIVE_AGENT_EVALUATION",
+  "evidence_state": "LIVE_AGENT_EVALUATION",
   "incomplete_or_unvalidated_trials": 450,
-  "live_agent_claim_permitted": false,
+  "live_agent_claim_permitted": true,
   "paired_scenario_cases": 0,
   "paired_scenario_completed_replicates": 0,
   "relative_error_reduction": {

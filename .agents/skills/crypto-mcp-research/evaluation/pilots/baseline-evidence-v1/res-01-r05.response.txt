@@ -1,0 +1,1 @@
+{"routing_decision":true,"rationale":"The task requires resolving same-ticker assets across chains and comparing matched-window prices, which warrants a specialized crypto research workflow if available. The fixture provides prices for only one Base asset at two dates, so it cannot support cross-chain asset resolution or a matched-window comparison. NO_VERIFIED_CONCLUSION."}

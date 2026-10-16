@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a146ee-9305-7b60-aa1c-bf893d2ee2d7"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"The primary provider timed out. The fixture records a successful USD price response of **$1.25** for `base:0x1111111111111111111111111111111111111111`, observed at `2026-10-11T00:00:00Z`, from the independently retained substitute with `distinct-origin` provenance. No live execution is claimed."}}
+{"type":"turn.completed","usage":{"input_tokens":16890,"cached_input_tokens":16128,"cache_write_input_tokens":0,"output_tokens":81,"reasoning_output_tokens":0}}

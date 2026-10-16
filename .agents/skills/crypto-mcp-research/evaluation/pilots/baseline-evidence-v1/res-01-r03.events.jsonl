@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a146ee-093c-7af2-9c59-4e1d91b32892"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"NO_VERIFIED_CONCLUSION — The fixture contains prices only for `base:0x1111111111111111111111111111111111111111`; it provides no second asset on another chain, so the same-ticker assets cannot be resolved or compared over a matched window."}}
+{"type":"turn.completed","usage":{"input_tokens":16958,"cached_input_tokens":0,"cache_write_input_tokens":0,"output_tokens":61,"reasoning_output_tokens":0}}

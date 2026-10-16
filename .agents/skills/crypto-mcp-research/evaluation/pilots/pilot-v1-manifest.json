@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "evaluation_id": "fin-dex-live-evaluation-pilot-setup-v1",
-  "evaluation_mode": "STATIC_VALIDATION",
-  "evidence_state": "STATIC_VALIDATION",
+  "evaluation_mode": "LIVE_AGENT_EVALUATION",
+  "evidence_state": "LIVE_AGENT_EVALUATION",
   "corpus_sha256": "fdabe877a1c203b749d64eb156a2b44ffac0e80fb31ec39db6b827fd6e0b81ca",
   "fixtures_sha256": "2ef8d3d8f28a02bd683b7f1176b0fcd734c8f1cd7ea8461512071494915ebfe3",
   "protocol_sha256": "6901cec7952e786806a3ef15072624c5b03fefe6739ce12685cac72cb87ed7cc",
@@ -25,10 +25,10 @@
   "baseline_provenance": {
     "description": "Unexecuted pilot setup; 32 planned paired slots. Slots remain UNVALIDATED. No agents or providers were launched.",
     "model_runtime": {
-      "runtime": "Codex CLI 0.163.0",
-      "model_label": "GPT-6 (session instruction label)",
-      "exact_backend_model_or_snapshot_id": "UNAVAILABLE in runtime/config; must be recorded before execution",
-      "runtime_identity_status": "PARTIAL_BLOCKER"
+      "runtime": "codex-cli 0.163.0",
+      "model_label": "gpt-6-luna",
+      "exact_backend_model_or_snapshot_id": "gpt-6-luna (configured model label; backend snapshot ID not exposed by Codex CLI)",
+      "runtime_identity_status": "CONFIGURED_MODEL_AND_RUNTIME_PINNED_BACKEND_SNAPSHOT_UNAVAILABLE"
     },
     "shared_instructions": {
       "text": "Use the exact frozen case input and its bound synthetic fixture. Preserve the corpus expected behavior, evidence requirements, scoring rubric, and failure criteria. Do not call external providers, launch research agents, or invoke paid, wallet, transaction, publication, or state-changing tools. Record no claims of live execution.",
@@ -110,7 +110,73 @@
       },
       "permission_semantics": "Configuration exposes these tools; it does not establish authorization, connectivity, entitlement, or free access. Setup uses no tools. No paid, wallet, transaction, publication, or state-changing operation is permitted for this pilot setup."
     },
-    "fixture_binding": "Each slot retains the frozen case fixture_id; canonical fixture content digests appear in pilot_setup.case_records."
+    "fixture_binding": "Each slot retains the frozen case fixture_id; canonical fixture content digests appear in pilot_setup.case_records.",
+    "execution_environment": {
+      "working_directory": "C:\\Users\\click\\AppData\\Local\\Temp\\findex-baseline-isolated-ez5jr96i",
+      "repository_instructions_loaded": false,
+      "fin_dex_skill_available": false,
+      "custom_subagents_enabled": false,
+      "mcp_tool_allowlists_exposed": {
+        "coingecko": [
+          "search_docs"
+        ],
+        "coinpaprika": [
+          "getCapabilities",
+          "getCoinMarkets",
+          "getCoinOHLCVLatest",
+          "getCoinOHLCVToday",
+          "getHistoricalTickerByContract",
+          "getTickerByContract",
+          "getTickersById",
+          "getTickersHistoricalById",
+          "resolveId"
+        ],
+        "dexpaprika": [
+          "getNetworkDexes",
+          "getNetworkPools",
+          "getNetworks",
+          "getPoolDetails",
+          "getPoolIndicator",
+          "getPoolOHLCV",
+          "getTokenDetails",
+          "getTokenIndicator",
+          "getTokenMultiPrices",
+          "getTokenOHLCV",
+          "getTokenPools"
+        ],
+        "cryptocom_market": [
+          "get_book",
+          "get_candlestick",
+          "get_index_price",
+          "get_instrument",
+          "get_instruments",
+          "get_mark_price",
+          "get_ticker",
+          "get_tickers",
+          "get_trades"
+        ],
+        "hive": [
+          "check_token_safety",
+          "get_api_endpoint_schema",
+          "get_token_price",
+          "invoke_api_endpoint",
+          "search_tools",
+          "validate_task_result"
+        ],
+        "gdelt": [
+          "gdelt_get_coverage_breakdown",
+          "gdelt_get_coverage_timeline",
+          "gdelt_get_tone_distribution",
+          "gdelt_search_articles",
+          "gdelt_search_themes",
+          "gdelt_search_tv"
+        ]
+      },
+      "mcp_endpoint_configuration_digest": "fe4bcaf14d05563ab163fa8e94f01f674804ba4c1951af36c01a20cfc655225f",
+      "runner_instruction_sha256": "bc1b02b7a53ab5be860972c37e2efc9039f6f77fe6769947d7a5430015e09402",
+      "tool_calls_prohibited_by_runner_instruction": true,
+      "fixture_policy": "Only frozen synthetic fixture evidence was supplied for research/failure trials; fixture oracle assertions were withheld. No live data calls were requested."
+    }
   },
   "trials": [
     {
@@ -118,45 +184,245 @@
       "condition": "BASELINE",
       "replicate": 1,
       "fixture_id": "POS-01-fixture-v1",
-      "evidence_state": "STATIC_VALIDATION",
-      "status": "UNVALIDATED",
+      "evidence_state": "LIVE_AGENT_EVALUATION",
+      "status": "INCOMPLETE",
       "condition_setup": {
         "fin_dex_skill_available": false,
         "multi_agent_review_enabled": false,
         "selected_specialists": [],
         "reviewer_ids": []
       },
-      "paired_context": null
+      "paired_context": null,
+      "execution_record": {
+        "native_execution": true,
+        "execution_status": "PROCESS_EXITED",
+        "exit_code": 0,
+        "session_ids": [
+          "01a146ed-4861-7a11-8c92-84d23cd8add3"
+        ],
+        "runtime": "codex-cli 0.163.0",
+        "requested_model": "gpt-6-luna",
+        "model_runtime_id": "codex-cli 0.163.0|gpt-6-luna",
+        "condition": "BASELINE",
+        "case_id": "POS-01",
+        "replicate": 1,
+        "started_at_utc": "2026-10-16T22:55:17.359038Z",
+        "finished_at_utc": "2026-10-16T22:55:28.344141Z",
+        "elapsed_ms": 10984.837,
+        "frozen_input_sha256": "eeba5356fe8bae42c32fa0b14aa64ba4c3db974b7775ab4c6b904173c13cb91f",
+        "submitted_prompt_sha256": "e343237c73ff4c988a2cc521a4c83a5e33c0b2381c3ed1d6316698cd56aef263",
+        "fixture_id": "POS-01-fixture-v1",
+        "fixture_content_sha256": "a0b7300eaccf6fc249a22f04a28c0b3961b35b4caf86b7474de84f82753460e1",
+        "fixture_evidence_submitted_sha256": null,
+        "base_instructions_sha256": "e2aba9d52ebf18949616f7cd3c584f7a4d9fedc8e0d56a9f5136614960843d70",
+        "condition_instructions_sha256": "1e5206f86d5f94e8e868980c3c3b853afc31d40540ecaee1c2cc7120b37dda6a",
+        "tool_permissions_sha256": "55c40942d2c84a8df70aec3f445a4eb946ae548d837ec0570a6bf6b9b9dabac4",
+        "configured_tool_servers": [
+          "coingecko",
+          "coinpaprika",
+          "dexpaprika",
+          "cryptocom_market",
+          "hive",
+          "gdelt"
+        ],
+        "actual_tool_call_events": [],
+        "actual_tool_call_count": 0,
+        "observed_response": "{\"routing_decision\": true, \"rationale\": \"Comparing 24-hour spot performance for a specified Base token against ETH requires matched UTC endpoints and independent market sources, so a specialized crypto research workflow would be warranted if available. No fixture evidence was supplied (null), so the performance comparison is NO_VERIFIED_CONCLUSION.\"}",
+        "native_model_metadata_events": [],
+        "evidence_files": {
+          "prompt": "pos-01-r01.prompt.txt",
+          "events": "pos-01-r01.events.jsonl",
+          "response": "pos-01-r01.response.txt",
+          "stderr": "pos-01-r01.stderr.txt"
+        },
+        "completion_status": "NATIVE_SESSION_COMPLETED_RESPONSE_RETAINED",
+        "adjudication_status": "PENDING_ROUTING_ACTIVATION_MAPPING",
+        "tool_call_outcomes": [],
+        "unsupported_claims": {
+          "status": "PENDING_INDEPENDENT_ADJUDICATION",
+          "distinct_claim_ids": []
+        },
+        "objective_errors": {
+          "status": "PENDING_DETERMINISTIC_OR_INDEPENDENT_ADJUDICATION",
+          "asset_identity_errors": "UNMEASURED",
+          "timestamp_unit_mismatches": "UNMEASURED",
+          "source_independence_errors": "UNMEASURED",
+          "unauthorized_external_operations": 0,
+          "routing_decision_to_skill_activation_mapping": "PENDING"
+        },
+        "evidence_references": {
+          "frozen_case_source": "../../corpus-v1.json#cases/POS-01",
+          "fixture_source": "../../fixtures-v1.json#/fixtures/POS-01-fixture-v1",
+          "full_fixture_content_sha256": "a0b7300eaccf6fc249a22f04a28c0b3961b35b4caf86b7474de84f82753460e1",
+          "fixture_oracle_assertions_withheld_from_model": true,
+          "native_response_file": "pos-01-r01.response.txt",
+          "native_event_stream_file": "pos-01-r01.events.jsonl"
+        }
+      },
+      "provenance": "recorded_native_agent_execution"
     },
     {
       "case_id": "POS-01",
       "condition": "BASELINE",
       "replicate": 2,
       "fixture_id": "POS-01-fixture-v1",
-      "evidence_state": "STATIC_VALIDATION",
-      "status": "UNVALIDATED",
+      "evidence_state": "LIVE_AGENT_EVALUATION",
+      "status": "INCOMPLETE",
       "condition_setup": {
         "fin_dex_skill_available": false,
         "multi_agent_review_enabled": false,
         "selected_specialists": [],
         "reviewer_ids": []
       },
-      "paired_context": null
+      "paired_context": null,
+      "execution_record": {
+        "native_execution": true,
+        "execution_status": "PROCESS_EXITED",
+        "exit_code": 0,
+        "session_ids": [
+          "01a146ed-7191-7a93-8520-bd91a68687d4"
+        ],
+        "runtime": "codex-cli 0.163.0",
+        "requested_model": "gpt-6-luna",
+        "model_runtime_id": "codex-cli 0.163.0|gpt-6-luna",
+        "condition": "BASELINE",
+        "case_id": "POS-01",
+        "replicate": 2,
+        "started_at_utc": "2026-10-16T22:55:28.350125Z",
+        "finished_at_utc": "2026-10-16T22:55:33.562326Z",
+        "elapsed_ms": 5212.201,
+        "frozen_input_sha256": "eeba5356fe8bae42c32fa0b14aa64ba4c3db974b7775ab4c6b904173c13cb91f",
+        "submitted_prompt_sha256": "e343237c73ff4c988a2cc521a4c83a5e33c0b2381c3ed1d6316698cd56aef263",
+        "fixture_id": "POS-01-fixture-v1",
+        "fixture_content_sha256": "a0b7300eaccf6fc249a22f04a28c0b3961b35b4caf86b7474de84f82753460e1",
+        "fixture_evidence_submitted_sha256": null,
+        "base_instructions_sha256": "e2aba9d52ebf18949616f7cd3c584f7a4d9fedc8e0d56a9f5136614960843d70",
+        "condition_instructions_sha256": "1e5206f86d5f94e8e868980c3c3b853afc31d40540ecaee1c2cc7120b37dda6a",
+        "tool_permissions_sha256": "55c40942d2c84a8df70aec3f445a4eb946ae548d837ec0570a6bf6b9b9dabac4",
+        "configured_tool_servers": [
+          "coingecko",
+          "coinpaprika",
+          "dexpaprika",
+          "cryptocom_market",
+          "hive",
+          "gdelt"
+        ],
+        "actual_tool_call_events": [],
+        "actual_tool_call_count": 0,
+        "observed_response": "NO_VERIFIED_CONCLUSION — the supplied fixture contains no evidence (`null`) to establish matched UTC endpoints, spot prices, independent market sources, or the 24-hour performance comparison.",
+        "native_model_metadata_events": [],
+        "evidence_files": {
+          "prompt": "pos-01-r02.prompt.txt",
+          "events": "pos-01-r02.events.jsonl",
+          "response": "pos-01-r02.response.txt",
+          "stderr": "pos-01-r02.stderr.txt"
+        },
+        "completion_status": "NATIVE_SESSION_COMPLETED_RESPONSE_RETAINED",
+        "adjudication_status": "PENDING_ROUTING_ACTIVATION_MAPPING",
+        "tool_call_outcomes": [],
+        "unsupported_claims": {
+          "status": "PENDING_INDEPENDENT_ADJUDICATION",
+          "distinct_claim_ids": []
+        },
+        "objective_errors": {
+          "status": "PENDING_DETERMINISTIC_OR_INDEPENDENT_ADJUDICATION",
+          "asset_identity_errors": "UNMEASURED",
+          "timestamp_unit_mismatches": "UNMEASURED",
+          "source_independence_errors": "UNMEASURED",
+          "unauthorized_external_operations": 0,
+          "routing_decision_to_skill_activation_mapping": "PENDING"
+        },
+        "evidence_references": {
+          "frozen_case_source": "../../corpus-v1.json#cases/POS-01",
+          "fixture_source": "../../fixtures-v1.json#/fixtures/POS-01-fixture-v1",
+          "full_fixture_content_sha256": "a0b7300eaccf6fc249a22f04a28c0b3961b35b4caf86b7474de84f82753460e1",
+          "fixture_oracle_assertions_withheld_from_model": true,
+          "native_response_file": "pos-01-r02.response.txt",
+          "native_event_stream_file": "pos-01-r02.events.jsonl"
+        }
+      }
     },
     {
       "case_id": "POS-01",
       "condition": "BASELINE",
       "replicate": 3,
       "fixture_id": "POS-01-fixture-v1",
-      "evidence_state": "STATIC_VALIDATION",
-      "status": "UNVALIDATED",
+      "evidence_state": "LIVE_AGENT_EVALUATION",
+      "status": "INCOMPLETE",
       "condition_setup": {
         "fin_dex_skill_available": false,
         "multi_agent_review_enabled": false,
         "selected_specialists": [],
         "reviewer_ids": []
       },
-      "paired_context": null
+      "paired_context": null,
+      "execution_record": {
+        "native_execution": true,
+        "execution_status": "PROCESS_EXITED",
+        "exit_code": 0,
+        "session_ids": [
+          "01a146ed-85d3-7e71-b94f-bd06f759c107"
+        ],
+        "runtime": "codex-cli 0.163.0",
+        "requested_model": "gpt-6-luna",
+        "model_runtime_id": "codex-cli 0.163.0|gpt-6-luna",
+        "condition": "BASELINE",
+        "case_id": "POS-01",
+        "replicate": 3,
+        "started_at_utc": "2026-10-16T22:55:33.566212Z",
+        "finished_at_utc": "2026-10-16T22:55:38.762619Z",
+        "elapsed_ms": 5196.423,
+        "frozen_input_sha256": "eeba5356fe8bae42c32fa0b14aa64ba4c3db974b7775ab4c6b904173c13cb91f",
+        "submitted_prompt_sha256": "e343237c73ff4c988a2cc521a4c83a5e33c0b2381c3ed1d6316698cd56aef263",
+        "fixture_id": "POS-01-fixture-v1",
+        "fixture_content_sha256": "a0b7300eaccf6fc249a22f04a28c0b3961b35b4caf86b7474de84f82753460e1",
+        "fixture_evidence_submitted_sha256": null,
+        "base_instructions_sha256": "e2aba9d52ebf18949616f7cd3c584f7a4d9fedc8e0d56a9f5136614960843d70",
+        "condition_instructions_sha256": "1e5206f86d5f94e8e868980c3c3b853afc31d40540ecaee1c2cc7120b37dda6a",
+        "tool_permissions_sha256": "55c40942d2c84a8df70aec3f445a4eb946ae548d837ec0570a6bf6b9b9dabac4",
+        "configured_tool_servers": [
+          "coingecko",
+          "coinpaprika",
+          "dexpaprika",
+          "cryptocom_market",
+          "hive",
+          "gdelt"
+        ],
+        "actual_tool_call_events": [],
+        "actual_tool_call_count": 0,
+        "observed_response": "{\"routing_decision\":true,\"rationale\":\"Comparing 24-hour spot performance for a specific token against ETH requires matched UTC endpoints and independent market sources, so a specialized crypto research workflow would be warranted if available.\"}",
+        "native_model_metadata_events": [],
+        "evidence_files": {
+          "prompt": "pos-01-r03.prompt.txt",
+          "events": "pos-01-r03.events.jsonl",
+          "response": "pos-01-r03.response.txt",
+          "stderr": "pos-01-r03.stderr.txt"
+        },
+        "completion_status": "NATIVE_SESSION_COMPLETED_RESPONSE_RETAINED",
+        "adjudication_status": "PENDING_ROUTING_ACTIVATION_MAPPING",
+        "tool_call_outcomes": [],
+        "unsupported_claims": {
+          "status": "PENDING_INDEPENDENT_ADJUDICATION",
+          "distinct_claim_ids": []
+        },
+        "objective_errors": {
+          "status": "PENDING_DETERMINISTIC_OR_INDEPENDENT_ADJUDICATION",
+          "asset_identity_errors": "UNMEASURED",
+          "timestamp_unit_mismatches": "UNMEASURED",
+          "source_independence_errors": "UNMEASURED",
+          "unauthorized_external_operations": 0,
+          "routing_decision_to_skill_activation_mapping": "PENDING"
+        },
+        "evidence_references": {
+          "frozen_case_source": "../../corpus-v1.json#cases/POS-01",
+          "fixture_source": "../../fixtures-v1.json#/fixtures/POS-01-fixture-v1",
+          "full_fixture_content_sha256": "a0b7300eaccf6fc249a22f04a28c0b3961b35b4caf86b7474de84f82753460e1",
+          "fixture_oracle_assertions_withheld_from_model": true,
+          "native_response_file": "pos-01-r03.response.txt",
+          "native_event_stream_file": "pos-01-r03.events.jsonl"
+        }
+      },
+      "provenance": "recorded_native_agent_execution"
     },
     {
       "case_id": "POS-01",
@@ -208,45 +474,243 @@
       "condition": "BASELINE",
       "replicate": 1,
       "fixture_id": "NEG-01-fixture-v1",
-      "evidence_state": "STATIC_VALIDATION",
-      "status": "UNVALIDATED",
+      "evidence_state": "LIVE_AGENT_EVALUATION",
+      "status": "INCOMPLETE",
       "condition_setup": {
         "fin_dex_skill_available": false,
         "multi_agent_review_enabled": false,
         "selected_specialists": [],
         "reviewer_ids": []
       },
-      "paired_context": null
+      "paired_context": null,
+      "execution_record": {
+        "native_execution": true,
+        "execution_status": "PROCESS_EXITED",
+        "exit_code": 0,
+        "session_ids": [
+          "01a146ed-9a2d-7901-b3fd-516f3076bc61"
+        ],
+        "runtime": "codex-cli 0.163.0",
+        "requested_model": "gpt-6-luna",
+        "model_runtime_id": "codex-cli 0.163.0|gpt-6-luna",
+        "condition": "BASELINE",
+        "case_id": "NEG-01",
+        "replicate": 1,
+        "started_at_utc": "2026-10-16T22:55:38.766850Z",
+        "finished_at_utc": "2026-10-16T22:55:44.318623Z",
+        "elapsed_ms": 5551.772,
+        "frozen_input_sha256": "d635c02fa8337e141998a2a11c859326a9233e0ed828fddac49744621972047e",
+        "submitted_prompt_sha256": "313bcd2c40714fa0ac3099ed70d2b7f1229ef2194fb700d6e445bfd3a5a4e2d3",
+        "fixture_id": "NEG-01-fixture-v1",
+        "fixture_content_sha256": "0c2c0ec54d9a967fb06d24ab0666d22395dd9663a682b28f077a1b8281a19c01",
+        "fixture_evidence_submitted_sha256": null,
+        "base_instructions_sha256": "e2aba9d52ebf18949616f7cd3c584f7a4d9fedc8e0d56a9f5136614960843d70",
+        "condition_instructions_sha256": "1e5206f86d5f94e8e868980c3c3b853afc31d40540ecaee1c2cc7120b37dda6a",
+        "tool_permissions_sha256": "55c40942d2c84a8df70aec3f445a4eb946ae548d837ec0570a6bf6b9b9dabac4",
+        "configured_tool_servers": [
+          "coingecko",
+          "coinpaprika",
+          "dexpaprika",
+          "cryptocom_market",
+          "hive",
+          "gdelt"
+        ],
+        "actual_tool_call_events": [],
+        "actual_tool_call_count": 0,
+        "observed_response": "A cryptocurrency is a kind of digital money that uses cryptography to help secure transactions. Many cryptocurrencies operate on a network of computers that share a record of transactions, rather than relying on one bank or company to keep that record.\n\nPeople may use cryptocurrencies to send value, or buy and sell them. Their prices can change sharply, and transactions may be difficult or impossible to reverse. A cryptocurrency is not automatically backed by a government or guaranteed to hold its value.",
+        "native_model_metadata_events": [],
+        "evidence_files": {
+          "prompt": "neg-01-r01.prompt.txt",
+          "events": "neg-01-r01.events.jsonl",
+          "response": "neg-01-r01.response.txt",
+          "stderr": "neg-01-r01.stderr.txt"
+        },
+        "completion_status": "NATIVE_SESSION_COMPLETED_RESPONSE_RETAINED",
+        "adjudication_status": "PENDING_ROUTING_ACTIVATION_MAPPING",
+        "tool_call_outcomes": [],
+        "unsupported_claims": {
+          "status": "PENDING_INDEPENDENT_ADJUDICATION",
+          "distinct_claim_ids": []
+        },
+        "objective_errors": {
+          "status": "PENDING_DETERMINISTIC_OR_INDEPENDENT_ADJUDICATION",
+          "asset_identity_errors": "UNMEASURED",
+          "timestamp_unit_mismatches": "UNMEASURED",
+          "source_independence_errors": "UNMEASURED",
+          "unauthorized_external_operations": 0,
+          "routing_decision_to_skill_activation_mapping": "PENDING"
+        },
+        "evidence_references": {
+          "frozen_case_source": "../../corpus-v1.json#cases/NEG-01",
+          "fixture_source": "../../fixtures-v1.json#/fixtures/NEG-01-fixture-v1",
+          "full_fixture_content_sha256": "0c2c0ec54d9a967fb06d24ab0666d22395dd9663a682b28f077a1b8281a19c01",
+          "fixture_oracle_assertions_withheld_from_model": true,
+          "native_response_file": "neg-01-r01.response.txt",
+          "native_event_stream_file": "neg-01-r01.events.jsonl"
+        }
+      }
     },
     {
       "case_id": "NEG-01",
       "condition": "BASELINE",
       "replicate": 2,
       "fixture_id": "NEG-01-fixture-v1",
-      "evidence_state": "STATIC_VALIDATION",
-      "status": "UNVALIDATED",
+      "evidence_state": "LIVE_AGENT_EVALUATION",
+      "status": "INCOMPLETE",
       "condition_setup": {
         "fin_dex_skill_available": false,
         "multi_agent_review_enabled": false,
         "selected_specialists": [],
         "reviewer_ids": []
       },
-      "paired_context": null
+      "paired_context": null,
+      "execution_record": {
+        "native_execution": true,
+        "execution_status": "PROCESS_EXITED",
+        "exit_code": 0,
+        "session_ids": [
+          "01a146ed-af64-7373-97a5-9605735acdbf"
+        ],
+        "runtime": "codex-cli 0.163.0",
+        "requested_model": "gpt-6-luna",
+        "model_runtime_id": "codex-cli 0.163.0|gpt-6-luna",
+        "condition": "BASELINE",
+        "case_id": "NEG-01",
+        "replicate": 2,
+        "started_at_utc": "2026-10-16T22:55:44.322587Z",
+        "finished_at_utc": "2026-10-16T22:55:50.682057Z",
+        "elapsed_ms": 6359.476,
+        "frozen_input_sha256": "d635c02fa8337e141998a2a11c859326a9233e0ed828fddac49744621972047e",
+        "submitted_prompt_sha256": "313bcd2c40714fa0ac3099ed70d2b7f1229ef2194fb700d6e445bfd3a5a4e2d3",
+        "fixture_id": "NEG-01-fixture-v1",
+        "fixture_content_sha256": "0c2c0ec54d9a967fb06d24ab0666d22395dd9663a682b28f077a1b8281a19c01",
+        "fixture_evidence_submitted_sha256": null,
+        "base_instructions_sha256": "e2aba9d52ebf18949616f7cd3c584f7a4d9fedc8e0d56a9f5136614960843d70",
+        "condition_instructions_sha256": "1e5206f86d5f94e8e868980c3c3b853afc31d40540ecaee1c2cc7120b37dda6a",
+        "tool_permissions_sha256": "55c40942d2c84a8df70aec3f445a4eb946ae548d837ec0570a6bf6b9b9dabac4",
+        "configured_tool_servers": [
+          "coingecko",
+          "coinpaprika",
+          "dexpaprika",
+          "cryptocom_market",
+          "hive",
+          "gdelt"
+        ],
+        "actual_tool_call_events": [],
+        "actual_tool_call_count": 0,
+        "observed_response": "A cryptocurrency is a type of digital money that uses cryptography to secure transactions. Many cryptocurrencies run on a shared record called a blockchain, which is maintained by a network of computers rather than a single bank or company.\n\nPeople can use cryptocurrencies to send value or interact with online services, depending on the currency. Their prices can change sharply, and transactions may be difficult or impossible to reverse, so they can carry substantial risk.",
+        "native_model_metadata_events": [],
+        "evidence_files": {
+          "prompt": "neg-01-r02.prompt.txt",
+          "events": "neg-01-r02.events.jsonl",
+          "response": "neg-01-r02.response.txt",
+          "stderr": "neg-01-r02.stderr.txt"
+        },
+        "completion_status": "NATIVE_SESSION_COMPLETED_RESPONSE_RETAINED",
+        "adjudication_status": "PENDING_ROUTING_ACTIVATION_MAPPING",
+        "tool_call_outcomes": [],
+        "unsupported_claims": {
+          "status": "PENDING_INDEPENDENT_ADJUDICATION",
+          "distinct_claim_ids": []
+        },
+        "objective_errors": {
+          "status": "PENDING_DETERMINISTIC_OR_INDEPENDENT_ADJUDICATION",
+          "asset_identity_errors": "UNMEASURED",
+          "timestamp_unit_mismatches": "UNMEASURED",
+          "source_independence_errors": "UNMEASURED",
+          "unauthorized_external_operations": 0,
+          "routing_decision_to_skill_activation_mapping": "PENDING"
+        },
+        "evidence_references": {
+          "frozen_case_source": "../../corpus-v1.json#cases/NEG-01",
+          "fixture_source": "../../fixtures-v1.json#/fixtures/NEG-01-fixture-v1",
+          "full_fixture_content_sha256": "0c2c0ec54d9a967fb06d24ab0666d22395dd9663a682b28f077a1b8281a19c01",
+          "fixture_oracle_assertions_withheld_from_model": true,
+          "native_response_file": "neg-01-r02.response.txt",
+          "native_event_stream_file": "neg-01-r02.events.jsonl"
+        }
+      }
     },
     {
       "case_id": "NEG-01",
       "condition": "BASELINE",
       "replicate": 3,
       "fixture_id": "NEG-01-fixture-v1",
-      "evidence_state": "STATIC_VALIDATION",
-      "status": "UNVALIDATED",
+      "evidence_state": "LIVE_AGENT_EVALUATION",
+      "status": "INCOMPLETE",
       "condition_setup": {
         "fin_dex_skill_available": false,
         "multi_agent_review_enabled": false,
         "selected_specialists": [],
         "reviewer_ids": []
       },
-      "paired_context": null
+      "paired_context": null,
+      "execution_record": {
+        "native_execution": true,
+        "execution_status": "PROCESS_EXITED",
+        "exit_code": 0,
+        "session_ids": [
+          "01a146ed-c85a-7a11-ab8d-d6c0e901fd2c"
+        ],
+        "runtime": "codex-cli 0.163.0",
+        "requested_model": "gpt-6-luna",
+        "model_runtime_id": "codex-cli 0.163.0|gpt-6-luna",
+        "condition": "BASELINE",
+        "case_id": "NEG-01",
+        "replicate": 3,
+        "started_at_utc": "2026-10-16T22:55:50.686103Z",
+        "finished_at_utc": "2026-10-16T22:55:56.251275Z",
+        "elapsed_ms": 5565.172,
+        "frozen_input_sha256": "d635c02fa8337e141998a2a11c859326a9233e0ed828fddac49744621972047e",
+        "submitted_prompt_sha256": "313bcd2c40714fa0ac3099ed70d2b7f1229ef2194fb700d6e445bfd3a5a4e2d3",
+        "fixture_id": "NEG-01-fixture-v1",
+        "fixture_content_sha256": "0c2c0ec54d9a967fb06d24ab0666d22395dd9663a682b28f077a1b8281a19c01",
+        "fixture_evidence_submitted_sha256": null,
+        "base_instructions_sha256": "e2aba9d52ebf18949616f7cd3c584f7a4d9fedc8e0d56a9f5136614960843d70",
+        "condition_instructions_sha256": "1e5206f86d5f94e8e868980c3c3b853afc31d40540ecaee1c2cc7120b37dda6a",
+        "tool_permissions_sha256": "55c40942d2c84a8df70aec3f445a4eb946ae548d837ec0570a6bf6b9b9dabac4",
+        "configured_tool_servers": [
+          "coingecko",
+          "coinpaprika",
+          "dexpaprika",
+          "cryptocom_market",
+          "hive",
+          "gdelt"
+        ],
+        "actual_tool_call_events": [],
+        "actual_tool_call_count": 0,
+        "observed_response": "A cryptocurrency is a digital asset designed to be transferred and recorded electronically, often using a shared database called a blockchain. Many cryptocurrencies use cryptography to help secure transactions, and some networks operate without a central bank or payment company. The details vary: some are used for payments, while others serve different purposes. Their value can fluctuate, and using them can involve risks such as losing access to funds or sending a payment that cannot be reversed.",
+        "native_model_metadata_events": [],
+        "evidence_files": {
+          "prompt": "neg-01-r03.prompt.txt",
+          "events": "neg-01-r03.events.jsonl",
+          "response": "neg-01-r03.response.txt",
+          "stderr": "neg-01-r03.stderr.txt"
+        },
+        "completion_status": "NATIVE_SESSION_COMPLETED_RESPONSE_RETAINED",
+        "adjudication_status": "PENDING_ROUTING_ACTIVATION_MAPPING",
+        "tool_call_outcomes": [],
+        "unsupported_claims": {
+          "status": "PENDING_INDEPENDENT_ADJUDICATION",
+          "distinct_claim_ids": []
+        },
+        "objective_errors": {
+          "status": "PENDING_DETERMINISTIC_OR_INDEPENDENT_ADJUDICATION",
+          "asset_identity_errors": "UNMEASURED",
+          "timestamp_unit_mismatches": "UNMEASURED",
+          "source_independence_errors": "UNMEASURED",
+          "unauthorized_external_operations": 0,
+          "routing_decision_to_skill_activation_mapping": "PENDING"
+        },
+        "evidence_references": {
+          "frozen_case_source": "../../corpus-v1.json#cases/NEG-01",
+          "fixture_source": "../../fixtures-v1.json#/fixtures/NEG-01-fixture-v1",
+          "full_fixture_content_sha256": "0c2c0ec54d9a967fb06d24ab0666d22395dd9663a682b28f077a1b8281a19c01",
+          "fixture_oracle_assertions_withheld_from_model": true,
+          "native_response_file": "neg-01-r03.response.txt",
+          "native_event_stream_file": "neg-01-r03.events.jsonl"
+        }
+      }
     },
     {
       "case_id": "NEG-01",
@@ -298,75 +762,410 @@
       "condition": "BASELINE",
       "replicate": 1,
       "fixture_id": "RES-01-fixture-v1",
-      "evidence_state": "STATIC_VALIDATION",
-      "status": "UNVALIDATED",
+      "evidence_state": "LIVE_AGENT_EVALUATION",
+      "status": "INCOMPLETE",
       "condition_setup": {
         "fin_dex_skill_available": false,
         "multi_agent_review_enabled": false,
         "selected_specialists": [],
         "reviewer_ids": []
       },
-      "paired_context": null
+      "paired_context": null,
+      "execution_record": {
+        "native_execution": true,
+        "execution_status": "PROCESS_EXITED",
+        "exit_code": 0,
+        "session_ids": [
+          "01a146ed-de0b-7fe0-a7f1-b8b26614245e"
+        ],
+        "runtime": "codex-cli 0.163.0",
+        "requested_model": "gpt-6-luna",
+        "model_runtime_id": "codex-cli 0.163.0|gpt-6-luna",
+        "condition": "BASELINE",
+        "case_id": "RES-01",
+        "replicate": 1,
+        "started_at_utc": "2026-10-16T22:55:56.255227Z",
+        "finished_at_utc": "2026-10-16T22:56:01.408327Z",
+        "elapsed_ms": 5153.109,
+        "frozen_input_sha256": "d1362b88c64ac1a17657fe919df031277694fe364076b69bb4b3bf650d63bc16",
+        "submitted_prompt_sha256": "e79135b308e6d3cae4a0d8e3eb206ad1e39185609509b304cafb561761a0c4c2",
+        "fixture_id": "RES-01-fixture-v1",
+        "fixture_content_sha256": "7163bafb78cc14b381acd54ba4687d25db0eeb71450cacd67df79dc8b2a8a1cc",
+        "fixture_evidence_submitted_sha256": "0a65adaad4620fe0be5c40eb24d17cdc52468c30ffebfbfa0997f35c0397f8ed",
+        "base_instructions_sha256": "e2aba9d52ebf18949616f7cd3c584f7a4d9fedc8e0d56a9f5136614960843d70",
+        "condition_instructions_sha256": "1e5206f86d5f94e8e868980c3c3b853afc31d40540ecaee1c2cc7120b37dda6a",
+        "tool_permissions_sha256": "55c40942d2c84a8df70aec3f445a4eb946ae548d837ec0570a6bf6b9b9dabac4",
+        "configured_tool_servers": [
+          "coingecko",
+          "coinpaprika",
+          "dexpaprika",
+          "cryptocom_market",
+          "hive",
+          "gdelt"
+        ],
+        "actual_tool_call_events": [],
+        "actual_tool_call_count": 0,
+        "observed_response": "NO_VERIFIED_CONCLUSION — the fixture contains prices for one asset on Base, from two providers, at two timestamps. It contains no second-chain asset or matched-window prices for a second asset, so the requested cross-chain comparison cannot be established.",
+        "native_model_metadata_events": [],
+        "evidence_files": {
+          "prompt": "res-01-r01.prompt.txt",
+          "events": "res-01-r01.events.jsonl",
+          "response": "res-01-r01.response.txt",
+          "stderr": "res-01-r01.stderr.txt"
+        },
+        "completion_status": "NATIVE_SESSION_COMPLETED_RESPONSE_RETAINED",
+        "adjudication_status": "PENDING_OBJECTIVE_REVIEW_AND_DUAL_RATER_JUDGMENT",
+        "tool_call_outcomes": [],
+        "unsupported_claims": {
+          "status": "PENDING_INDEPENDENT_ADJUDICATION",
+          "distinct_claim_ids": []
+        },
+        "objective_errors": {
+          "status": "PENDING_DETERMINISTIC_OR_INDEPENDENT_ADJUDICATION",
+          "asset_identity_errors": "UNMEASURED",
+          "timestamp_unit_mismatches": "UNMEASURED",
+          "source_independence_errors": "UNMEASURED",
+          "unauthorized_external_operations": 0,
+          "routing_decision_to_skill_activation_mapping": "NOT_APPLICABLE"
+        },
+        "evidence_references": {
+          "frozen_case_source": "../../corpus-v1.json#cases/RES-01",
+          "fixture_source": "../../fixtures-v1.json#/fixtures/RES-01-fixture-v1",
+          "full_fixture_content_sha256": "7163bafb78cc14b381acd54ba4687d25db0eeb71450cacd67df79dc8b2a8a1cc",
+          "fixture_oracle_assertions_withheld_from_model": true,
+          "native_response_file": "res-01-r01.response.txt",
+          "native_event_stream_file": "res-01-r01.events.jsonl"
+        }
+      },
+      "provenance": "recorded_native_agent_execution"
     },
     {
       "case_id": "RES-01",
       "condition": "BASELINE",
       "replicate": 2,
       "fixture_id": "RES-01-fixture-v1",
-      "evidence_state": "STATIC_VALIDATION",
-      "status": "UNVALIDATED",
+      "evidence_state": "LIVE_AGENT_EVALUATION",
+      "status": "INCOMPLETE",
       "condition_setup": {
         "fin_dex_skill_available": false,
         "multi_agent_review_enabled": false,
         "selected_specialists": [],
         "reviewer_ids": []
       },
-      "paired_context": null
+      "paired_context": null,
+      "execution_record": {
+        "native_execution": true,
+        "execution_status": "PROCESS_EXITED",
+        "exit_code": 0,
+        "session_ids": [
+          "01a146ed-f22c-7ea0-a41e-917f323372ec"
+        ],
+        "runtime": "codex-cli 0.163.0",
+        "requested_model": "gpt-6-luna",
+        "model_runtime_id": "codex-cli 0.163.0|gpt-6-luna",
+        "condition": "BASELINE",
+        "case_id": "RES-01",
+        "replicate": 2,
+        "started_at_utc": "2026-10-16T22:56:01.422330Z",
+        "finished_at_utc": "2026-10-16T22:56:07.249058Z",
+        "elapsed_ms": 5826.726,
+        "frozen_input_sha256": "d1362b88c64ac1a17657fe919df031277694fe364076b69bb4b3bf650d63bc16",
+        "submitted_prompt_sha256": "e79135b308e6d3cae4a0d8e3eb206ad1e39185609509b304cafb561761a0c4c2",
+        "fixture_id": "RES-01-fixture-v1",
+        "fixture_content_sha256": "7163bafb78cc14b381acd54ba4687d25db0eeb71450cacd67df79dc8b2a8a1cc",
+        "fixture_evidence_submitted_sha256": "0a65adaad4620fe0be5c40eb24d17cdc52468c30ffebfbfa0997f35c0397f8ed",
+        "base_instructions_sha256": "e2aba9d52ebf18949616f7cd3c584f7a4d9fedc8e0d56a9f5136614960843d70",
+        "condition_instructions_sha256": "1e5206f86d5f94e8e868980c3c3b853afc31d40540ecaee1c2cc7120b37dda6a",
+        "tool_permissions_sha256": "55c40942d2c84a8df70aec3f445a4eb946ae548d837ec0570a6bf6b9b9dabac4",
+        "configured_tool_servers": [
+          "coingecko",
+          "coinpaprika",
+          "dexpaprika",
+          "cryptocom_market",
+          "hive",
+          "gdelt"
+        ],
+        "actual_tool_call_events": [],
+        "actual_tool_call_count": 0,
+        "observed_response": "NO_VERIFIED_CONCLUSION — the fixture contains two USD prices for the same Base asset at different times and from different providers, but no second-chain asset or matched-window prices for comparison.",
+        "native_model_metadata_events": [],
+        "evidence_files": {
+          "prompt": "res-01-r02.prompt.txt",
+          "events": "res-01-r02.events.jsonl",
+          "response": "res-01-r02.response.txt",
+          "stderr": "res-01-r02.stderr.txt"
+        },
+        "completion_status": "NATIVE_SESSION_COMPLETED_RESPONSE_RETAINED",
+        "adjudication_status": "PENDING_OBJECTIVE_REVIEW_AND_DUAL_RATER_JUDGMENT",
+        "tool_call_outcomes": [],
+        "unsupported_claims": {
+          "status": "PENDING_INDEPENDENT_ADJUDICATION",
+          "distinct_claim_ids": []
+        },
+        "objective_errors": {
+          "status": "PENDING_DETERMINISTIC_OR_INDEPENDENT_ADJUDICATION",
+          "asset_identity_errors": "UNMEASURED",
+          "timestamp_unit_mismatches": "UNMEASURED",
+          "source_independence_errors": "UNMEASURED",
+          "unauthorized_external_operations": 0,
+          "routing_decision_to_skill_activation_mapping": "NOT_APPLICABLE"
+        },
+        "evidence_references": {
+          "frozen_case_source": "../../corpus-v1.json#cases/RES-01",
+          "fixture_source": "../../fixtures-v1.json#/fixtures/RES-01-fixture-v1",
+          "full_fixture_content_sha256": "7163bafb78cc14b381acd54ba4687d25db0eeb71450cacd67df79dc8b2a8a1cc",
+          "fixture_oracle_assertions_withheld_from_model": true,
+          "native_response_file": "res-01-r02.response.txt",
+          "native_event_stream_file": "res-01-r02.events.jsonl"
+        }
+      },
+      "provenance": "recorded_native_agent_execution"
     },
     {
       "case_id": "RES-01",
       "condition": "BASELINE",
       "replicate": 3,
       "fixture_id": "RES-01-fixture-v1",
-      "evidence_state": "STATIC_VALIDATION",
-      "status": "UNVALIDATED",
+      "evidence_state": "LIVE_AGENT_EVALUATION",
+      "status": "INCOMPLETE",
       "condition_setup": {
         "fin_dex_skill_available": false,
         "multi_agent_review_enabled": false,
         "selected_specialists": [],
         "reviewer_ids": []
       },
-      "paired_context": null
+      "paired_context": null,
+      "execution_record": {
+        "native_execution": true,
+        "execution_status": "PROCESS_EXITED",
+        "exit_code": 0,
+        "session_ids": [
+          "01a146ee-093c-7af2-9c59-4e1d91b32892"
+        ],
+        "runtime": "codex-cli 0.163.0",
+        "requested_model": "gpt-6-luna",
+        "model_runtime_id": "codex-cli 0.163.0|gpt-6-luna",
+        "condition": "BASELINE",
+        "case_id": "RES-01",
+        "replicate": 3,
+        "started_at_utc": "2026-10-16T22:56:07.262595Z",
+        "finished_at_utc": "2026-10-16T22:56:12.924093Z",
+        "elapsed_ms": 5661.51,
+        "frozen_input_sha256": "d1362b88c64ac1a17657fe919df031277694fe364076b69bb4b3bf650d63bc16",
+        "submitted_prompt_sha256": "e79135b308e6d3cae4a0d8e3eb206ad1e39185609509b304cafb561761a0c4c2",
+        "fixture_id": "RES-01-fixture-v1",
+        "fixture_content_sha256": "7163bafb78cc14b381acd54ba4687d25db0eeb71450cacd67df79dc8b2a8a1cc",
+        "fixture_evidence_submitted_sha256": "0a65adaad4620fe0be5c40eb24d17cdc52468c30ffebfbfa0997f35c0397f8ed",
+        "base_instructions_sha256": "e2aba9d52ebf18949616f7cd3c584f7a4d9fedc8e0d56a9f5136614960843d70",
+        "condition_instructions_sha256": "1e5206f86d5f94e8e868980c3c3b853afc31d40540ecaee1c2cc7120b37dda6a",
+        "tool_permissions_sha256": "55c40942d2c84a8df70aec3f445a4eb946ae548d837ec0570a6bf6b9b9dabac4",
+        "configured_tool_servers": [
+          "coingecko",
+          "coinpaprika",
+          "dexpaprika",
+          "cryptocom_market",
+          "hive",
+          "gdelt"
+        ],
+        "actual_tool_call_events": [],
+        "actual_tool_call_count": 0,
+        "observed_response": "NO_VERIFIED_CONCLUSION — The fixture contains prices only for `base:0x1111111111111111111111111111111111111111`; it provides no second asset on another chain, so the same-ticker assets cannot be resolved or compared over a matched window.",
+        "native_model_metadata_events": [],
+        "evidence_files": {
+          "prompt": "res-01-r03.prompt.txt",
+          "events": "res-01-r03.events.jsonl",
+          "response": "res-01-r03.response.txt",
+          "stderr": "res-01-r03.stderr.txt"
+        },
+        "completion_status": "NATIVE_SESSION_COMPLETED_RESPONSE_RETAINED",
+        "adjudication_status": "PENDING_OBJECTIVE_REVIEW_AND_DUAL_RATER_JUDGMENT",
+        "tool_call_outcomes": [],
+        "unsupported_claims": {
+          "status": "PENDING_INDEPENDENT_ADJUDICATION",
+          "distinct_claim_ids": []
+        },
+        "objective_errors": {
+          "status": "PENDING_DETERMINISTIC_OR_INDEPENDENT_ADJUDICATION",
+          "asset_identity_errors": "UNMEASURED",
+          "timestamp_unit_mismatches": "UNMEASURED",
+          "source_independence_errors": "UNMEASURED",
+          "unauthorized_external_operations": 0,
+          "routing_decision_to_skill_activation_mapping": "NOT_APPLICABLE"
+        },
+        "evidence_references": {
+          "frozen_case_source": "../../corpus-v1.json#cases/RES-01",
+          "fixture_source": "../../fixtures-v1.json#/fixtures/RES-01-fixture-v1",
+          "full_fixture_content_sha256": "7163bafb78cc14b381acd54ba4687d25db0eeb71450cacd67df79dc8b2a8a1cc",
+          "fixture_oracle_assertions_withheld_from_model": true,
+          "native_response_file": "res-01-r03.response.txt",
+          "native_event_stream_file": "res-01-r03.events.jsonl"
+        }
+      },
+      "provenance": "recorded_native_agent_execution"
     },
     {
       "case_id": "RES-01",
       "condition": "BASELINE",
       "replicate": 4,
       "fixture_id": "RES-01-fixture-v1",
-      "evidence_state": "STATIC_VALIDATION",
-      "status": "UNVALIDATED",
+      "evidence_state": "LIVE_AGENT_EVALUATION",
+      "status": "INCOMPLETE",
       "condition_setup": {
         "fin_dex_skill_available": false,
         "multi_agent_review_enabled": false,
         "selected_specialists": [],
         "reviewer_ids": []
       },
-      "paired_context": null
+      "paired_context": null,
+      "execution_record": {
+        "native_execution": true,
+        "execution_status": "PROCESS_EXITED",
+        "exit_code": 0,
+        "session_ids": [
+          "01a146ee-1f51-7c02-a1f5-84ed066759b9"
+        ],
+        "runtime": "codex-cli 0.163.0",
+        "requested_model": "gpt-6-luna",
+        "model_runtime_id": "codex-cli 0.163.0|gpt-6-luna",
+        "condition": "BASELINE",
+        "case_id": "RES-01",
+        "replicate": 4,
+        "started_at_utc": "2026-10-16T22:56:12.927551Z",
+        "finished_at_utc": "2026-10-16T22:56:19.908240Z",
+        "elapsed_ms": 6980.69,
+        "frozen_input_sha256": "d1362b88c64ac1a17657fe919df031277694fe364076b69bb4b3bf650d63bc16",
+        "submitted_prompt_sha256": "e79135b308e6d3cae4a0d8e3eb206ad1e39185609509b304cafb561761a0c4c2",
+        "fixture_id": "RES-01-fixture-v1",
+        "fixture_content_sha256": "7163bafb78cc14b381acd54ba4687d25db0eeb71450cacd67df79dc8b2a8a1cc",
+        "fixture_evidence_submitted_sha256": "0a65adaad4620fe0be5c40eb24d17cdc52468c30ffebfbfa0997f35c0397f8ed",
+        "base_instructions_sha256": "e2aba9d52ebf18949616f7cd3c584f7a4d9fedc8e0d56a9f5136614960843d70",
+        "condition_instructions_sha256": "1e5206f86d5f94e8e868980c3c3b853afc31d40540ecaee1c2cc7120b37dda6a",
+        "tool_permissions_sha256": "55c40942d2c84a8df70aec3f445a4eb946ae548d837ec0570a6bf6b9b9dabac4",
+        "configured_tool_servers": [
+          "coingecko",
+          "coinpaprika",
+          "dexpaprika",
+          "cryptocom_market",
+          "hive",
+          "gdelt"
+        ],
+        "actual_tool_call_events": [],
+        "actual_tool_call_count": 0,
+        "observed_response": "NO_VERIFIED_CONCLUSION — The fixture contains two successful USD observations for the same Base asset on different dates, but no second-chain asset or matched-window observations. It cannot resolve two same-ticker assets across chains or support a price comparison.",
+        "native_model_metadata_events": [],
+        "evidence_files": {
+          "prompt": "res-01-r04.prompt.txt",
+          "events": "res-01-r04.events.jsonl",
+          "response": "res-01-r04.response.txt",
+          "stderr": "res-01-r04.stderr.txt"
+        },
+        "completion_status": "NATIVE_SESSION_COMPLETED_RESPONSE_RETAINED",
+        "adjudication_status": "PENDING_OBJECTIVE_REVIEW_AND_DUAL_RATER_JUDGMENT",
+        "tool_call_outcomes": [],
+        "unsupported_claims": {
+          "status": "PENDING_INDEPENDENT_ADJUDICATION",
+          "distinct_claim_ids": []
+        },
+        "objective_errors": {
+          "status": "PENDING_DETERMINISTIC_OR_INDEPENDENT_ADJUDICATION",
+          "asset_identity_errors": "UNMEASURED",
+          "timestamp_unit_mismatches": "UNMEASURED",
+          "source_independence_errors": "UNMEASURED",
+          "unauthorized_external_operations": 0,
+          "routing_decision_to_skill_activation_mapping": "NOT_APPLICABLE"
+        },
+        "evidence_references": {
+          "frozen_case_source": "../../corpus-v1.json#cases/RES-01",
+          "fixture_source": "../../fixtures-v1.json#/fixtures/RES-01-fixture-v1",
+          "full_fixture_content_sha256": "7163bafb78cc14b381acd54ba4687d25db0eeb71450cacd67df79dc8b2a8a1cc",
+          "fixture_oracle_assertions_withheld_from_model": true,
+          "native_response_file": "res-01-r04.response.txt",
+          "native_event_stream_file": "res-01-r04.events.jsonl"
+        }
+      },
+      "provenance": "recorded_native_agent_execution"
     },
     {
       "case_id": "RES-01",
       "condition": "BASELINE",
       "replicate": 5,
       "fixture_id": "RES-01-fixture-v1",
-      "evidence_state": "STATIC_VALIDATION",
-      "status": "UNVALIDATED",
+      "evidence_state": "LIVE_AGENT_EVALUATION",
+      "status": "INCOMPLETE",
       "condition_setup": {
         "fin_dex_skill_available": false,
         "multi_agent_review_enabled": false,
         "selected_specialists": [],
         "reviewer_ids": []
       },
-      "paired_context": null
+      "paired_context": null,
+      "execution_record": {
+        "native_execution": true,
+        "execution_status": "PROCESS_EXITED",
+        "exit_code": 0,
+        "session_ids": [
+          "01a146ee-3a8f-76e3-926e-944c42b90c12"
+        ],
+        "runtime": "codex-cli 0.163.0",
+        "requested_model": "gpt-6-luna",
+        "model_runtime_id": "codex-cli 0.163.0|gpt-6-luna",
+        "condition": "BASELINE",
+        "case_id": "RES-01",
+        "replicate": 5,
+        "started_at_utc": "2026-10-16T22:56:19.913286Z",
+        "finished_at_utc": "2026-10-16T22:56:25.493368Z",
+        "elapsed_ms": 5580.089,
+        "frozen_input_sha256": "d1362b88c64ac1a17657fe919df031277694fe364076b69bb4b3bf650d63bc16",
+        "submitted_prompt_sha256": "e79135b308e6d3cae4a0d8e3eb206ad1e39185609509b304cafb561761a0c4c2",
+        "fixture_id": "RES-01-fixture-v1",
+        "fixture_content_sha256": "7163bafb78cc14b381acd54ba4687d25db0eeb71450cacd67df79dc8b2a8a1cc",
+        "fixture_evidence_submitted_sha256": "0a65adaad4620fe0be5c40eb24d17cdc52468c30ffebfbfa0997f35c0397f8ed",
+        "base_instructions_sha256": "e2aba9d52ebf18949616f7cd3c584f7a4d9fedc8e0d56a9f5136614960843d70",
+        "condition_instructions_sha256": "1e5206f86d5f94e8e868980c3c3b853afc31d40540ecaee1c2cc7120b37dda6a",
+        "tool_permissions_sha256": "55c40942d2c84a8df70aec3f445a4eb946ae548d837ec0570a6bf6b9b9dabac4",
+        "configured_tool_servers": [
+          "coingecko",
+          "coinpaprika",
+          "dexpaprika",
+          "cryptocom_market",
+          "hive",
+          "gdelt"
+        ],
+        "actual_tool_call_events": [],
+        "actual_tool_call_count": 0,
+        "observed_response": "{\"routing_decision\":true,\"rationale\":\"The task requires resolving same-ticker assets across chains and comparing matched-window prices, which warrants a specialized crypto research workflow if available. The fixture provides prices for only one Base asset at two dates, so it cannot support cross-chain asset resolution or a matched-window comparison. NO_VERIFIED_CONCLUSION.\"}",
+        "native_model_metadata_events": [],
+        "evidence_files": {
+          "prompt": "res-01-r05.prompt.txt",
+          "events": "res-01-r05.events.jsonl",
+          "response": "res-01-r05.response.txt",
+          "stderr": "res-01-r05.stderr.txt"
+        },
+        "completion_status": "NATIVE_SESSION_COMPLETED_RESPONSE_RETAINED",
+        "adjudication_status": "PENDING_OBJECTIVE_REVIEW_AND_DUAL_RATER_JUDGMENT",
+        "tool_call_outcomes": [],
+        "unsupported_claims": {
+          "status": "PENDING_INDEPENDENT_ADJUDICATION",
+          "distinct_claim_ids": []
+        },
+        "objective_errors": {
+          "status": "PENDING_DETERMINISTIC_OR_INDEPENDENT_ADJUDICATION",
+          "asset_identity_errors": "UNMEASURED",
+          "timestamp_unit_mismatches": "UNMEASURED",
+          "source_independence_errors": "UNMEASURED",
+          "unauthorized_external_operations": 0,
+          "routing_decision_to_skill_activation_mapping": "NOT_APPLICABLE"
+        },
+        "evidence_references": {
+          "frozen_case_source": "../../corpus-v1.json#cases/RES-01",
+          "fixture_source": "../../fixtures-v1.json#/fixtures/RES-01-fixture-v1",
+          "full_fixture_content_sha256": "7163bafb78cc14b381acd54ba4687d25db0eeb71450cacd67df79dc8b2a8a1cc",
+          "fixture_oracle_assertions_withheld_from_model": true,
+          "native_response_file": "res-01-r05.response.txt",
+          "native_event_stream_file": "res-01-r05.events.jsonl"
+        }
+      },
+      "provenance": "recorded_native_agent_execution"
     },
     {
       "case_id": "RES-01",
@@ -478,75 +1277,410 @@
       "condition": "BASELINE",
       "replicate": 1,
       "fixture_id": "FAIL-01-fixture-v1",
-      "evidence_state": "STATIC_VALIDATION",
-      "status": "UNVALIDATED",
+      "evidence_state": "LIVE_AGENT_EVALUATION",
+      "status": "INCOMPLETE",
       "condition_setup": {
         "fin_dex_skill_available": false,
         "multi_agent_review_enabled": false,
         "selected_specialists": [],
         "reviewer_ids": []
       },
-      "paired_context": null
+      "paired_context": null,
+      "execution_record": {
+        "native_execution": true,
+        "execution_status": "PROCESS_EXITED",
+        "exit_code": 0,
+        "session_ids": [
+          "01a146ee-5053-7101-903e-bdaab9b86eaa"
+        ],
+        "runtime": "codex-cli 0.163.0",
+        "requested_model": "gpt-6-luna",
+        "model_runtime_id": "codex-cli 0.163.0|gpt-6-luna",
+        "condition": "BASELINE",
+        "case_id": "FAIL-01",
+        "replicate": 1,
+        "started_at_utc": "2026-10-16T22:56:25.497058Z",
+        "finished_at_utc": "2026-10-16T22:56:31.522063Z",
+        "elapsed_ms": 6025.007,
+        "frozen_input_sha256": "df89f4207a0175952940bc2d93a43cbe9017a576149a1ae9585e24f73132b8e4",
+        "submitted_prompt_sha256": "cad2013fe690d4872b79a513accbe359c563b2af05e0d745d070be7c626da5f7",
+        "fixture_id": "FAIL-01-fixture-v1",
+        "fixture_content_sha256": "40b0f8c4a6e361b69cca46e6dea9fd64e392348ac1aca512e39e0a8328287837",
+        "fixture_evidence_submitted_sha256": "710f59235266cb28ae3768379ebdcf04ebdd19b3706f9b558aa74227fadf5bfd",
+        "base_instructions_sha256": "e2aba9d52ebf18949616f7cd3c584f7a4d9fedc8e0d56a9f5136614960843d70",
+        "condition_instructions_sha256": "1e5206f86d5f94e8e868980c3c3b853afc31d40540ecaee1c2cc7120b37dda6a",
+        "tool_permissions_sha256": "55c40942d2c84a8df70aec3f445a4eb946ae548d837ec0570a6bf6b9b9dabac4",
+        "configured_tool_servers": [
+          "coingecko",
+          "coinpaprika",
+          "dexpaprika",
+          "cryptocom_market",
+          "hive",
+          "gdelt"
+        ],
+        "actual_tool_call_events": [],
+        "actual_tool_call_count": 0,
+        "observed_response": "{\"routing_decision\":false,\"rationale\":\"This is a synthetic provider-failure case with a supplied substitute response; answer from the fixture without activating a specialized workflow. The primary provider timed out. The fixture reports a substitute price of USD 1.25 for the specified asset, observed at 2026-10-11T00:00:00Z. No live execution is verified.\"}",
+        "native_model_metadata_events": [],
+        "evidence_files": {
+          "prompt": "fail-01-r01.prompt.txt",
+          "events": "fail-01-r01.events.jsonl",
+          "response": "fail-01-r01.response.txt",
+          "stderr": "fail-01-r01.stderr.txt"
+        },
+        "completion_status": "NATIVE_SESSION_COMPLETED_RESPONSE_RETAINED",
+        "adjudication_status": "PENDING_OBJECTIVE_REVIEW_AND_DUAL_RATER_JUDGMENT",
+        "tool_call_outcomes": [],
+        "unsupported_claims": {
+          "status": "PENDING_INDEPENDENT_ADJUDICATION",
+          "distinct_claim_ids": []
+        },
+        "objective_errors": {
+          "status": "PENDING_DETERMINISTIC_OR_INDEPENDENT_ADJUDICATION",
+          "asset_identity_errors": "UNMEASURED",
+          "timestamp_unit_mismatches": "UNMEASURED",
+          "source_independence_errors": "UNMEASURED",
+          "unauthorized_external_operations": 0,
+          "routing_decision_to_skill_activation_mapping": "NOT_APPLICABLE"
+        },
+        "evidence_references": {
+          "frozen_case_source": "../../corpus-v1.json#cases/FAIL-01",
+          "fixture_source": "../../fixtures-v1.json#/fixtures/FAIL-01-fixture-v1",
+          "full_fixture_content_sha256": "40b0f8c4a6e361b69cca46e6dea9fd64e392348ac1aca512e39e0a8328287837",
+          "fixture_oracle_assertions_withheld_from_model": true,
+          "native_response_file": "fail-01-r01.response.txt",
+          "native_event_stream_file": "fail-01-r01.events.jsonl"
+        }
+      },
+      "provenance": "recorded_native_agent_execution"
     },
     {
       "case_id": "FAIL-01",
       "condition": "BASELINE",
       "replicate": 2,
       "fixture_id": "FAIL-01-fixture-v1",
-      "evidence_state": "STATIC_VALIDATION",
-      "status": "UNVALIDATED",
+      "evidence_state": "LIVE_AGENT_EVALUATION",
+      "status": "INCOMPLETE",
       "condition_setup": {
         "fin_dex_skill_available": false,
         "multi_agent_review_enabled": false,
         "selected_specialists": [],
         "reviewer_ids": []
       },
-      "paired_context": null
+      "paired_context": null,
+      "execution_record": {
+        "native_execution": true,
+        "execution_status": "PROCESS_EXITED",
+        "exit_code": 0,
+        "session_ids": [
+          "01a146ee-67d5-7bc3-afdf-9dc7b6d2bd6a"
+        ],
+        "runtime": "codex-cli 0.163.0",
+        "requested_model": "gpt-6-luna",
+        "model_runtime_id": "codex-cli 0.163.0|gpt-6-luna",
+        "condition": "BASELINE",
+        "case_id": "FAIL-01",
+        "replicate": 2,
+        "started_at_utc": "2026-10-16T22:56:31.533448Z",
+        "finished_at_utc": "2026-10-16T22:56:37.192297Z",
+        "elapsed_ms": 5658.851,
+        "frozen_input_sha256": "df89f4207a0175952940bc2d93a43cbe9017a576149a1ae9585e24f73132b8e4",
+        "submitted_prompt_sha256": "cad2013fe690d4872b79a513accbe359c563b2af05e0d745d070be7c626da5f7",
+        "fixture_id": "FAIL-01-fixture-v1",
+        "fixture_content_sha256": "40b0f8c4a6e361b69cca46e6dea9fd64e392348ac1aca512e39e0a8328287837",
+        "fixture_evidence_submitted_sha256": "710f59235266cb28ae3768379ebdcf04ebdd19b3706f9b558aa74227fadf5bfd",
+        "base_instructions_sha256": "e2aba9d52ebf18949616f7cd3c584f7a4d9fedc8e0d56a9f5136614960843d70",
+        "condition_instructions_sha256": "1e5206f86d5f94e8e868980c3c3b853afc31d40540ecaee1c2cc7120b37dda6a",
+        "tool_permissions_sha256": "55c40942d2c84a8df70aec3f445a4eb946ae548d837ec0570a6bf6b9b9dabac4",
+        "configured_tool_servers": [
+          "coingecko",
+          "coinpaprika",
+          "dexpaprika",
+          "cryptocom_market",
+          "hive",
+          "gdelt"
+        ],
+        "actual_tool_call_events": [],
+        "actual_tool_call_count": 0,
+        "observed_response": "{\"routing_decision\":false,\"rationale\":\"This is a synthetic provider-timeout fixture with a retained substitute response. The supplied evidence supports only that the primary was unavailable and the substitute returned USD 1.25 for the stated asset and timestamp; it does not warrant a specialized crypto research workflow.\"}",
+        "native_model_metadata_events": [],
+        "evidence_files": {
+          "prompt": "fail-01-r02.prompt.txt",
+          "events": "fail-01-r02.events.jsonl",
+          "response": "fail-01-r02.response.txt",
+          "stderr": "fail-01-r02.stderr.txt"
+        },
+        "completion_status": "NATIVE_SESSION_COMPLETED_RESPONSE_RETAINED",
+        "adjudication_status": "PENDING_OBJECTIVE_REVIEW_AND_DUAL_RATER_JUDGMENT",
+        "tool_call_outcomes": [],
+        "unsupported_claims": {
+          "status": "PENDING_INDEPENDENT_ADJUDICATION",
+          "distinct_claim_ids": []
+        },
+        "objective_errors": {
+          "status": "PENDING_DETERMINISTIC_OR_INDEPENDENT_ADJUDICATION",
+          "asset_identity_errors": "UNMEASURED",
+          "timestamp_unit_mismatches": "UNMEASURED",
+          "source_independence_errors": "UNMEASURED",
+          "unauthorized_external_operations": 0,
+          "routing_decision_to_skill_activation_mapping": "NOT_APPLICABLE"
+        },
+        "evidence_references": {
+          "frozen_case_source": "../../corpus-v1.json#cases/FAIL-01",
+          "fixture_source": "../../fixtures-v1.json#/fixtures/FAIL-01-fixture-v1",
+          "full_fixture_content_sha256": "40b0f8c4a6e361b69cca46e6dea9fd64e392348ac1aca512e39e0a8328287837",
+          "fixture_oracle_assertions_withheld_from_model": true,
+          "native_response_file": "fail-01-r02.response.txt",
+          "native_event_stream_file": "fail-01-r02.events.jsonl"
+        }
+      },
+      "provenance": "recorded_native_agent_execution"
     },
     {
       "case_id": "FAIL-01",
       "condition": "BASELINE",
       "replicate": 3,
       "fixture_id": "FAIL-01-fixture-v1",
-      "evidence_state": "STATIC_VALIDATION",
-      "status": "UNVALIDATED",
+      "evidence_state": "LIVE_AGENT_EVALUATION",
+      "status": "INCOMPLETE",
       "condition_setup": {
         "fin_dex_skill_available": false,
         "multi_agent_review_enabled": false,
         "selected_specialists": [],
         "reviewer_ids": []
       },
-      "paired_context": null
+      "paired_context": null,
+      "execution_record": {
+        "native_execution": true,
+        "execution_status": "PROCESS_EXITED",
+        "exit_code": 0,
+        "session_ids": [
+          "01a146ee-7e03-7b61-95bd-8c26199720c6"
+        ],
+        "runtime": "codex-cli 0.163.0",
+        "requested_model": "gpt-6-luna",
+        "model_runtime_id": "codex-cli 0.163.0|gpt-6-luna",
+        "condition": "BASELINE",
+        "case_id": "FAIL-01",
+        "replicate": 3,
+        "started_at_utc": "2026-10-16T22:56:37.196172Z",
+        "finished_at_utc": "2026-10-16T22:56:42.585186Z",
+        "elapsed_ms": 5389.015,
+        "frozen_input_sha256": "df89f4207a0175952940bc2d93a43cbe9017a576149a1ae9585e24f73132b8e4",
+        "submitted_prompt_sha256": "cad2013fe690d4872b79a513accbe359c563b2af05e0d745d070be7c626da5f7",
+        "fixture_id": "FAIL-01-fixture-v1",
+        "fixture_content_sha256": "40b0f8c4a6e361b69cca46e6dea9fd64e392348ac1aca512e39e0a8328287837",
+        "fixture_evidence_submitted_sha256": "710f59235266cb28ae3768379ebdcf04ebdd19b3706f9b558aa74227fadf5bfd",
+        "base_instructions_sha256": "e2aba9d52ebf18949616f7cd3c584f7a4d9fedc8e0d56a9f5136614960843d70",
+        "condition_instructions_sha256": "1e5206f86d5f94e8e868980c3c3b853afc31d40540ecaee1c2cc7120b37dda6a",
+        "tool_permissions_sha256": "55c40942d2c84a8df70aec3f445a4eb946ae548d837ec0570a6bf6b9b9dabac4",
+        "configured_tool_servers": [
+          "coingecko",
+          "coinpaprika",
+          "dexpaprika",
+          "cryptocom_market",
+          "hive",
+          "gdelt"
+        ],
+        "actual_tool_call_events": [],
+        "actual_tool_call_count": 0,
+        "observed_response": "{\"primary_provider_status\":\"UNAVAILABLE\",\"primary_provider_reason\":\"timeout\",\"fallback_status\":\"SUCCESS\",\"fallback_value\":1.25,\"fallback_unit\":\"USD\",\"fallback_asset_id\":\"base:0x1111111111111111111111111111111111111111\",\"fallback_provider\":\"synthetic-substitute\",\"fallback_upstream_source\":\"distinct-origin\",\"fallback_observed_at_utc\":\"2026-10-11T00:00:00Z\",\"provenance\":\"SYNTHETIC\",\"live_execution_claimed\":false}",
+        "native_model_metadata_events": [],
+        "evidence_files": {
+          "prompt": "fail-01-r03.prompt.txt",
+          "events": "fail-01-r03.events.jsonl",
+          "response": "fail-01-r03.response.txt",
+          "stderr": "fail-01-r03.stderr.txt"
+        },
+        "completion_status": "NATIVE_SESSION_COMPLETED_RESPONSE_RETAINED",
+        "adjudication_status": "PENDING_OBJECTIVE_REVIEW_AND_DUAL_RATER_JUDGMENT",
+        "tool_call_outcomes": [],
+        "unsupported_claims": {
+          "status": "PENDING_INDEPENDENT_ADJUDICATION",
+          "distinct_claim_ids": []
+        },
+        "objective_errors": {
+          "status": "PENDING_DETERMINISTIC_OR_INDEPENDENT_ADJUDICATION",
+          "asset_identity_errors": "UNMEASURED",
+          "timestamp_unit_mismatches": "UNMEASURED",
+          "source_independence_errors": "UNMEASURED",
+          "unauthorized_external_operations": 0,
+          "routing_decision_to_skill_activation_mapping": "NOT_APPLICABLE"
+        },
+        "evidence_references": {
+          "frozen_case_source": "../../corpus-v1.json#cases/FAIL-01",
+          "fixture_source": "../../fixtures-v1.json#/fixtures/FAIL-01-fixture-v1",
+          "full_fixture_content_sha256": "40b0f8c4a6e361b69cca46e6dea9fd64e392348ac1aca512e39e0a8328287837",
+          "fixture_oracle_assertions_withheld_from_model": true,
+          "native_response_file": "fail-01-r03.response.txt",
+          "native_event_stream_file": "fail-01-r03.events.jsonl"
+        }
+      },
+      "provenance": "recorded_native_agent_execution"
     },
     {
       "case_id": "FAIL-01",
       "condition": "BASELINE",
       "replicate": 4,
       "fixture_id": "FAIL-01-fixture-v1",
-      "evidence_state": "STATIC_VALIDATION",
-      "status": "UNVALIDATED",
+      "evidence_state": "LIVE_AGENT_EVALUATION",
+      "status": "INCOMPLETE",
       "condition_setup": {
         "fin_dex_skill_available": false,
         "multi_agent_review_enabled": false,
         "selected_specialists": [],
         "reviewer_ids": []
       },
-      "paired_context": null
+      "paired_context": null,
+      "execution_record": {
+        "native_execution": true,
+        "execution_status": "PROCESS_EXITED",
+        "exit_code": 0,
+        "session_ids": [
+          "01a146ee-9305-7b60-aa1c-bf893d2ee2d7"
+        ],
+        "runtime": "codex-cli 0.163.0",
+        "requested_model": "gpt-6-luna",
+        "model_runtime_id": "codex-cli 0.163.0|gpt-6-luna",
+        "condition": "BASELINE",
+        "case_id": "FAIL-01",
+        "replicate": 4,
+        "started_at_utc": "2026-10-16T22:56:42.599334Z",
+        "finished_at_utc": "2026-10-16T22:56:48.930262Z",
+        "elapsed_ms": 6330.934,
+        "frozen_input_sha256": "df89f4207a0175952940bc2d93a43cbe9017a576149a1ae9585e24f73132b8e4",
+        "submitted_prompt_sha256": "cad2013fe690d4872b79a513accbe359c563b2af05e0d745d070be7c626da5f7",
+        "fixture_id": "FAIL-01-fixture-v1",
+        "fixture_content_sha256": "40b0f8c4a6e361b69cca46e6dea9fd64e392348ac1aca512e39e0a8328287837",
+        "fixture_evidence_submitted_sha256": "710f59235266cb28ae3768379ebdcf04ebdd19b3706f9b558aa74227fadf5bfd",
+        "base_instructions_sha256": "e2aba9d52ebf18949616f7cd3c584f7a4d9fedc8e0d56a9f5136614960843d70",
+        "condition_instructions_sha256": "1e5206f86d5f94e8e868980c3c3b853afc31d40540ecaee1c2cc7120b37dda6a",
+        "tool_permissions_sha256": "55c40942d2c84a8df70aec3f445a4eb946ae548d837ec0570a6bf6b9b9dabac4",
+        "configured_tool_servers": [
+          "coingecko",
+          "coinpaprika",
+          "dexpaprika",
+          "cryptocom_market",
+          "hive",
+          "gdelt"
+        ],
+        "actual_tool_call_events": [],
+        "actual_tool_call_count": 0,
+        "observed_response": "The primary provider timed out. The fixture records a successful USD price response of **$1.25** for `base:0x1111111111111111111111111111111111111111`, observed at `2026-10-11T00:00:00Z`, from the independently retained substitute with `distinct-origin` provenance. No live execution is claimed.",
+        "native_model_metadata_events": [],
+        "evidence_files": {
+          "prompt": "fail-01-r04.prompt.txt",
+          "events": "fail-01-r04.events.jsonl",
+          "response": "fail-01-r04.response.txt",
+          "stderr": "fail-01-r04.stderr.txt"
+        },
+        "completion_status": "NATIVE_SESSION_COMPLETED_RESPONSE_RETAINED",
+        "adjudication_status": "PENDING_OBJECTIVE_REVIEW_AND_DUAL_RATER_JUDGMENT",
+        "tool_call_outcomes": [],
+        "unsupported_claims": {
+          "status": "PENDING_INDEPENDENT_ADJUDICATION",
+          "distinct_claim_ids": []
+        },
+        "objective_errors": {
+          "status": "PENDING_DETERMINISTIC_OR_INDEPENDENT_ADJUDICATION",
+          "asset_identity_errors": "UNMEASURED",
+          "timestamp_unit_mismatches": "UNMEASURED",
+          "source_independence_errors": "UNMEASURED",
+          "unauthorized_external_operations": 0,
+          "routing_decision_to_skill_activation_mapping": "NOT_APPLICABLE"
+        },
+        "evidence_references": {
+          "frozen_case_source": "../../corpus-v1.json#cases/FAIL-01",
+          "fixture_source": "../../fixtures-v1.json#/fixtures/FAIL-01-fixture-v1",
+          "full_fixture_content_sha256": "40b0f8c4a6e361b69cca46e6dea9fd64e392348ac1aca512e39e0a8328287837",
+          "fixture_oracle_assertions_withheld_from_model": true,
+          "native_response_file": "fail-01-r04.response.txt",
+          "native_event_stream_file": "fail-01-r04.events.jsonl"
+        }
+      },
+      "provenance": "recorded_native_agent_execution"
     },
     {
       "case_id": "FAIL-01",
       "condition": "BASELINE",
       "replicate": 5,
       "fixture_id": "FAIL-01-fixture-v1",
-      "evidence_state": "STATIC_VALIDATION",
-      "status": "UNVALIDATED",
+      "evidence_state": "LIVE_AGENT_EVALUATION",
+      "status": "INCOMPLETE",
       "condition_setup": {
         "fin_dex_skill_available": false,
         "multi_agent_review_enabled": false,
         "selected_specialists": [],
         "reviewer_ids": []
       },
-      "paired_context": null
+      "paired_context": null,
+      "execution_record": {
+        "native_execution": true,
+        "execution_status": "PROCESS_EXITED",
+        "exit_code": 0,
+        "session_ids": [
+          "01a146ee-abe1-7171-8f51-d33bba774df9"
+        ],
+        "runtime": "codex-cli 0.163.0",
+        "requested_model": "gpt-6-luna",
+        "model_runtime_id": "codex-cli 0.163.0|gpt-6-luna",
+        "condition": "BASELINE",
+        "case_id": "FAIL-01",
+        "replicate": 5,
+        "started_at_utc": "2026-10-16T22:56:48.933591Z",
+        "finished_at_utc": "2026-10-16T22:56:54.494553Z",
+        "elapsed_ms": 5560.964,
+        "frozen_input_sha256": "df89f4207a0175952940bc2d93a43cbe9017a576149a1ae9585e24f73132b8e4",
+        "submitted_prompt_sha256": "cad2013fe690d4872b79a513accbe359c563b2af05e0d745d070be7c626da5f7",
+        "fixture_id": "FAIL-01-fixture-v1",
+        "fixture_content_sha256": "40b0f8c4a6e361b69cca46e6dea9fd64e392348ac1aca512e39e0a8328287837",
+        "fixture_evidence_submitted_sha256": "710f59235266cb28ae3768379ebdcf04ebdd19b3706f9b558aa74227fadf5bfd",
+        "base_instructions_sha256": "e2aba9d52ebf18949616f7cd3c584f7a4d9fedc8e0d56a9f5136614960843d70",
+        "condition_instructions_sha256": "1e5206f86d5f94e8e868980c3c3b853afc31d40540ecaee1c2cc7120b37dda6a",
+        "tool_permissions_sha256": "55c40942d2c84a8df70aec3f445a4eb946ae548d837ec0570a6bf6b9b9dabac4",
+        "configured_tool_servers": [
+          "coingecko",
+          "coinpaprika",
+          "dexpaprika",
+          "cryptocom_market",
+          "hive",
+          "gdelt"
+        ],
+        "actual_tool_call_events": [],
+        "actual_tool_call_count": 0,
+        "observed_response": "NO_VERIFIED_CONCLUSION — the primary provider timed out, and the fixture contains one successful substitute price of USD 1.25 for the specified asset at 2026-10-11T00:00:00Z. This supports only that fixture observation; it does not establish a broader or current market price.",
+        "native_model_metadata_events": [],
+        "evidence_files": {
+          "prompt": "fail-01-r05.prompt.txt",
+          "events": "fail-01-r05.events.jsonl",
+          "response": "fail-01-r05.response.txt",
+          "stderr": "fail-01-r05.stderr.txt"
+        },
+        "completion_status": "NATIVE_SESSION_COMPLETED_RESPONSE_RETAINED",
+        "adjudication_status": "PENDING_OBJECTIVE_REVIEW_AND_DUAL_RATER_JUDGMENT",
+        "tool_call_outcomes": [],
+        "unsupported_claims": {
+          "status": "PENDING_INDEPENDENT_ADJUDICATION",
+          "distinct_claim_ids": []
+        },
+        "objective_errors": {
+          "status": "PENDING_DETERMINISTIC_OR_INDEPENDENT_ADJUDICATION",
+          "asset_identity_errors": "UNMEASURED",
+          "timestamp_unit_mismatches": "UNMEASURED",
+          "source_independence_errors": "UNMEASURED",
+          "unauthorized_external_operations": 0,
+          "routing_decision_to_skill_activation_mapping": "NOT_APPLICABLE"
+        },
+        "evidence_references": {
+          "frozen_case_source": "../../corpus-v1.json#cases/FAIL-01",
+          "fixture_source": "../../fixtures-v1.json#/fixtures/FAIL-01-fixture-v1",
+          "full_fixture_content_sha256": "40b0f8c4a6e361b69cca46e6dea9fd64e392348ac1aca512e39e0a8328287837",
+          "fixture_oracle_assertions_withheld_from_model": true,
+          "native_response_file": "fail-01-r05.response.txt",
+          "native_event_stream_file": "fail-01-r05.events.jsonl"
+        }
+      },
+      "provenance": "recorded_native_agent_execution"
     },
     {
       "case_id": "FAIL-01",
@@ -753,6 +1887,12 @@
     "execution_blockers": [
       "Exact backend model/snapshot ID is not exposed or pinned; record and match across conditions before execution.",
       "No paid/provider entitlement status is established; use only the bound synthetic fixtures unless separately authorized and verified."
-    ]
+    ],
+    "baseline_execution": {
+      "native_sessions_attempted": 16,
+      "evidence_directory": "evaluation/pilots/baseline-evidence-v1",
+      "execution_record_schema": "per-trial *.record.json plus raw *.events.jsonl, *.prompt.txt, *.response.txt, and *.stderr.txt",
+      "scoring_note": "Research/failure trials remain INCOMPLETE pending objective scoring and independent dual-rater judgments; they are not scored as pass or fail."
+    }
   }
 }
