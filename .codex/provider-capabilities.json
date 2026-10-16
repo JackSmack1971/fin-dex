@@ -1,0 +1,879 @@
+{
+  "schema_version": 1,
+  "model": {
+    "provider_statuses": [
+      "CONFIGURED",
+      "DISCOVERED",
+      "RESPONDED",
+      "QUALIFIED",
+      "UNAVAILABLE"
+    ],
+    "tool_effects": [
+      "READ_ONLY",
+      "STATEFUL",
+      "UNKNOWN"
+    ],
+    "status_advances_require_evidence": true,
+    "offline_validation_is_not_live_verification": true
+  },
+  "providers": [
+    {
+      "id": "coingecko",
+      "endpoint": "https://mcp.api.coingecko.com/mcp",
+      "status": "DISCOVERED",
+      "status_evidence": {
+        "kind": "tool_metadata_visible_in_codex_session",
+        "observed_at_utc": "2026-10-16T11:03:05Z",
+        "tool_identity": "mcp__coingecko__search_docs"
+      },
+      "responded_evidence": null,
+      "qualification_evidence": null,
+      "automatic_research_allowlist": [
+        "search_docs"
+      ],
+      "tools": [
+        {
+          "name": "search_docs",
+          "effect": "READ_ONLY",
+          "automatic_research": true,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__coingecko__search_docs"
+        },
+        {
+          "name": "execute",
+          "effect": "UNKNOWN",
+          "automatic_research": false,
+          "evidence": "Runtime tool executes caller-supplied TypeScript against an authenticated SDK; effects cannot be bounded from metadata.",
+          "category": "unbounded_code_execution",
+          "identity": "mcp__coingecko__execute"
+        }
+      ],
+      "discovery_source": "Codex runtime tool registry metadata (exact tool identity, description, and typed signature)",
+      "status_history": [
+        {
+          "status": "CONFIGURED",
+          "evidence": {
+            "configuration": "local_project_config",
+            "endpoint_preserved": true
+          }
+        },
+        {
+          "status": "DISCOVERED",
+          "evidence": {
+            "tool_metadata": {
+              "kind": "visible_codex_tool_registry",
+              "observed_at_utc": "2026-10-16T11:03:05Z",
+              "tool_identity": "mcp__coingecko__search_docs"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "coinpaprika",
+      "endpoint": "https://mcp.coinpaprika.com/streamable-http",
+      "status": "DISCOVERED",
+      "status_evidence": {
+        "kind": "tool_metadata_visible_in_codex_session",
+        "observed_at_utc": "2026-10-16T11:03:05Z",
+        "tool_identity": "mcp__coinpaprika__getCapabilities"
+      },
+      "responded_evidence": null,
+      "qualification_evidence": null,
+      "automatic_research_allowlist": [
+        "getCapabilities",
+        "getCoinMarkets",
+        "getCoinOHLCVLatest",
+        "getCoinOHLCVToday",
+        "getHistoricalTickerByContract",
+        "getTickerByContract",
+        "getTickersById",
+        "getTickersHistoricalById",
+        "resolveId"
+      ],
+      "tools": [
+        {
+          "name": "getCapabilities",
+          "effect": "READ_ONLY",
+          "automatic_research": true,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__coinpaprika__getCapabilities"
+        },
+        {
+          "name": "getCoinById",
+          "effect": "READ_ONLY",
+          "automatic_research": false,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__coinpaprika__getCoinById"
+        },
+        {
+          "name": "getCoinEvents",
+          "effect": "READ_ONLY",
+          "automatic_research": false,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__coinpaprika__getCoinEvents"
+        },
+        {
+          "name": "getCoinExchanges",
+          "effect": "READ_ONLY",
+          "automatic_research": false,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__coinpaprika__getCoinExchanges"
+        },
+        {
+          "name": "getCoinMarkets",
+          "effect": "READ_ONLY",
+          "automatic_research": true,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__coinpaprika__getCoinMarkets"
+        },
+        {
+          "name": "getCoinOHLCVLatest",
+          "effect": "READ_ONLY",
+          "automatic_research": true,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__coinpaprika__getCoinOHLCVLatest"
+        },
+        {
+          "name": "getCoinOHLCVToday",
+          "effect": "READ_ONLY",
+          "automatic_research": true,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__coinpaprika__getCoinOHLCVToday"
+        },
+        {
+          "name": "getCoins",
+          "effect": "READ_ONLY",
+          "automatic_research": false,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__coinpaprika__getCoins"
+        },
+        {
+          "name": "getContracts",
+          "effect": "READ_ONLY",
+          "automatic_research": false,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__coinpaprika__getContracts"
+        },
+        {
+          "name": "getExchangeByID",
+          "effect": "READ_ONLY",
+          "automatic_research": false,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__coinpaprika__getExchangeByID"
+        },
+        {
+          "name": "getExchangeMarkets",
+          "effect": "READ_ONLY",
+          "automatic_research": false,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__coinpaprika__getExchangeMarkets"
+        },
+        {
+          "name": "getExchanges",
+          "effect": "READ_ONLY",
+          "automatic_research": false,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__coinpaprika__getExchanges"
+        },
+        {
+          "name": "getGlobal",
+          "effect": "READ_ONLY",
+          "automatic_research": false,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__coinpaprika__getGlobal"
+        },
+        {
+          "name": "getHistoricalTickerByContract",
+          "effect": "READ_ONLY",
+          "automatic_research": true,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__coinpaprika__getHistoricalTickerByContract"
+        },
+        {
+          "name": "getPeopleById",
+          "effect": "READ_ONLY",
+          "automatic_research": false,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__coinpaprika__getPeopleById"
+        },
+        {
+          "name": "getPlatforms",
+          "effect": "READ_ONLY",
+          "automatic_research": false,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__coinpaprika__getPlatforms"
+        },
+        {
+          "name": "getTagById",
+          "effect": "READ_ONLY",
+          "automatic_research": false,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__coinpaprika__getTagById"
+        },
+        {
+          "name": "getTags",
+          "effect": "READ_ONLY",
+          "automatic_research": false,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__coinpaprika__getTags"
+        },
+        {
+          "name": "getTickerByContract",
+          "effect": "READ_ONLY",
+          "automatic_research": true,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__coinpaprika__getTickerByContract"
+        },
+        {
+          "name": "getTickers",
+          "effect": "READ_ONLY",
+          "automatic_research": false,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__coinpaprika__getTickers"
+        },
+        {
+          "name": "getTickersById",
+          "effect": "READ_ONLY",
+          "automatic_research": true,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__coinpaprika__getTickersById"
+        },
+        {
+          "name": "getTickersHistoricalById",
+          "effect": "READ_ONLY",
+          "automatic_research": true,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__coinpaprika__getTickersHistoricalById"
+        },
+        {
+          "name": "priceConverter",
+          "effect": "READ_ONLY",
+          "automatic_research": false,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__coinpaprika__priceConverter"
+        },
+        {
+          "name": "resolveId",
+          "effect": "READ_ONLY",
+          "automatic_research": true,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__coinpaprika__resolveId"
+        },
+        {
+          "name": "search",
+          "effect": "READ_ONLY",
+          "automatic_research": false,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__coinpaprika__search"
+        },
+        {
+          "name": "status",
+          "effect": "READ_ONLY",
+          "automatic_research": false,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "provider_status",
+          "identity": "mcp__coinpaprika__status"
+        },
+        {
+          "name": "submitFeedback",
+          "effect": "STATEFUL",
+          "automatic_research": false,
+          "evidence": "Runtime tool metadata explicitly submits feedback or identifies a stateful endpoint.",
+          "category": "feedback",
+          "identity": "mcp__coinpaprika__submitFeedback"
+        }
+      ],
+      "discovery_source": "Codex runtime tool registry metadata (exact tool identity, description, and typed signature)",
+      "status_history": [
+        {
+          "status": "CONFIGURED",
+          "evidence": {
+            "configuration": "local_project_config",
+            "endpoint_preserved": true
+          }
+        },
+        {
+          "status": "DISCOVERED",
+          "evidence": {
+            "tool_metadata": {
+              "kind": "visible_codex_tool_registry",
+              "observed_at_utc": "2026-10-16T11:03:05Z",
+              "tool_identity": "mcp__coinpaprika__getCapabilities"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "dexpaprika",
+      "endpoint": "https://mcp.dexpaprika.com/streamable-http",
+      "status": "DISCOVERED",
+      "status_evidence": {
+        "kind": "tool_metadata_visible_in_codex_session",
+        "observed_at_utc": "2026-10-16T11:03:05Z",
+        "tool_identity": "mcp__dexpaprika__filterNetworkTokens"
+      },
+      "responded_evidence": null,
+      "qualification_evidence": null,
+      "automatic_research_allowlist": [
+        "getNetworkDexes",
+        "getNetworkPools",
+        "getNetworks",
+        "getPoolDetails",
+        "getPoolIndicator",
+        "getPoolOHLCV",
+        "getTokenDetails",
+        "getTokenIndicator",
+        "getTokenMultiPrices",
+        "getTokenOHLCV",
+        "getTokenPools"
+      ],
+      "tools": [
+        {
+          "name": "filterNetworkTokens",
+          "effect": "READ_ONLY",
+          "automatic_research": false,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__dexpaprika__filterNetworkTokens"
+        },
+        {
+          "name": "getCapabilities",
+          "effect": "READ_ONLY",
+          "automatic_research": false,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__dexpaprika__getCapabilities"
+        },
+        {
+          "name": "getDexPools",
+          "effect": "READ_ONLY",
+          "automatic_research": false,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__dexpaprika__getDexPools"
+        },
+        {
+          "name": "getNetworkDexes",
+          "effect": "READ_ONLY",
+          "automatic_research": true,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__dexpaprika__getNetworkDexes"
+        },
+        {
+          "name": "getNetworkPools",
+          "effect": "READ_ONLY",
+          "automatic_research": true,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__dexpaprika__getNetworkPools"
+        },
+        {
+          "name": "getNetworkPoolsFilter",
+          "effect": "READ_ONLY",
+          "automatic_research": false,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__dexpaprika__getNetworkPoolsFilter"
+        },
+        {
+          "name": "getNetworks",
+          "effect": "READ_ONLY",
+          "automatic_research": true,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__dexpaprika__getNetworks"
+        },
+        {
+          "name": "getPoolDetails",
+          "effect": "READ_ONLY",
+          "automatic_research": true,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__dexpaprika__getPoolDetails"
+        },
+        {
+          "name": "getPoolIndicator",
+          "effect": "READ_ONLY",
+          "automatic_research": true,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__dexpaprika__getPoolIndicator"
+        },
+        {
+          "name": "getPoolOHLCV",
+          "effect": "READ_ONLY",
+          "automatic_research": true,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__dexpaprika__getPoolOHLCV"
+        },
+        {
+          "name": "getPoolTransactions",
+          "effect": "READ_ONLY",
+          "automatic_research": false,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__dexpaprika__getPoolTransactions"
+        },
+        {
+          "name": "getStats",
+          "effect": "READ_ONLY",
+          "automatic_research": false,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__dexpaprika__getStats"
+        },
+        {
+          "name": "getTokenDetails",
+          "effect": "READ_ONLY",
+          "automatic_research": true,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__dexpaprika__getTokenDetails"
+        },
+        {
+          "name": "getTokenIndicator",
+          "effect": "READ_ONLY",
+          "automatic_research": true,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__dexpaprika__getTokenIndicator"
+        },
+        {
+          "name": "getTokenMultiPrices",
+          "effect": "READ_ONLY",
+          "automatic_research": true,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__dexpaprika__getTokenMultiPrices"
+        },
+        {
+          "name": "getTokenOHLCV",
+          "effect": "READ_ONLY",
+          "automatic_research": true,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__dexpaprika__getTokenOHLCV"
+        },
+        {
+          "name": "getTokenPools",
+          "effect": "READ_ONLY",
+          "automatic_research": true,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__dexpaprika__getTokenPools"
+        },
+        {
+          "name": "getTopTokens",
+          "effect": "READ_ONLY",
+          "automatic_research": false,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__dexpaprika__getTopTokens"
+        },
+        {
+          "name": "search",
+          "effect": "READ_ONLY",
+          "automatic_research": false,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__dexpaprika__search"
+        },
+        {
+          "name": "submitFeedback",
+          "effect": "STATEFUL",
+          "automatic_research": false,
+          "evidence": "Runtime tool metadata explicitly submits feedback or identifies a stateful endpoint.",
+          "category": "feedback",
+          "identity": "mcp__dexpaprika__submitFeedback"
+        }
+      ],
+      "discovery_source": "Codex runtime tool registry metadata (exact tool identity, description, and typed signature)",
+      "status_history": [
+        {
+          "status": "CONFIGURED",
+          "evidence": {
+            "configuration": "local_project_config",
+            "endpoint_preserved": true
+          }
+        },
+        {
+          "status": "DISCOVERED",
+          "evidence": {
+            "tool_metadata": {
+              "kind": "visible_codex_tool_registry",
+              "observed_at_utc": "2026-10-16T11:03:05Z",
+              "tool_identity": "mcp__dexpaprika__filterNetworkTokens"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "cryptocom_market",
+      "endpoint": "https://mcp.crypto.com/market-data/mcp",
+      "status": "DISCOVERED",
+      "status_evidence": {
+        "kind": "tool_metadata_visible_in_codex_session",
+        "observed_at_utc": "2026-10-16T11:03:05Z",
+        "tool_identity": "mcp__cryptocom_market__get_book"
+      },
+      "responded_evidence": null,
+      "qualification_evidence": null,
+      "automatic_research_allowlist": [
+        "get_book",
+        "get_candlestick",
+        "get_index_price",
+        "get_instrument",
+        "get_instruments",
+        "get_mark_price",
+        "get_ticker",
+        "get_tickers",
+        "get_trades"
+      ],
+      "tools": [
+        {
+          "name": "get_book",
+          "effect": "READ_ONLY",
+          "automatic_research": true,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__cryptocom_market__get_book"
+        },
+        {
+          "name": "get_candlestick",
+          "effect": "READ_ONLY",
+          "automatic_research": true,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__cryptocom_market__get_candlestick"
+        },
+        {
+          "name": "get_index_price",
+          "effect": "READ_ONLY",
+          "automatic_research": true,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__cryptocom_market__get_index_price"
+        },
+        {
+          "name": "get_instrument",
+          "effect": "READ_ONLY",
+          "automatic_research": true,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__cryptocom_market__get_instrument"
+        },
+        {
+          "name": "get_instruments",
+          "effect": "READ_ONLY",
+          "automatic_research": true,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__cryptocom_market__get_instruments"
+        },
+        {
+          "name": "get_mark_price",
+          "effect": "READ_ONLY",
+          "automatic_research": true,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__cryptocom_market__get_mark_price"
+        },
+        {
+          "name": "get_ticker",
+          "effect": "READ_ONLY",
+          "automatic_research": true,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__cryptocom_market__get_ticker"
+        },
+        {
+          "name": "get_tickers",
+          "effect": "READ_ONLY",
+          "automatic_research": true,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__cryptocom_market__get_tickers"
+        },
+        {
+          "name": "get_trades",
+          "effect": "READ_ONLY",
+          "automatic_research": true,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__cryptocom_market__get_trades"
+        }
+      ],
+      "discovery_source": "Codex runtime tool registry metadata (exact tool identity, description, and typed signature)",
+      "status_history": [
+        {
+          "status": "CONFIGURED",
+          "evidence": {
+            "configuration": "local_project_config",
+            "endpoint_preserved": true
+          }
+        },
+        {
+          "status": "DISCOVERED",
+          "evidence": {
+            "tool_metadata": {
+              "kind": "visible_codex_tool_registry",
+              "observed_at_utc": "2026-10-16T11:03:05Z",
+              "tool_identity": "mcp__cryptocom_market__get_book"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "hive",
+      "endpoint": "https://mcp.hiveintelligence.xyz/mcp",
+      "status": "DISCOVERED",
+      "status_evidence": {
+        "kind": "tool_metadata_visible_in_codex_session",
+        "observed_at_utc": "2026-10-16T11:03:05Z",
+        "tool_identity": "mcp__hive__check_token_safety"
+      },
+      "responded_evidence": null,
+      "qualification_evidence": null,
+      "automatic_research_allowlist": [
+        "check_token_safety",
+        "get_api_endpoint_schema",
+        "get_token_price",
+        "invoke_api_endpoint",
+        "search_tools",
+        "validate_task_result"
+      ],
+      "tools": [
+        {
+          "name": "check_token_safety",
+          "effect": "READ_ONLY",
+          "automatic_research": true,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__hive__check_token_safety"
+        },
+        {
+          "name": "get_api_endpoint_schema",
+          "effect": "READ_ONLY",
+          "automatic_research": true,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__hive__get_api_endpoint_schema"
+        },
+        {
+          "name": "get_token_price",
+          "effect": "READ_ONLY",
+          "automatic_research": true,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__hive__get_token_price"
+        },
+        {
+          "name": "get_wallet_portfolio",
+          "effect": "READ_ONLY",
+          "automatic_research": false,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "wallet",
+          "identity": "mcp__hive__get_wallet_portfolio"
+        },
+        {
+          "name": "invoke_api_endpoint",
+          "effect": "READ_ONLY",
+          "automatic_research": true,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__hive__invoke_api_endpoint"
+        },
+        {
+          "name": "search_tools",
+          "effect": "READ_ONLY",
+          "automatic_research": true,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__hive__search_tools"
+        },
+        {
+          "name": "validate_task_result",
+          "effect": "READ_ONLY",
+          "automatic_research": true,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__hive__validate_task_result"
+        },
+        {
+          "name": "invoke_stateful_endpoint",
+          "effect": "STATEFUL",
+          "automatic_research": false,
+          "evidence": "Runtime tool metadata explicitly submits feedback or identifies a stateful endpoint.",
+          "category": "stateful",
+          "identity": "mcp__hive__invoke_stateful_endpoint"
+        }
+      ],
+      "discovery_source": "Codex runtime tool registry metadata (exact tool identity, description, and typed signature)",
+      "status_history": [
+        {
+          "status": "CONFIGURED",
+          "evidence": {
+            "configuration": "local_project_config",
+            "endpoint_preserved": true
+          }
+        },
+        {
+          "status": "DISCOVERED",
+          "evidence": {
+            "tool_metadata": {
+              "kind": "visible_codex_tool_registry",
+              "observed_at_utc": "2026-10-16T11:03:05Z",
+              "tool_identity": "mcp__hive__check_token_safety"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "gdelt",
+      "endpoint": "https://gdelt.caseyjhand.com/mcp",
+      "status": "DISCOVERED",
+      "status_evidence": {
+        "kind": "tool_metadata_visible_in_codex_session",
+        "observed_at_utc": "2026-10-16T11:03:05Z",
+        "tool_identity": "mcp__gdelt__gdelt_get_coverage_breakdown"
+      },
+      "responded_evidence": null,
+      "qualification_evidence": null,
+      "automatic_research_allowlist": [
+        "gdelt_get_coverage_breakdown",
+        "gdelt_get_coverage_timeline",
+        "gdelt_get_tone_distribution",
+        "gdelt_search_articles",
+        "gdelt_search_themes",
+        "gdelt_search_tv"
+      ],
+      "tools": [
+        {
+          "name": "gdelt_get_coverage_breakdown",
+          "effect": "READ_ONLY",
+          "automatic_research": true,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__gdelt__gdelt_get_coverage_breakdown"
+        },
+        {
+          "name": "gdelt_get_coverage_timeline",
+          "effect": "READ_ONLY",
+          "automatic_research": true,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__gdelt__gdelt_get_coverage_timeline"
+        },
+        {
+          "name": "gdelt_get_tone_distribution",
+          "effect": "READ_ONLY",
+          "automatic_research": true,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__gdelt__gdelt_get_tone_distribution"
+        },
+        {
+          "name": "gdelt_get_tv_clips",
+          "effect": "READ_ONLY",
+          "automatic_research": false,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__gdelt__gdelt_get_tv_clips"
+        },
+        {
+          "name": "gdelt_get_tv_context",
+          "effect": "READ_ONLY",
+          "automatic_research": false,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__gdelt__gdelt_get_tv_context"
+        },
+        {
+          "name": "gdelt_list_tv_stations",
+          "effect": "READ_ONLY",
+          "automatic_research": false,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__gdelt__gdelt_list_tv_stations"
+        },
+        {
+          "name": "gdelt_search_articles",
+          "effect": "READ_ONLY",
+          "automatic_research": true,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__gdelt__gdelt_search_articles"
+        },
+        {
+          "name": "gdelt_search_themes",
+          "effect": "READ_ONLY",
+          "automatic_research": true,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__gdelt__gdelt_search_themes"
+        },
+        {
+          "name": "gdelt_search_tv",
+          "effect": "READ_ONLY",
+          "automatic_research": true,
+          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
+          "category": "research_data",
+          "identity": "mcp__gdelt__gdelt_search_tv"
+        }
+      ],
+      "discovery_source": "Codex runtime tool registry metadata (exact tool identity, description, and typed signature)",
+      "status_history": [
+        {
+          "status": "CONFIGURED",
+          "evidence": {
+            "configuration": "local_project_config",
+            "endpoint_preserved": true
+          }
+        },
+        {
+          "status": "DISCOVERED",
+          "evidence": {
+            "tool_metadata": {
+              "kind": "visible_codex_tool_registry",
+              "observed_at_utc": "2026-10-16T11:03:05Z",
+              "tool_identity": "mcp__gdelt__gdelt_get_coverage_breakdown"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

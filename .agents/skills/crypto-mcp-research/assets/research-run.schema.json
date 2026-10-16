@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fin-dex.local/schemas/research-run-v1.json",
+  "title": "Fin-Dex Reproducible Research Run",
+  "type": "object",
+  "required": ["schema_version", "run_id", "task_specification", "timestamps", "asset_identity", "research_horizon", "repository", "methodology_version", "configuration_references", "specialists", "lifecycle", "evidence_ledgers", "synthesis", "reviews", "verdict", "artifacts", "calculations"],
+  "properties": {
+    "schema_version": {"const": 1}, "run_id": {"type": "string", "minLength": 1}, "task_specification": {"type": "string", "minLength": 1},
+    "timestamps": {"type": "object", "required": ["started_at_utc"], "properties": {"started_at_utc": {"type": "string", "format": "date-time"}, "completed_at_utc": {"type": ["string", "null"], "format": "date-time"}}, "additionalProperties": false},
+    "asset_identity": {"type": "object", "required": ["canonical_id", "identity_status"], "properties": {"canonical_id": {"type": "string", "minLength": 1}, "identity_status": {"enum": ["RESOLVED", "AMBIGUOUS", "UNRESOLVED"]}, "chain": {"type": ["string", "null"]}, "contract": {"type": ["string", "null"]}, "instrument": {"type": ["string", "null"]}}, "additionalProperties": false},
+    "research_horizon": {"type": "object", "required": ["start_utc", "end_utc"], "properties": {"start_utc": {"type": ["string", "null"]}, "end_utc": {"type": ["string", "null"]}, "decision_horizon": {"type": ["string", "null"]}}, "additionalProperties": false},
+    "repository": {"type": "object", "required": ["status"], "properties": {"status": {"enum": ["AVAILABLE", "UNAVAILABLE"]}, "revision": {"type": ["string", "null"]}, "reason": {"type": ["string", "null"]}}, "additionalProperties": false},
+    "methodology_version": {"type": "string", "minLength": 1}, "configuration_references": {"type": "array", "items": {"type": "string"}},
+    "specialists": {"type": "array", "items": {"type": "object", "required": ["agent_id", "task_id", "execution_status", "handoff"], "properties": {"agent_id": {"enum": ["market_analyst", "liquidity_analyst", "onchain_analyst", "catalyst_analyst"]}, "task_id": {"type": "string"}, "execution_status": {"enum": ["COMPLETE", "PARTIAL", "FAILED", "BLOCKED"]}, "handoff": {"type": "string"}}, "additionalProperties": false}},
+    "lifecycle": {"type": "object", "required": ["collection_state", "reconciliation_completed"], "properties": {"collection_state": {"enum": ["OPEN", "CLOSED"]}, "reconciliation_completed": {"type": "boolean"}}, "additionalProperties": false},
+    "evidence_ledgers": {"type": "array", "items": {"type": "string"}}, "synthesis": {"type": ["object", "null"], "properties": {"artifact": {"type": "string"}, "revision": {"type": "string"}, "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}}, "additionalProperties": false},
+    "reviews": {"type": "array", "items": {"type": "object", "required": ["agent_id", "handoff", "synthesis_revision", "synthesis_sha256"], "properties": {"agent_id": {"enum": ["adversarial_reviewer", "evidence_verifier"]}, "handoff": {"type": "string"}, "synthesis_revision": {"type": "string"}, "synthesis_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}}, "additionalProperties": false}},
+    "verdict": {"enum": ["IN_PROGRESS", "NO_VERIFIED_CONCLUSION", "SUPPORTED", "NOT_SUPPORTED"]},
+    "artifacts": {"type": "array", "items": {"type": "object", "required": ["path", "sha256", "kind"], "properties": {"path": {"type": "string", "minLength": 1}, "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}, "kind": {"type": "string", "minLength": 1}}, "additionalProperties": false}},
+    "calculations": {"type": "array", "items": {"type": "object", "required": ["id", "formula", "inputs", "unit", "sampling_window", "rounding", "missing_data", "expected_value", "tolerance"], "properties": {"id": {"type": "string"}, "formula": {"type": "string"}, "inputs": {"type": "array", "items": {"type": "string"}}, "unit": {"type": "string"}, "sampling_window": {"type": "string"}, "rounding": {"type": "string"}, "missing_data": {"type": "string"}, "expected_value": {"type": "number"}, "tolerance": {"type": "number", "minimum": 0}}, "additionalProperties": false}}
+  }, "additionalProperties": false
+}

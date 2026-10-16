@@ -2,34 +2,40 @@
 # Place at <repository>/.codex/config.toml.
 # Codex loads project configuration only for trusted projects.
 # All six use hosted Streamable HTTP; no local MCP package installation.
-# Research-only intent. Inspect discovered tools before using them.
+# Example project policy. enabled_tools narrows exposure; it does not grant authorization.
 
 [mcp_servers.coingecko]
 url = "https://mcp.api.coingecko.com/mcp"
 enabled = true
 startup_timeout_sec = 30
+enabled_tools = ["search_docs"]
 
 [mcp_servers.coinpaprika]
 url = "https://mcp.coinpaprika.com/streamable-http"
 enabled = true
 startup_timeout_sec = 30
+enabled_tools = ["getCapabilities", "getCoinMarkets", "getCoinOHLCVLatest", "getCoinOHLCVToday", "getHistoricalTickerByContract", "getTickerByContract", "getTickersById", "getTickersHistoricalById", "resolveId"]
 
 [mcp_servers.dexpaprika]
 url = "https://mcp.dexpaprika.com/streamable-http"
 enabled = true
 startup_timeout_sec = 30
+enabled_tools = ["getNetworkDexes", "getNetworkPools", "getNetworks", "getPoolDetails", "getPoolIndicator", "getPoolOHLCV", "getTokenDetails", "getTokenIndicator", "getTokenMultiPrices", "getTokenOHLCV", "getTokenPools"]
 
 [mcp_servers.cryptocom_market]
 url = "https://mcp.crypto.com/market-data/mcp"
 enabled = true
 startup_timeout_sec = 30
+enabled_tools = ["get_book", "get_candlestick", "get_index_price", "get_instrument", "get_instruments", "get_mark_price", "get_ticker", "get_tickers", "get_trades"]
 
 [mcp_servers.hive]
 url = "https://mcp.hiveintelligence.xyz/mcp"
 enabled = true
 startup_timeout_sec = 30
+enabled_tools = ["check_token_safety", "get_api_endpoint_schema", "get_token_price", "invoke_api_endpoint", "search_tools", "validate_task_result"]
 
 [mcp_servers.gdelt]
 url = "https://gdelt.caseyjhand.com/mcp"
 enabled = true
 startup_timeout_sec = 30
+enabled_tools = ["gdelt_get_coverage_breakdown", "gdelt_get_coverage_timeline", "gdelt_get_tone_distribution", "gdelt_search_articles", "gdelt_search_themes", "gdelt_search_tv"]
