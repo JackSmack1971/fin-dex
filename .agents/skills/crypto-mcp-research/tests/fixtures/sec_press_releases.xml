@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>SEC Press Releases</title>
+    <item>
+      <title>SEC Announces Sample Enforcement Action</title>
+      <link>https://www.sec.gov/newsroom/press-releases/2026-100</link>
+      <guid isPermaLink="false">2026-100</guid>
+      <pubDate>Fri, 16 Oct 2026 14:30:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>SEC Issues Sample Investor Bulletin</title>
+      <link>https://www.sec.gov/newsroom/press-releases/2026-099</link>
+      <guid isPermaLink="false">2026-099</guid>
+      <pubDate>Thu, 15 Oct 2026 12:00:00 GMT</pubDate>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "provider": "ethereum_foundation_blog_feed",
+  "provider_name": "Ethereum Foundation official blog RSS feed",
+  "official_site": "https://blog.ethereum.org/",
+  "official_feed_implementation_documentation": "https://ethereum.github.io/blog/",
+  "official_entity_reference": "https://ethereum.org/foundation/",
+  "documentation_checked_at": "2026-10-17",
+  "access": {
+    "auth": "none observed on bounded anonymous GET",
+    "payment": "no paywall or payment request observed; official RSS distribution is documented by the blog repository, but no explicit cost or rate-limit statement was found",
+    "official_rate_limit": "not documented in reviewed official source material; local budget is one request per command with a 15-minute cache",
+    "runtime_readiness": "RESPONDED",
+    "smoke_evidence": {
+      "artifact": "research-runs/provider-smokes/ethereum-foundation-feed-client-2026-10-17.json",
+      "status": "RESPONDED",
+      "retrieved_at_utc": "2026-10-17T14:28:26Z",
+      "http_status": 200,
+      "content_type": "application/xml",
+      "items_returned": 10,
+      "latest_item_published_at_utc": "2026-10-16T00:00:00Z",
+      "latest_item_title": "Glamsterdam Hoodi Testnet Announcement",
+      "response_sha256": "54205321545a01100b8c8c6edcdb9dd73aef479b7d8266a4f6d6bd2392eca18c"
+    },
+    "raw_feed_probe": "research-runs/provider-smokes/ethereum-foundation-feed-2026-10-17.json",
+    "registration_is_authorization": false,
+    "qualification_scope": "One anonymous response confirms this exact public feed route and RSS shape. It does not establish feed uptime, comprehensive Ethereum coverage, or verification of events described by third parties."
+  },
+  "route": {
+    "method": "GET",
+    "feed_url": "https://blog.ethereum.org/feed.xml",
+    "operation": "read official Ethereum Foundation blog RSS announcements",
+    "local_budget": "one GET per command",
+    "timeout_seconds": 10,
+    "max_response_bytes": 1000000,
+    "process_cache_seconds": 900,
+    "max_items_returned": 25,
+    "automatic_retries": 0,
+    "redirect_policy": "HTTPS redirects may remain only on blog.ethereum.org"
+  },
+  "evidence": {
+    "source_type": "primary_source_for_Ethereum_Foundation_statements_only",
+    "required_fields": [
+      "publisher identity",
+      "item title and canonical URL",
+      "RSS publication timestamp as supplied and normalized UTC when parseable",
+      "retrieval UTC",
+      "upstream origin",
+      "source scope and timestamp caveat"
+    ],
+    "timestamp_rule": "RSS publication time is not assumed to equal the event time. Preserve an absent or malformed date as unverified.",
+    "identity_rule": "Accept only HTTPS feed and item links on blog.ethereum.org. This source is the Ethereum Foundation, not an authority for all Ethereum contributors, projects, or protocol decisions.",
+    "independence": "Direct publisher feed; not independent of the Ethereum Foundation article it publishes."
+  },
+  "failure_handling": {
+    "401_403_402_429": "stop provider branch without retry; preserve the exact status",
+    "timeout_or_network": "preserve unavailable status; no fallback implied",
+    "malformed_or_oversized": "preserve malformed/oversized status; do not infer no announcements",
+    "fallback": null
+  }
+}

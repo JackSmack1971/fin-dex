@@ -1,0 +1,26 @@
+{
+  "provider": "ethereum_foundation_blog_feed",
+  "request": {
+    "method": "GET",
+    "url": "https://blog.ethereum.org/feed.xml",
+    "auth": "none",
+    "timeout_seconds": 10,
+    "max_response_bytes": 1000000
+  },
+  "retrieved_at_utc": "2026-10-17T14:26:48Z",
+  "completed_at_utc": "2026-10-17T14:26:48Z",
+  "http_status": 200,
+  "content_type": "application/xml",
+  "body_bytes": 531113,
+  "status": "RESPONDED",
+  "root_tag": "rss",
+  "entry_count": 643,
+  "body_sha256": "54205321545a01100b8c8c6edcdb9dd73aef479b7d8266a4f6d6bd2392eca18c",
+  "sample_titles": [
+    "Glamsterdam Hoodi Testnet Announcement",
+    "How native transaction assertions could enforce a transaction's final outcome",
+    "Introducing zkAPI: private usage credits for any API",
+    "Glamsterdam Testnet Announcement",
+    "Join Us: EF Protocol Reddit AMA - September 16th, 2026"
+  ]
+}
