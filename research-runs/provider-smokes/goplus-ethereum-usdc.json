@@ -1,0 +1,36 @@
+{
+  "provider": "goplus_public",
+  "status": "PARTIALLY_QUALIFIED",
+  "method": "GET",
+  "endpoint": "https://api.gopluslabs.io/api/v1/token_security/1?contract_addresses=0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+  "chain_id": "1",
+  "contract_address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+  "retrieved_at_utc": "2026-10-17T14:02:17Z",
+  "observation_timestamp": null,
+  "freshness_status": "UNVERIFIED_NO_PROVIDER_TIMESTAMP",
+  "anonymous_request": true,
+  "http_success": true,
+  "provider_code": 1,
+  "provider_message": "OK",
+  "response_status": "RESPONDED",
+  "identity_match": true,
+  "observed_fields": {
+    "token_name": "USD Coin",
+    "token_symbol": "USDC",
+    "is_honeypot": "0",
+    "cannot_buy": "0",
+    "buy_tax": "0",
+    "sell_tax": "0",
+    "is_proxy": "1",
+    "is_open_source": "1",
+    "holder_count": "9310187"
+  },
+  "limitations": [
+    "Official free access documentation plus anonymous response supports this endpoint request only.",
+    "Response has no metric observation timestamp; freshness is unverified.",
+    "Upstream observation lineage is unspecified.",
+    "Automated flags are heuristic screening only and are not an audit or guarantee.",
+    "Missing fields remain unknown."
+  ],
+  "full_response_retention": "The CLI emitted the complete provider response during the bounded smoke; this evidence record retains selected fields and exact request metadata."
+}

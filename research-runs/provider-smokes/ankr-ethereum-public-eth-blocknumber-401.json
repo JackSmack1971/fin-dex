@@ -1,0 +1,49 @@
+{
+  "provider": "ankr_public_ethereum_rpc",
+  "purpose": "bounded anonymous access qualification probe for the documented Ethereum Public RPC",
+  "retrieved_at_utc": "2026-10-17T18:12:15Z",
+  "probe_attempts": [
+    {
+      "attempt": 1,
+      "authorization_header_sent": false,
+      "transport_status": "NOT_RETAINED",
+      "response_capture": "The command returned no serializable output; exact transport and JSON-RPC status were not retained."
+    },
+    {
+      "attempt": 2,
+      "authorization_header_sent": false,
+      "transport_http_status": 200,
+      "response_capture": "The JSON-RPC unauthorized response below was retained."
+    }
+  ],
+  "endpoint": "https://rpc.ankr.com/eth",
+  "transport": {
+    "method": "POST",
+    "http_status": 200,
+    "authorization_header_sent": false,
+    "credential_used": false
+  },
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "eth_blockNumber",
+    "params": []
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "error": {
+      "code": -32000,
+      "message": "Unauthorized: You must authenticate your request with an API key. Create an account on https://www.ankr.com/rpc/ and generate your personal API key for free."
+    },
+    "id": null
+  },
+  "observation": "Two anonymous eth_blockNumber probes were issued while capturing the route result. The first response was not serialized by the command; the second returned HTTP 200 but its JSON-RPC layer denied anonymous access and required an API key. No chain ID or block data returned; eth_getLogs was not called.",
+  "attempt_policy": {
+    "automated_retry": false,
+    "probe_invocations": 2,
+    "repeated_probe_occurred": true,
+    "credential_used": false,
+    "followup_method_call": false
+  },
+  "runtime_status": "UNAVAILABLE_ANONYMOUS_ACCESS_REQUIRES_KEY"
+}

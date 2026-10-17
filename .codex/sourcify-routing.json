@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "provider": "sourcify_contract_repository",
+  "provider_name": "Sourcify Contract Verification Repository",
+  "base_url": "https://sourcify.dev/server",
+  "documentation": "https://docs.sourcify.dev/docs/api/",
+  "openapi": "https://sourcify.dev/server/api-docs/swagger.json",
+  "documentation_checked_at": "2026-10-17",
+  "access": {
+    "authorization": "The official OpenAPI contract lookup has security=[] and is a public GET. The bounded live request sent no Authorization header.",
+    "free_access_evidence": "Official API docs state that the full verified-contract database is available as a free Parquet dataset and public BigQuery dataset; API docs document the unauthenticated single-contract GET. No paid API route or key is used.",
+    "runtime_readiness": "RESPONDED_FOR_EXACT_BASE_USDC_MINIMAL_LOOKUP",
+    "status": "RESPONDED",
+    "qualification_limit": "One exact Base USDC lookup returned an identity-matched minimal record. This does not qualify other chains/contracts, provider uptime, or security outcomes.",
+    "registration_is_authorization": false,
+    "smoke_evidence": "research-runs/provider-smokes/sourcify-base-usdc.json"
+  },
+  "route": {
+    "task": "single exact EVM contract verification metadata lookup",
+    "tool": ".agents/skills/crypto-mcp-research/scripts/sourcify_contracts.py --chain-id {chainId} --address {address}",
+    "endpoint": "GET /v2/contract/{chainId}/{address}",
+    "identity": [
+      "exact positive decimal EVM chain ID",
+      "exact 20-byte contract address, EVM comparison case-insensitive",
+      "returned chainId and address must match the request"
+    ],
+    "response_fields": [
+      "match",
+      "creationMatch",
+      "runtimeMatch",
+      "chainId",
+      "address",
+      "verifiedAt",
+      "matchId"
+    ],
+    "response_scope": "Default minimal API response only; no sources, ABI, metadata, standard JSON input/output, or verification submission is requested.",
+    "timestamps": "retrieved_at_utc is local retrieval time. provider_verified_at_utc is Sourcify's verifiedAt metadata, not deployment or event time.",
+    "interpretation": "A match reports bytecode/source verification status. It is not a security audit, proof of correct intent, or guarantee a token is safe; missing/unverified status is not a risk verdict.",
+    "upstream_lineage": "Sourcify verified-contract database. This lookup does not expose the RPC or original verification-submission lineage used for every stored record.",
+    "independence": "Do not count as independent risk corroboration of GoPlus or another security heuristic."
+  },
+  "request_policy": {
+    "documented_rate_limit": "Requests are rate-limited per client; official docs do not state a numeric public limit. Honor Retry-After and stop on 429/5xx; do not auto-retry.",
+    "local_budget": "At most one GET per invocation; exact-contract persistent cache prevents repeat positive lookups across invocations.",
+    "positive_cache": "Persist minimal successful positive verification metadata indefinitely, as Sourcify asks callers to store and reuse contract responses and not fetch the same contract again.",
+    "negative_cache": "Persist a no-match response for one hour before permitting a recheck because a contract can be verified later.",
+    "cache_location": "OS temporary directory under fin-dex/sourcify-contract-cache-v1; stores only validated minimal verification metadata, not source files.",
+    "timeout_seconds": 10,
+    "max_response_bytes": 16384,
+    "user_agent": "fin-dex-read-only-research/1.0 (+https://github.com/JackSmack1971/fin-dex)",
+    "prohibited": [
+      "bulk crawling or chain-wide enumeration",
+      "fields=all",
+      "source-file retrieval",
+      "POST verification or Etherscan import",
+      "automatic retries or paid services"
+    ]
+  },
+  "evidence": {
+    "live_smoke": {
+      "artifact": "research-runs/provider-smokes/sourcify-base-usdc.json",
+      "retrieved_at_utc": "2026-10-17T17:25:39Z",
+      "chain_id": "8453",
+      "address": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+      "http_status": 200,
+      "authorization_header_sent": false,
+      "match": "exact_match",
+      "creation_match": "exact_match",
+      "runtime_match": "exact_match"
+    },
+    "prior_bad_request": {
+      "retrieved_at_utc": "2026-10-17T17:25:17Z",
+      "chain_id": "1",
+      "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "http_status": 400,
+      "query_included_fields_parameter": true,
+      "response_body_retained": false,
+      "handling": "No repeat request was made for this contract; adapter uses the documented default minimal field set."
+    }
+  }
+}
