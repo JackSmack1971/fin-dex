@@ -1,0 +1,124 @@
+{
+  "provider": "ethereum_foundation_blog_feed",
+  "upstream_origin": "ethereum_foundation_official_blog",
+  "endpoint": "GET /feed.xml",
+  "source_url": "https://blog.ethereum.org/en/feed.xml",
+  "retrieved_at_utc": "2026-10-17T14:28:26Z",
+  "content_type": "application/xml",
+  "cache": "miss",
+  "latest_observation_freshness": "FRESH",
+  "scope": "Ethereum Foundation announcements and blog posts only; not comprehensive Ethereum ecosystem or crypto-wide event coverage.",
+  "observations": [
+    {
+      "publisher": "Ethereum Foundation",
+      "source_type": "primary_source_announcement",
+      "title": "Glamsterdam Hoodi Testnet Announcement",
+      "url": "https://blog.ethereum.org/en/2026/10/16/glamsterdam-hoodi-announcement",
+      "guid": "https://blog.ethereum.org/en/2026/10/16/glamsterdam-hoodi-announcement",
+      "published_at_utc": "2026-10-16T00:00:00Z",
+      "published_at_raw": "Fri, 16 Oct 2026 00:00:00 GMT",
+      "event_time_utc": null,
+      "timestamp_note": "RSS publication time is publisher metadata, not necessarily the event time."
+    },
+    {
+      "publisher": "Ethereum Foundation",
+      "source_type": "primary_source_announcement",
+      "title": "How native transaction assertions could enforce a transaction's final outcome",
+      "url": "https://blog.ethereum.org/en/2026/10/05/transaction-assertions",
+      "guid": "https://blog.ethereum.org/en/2026/10/05/transaction-assertions",
+      "published_at_utc": "2026-10-05T00:00:00Z",
+      "published_at_raw": "Mon, 05 Oct 2026 00:00:00 GMT",
+      "event_time_utc": null,
+      "timestamp_note": "RSS publication time is publisher metadata, not necessarily the event time."
+    },
+    {
+      "publisher": "Ethereum Foundation",
+      "source_type": "primary_source_announcement",
+      "title": "Introducing zkAPI: private usage credits for any API",
+      "url": "https://blog.ethereum.org/en/2026/10/01/introducing-zkapi",
+      "guid": "https://blog.ethereum.org/en/2026/10/01/introducing-zkapi",
+      "published_at_utc": "2026-10-01T00:00:00Z",
+      "published_at_raw": "Thu, 01 Oct 2026 00:00:00 GMT",
+      "event_time_utc": null,
+      "timestamp_note": "RSS publication time is publisher metadata, not necessarily the event time."
+    },
+    {
+      "publisher": "Ethereum Foundation",
+      "source_type": "primary_source_announcement",
+      "title": "Glamsterdam Testnet Announcement",
+      "url": "https://blog.ethereum.org/en/2026/09/17/glamsterdam-testnet-announcement",
+      "guid": "https://blog.ethereum.org/en/2026/09/17/glamsterdam-testnet-announcement",
+      "published_at_utc": "2026-09-28T00:00:00Z",
+      "published_at_raw": "Mon, 28 Sep 2026 00:00:00 GMT",
+      "event_time_utc": null,
+      "timestamp_note": "RSS publication time is publisher metadata, not necessarily the event time."
+    },
+    {
+      "publisher": "Ethereum Foundation",
+      "source_type": "primary_source_announcement",
+      "title": "Join Us: EF Protocol Reddit AMA - September 16th, 2026",
+      "url": "https://blog.ethereum.org/en/2026/09/09/reddit-ama",
+      "guid": "https://blog.ethereum.org/en/2026/09/09/reddit-ama",
+      "published_at_utc": "2026-09-09T00:00:00Z",
+      "published_at_raw": "Wed, 09 Sep 2026 00:00:00 GMT",
+      "event_time_utc": null,
+      "timestamp_note": "RSS publication time is publisher metadata, not necessarily the event time."
+    },
+    {
+      "publisher": "Ethereum Foundation",
+      "source_type": "primary_source_announcement",
+      "title": "EF Protocol: The Hegotá EIP Opinion Post and Tier List",
+      "url": "https://blog.ethereum.org/en/2026/09/07/protocol-hegota-eips",
+      "guid": "https://blog.ethereum.org/en/2026/09/07/protocol-hegota-eips",
+      "published_at_utc": "2026-09-07T00:00:00Z",
+      "published_at_raw": "Mon, 07 Sep 2026 00:00:00 GMT",
+      "event_time_utc": null,
+      "timestamp_note": "RSS publication time is publisher metadata, not necessarily the event time."
+    },
+    {
+      "publisher": "Ethereum Foundation",
+      "source_type": "primary_source_announcement",
+      "title": "EF Protocol: Current and Emerging Priorities",
+      "url": "https://blog.ethereum.org/en/2026/09/07/protocol-priorities",
+      "guid": "https://blog.ethereum.org/en/2026/09/07/protocol-priorities",
+      "published_at_utc": "2026-09-07T00:00:00Z",
+      "published_at_raw": "Mon, 07 Sep 2026 00:00:00 GMT",
+      "event_time_utc": null,
+      "timestamp_note": "RSS publication time is publisher metadata, not necessarily the event time."
+    },
+    {
+      "publisher": "Ethereum Foundation",
+      "source_type": "primary_source_announcement",
+      "title": "Glamsterdam Repricing Impact for Smart Contract Developers",
+      "url": "https://blog.ethereum.org/en/2026/08/24/glamsterdam-repricing-testing",
+      "guid": "https://blog.ethereum.org/en/2026/08/24/glamsterdam-repricing-testing",
+      "published_at_utc": "2026-08-24T00:00:00Z",
+      "published_at_raw": "Mon, 24 Aug 2026 00:00:00 GMT",
+      "event_time_utc": null,
+      "timestamp_note": "RSS publication time is publisher metadata, not necessarily the event time."
+    },
+    {
+      "publisher": "Ethereum Foundation",
+      "source_type": "primary_source_announcement",
+      "title": "Raising machine-checked security benchmarks to advance hash-based SNARKs through agentic collaboration",
+      "url": "https://blog.ethereum.org/en/2026/08/20/better-codes-challenge",
+      "guid": "https://blog.ethereum.org/en/2026/08/20/better-codes-challenge",
+      "published_at_utc": "2026-08-20T00:00:00Z",
+      "published_at_raw": "Thu, 20 Aug 2026 00:00:00 GMT",
+      "event_time_utc": null,
+      "timestamp_note": "RSS publication time is publisher metadata, not necessarily the event time."
+    },
+    {
+      "publisher": "Ethereum Foundation",
+      "source_type": "primary_source_announcement",
+      "title": "Allocation Update - Q2 2026",
+      "url": "https://blog.ethereum.org/en/2026/08/18/allocation-q2-26",
+      "guid": "https://blog.ethereum.org/en/2026/08/18/allocation-q2-26",
+      "published_at_utc": "2026-08-18T00:00:00Z",
+      "published_at_raw": "Tue, 18 Aug 2026 00:00:00 GMT",
+      "event_time_utc": null,
+      "timestamp_note": "RSS publication time is publisher metadata, not necessarily the event time."
+    }
+  ],
+  "response_sha256": "54205321545a01100b8c8c6edcdb9dd73aef479b7d8266a4f6d6bd2392eca18c"
+}

@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "provider": "sec_press_release_rss",
+  "provider_name": "U.S. Securities and Exchange Commission Press Releases RSS",
+  "official_discovery_page": "https://www.sec.gov/files/about/secrss.shtml",
+  "official_feed_url": "https://www.sec.gov/rss/news/press.xml",
+  "free_access_documentation": "https://www.sec.gov/about/webmaster-frequently-asked-questions",
+  "automation_policy": "https://www.sec.gov/os/accessing-edgar-data",
+  "documentation_checked_at": "2026-10-17",
+  "access": {
+    "auth": "none indicated for published RSS feed",
+    "payment": "SEC says government-created sec.gov content is free to access and reuse",
+    "runtime_readiness": "DOCUMENTED_UNQUALIFIED",
+    "browser_connector_observation": "The official RSS link resolved to the feed URL, but the web connector could not parse the application/rss+xml content type; this is not an HTTP response qualification.",
+    "automated_user_agent": "SEC guidance requires a truthful declared organization/company name and contact email. The bounded client reads SEC_USER_AGENT from the environment and refuses requests when it is missing or placeholder text. This workspace has no configured contact address; no automated request was made.",
+    "registration_is_authorization": false
+  },
+  "route": {
+    "method": "GET",
+    "feed_url": "https://www.sec.gov/rss/news/press.xml",
+    "operation": "official press-release RSS feed read",
+    "local_budget_if_later_qualified": "one GET per command, no faster than once per 15 minutes",
+    "automatic_retries": 0,
+    "parser": ".agents/skills/crypto-mcp-research/scripts/sec_press_release_feed.py",
+    "parser_status": "IMPLEMENTED_FIXTURE_TESTED; no live endpoint response parsed",
+    "request_constraints": {
+      "requires_environment_variable": "SEC_USER_AGENT",
+      "user_agent_format": "truthful organization name followed by a contact email",
+      "max_response_bytes": 1000000,
+      "timeout_seconds": 10,
+      "cache_seconds": 900,
+      "max_items": 25,
+      "redirect_policy": "HTTPS same-host only",
+      "retry_policy": "none"
+    }
+  },
+  "scope": {
+    "source_role": "primary regulator announcement source for SEC actions and statements",
+    "not_covered": "issuer releases, non-US regulators, project governance posts, or full crypto catalyst coverage",
+    "evidence_rule": "Capture item URL, title, RSS publication timestamp and retrieval UTC; open the SEC release and preserve its exact document date. SEC statements verify SEC actions/statements, not claims by other parties described within them."
+  },
+  "failure_handling": {
+    "current_state": "Parser implemented and fixture-tested. No automated call; missing declared user-agent contact and live response qualification",
+    "fallback": "No automated fallback. Use official browser page manually when appropriate and preserve exact source; otherwise report unverified."
+  }
+}
