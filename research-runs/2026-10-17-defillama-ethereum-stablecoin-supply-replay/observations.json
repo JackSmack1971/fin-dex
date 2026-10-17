@@ -1,0 +1,31 @@
+{
+  "provider": "defillama",
+  "endpoint": "GET /stablecoincharts/{chain|all}",
+  "source_url": "https://stablecoins.llama.fi/stablecoincharts/Ethereum",
+  "retrieved_at_utc": "2026-10-17T14:23:04Z",
+  "chain": "Ethereum",
+  "metric": "totalCirculatingUSD.peggedUSD",
+  "source_unit": "USD as declared in field name",
+  "upstream_origin": "defillama_aggregated_index",
+  "observations": [
+    {
+      "id": "ethereum_stablecoin_usd_pegged_supply_2025-10-17",
+      "value": 162030560373,
+      "unit": "USD",
+      "observed_at_utc": "2025-10-17T00:00:00Z",
+      "provider_timestamp_unix": 1760659200,
+      "metric": "totalCirculatingUSD.peggedUSD",
+      "chain": "Ethereum"
+    },
+    {
+      "id": "ethereum_stablecoin_usd_pegged_supply_2026-10-17",
+      "value": 144946205700.82,
+      "unit": "USD",
+      "observed_at_utc": "2026-10-17T00:00:00Z",
+      "provider_timestamp_unix": 1792195200,
+      "metric": "totalCirculatingUSD.peggedUSD",
+      "chain": "Ethereum"
+    }
+  ],
+  "methodology_note": "DeFiLlama historical circulating market cap for Ethereum stablecoins in the USD peg bucket. This is supply/mcap context, not transfer-level net flow."
+}

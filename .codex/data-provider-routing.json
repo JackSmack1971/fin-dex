@@ -1,0 +1,246 @@
+{
+  "schema_version": 1,
+  "provider": "defillama_public",
+  "provider_name": "DeFiLlama Free API",
+  "base_url": "https://api.llama.fi",
+  "documentation": "https://api-docs.defillama.com/llms-free.txt",
+  "documentation_checked_at": "2026-10-17",
+  "access": {
+    "auth": "none",
+    "payment": "none for the listed free endpoints",
+    "runtime_readiness": "PARTIALLY_QUALIFIED",
+    "smoke_evidence": {
+      "artifact": "research-runs/provider-smokes/defillama-protocol-tvl.json",
+      "endpoint": "GET /tvl/{protocol}",
+      "status": "QUALIFIED",
+      "protocol_slug": "aave",
+      "response_type": "finite numeric TVL value",
+      "qualification": "Official free-endpoint documentation states no authentication is required; one anonymous GET returned the documented numeric response shape from api.llama.fi without a payment or credential challenge. This verifies only this endpoint and protocol query at the recorded observation time.",
+      "other_endpoints": "See endpoint_observations; no other endpoint is qualified beyond those listed."
+    },
+    "endpoint_observations": [
+      {
+        "endpoint": "GET /v2/historicalChainTvl/{chain}",
+        "tool": "scripts/defillama_public.py chain-tvl-history --chain Ethereum",
+        "source_url": "https://api.llama.fi/v2/historicalChainTvl/Ethereum",
+        "status": "QUALIFIED_FOR_ETHEREUM_RESPONSE_SHAPE",
+        "chain": "Ethereum",
+        "retrieved_at_utc": "2026-10-17T14:09:30Z",
+        "evidence_artifact": "research-runs/provider-smokes/defillama-historical-chain-tvl-ethereum.json",
+        "response_shape": "3,308 chronological records with Unix-second date and finite numeric TVL; observed range 2017-09-27T00:00:00Z through 2026-10-17T00:00:00Z",
+        "qualification": "Official free API docs state no key is needed and document this historical chain endpoint. One anonymous Ethereum request returned the documented dated-series shape without a credential or payment challenge. Qualification is limited to this endpoint and chain query.",
+        "upstream_origin": "defillama_aggregated_index",
+        "unit": "provider_tvl_units; this endpoint's published response description does not explicitly name the currency unit, so do not infer USD without further source documentation",
+        "freshness": "Historical series; last source date 2026-10-17T00:00:00Z, retrieval 2026-10-17T14:09:30Z"
+      },
+      {
+        "endpoint": "GET /overview/fees[/{chain}]",
+        "tool": "scripts/defillama_public.py fees --chain Ethereum --data-type dailyRevenue",
+        "source_url": "https://api.llama.fi/overview/fees/Ethereum?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=true&dataType=dailyRevenue",
+        "status": "QUALIFIED_FOR_ETHEREUM_DAILY_REVENUE_RESPONSE_SHAPE",
+        "chain": "Ethereum",
+        "data_type": "dailyRevenue",
+        "retrieved_at_utc": "2026-10-17T14:12:36Z",
+        "evidence_artifact": "research-runs/provider-smokes/defillama-ethereum-daily-revenue.json",
+        "response_shape": "605 protocol rows; totalDataChart and totalDataChartBreakdown intentionally empty by query flags; Aave V3 row present with total24h=112525, total7d=951462, total30d=3910731",
+        "qualification": "Official free API docs state these listed endpoints require no authentication. One anonymous Ethereum dailyRevenue request returned the documented overview shape without a credential or payment challenge. The endpoint and query are qualified only for this response shape.",
+        "upstream_origin": "defillama_aggregated_index",
+        "unit": "UNVERIFIED: response schema and docs reviewed do not explicitly declare a currency unit for these summary values; do not label USD.",
+        "freshness": "UNVERIFIED: retrieval time is 2026-10-17T14:12:36Z; response includes period aggregates but no exact source observation timestamp."
+      },
+      {
+        "endpoint": "GET /stablecoinchains",
+        "tool": "scripts/defillama_public.py stablecoin-chains",
+        "source_url": "https://api.llama.fi/stablecoinchains",
+        "status": "MISROUTED_PRIOR_ATTEMPT",
+        "reason": "the prior request used api.llama.fi instead of the documented stablecoins API host; its HTTP 404 does not establish endpoint unavailability",
+        "retrieved_at_utc": null,
+        "record_quality": "preserved historical routing error; not a valid endpoint availability observation"
+      },
+      {
+        "endpoint": "GET /stablecoinchains",
+        "tool": "scripts/defillama_public.py stablecoin-chains",
+        "source_url": "https://stablecoins.llama.fi/stablecoinchains",
+        "status": "QUALIFIED_FOR_STABLECOIN_CHAIN_RESPONSE_SHAPE",
+        "retrieved_at_utc": "2026-10-17T14:14:42Z",
+        "evidence_artifact": "research-runs/provider-smokes/defillama-stablecoin-chains.json",
+        "response_shape": "209 chain rows; each row contains name and totalCirculatingUSD object with peg buckets where populated",
+        "qualification": "Official DeFiLlama API docs and SDK identify stablecoin data operations in the free client; one anonymous GET to the stablecoins API host returned the expected chain aggregate response without a credential or payment challenge. Qualification is limited to this endpoint and response shape.",
+        "upstream_origin": "defillama_stablecoin_aggregated_index",
+        "units": "USD market capitalization as stated by the response field totalCirculatingUSD; values are circulating-market-cap aggregates, not transfer volume",
+        "source_timestamp": "not supplied",
+        "retrieval_time": "2026-10-17T14:14:42Z",
+        "interpretation": "circulating market-cap proxy; not transfer-level stablecoin flow",
+        "freshness": "UNVERIFIED: no provider observation timestamp is present in the chain aggregate response"
+      },
+      {
+        "endpoint": "GET /stablecoincharts/{chain|all}",
+        "tool": "scripts/defillama_public.py stablecoin-history --chain Ethereum",
+        "source_url": "https://stablecoins.llama.fi/stablecoincharts/Ethereum",
+        "status": "QUALIFIED_FOR_ETHEREUM_HISTORICAL_RESPONSE_SHAPE",
+        "chain": "Ethereum",
+        "retrieved_at_utc": "2026-10-17T14:23:04Z",
+        "evidence_artifact": "research-runs/provider-smokes/defillama-stablecoin-history-ethereum.json",
+        "response_shape": "3,245 daily dated rows from 2017-11-29T00:00:00Z through 2026-10-17T00:00:00Z with strictly increasing, gap-free daily Unix-second timestamps; totalCirculatingUSD contains peg-bucket market-cap values",
+        "qualification": "Official DeFiLlama API docs and SDK identify historical stablecoin charts and the free client. One anonymous Ethereum-chain chart request returned the expected dated response without a credential or payment challenge. Qualification is limited to this endpoint, chain and response shape.",
+        "upstream_origin": "defillama_stablecoin_aggregated_index",
+        "unit": "USD for values in totalCirculatingUSD.peggedUSD as declared by the response field name; the selected peg bucket is not transaction volume",
+        "source_timestamp": "Unix-second date field per row; latest row 2026-10-17T00:00:00Z",
+        "interpretation": "historical circulating market-cap/supply context, not transfer-level net flows",
+        "freshness": "Historical daily series; retrieval time is recorded separately from each source date."
+      },
+      {
+        "endpoint": "GET /summary/fees/{protocol}",
+        "tool": "scripts/defillama_public.py protocol-fees --protocol aave-v3 --data-type dailyRevenue",
+        "source_url": "https://api.llama.fi/summary/fees/aave-v3?dataType=dailyRevenue",
+        "status": "QUALIFIED_FOR_AAVE_V3_DAILY_REVENUE_HISTORICAL_RESPONSE_SHAPE",
+        "protocol_slug": "aave-v3",
+        "data_type": "dailyRevenue",
+        "retrieval_started_at_utc": "2026-10-17T14:53:44.5810874Z",
+        "response_observed_at_utc": "2026-10-17T14:53:45.0459557Z",
+        "evidence_artifact": "research-runs/provider-smokes/defillama-aave-v3-daily-revenue-history.json",
+        "response_shape": "Aave V3 metadata and methodology plus dated totalDataChart rows; chart dates are Unix seconds; request was anonymous and returned HTTP 200",
+        "qualification": "Official free API docs list this exact route and dataType. One anonymous Aave V3 response matched the documented summary-with-historical-data shape. Qualification is limited to this protocol and metric query.",
+        "upstream_origin": "defillama_aggregated_index",
+        "unit": "UNVERIFIED: official endpoint schema does not name a currency unit",
+        "source_timestamp": "Unix-second date on each historical chart row; no exact timestamp semantics beyond dated series documented",
+        "freshness": "Historical chart dates retained; retrieval time recorded separately. Current summary freshness is unverified.",
+        "methodology": "Provider response includes metric-specific methodology; retain it and methodologyURL with any claim."
+      },
+      {
+        "endpoint": "GET /overview/open-interest",
+        "tool": "scripts/defillama_public.py open-interest",
+        "source_url": "https://api.llama.fi/overview/open-interest?excludeTotalDataChart=false&excludeTotalDataChartBreakdown=true",
+        "status": "QUALIFIED_FOR_PROVIDER_AGGREGATE_HISTORICAL_RESPONSE_SHAPE",
+        "retrieval_started_at_utc": "2026-10-17T14:55:33.3071444Z",
+        "response_observed_at_utc": "2026-10-17T14:55:33.6473373Z",
+        "evidence_artifact": "research-runs/provider-smokes/defillama-open-interest-overview.json",
+        "response_shape": "142 protocol rows; aggregate totalDataChart contains 2,061 chronological Unix-second date/value rows from 2021-02-25T00:00:00Z through 2026-10-17T00:00:00Z; 218,576-byte response",
+        "qualification": "Official free API docs list the route and chart-exclusion parameters. One anonymous GET returned a dated aggregate response without a payment or credential challenge. Qualification covers this provider-aggregate response only.",
+        "upstream_origin": "defillama_aggregated_index",
+        "unit": "UNVERIFIED: official docs and response schema do not declare the value unit",
+        "identity": "aggregate across indexed perp protocols; not exchange-specific or instrument-specific open interest",
+        "source_timestamp": "Unix-second chart dates; sampling and exact observation semantics not documented",
+        "freshness": "Historical aggregate series; latest chart date is 2026-10-17T00:00:00Z. No subdaily/current observation time supplied."
+      }
+    ],
+    "policy": "Only the fixed anonymous GET endpoints in this record are eligible. A documentation claim does not establish live availability. Never attach credentials or use pro-api.llama.fi.",
+    "registration_is_authorization": false
+  },
+  "routing": [
+    {
+      "task": "protocol TVL and chain breakdown",
+      "primary": [
+        "GET /protocols",
+        "GET /tvl/{protocol}",
+        "GET /protocol/{protocol}",
+        "GET /v2/historicalChainTvl[/{chain}]"
+      ],
+      "fallback": [],
+      "required_identity": [
+        "protocol slug or chain slug"
+      ],
+      "required_dimensions": [
+        "provider",
+        "endpoint",
+        "source_url",
+        "retrieved_at_utc",
+        "data timestamps where supplied",
+        "USD or source-declared units",
+        "coverage and methodology caveat"
+      ],
+      "caveat": "TVL is provider-aggregated and may omit or double count assets depending on the endpoint methodology; do not treat it as executable liquidity."
+    },
+    {
+      "task": "fees and revenue",
+      "primary": [
+        "GET /overview/fees[/{chain}]",
+        "GET /summary/fees/{protocol}"
+      ],
+      "fallback": [],
+      "required_identity": [
+        "protocol and optional chain from response"
+      ],
+      "required_dimensions": [
+        "provider",
+        "endpoint",
+        "dataType",
+        "source-declared units",
+        "period/date",
+        "retrieved_at_utc",
+        "coverage and methodology caveat",
+        "historical chart row dates where returned"
+      ],
+      "allowed_data_types": [
+        "dailyFees",
+        "dailyRevenue",
+        "dailyHoldersRevenue"
+      ],
+      "caveat": "Fees and revenue are distinct measures. Do not relabel one as the other or infer protocol token value capture."
+    },
+    {
+      "task": "stablecoin supply and flows",
+      "primary": [
+        "GET /stablecoins",
+        "GET /stablecoinchains",
+        "GET /stablecoincharts/all",
+        "GET /stablecoincharts/{chain}"
+      ],
+      "fallback": [],
+      "required_identity": [
+        "stablecoin ID and/or chain when scoped"
+      ],
+      "required_dimensions": [
+        "provider",
+        "endpoint",
+        "stablecoin/chain identity",
+        "source units",
+        "date",
+        "retrieved_at_utc",
+        "methodology caveat"
+      ],
+      "caveat": "Circulating-cap changes are a proxy and do not identify transfer flows or direction without transaction-level evidence."
+    },
+    {
+      "task": "historical open interest context",
+      "primary": [
+        "GET /overview/open-interest"
+      ],
+      "fallback": [],
+      "required_identity": [
+        "provider aggregate and included protocol set"
+      ],
+      "required_dimensions": [
+        "provider",
+        "exact endpoint and query",
+        "retrieval UTC",
+        "Unix-second chart dates",
+        "unit status",
+        "protocol coverage",
+        "aggregation and methodology caveat"
+      ],
+      "caveat": "This is provider-aggregated perp protocol open interest, not exchange/instrument history. Do not substitute it for an exact contract's OI, and do not infer the unit or sampling semantics."
+    }
+  ],
+  "request_policy": {
+    "max_requests_per_command": 1,
+    "timeout_seconds": 10,
+    "max_response_bytes": 5000000,
+    "memory_cache_ttl_seconds": 300,
+    "maximum_cache_ttl_seconds": 3600,
+    "retry_policy": "No automatic retries. On 401, 403, 402, 429, timeout, malformed response, or network error, stop this provider branch and report the classified status.",
+    "fallback_policy": "No fallback is currently qualified for these metric definitions. Report UNAVAILABLE rather than substituting a non-equivalent metric."
+  },
+  "normalization": {
+    "timestamps": "Preserve provider date/Unix timestamp. Retrieval time is separately UTC RFC3339 and is not an observation timestamp.",
+    "units": "Preserve source values and units; do not infer units for fields whose response schema does not state them.",
+    "identity": "Use exact provider protocol slug, chain slug, stablecoin ID, and labels returned; do not resolve by ticker alone."
+  },
+  "independence": {
+    "origin": "DeFiLlama aggregated/indexed datasets",
+    "rule": "Do not count another wrapper over DeFiLlama as an independent source. Independence from chain-level or protocol-primary sources must be established per observation."
+  },
+  "contradictions_and_missingness": "Retain disagreements as CONFLICTED until identities, periods, and methodologies are reconciled. Missing endpoints, fields, dates, and chains remain missing or UNAVAILABLE; never replace them with zero.",
+  "stablecoin_base_url": "https://stablecoins.llama.fi",
+  "policy": "Only the fixed anonymous GET endpoints on the two explicitly allowlisted free API hosts in this record are eligible. A documentation claim does not establish live availability. Never attach credentials or use pro-api.llama.fi."
+}

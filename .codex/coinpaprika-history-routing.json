@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "provider": "coinpaprika_historical_ticker_mcp",
+  "provider_name": "CoinPaprika historical ticker via connected MCP",
+  "documentation": "https://github.com/coinpaprika/skills/blob/main/coinpaprika-api/references/openapi.yml",
+  "pricing": "https://coinpaprika.com/api/pricing/",
+  "terms": "https://coinpaprika.com/api-terms-of-use/",
+  "access": {
+    "auth": "tool metadata states no key for free-tier daily history; this call returned without supplied credentials",
+    "payment": "free plan only for personal/non-commercial use",
+    "plan_limits": {
+      "monthly_calls": 20000,
+      "daily_history": "1 year",
+      "hourly_history": "1 day",
+      "5m_history": "1 week",
+      "redistribution": "not included in Free plan"
+    },
+    "policy_state": "CONDITIONAL_PERSONAL_NONCOMMERCIAL_ONLY; current project/commercial status has not been established",
+    "registration_is_authorization": false
+  },
+  "route": {
+    "tool": "mcp__coinpaprika__getHistoricalTickerByContract",
+    "method": "GET (MCP tool call; upstream HTTP was not directly observed)",
+    "documented_upstream_path": "/contracts/{platform_id}/{contract_address}/historical",
+    "platform_id": "eth-ethereum",
+    "contract_address": "exact EVM address required",
+    "free_interval_scope": "daily/coarser within previous year; hourly within previous 24 hours per connected tool metadata; paid intervals/ranges must never be requested",
+    "local_request_budget": "one tool call per bounded observation window",
+    "automatic_retries": 0
+  },
+  "evidence": {
+    "artifact": "research-runs/2026-10-17-coinpaprika-ethereum-usdc-daily-replay/provider_response.json",
+    "runtime_status": "RESPONDED_FOR_EXACT_ETHEREUM_USDC_DAILY_QUERY",
+    "exact_retrieval_timestamp": "not supplied by tool result",
+    "response_observed_no_later_than_utc": "2026-10-17T15:02:18Z",
+    "source_timestamps": "each returned daily tick has an ISO-8601 UTC timestamp",
+    "quote": "USD",
+    "upstream_origin": "CoinPaprika aggregated market data; contributing venue mix not supplied",
+    "attribution": "Terms require prominent “Powered by CoinPaprika” attribution; Free plan does not include redistribution."
+  },
+  "failure_policy": {
+    "paid_or_out_of_free_range": "do not call; report unavailable",
+    "response_scope": "do not infer unreturned dates or market coverage",
+    "fallback": null
+  }
+}

@@ -1,0 +1,1 @@
+{"provider":"defillama","upstream_origin":"defillama_aggregated_index","endpoint":"GET /tvl/{protocol}","source_url":"https://api.llama.fi/tvl/aave","retrieved_at_utc":"2026-10-17T13:50:47Z","cache":"miss","data":18003318218.48851}

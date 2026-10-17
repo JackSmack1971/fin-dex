@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "smoke_status": "RESPONDED",
+  "provider": "Hyperliquid first-party public info API",
+  "http_method": "POST",
+  "endpoint": "https://api.hyperliquid.xyz/info",
+  "request_body": {
+    "type": "metaAndAssetCtxs"
+  },
+  "authorization_header_sent": false,
+  "read_only_operation": true,
+  "result": {
+    "provider": "hyperliquid_public_info",
+    "upstream_origin": "Hyperliquid first-party perp market data",
+    "endpoint": "POST /info type=metaAndAssetCtxs",
+    "source_url": "https://api.hyperliquid.xyz/info",
+    "requested_coin": "ETH",
+    "retrieved_at_utc": "2026-10-17T15:11:31Z",
+    "observation_timestamp": null,
+    "cache": "miss",
+    "data": {
+      "openInterest": {
+        "raw": "1065524.5639999993",
+        "numeric": 1065524.5639999993
+      },
+      "funding": {
+        "raw": "0.0000072449",
+        "numeric": 7.2449e-06
+      },
+      "markPx": {
+        "raw": "2422.72",
+        "numeric": 2422.72
+      },
+      "oraclePx": {
+        "raw": "2423.85",
+        "numeric": 2423.85
+      },
+      "dayNtlVlm": {
+        "raw": "688903772.8169294596",
+        "numeric": 688903772.8169295
+      }
+    },
+    "unit_note": "Open-interest unit is preserved as the provider returns it; this endpoint documentation does not establish USD denomination or provide an observation timestamp.",
+    "coverage_status": "CURRENT_SNAPSHOT_ONLY; not historical OI"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "provider": "defillama",
+  "endpoint": "GET /v2/historicalChainTvl/{chain}",
+  "source_url": "https://api.llama.fi/v2/historicalChainTvl/Ethereum",
+  "retrieved_at_utc": "2026-10-17T14:09:30Z",
+  "chain": "Ethereum",
+  "source_unit": "provider_tvl_units; currency unit not stated in this endpoint's response description",
+  "upstream_origin": "defillama_aggregated_index",
+  "observations": [
+    {
+      "id": "ethereum_tvl_2026-10-16",
+      "value": 50158404445,
+      "unit": "provider_tvl_units",
+      "observed_at_utc": "2026-10-16T00:00:00Z",
+      "provider_timestamp_unix": 1792108800
+    },
+    {
+      "id": "ethereum_tvl_2026-10-17",
+      "value": 49755012101,
+      "unit": "provider_tvl_units",
+      "observed_at_utc": "2026-10-17T00:00:00Z",
+      "provider_timestamp_unix": 1792195200
+    }
+  ],
+  "methodology_note": "Provider historical chain TVL observations, not executable liquidity. The calculation below is a two-sample percent change over adjacent daily timestamps and makes no causal or independent-source claim."
+}

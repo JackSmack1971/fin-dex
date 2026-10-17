@@ -12,6 +12,14 @@ spec.loader.exec_module(module)
 
 
 class TestResearchRuns(unittest.TestCase):
+    def test_retained_defillama_ethereum_history_replays_offline(self):
+        manifest = ROOT.parents[2]/'research-runs'/'2026-10-17-defillama-ethereum-tvl-replay'/'manifest.json'
+        self.assertEqual(module.validate(manifest, replay=True), [])
+
+    def test_retained_defillama_ethereum_stablecoin_supply_replays_offline(self):
+        manifest = ROOT.parents[2]/'research-runs'/'2026-10-17-defillama-ethereum-stablecoin-supply-replay'/'manifest.json'
+        self.assertEqual(module.validate(manifest, replay=True), [])
+
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
         self.root = Path(self.tmp.name)

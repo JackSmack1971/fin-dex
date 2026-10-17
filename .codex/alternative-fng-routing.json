@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "provider": "alternative_fng_public",
+  "provider_name": "Alternative.me Fear & Greed Index API",
+  "base_url": "https://api.alternative.me",
+  "documentation": "https://alternative.me/crypto/fear-and-greed-index/",
+  "free_api_documentation": "https://alternative.me/crypto/api/",
+  "documentation_checked_at": "2026-10-17",
+  "access": {
+    "auth": "none",
+    "payment": "public free GET API documented by Alternative.me",
+    "runtime_readiness": "QUALIFIED",
+    "smoke_evidence": {
+      "artifact": "research-runs/provider-smokes/alternative-fng-limit-7.json",
+      "endpoint": "GET /fng/?limit=7&format=json",
+      "status": "QUALIFIED",
+      "retrieved_at_utc": "2026-10-17T13:58:14Z",
+      "response_shape": "seven newest-first daily observations, each value in 0..100 with a Unix timestamp and classification; newest observation was fresh at retrieval",
+      "access_qualification": "Official docs describe this free public GET endpoint without credentials and require attribution; one anonymous request returned the documented envelope and data shape without payment or credential challenge.",
+      "scope": "This verifies only the F&G endpoint and limit=7 response at this observation time."
+    },
+    "policy": "Only GET /fng/ with format=json and limit 1..31 is exposed. Never use unrelated price API routes or attach credentials.",
+    "registration_is_authorization": false,
+    "attribution_required": true,
+    "attribution_text": "Data from alternative.me"
+  },
+  "routing": [
+    {
+      "task": "daily broad crypto market sentiment context",
+      "operation": "GET /fng/?limit={1..31}&format=json",
+      "fallback": [],
+      "required_identity": ["Alternative.me Fear and Greed Index; broad BTC/large-crypto market context"],
+      "required_dimensions": ["provider", "endpoint", "value 0..100", "classification", "Unix-derived observed_at_utc", "retrieved_at_utc", "attribution", "freshness", "composite-method caveat"],
+      "caveat": "This is a composite context series and not asset-specific evidence, primary-event verification, or independent confirmation of data inputs that may contribute to the index."
+    }
+  ],
+  "request_policy": {
+    "official_documented_rate_limit": "60 requests/minute over a 10-minute window",
+    "official_update_note": "API documentation says unnecessary requests should be avoided because endpoints update every 5 minutes; the F&G index itself is described as daily.",
+    "max_requests_per_command": 1,
+    "maximum_history_records": 31,
+    "timeout_seconds": 10,
+    "max_response_bytes": 100000,
+    "memory_cache_ttl_seconds": 3600,
+    "maximum_cache_ttl_seconds": 86400,
+    "retry_policy": "No automatic retries. On 401, 403, 402, 404, 429, timeout, malformed data, or network error, stop and report the classified status.",
+    "fallback_policy": "No fallback is qualified; report unavailable rather than substituting a different sentiment measure."
+  },
+  "normalization": {
+    "timestamps": "Convert each provider Unix timestamp to UTC RFC3339 and retain the original integer. Retrieval time is separately recorded. Mark newest item stale after 48 hours; historical rows are intentionally older and must not be treated as current.",
+    "units": "Integer index points from 0 through 100; preserve provider classification string.",
+    "identity": "The index describes broad Bitcoin/large-crypto market sentiment, not sentiment for an arbitrary token."
+  },
+  "upstream": {
+    "lineage": "Alternative.me composite index derived from multiple sentiment inputs; component methodology is described on its index page.",
+    "independence_status": "Composite context only; not independent corroboration of its component inputs or market claims.",
+    "rule": "Do not treat another wrapper over Alternative.me as independent."
+  },
+  "missingness": "Missing records and metadata errors remain missing or unavailable. Duplicate, unordered, invalid, future, or stale timestamps are flagged; never fill missing index values with zero."
+}
