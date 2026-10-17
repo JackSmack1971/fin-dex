@@ -1,0 +1,216 @@
+{
+  "schema_version": 1,
+  "provider": "dexpaprika",
+  "provider_name": "DexPaprika public REST via configured read-only MCP tool",
+  "documentation": "https://docs.dexpaprika.com/tutorials/pool-details",
+  "rate_limits_documentation": "https://docs.dexpaprika.com/knowledge-base/rate-limits",
+  "documentation_checked_at": "2026-10-17",
+  "pricing_documentation": "https://dexpaprika.com/api/pricing",
+  "free_access_evidence": "Official access documentation is currently conflicted: the DexPaprika per-chain API pages advertise unauthenticated REST endpoints and 50,000 free requests/month per IP without signup; the pricing page advertises a 100,000-credit/month free registered-key tier; the reviewed OpenAPI/rate-limit material previously documented 10,000 credits per IP per rolling 30 days and 15 requests/minute. These are not reconciled into a single allowance. The exact anonymous pool route has prior HTTP 200 evidence, but a later anonymous OHLCV request returned HTTP 402 for exhausted monthly allowance. Do not add a key, register, retry, or use paid hosts.",
+  "documented_freshness": {
+    "status": "CONFLICTED",
+    "claims": [
+      {
+        "source": "https://dexpaprika.com/",
+        "claim": "Free-tier figures served are at most 15 seconds old."
+      },
+      {
+        "source": "https://dexpaprika.com/api/pricing",
+        "claim": "Free REST API maximum data delay is up to 60 seconds."
+      }
+    ],
+    "handling": "Vendor pages conflict; neither claim is assigned to this retained pool response. Preserve returned timestamps and do not infer liquidity/volume observation time."
+  },
+  "access": {
+    "authorization": "anonymous/keyless",
+    "payment": "none for free keyless API tier",
+    "runtime_readiness": "PARTIALLY_QUALIFIED_FOR_KEYLESS_REST_ROUTE_AND_CLIENT_RESPONSE",
+    "keyless_runtime_status": "UNAVAILABLE_KEYLESS_QUOTA_EXHAUSTED",
+    "status": "RESPONDED",
+    "qualification_limit": "Official docs and one anonymous no-Authorization request qualify the free route. One further call through the bounded local client verified its route and identity checks. This is one exact pool, not provider-wide qualification; liquidity/volume timestamp scope and independence remain unresolved.",
+    "anonymous_rest_smoke": {
+      "artifact": "research-runs/provider-smokes/dexpaprika-public-api-ethereum-usdc-weth.json",
+      "retrieved_at_utc": "2026-10-17T14:19:16Z",
+      "endpoint": "GET /networks/{network}/pools/{pool_address}",
+      "http_status": 200,
+      "authorization_header_sent": false
+    }
+  },
+  "supported_routes": [
+    {
+      "task": "exact DEX pool snapshot",
+      "tool": "scripts/dexpaprika_public.py pool-snapshot --network {network} --pool-address {pool_address}",
+      "rest_endpoint": "GET /networks/{network}/pools/{pool_address}",
+      "source_url_template": "https://api.dexpaprika.com/networks/{network}/pools/{pool_address}",
+      "fields": [
+        "liquidity_usd",
+        "token_reserves",
+        "last_price",
+        "last_price_usd",
+        "price_time",
+        "24h",
+        "6h",
+        "1h",
+        "30m",
+        "15m",
+        "5m"
+      ],
+      "identity": [
+        "network",
+        "pool address",
+        "DEX identity",
+        "base_token_id",
+        "quote_token_id",
+        "token IDs"
+      ],
+      "units": "liquidity_usd and volume_usd are USD-denominated per docs; reserve is raw token units and must use token decimals",
+      "timestamps": "Record local retrieved_at_utc separately; retain price_time and last_updated from response; do not assume either stamps liquidity or volume snapshots without source documentation.",
+      "caveat": "Pool liquidity/TVL is not executable depth; volume is turnover. Upstream lineage relative to DEX Screener remains unknown.",
+      "observed_mcp_tool": "mcp__dexpaprika__getPoolDetails (response retained separately; do not assume MCP connector billing from REST free-tier docs)",
+      "scope": "Current client accepts 20-byte hexadecimal EVM addresses on network slugs, plus validated 32-byte Base58 Solana pool/token addresses on Solana. Live qualification evidence remains Ethereum Uniswap V3 USDC/WETH only; Solana support is fixture-tested, not live-qualified."
+    },
+    {
+      "task": "bounded exact-token pool discovery",
+      "tool": ".agents/skills/crypto-mcp-research/scripts/dexpaprika_public.py token-pools --network {network} --token-address {token_address} --limit 100",
+      "rest_endpoint": "GET /networks/{network}/pools/search?token_address={token_address}&limit={limit}&detailed=true",
+      "source_url_template": "https://api.dexpaprika.com/networks/{network}/pools/search?token_address={token_address}&limit={limit}&detailed=true",
+      "documented_keyless_scope": "One page only; local client limit is 1 to 100 rows. The command defaults to 100 and preserves has_next_page and next_cursor. No automatic pagination.",
+      "identity": "Each returned row must match the requested network and contain the exact requested token address in detailed tokens[].id; EVM address comparison is case-insensitive and Solana mint comparison is case-sensitive. Pool ID must be valid for the requested network.",
+      "fields": [
+        "pool address",
+        "DEX identity",
+        "detailed token IDs",
+        "price_usd",
+        "liquidity_usd",
+        "volume_usd_24h",
+        "has_next_page",
+        "next_cursor"
+      ],
+      "timestamps_and_units": "Retrieval UTC is recorded. Pool-search rows do not establish a liquidity/volume as-of timestamp; preserve USD fields as returned and do not infer executable depth.",
+      "coverage_status": "FIRST_PAGE_ONLY when continuation is present; otherwise RESPONSE_PAGE_COMPLETE. Empty results mean no observation, not zero liquidity or volume.",
+      "readiness": "IMPLEMENTED_FIXTURE_TESTED; no exact-token search live smoke is retained, and current anonymous quota exhaustion prevents live requalification.",
+      "independence": "UNKNOWN; do not treat as independent corroboration."
+    },
+    {
+      "task": "fallback for exact DEX Screener pair-address snapshot",
+      "tool": ".agents/skills/crypto-mcp-research/scripts/dex_pair_router.py pair --chain {chainId} --pair {pairAddress}; token-pools --chain {chainId} --token {tokenAddress}",
+      "rest_endpoint": "GET /networks/{network}/pools/{pool_address}",
+      "fallback_scope": "Exact pair-address lookup or exact token pool search after DEX Screener no-observation/eligible availability outcome on seven mapped EVM networks or Solana. Token search fetches one page (limit 100) and preserves continuation metadata.",
+      "fields": [
+        "pool address",
+        "DEX identity",
+        "detailed token IDs",
+        "price_usd",
+        "liquidity_usd",
+        "volume_usd_24h",
+        "has_next_page",
+        "next_cursor"
+      ],
+      "identity": [
+        "network",
+        "pool ID/address",
+        "exact requested EVM token ID (case-insensitive) or Solana mint ID (case-sensitive) in detailed tokens[].id"
+      ],
+      "units": "Preserve DexPaprika USD liquidity and per-window USD turnover as returned; no capacity inference.",
+      "timestamps": "Retrieval UTC is recorded; retain provider time fields, but do not assume they stamp liquidity or volume.",
+      "fallback_eligibility": [
+        "NOT_FOUND",
+        "RATE_LIMITED",
+        "TIMEOUT",
+        "NETWORK_ERROR",
+        "HTTP 5xx",
+        "empty pair/pool observation"
+      ],
+      "fail_closed": [
+        "401/403/402",
+        "malformed response",
+        "identity mismatch",
+        "unmapped network"
+      ],
+      "read_budget": "At most one request to DEX Screener and one request to DexPaprika per command; no retries.",
+      "readiness": "IMPLEMENTED_FIXTURE_TESTED; exact pool snapshot had prior live response; token-pool search and current live fallback are not live-qualified because current keyless quota is exhausted.",
+      "independence": "UNKNOWN; not independent corroboration.",
+      "token_search_coverage": "One page, limit 100, detailed=true; preserve has_next_page and next_cursor. The official schema documents tokens[].id but describes it as a canonical token ID; require an exact case-insensitive match for EVM contracts or case-sensitive match for Solana mints and fail closed otherwise. Base/quote orientation is not documented and remains UNVERIFIED.",
+      "official_access_docs": [
+        "https://github.com/coinpaprika/skills/blob/main/dexpaprika-api/SKILL.md",
+        "https://raw.githubusercontent.com/coinpaprika/skills/main/dexpaprika-api/references/openapi.yml"
+      ]
+    },
+    {
+      "task": "bounded historical OHLCV for a specific DEX pool",
+      "tool": ".agents/skills/crypto-mcp-research/scripts/dexpaprika_public.py pool-ohlcv --network {network} --pool-address {pool_address} --start -24h --interval 1h --limit 24",
+      "rest_endpoint": "GET /networks/{network}/pools/{pool_address}/ohlcv",
+      "source_url_template": "https://api.dexpaprika.com/networks/{network}/pools/{pool_address}/ohlcv?start=-24h&interval=1h&limit=24",
+      "documented_keyless_scope": "No-key plan only: last 24 hours, hourly or coarser (1h, 6h, 12h) intervals; maximum 24 returned candles. Free-key seven-day/10m access is not used.",
+      "identity": "Request is bound to one network and pool address; candle response has no pool identity envelope, so scope is request-route matched rather than response-verified.",
+      "timestamps_and_units": "Preserve time_open/time_close and OHLCV fields as returned; retrieval time is recorded separately. Check pool token orientation and quote denomination before interpreting prices as USD.",
+      "readiness": "IMPLEMENTED_FIXTURE_TESTED; exact anonymous route previously returned HTTP 402 because keyless quota was exhausted. No retry, key, signup, or paid host; live rows remain unavailable.",
+      "fallback_scope": "Candidate for pool-specific historical replay only; not equivalent to CoinPaprika token-wide daily history and not an automatic fallback for token-wide price series.",
+      "independence": "UNKNOWN; do not treat as independent corroboration until pool-level upstream collection is established.",
+      "official_access_docs": [
+        "https://github.com/coinpaprika/skills/blob/main/dexpaprika-api/SKILL.md",
+        "https://raw.githubusercontent.com/coinpaprika/skills/main/dexpaprika-api/references/openapi.yml",
+        "https://dexpaprika.com/api/pricing"
+      ]
+    }
+  ],
+  "request_policy": {
+    "local_requests_per_command": 2,
+    "retry_policy": "No automatic retry; on auth, payment, rate-limit, timeout, malformed response, or identity mismatch stop and report the exact state.",
+    "prohibited": [
+      "api-pro.dexpaprika.com",
+      "credentials",
+      "pool transactions",
+      "paid-only token OHLCV/indicators",
+      "keyless pool OHLCV windows beyond 24h or intervals finer than 1h"
+    ],
+    "documented_keyless_allowance": "CONFLICTED: reviewed OpenAPI/rate-limit material states 10,000 credits per IP per rolling 30 days and 15 requests/minute; official per-chain API pages advertise 50,000 free requests/month per IP without signup; official pricing page advertises 100,000 monthly credits for the free registered-key tier. The anonymous client's observed 402 exhaustion is retained; do not assume any advertised ceiling is presently available.",
+    "max_requests_per_command": 2,
+    "timeout_seconds": 10,
+    "max_response_bytes": 2000000,
+    "memory_cache_ttl_seconds": 30,
+    "max_requests_per_provider_per_command": 1,
+    "runtime_call_gate": "The client permits anonymous HTTP only when access.keyless_runtime_status is READY_ZERO_CHARGE_REQUALIFIED. Current status is UNAVAILABLE_KEYLESS_QUOTA_EXHAUSTED. Resume only after a documented quota reset or provider-documented access-state change is recorded and a separately bounded zero-charge requalification succeeds. The MCP connector is a separate billing path and is not an automatic substitute.",
+    "fallback_client": ".agents/skills/crypto-mcp-research/scripts/dex_pair_router.py",
+    "direct_client_requests_per_command": 1
+  },
+  "independence": {
+    "status": "UNKNOWN",
+    "rule": "Do not count as independent corroboration until pool-level upstream collection distinction is established."
+  },
+  "smoke_evidence": {
+    "artifact": "research-runs/provider-smokes/dexpaprika-client-ethereum-usdc-weth.json",
+    "retrieved_at_utc": "2026-10-17T14:21:15Z",
+    "mcp_comparison_artifact": "research-runs/provider-smokes/dexpaprika-ethereum-usdc-weth-pool.json",
+    "source_url": "https://api.dexpaprika.com/networks/ethereum/pools/0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640",
+    "mcp_response_artifact": "research-runs/provider-smokes/dexpaprika-ethereum-usdc-weth-pool.json",
+    "anonymous_rest_smoke_artifact": "research-runs/provider-smokes/dexpaprika-public-api-ethereum-usdc-weth.json"
+  },
+  "historical_ohlcv_candidate": {
+    "endpoint": "GET /networks/{network}/pools/{pool_address}/ohlcv",
+    "purpose": "historical pool candles for deterministic replay candidate",
+    "official_access_docs": [
+      "https://github.com/coinpaprika/skills/blob/main/skills/dexpaprika-api/SKILL.md",
+      "https://dexpaprika.com/api/pricing"
+    ],
+    "documented_keyless_limits": {
+      "pricing_page": "CONFLICTED: pricing page advertises 100,000 monthly credits for a free registered-key tier; per-chain API pages advertise 50,000 anonymous requests/month per IP; previously reviewed OpenAPI/rate-limit materials state 15 requests/minute and 10,000 credits per IP per rolling 30 days.",
+      "candle_window": "CONFLICTED: pricing page describes 10-minute and longer candles over the last 7 days for the free tier; per-chain pages say 1-minute to 1-day candles with the same history depth on every tier. The current anonymous route returned HTTP 402 and no rows; no broader limit is enabled."
+    },
+    "runtime_readiness": "UNAVAILABLE_KEYLESS_QUOTA_EXHAUSTED",
+    "smoke_evidence": "research-runs/provider-smokes/dexpaprika-ethereum-usdc-weth-ohlcv-24h.json",
+    "smoke_request": {
+      "network": "ethereum",
+      "pool_address": "0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640",
+      "start": "-24h",
+      "interval": "1h",
+      "limit": 24
+    },
+    "smoke_http_status": 402,
+    "response": "anonymous monthly allowance exhausted; no candle rows returned",
+    "conflicting_official_claims": [
+      "Official per-chain API pages advertise 50,000 free anonymous requests per IP per month and 1-minute-to-1-day OHLCV with the same history depth on every tier; the official pricing page instead advertises 100,000 monthly credits for a free registered-key tier and 10-minute+ OHLCV over 7 days; previously reviewed OpenAPI/rate-limit material states 10,000 credits per IP per rolling 30 days and 15 requests/minute. These claims conflict; do not infer current entitlement or broader OHLCV availability."
+    ],
+    "policy": "No retry, signup, API key, or api-pro host; future calls require a separate bounded requalification after quota reset or documented state change."
+  }
+}

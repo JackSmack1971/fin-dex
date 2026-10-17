@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "provider": "dexscreener_public",
+  "provider_name": "DEX Screener Public API",
+  "base_url": "https://api.dexscreener.com",
+  "documentation": "https://docs.dexscreener.com/api/reference",
+  "free_access_evidence": "https://docs.dexscreener.com/faq",
+  "terms": "https://docs.dexscreener.com/api/api-terms-and-conditions",
+  "documentation_checked_at": "2026-10-17",
+  "access": {
+    "auth": "none",
+    "payment": "free public API documented by DEX Screener FAQ; no paid endpoint is used",
+    "runtime_readiness": "PARTIALLY_QUALIFIED",
+    "smoke_evidence": {
+      "artifact": "research-runs/provider-smokes/dexscreener-ethereum-usdc-weth.json",
+      "endpoint": "GET /latest/dex/pairs/{chainId}/{pairId}",
+      "status": "RESPONDED_IDENTITY_MATCHED",
+      "chain_id": "ethereum",
+      "pair_address": "0x88e6A0c2dDD26FEEb64F039a2c41296FcB3f5640",
+      "response_pair_count": 1,
+      "retrieved_at_utc": "2026-10-17T13:55:38Z",
+      "access_qualification": "Official FAQ documents the API as free and identifies the endpoint's indexer; one anonymous GET returned the documented pair response with exact chain and pair identity and no credential or payment challenge.",
+      "measurement_qualification": "Not qualified for freshness-sensitive liquidity or turnover claims because the response has no metric observation timestamp; retrieval time is recorded separately."
+    },
+    "policy": "Use only the exact public pair/token GET routes below. Do not access paid API variants, paid order-status APIs, advertising endpoints, or trading operations. Do not redistribute provider data or build a competing screener product.",
+    "registration_is_authorization": false
+  },
+  "routing": [
+    {
+      "task": "pair-level DEX price, liquidity, and turnover observation",
+      "operations": [
+        "GET /token-pairs/v1/{chainId}/{tokenAddress}",
+        "GET /latest/dex/pairs/{chainId}/{pairId}"
+      ],
+      "fallback": {
+        "provider": "dexpaprika",
+        "implementation": ".agents/skills/crypto-mcp-research/scripts/dex_pair_router.py",
+        "scope": "Exact pair-address lookup and first-page pool discovery for EVM contracts on mapped EVM networks or Solana addresses on Solana.",
+        "network_mapping": "ethereum, base, arbitrum, polygon, optimism, avalanche, and bsc only; no inferred aliases",
+        "eligible_primary_outcomes": [
+          "NOT_FOUND",
+          "RATE_LIMITED",
+          "TIMEOUT",
+          "NETWORK_ERROR",
+          "HTTP 5xx",
+          "NO_OBSERVATION"
+        ],
+        "stop_without_fallback": [
+          "UNAUTHORIZED",
+          "FORBIDDEN",
+          "PAYMENT_REQUIRED",
+          "MALFORMED_DATA",
+          "IDENTITY_MISMATCH",
+          "RESPONSE_TOO_LARGE"
+        ],
+        "identity_requirements": [
+          "same network",
+          "same exact pair/pool address",
+          "returned base and quote token contract identities"
+        ],
+        "qualification": "IMPLEMENTED; fallback fixture-tested. DexPaprika historical pool snapshot responded for one Ethereum pool previously; current live fallback is not re-probed because a later anonymous OHLCV route returned HTTP 402 quota exhaustion.",
+        "independence": "UNKNOWN; do not treat fallback as independent corroboration until its upstream collection is established.",
+        "operations": [
+          "pair --chain {chainId} --pair {pairAddress}",
+          "token-pools --chain {chainId} --token {tokenAddress}"
+        ],
+        "token_search_coverage": "One detailed page of up to 100 rows; preserve has_next_page and next_cursor. Accept a result only when returned detailed token IDs exactly match the requested EVM contract (case-insensitive) or Solana mint (case-sensitive). DexPaprika does not document base/quote orientation for pool search, so this fallback leaves orientation UNVERIFIED."
+      },
+      "required_identity": [
+        "exact DEX Screener chainId",
+        "token contract or pair address",
+        "base and quote token addresses returned by provider"
+      ],
+      "required_dimensions": [
+        "provider",
+        "exact endpoint",
+        "chainId",
+        "pairAddress",
+        "base/quote addresses",
+        "DEX/pool identity",
+        "raw liquidity and volume units",
+        "retrieved_at_utc",
+        "observation timestamp or explicit absence",
+        "coverage caveat"
+      ],
+      "caveat": "The API response's pairCreatedAt is pool creation time, not the as-of time for liquidity or 24-hour volume. Retrieval time does not substitute for a missing snapshot time. liquidity.usd is reported pool liquidity, not executable depth; volume.h24 is turnover, not capacity."
+    }
+  ],
+  "request_policy": {
+    "official_documented_rate_limit": "300 requests/minute for pair and token-pair endpoints",
+    "max_requests_per_command": 2,
+    "max_requests_per_provider_per_command": 1,
+    "timeout_seconds": 10,
+    "max_response_bytes": 5000000,
+    "memory_cache_ttl_seconds": 30,
+    "maximum_cache_ttl_seconds": 600,
+    "retry_policy": "No automatic retries. On 401, 403, 402, 404, 429, timeout, malformed response, identity mismatch, or network error, stop the provider branch and report the classified status.",
+    "fallback_policy": "For exact pair-address and exact-token pool reads, use the fixed DexPaprika fallback after a primary no-observation or eligible availability failure only when the DexPaprika route contract permits a request. Current anonymous quota status is UNAVAILABLE_KEYLESS_QUOTA_EXHAUSTED; skip the fallback until a documented quota reset or provider-documented access-state change is recorded and separately requalified. The DexPaprika client checks this machine-readable contract field before every request and blocks live anonymous HTTP until zero-charge requalification. Do not substitute the MCP connector because its billing path is unverified. When eligible, token fallback returns only the first bounded page and exposes continuation metadata. Never fall back on primary auth/payment, malformed, or identity failures. Preserve fallback source identity, timestamps, units and caveats. At most one request per provider per command."
+  },
+  "normalization": {
+    "timestamps": "Preserve pairCreatedAt as pair creation time. Record retrieval time as UTC RFC3339. Mark market-metric observation time missing unless the payload supplies a separate valid timestamp.",
+    "units": "Preserve priceUsd, liquidity.usd, liquidity.base/quote, and volume periods as separate source fields and units; do not derive executable capacity.",
+    "identity": "Require exact requested chainId and token/pair identity. Compare EVM addresses case-insensitively and non-EVM addresses exactly. Keep pairAddress, DEX ID, and base/quote orientation."
+  },
+  "upstream": {
+    "lineage": "DEX Screener custom blockchain indexer; FAQ states it parses raw blockchain logs without external APIs.",
+    "independence_status": "Distinct provider indexer; independence from any particular comparator must still be verified observation by observation.",
+    "rule": "Do not count wrappers over DEX Screener as independent. Do not call an unknown upstream independent."
+  },
+  "missingness": "Empty pairs means no returned pair observation, not zero liquidity or zero volume. Missing liquidity, price, volume, pair timestamp, or chain metadata remains missing. Identity mismatch invalidates the result."
+}

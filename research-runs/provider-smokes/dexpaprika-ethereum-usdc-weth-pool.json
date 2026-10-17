@@ -1,0 +1,143 @@
+{
+  "provider": "dexpaprika",
+  "endpoint": "GET /networks/{network}/pools/{pool_address}",
+  "tool": "mcp__dexpaprika__getPoolDetails",
+  "tool_transport": "mcp__dexpaprika configured read-only tool",
+  "source_url": "https://api.dexpaprika.com/networks/ethereum/pools/0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640",
+  "route_note": "URL is the documented REST route corresponding to the exact tool parameters; MCP tool response does not expose its upstream HTTP request URL.",
+  "retrieved_at_utc": "2026-10-17T14:16:50Z",
+  "source_timestamps": {
+    "price_time": "2026-10-17T14:16:35Z",
+    "last_updated": "2026-10-17T14:16:45.220857638Z"
+  },
+  "identity": {
+    "chain": "ethereum",
+    "pool_address": "0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640",
+    "dex_id": "uniswap_v3",
+    "dex_name": "Uniswap V3",
+    "base_token_id": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+    "quote_token_id": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+    "tokens": [
+      {
+        "id": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+        "symbol": "USDC",
+        "decimals": 6
+      },
+      {
+        "id": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+        "symbol": "WETH",
+        "decimals": 18
+      }
+    ]
+  },
+  "data": {
+    "liquidity_usd": 82331518.03228185,
+    "last_price": 2418.6599478802627,
+    "last_price_usd": 2419.8422248617944,
+    "token_reserves": [
+      {
+        "token_id": "0xa0b86991c6218b36d0a0e5c4f27ead9083c756cc2",
+        "reserve": 60417585480584,
+        "reserve_usd": 60447118.49561409
+      },
+      {
+        "token_id": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+        "reserve": 9.052703377462614e+21,
+        "reserve_usd": 21906113.88193301
+      }
+    ],
+    "24h": {
+      "volume_usd": 27062880.320033155,
+      "buy_usd": 14205936.451720145,
+      "sell_usd": 12856943.86831301,
+      "sells": 2112,
+      "buys": 2003,
+      "txns": 4115,
+      "last_price_usd_change": -0.46810498235279224
+    },
+    "6h": {
+      "volume_usd": 2968865.6206975016,
+      "buy_usd": 1606462.99380819,
+      "sell_usd": 1362402.6268893115,
+      "sells": 465,
+      "buys": 458,
+      "txns": 923,
+      "last_price_usd_change": -0.636253456530526
+    },
+    "1h": {
+      "volume_usd": 468261.62572882295,
+      "buy_usd": 247773.3062742835,
+      "sell_usd": 220488.31945453945,
+      "sells": 76,
+      "buys": 62,
+      "txns": 138,
+      "last_price_usd_change": -0.030474485072371035
+    },
+    "30m": {
+      "volume_usd": 216521.6132513159,
+      "buy_usd": 121063.26280579116,
+      "sell_usd": 95458.35044552473,
+      "sells": 36,
+      "buys": 26,
+      "txns": 62,
+      "last_price_usd_change": -0.0629011284520439
+    },
+    "15m": {
+      "volume_usd": 89158.17654467534,
+      "buy_usd": 64404.004061102896,
+      "sell_usd": 24754.172483572445,
+      "sells": 13,
+      "buys": 15,
+      "txns": 28,
+      "last_price_usd_change": -0.1606968863812306
+    },
+    "5m": {
+      "volume_usd": 36485.16317860111,
+      "buy_usd": 36485.16317860111,
+      "sell_usd": 0,
+      "sells": 0,
+      "buys": 7,
+      "txns": 7,
+      "last_price_usd_change": -0.051741010592739375
+    }
+  },
+  "units": {
+    "liquidity_usd": "USD pool TVL/liquidity as documented by DexPaprika",
+    "volume_usd": "USD turnover over each response window as documented by DexPaprika",
+    "reserve": "raw token units; decimals supplied per token"
+  },
+  "qualification": {
+    "access": "Official docs state pool details works without an API key; keyless allowance is 10,000 credits per IP per rolling 30 days and 15 requests/minute. One read request was made.",
+    "identity": "Exact chain and pool match; DEX, base/quote addresses, and token contract pair match the retained DEX Screener record (case-insensitive address comparison).",
+    "freshness": "Provider supplies price_time and last_updated. price_time qualifies the latest price timestamp; source does not explicitly establish that these timestamps are the liquidity and 24h volume observation timestamps.",
+    "source_independence": "Unknown; two provider interfaces responded, but distinct upstream collection for this pair has not been demonstrated.",
+    "comparability": "DEX Screener retrieval was 2026-10-17T13:55:38Z and provided no metric observation timestamp. Do not treat the responses as time-aligned or call metric agreement corroboration."
+  },
+  "comparison_context": {
+    "comparator_artifact": "research-runs/provider-smokes/dexscreener-ethereum-usdc-weth.json",
+    "dexscreener_retrieved_at_utc": "2026-10-17T13:55:38Z",
+    "dexscreener_metric_timestamp": "not supplied",
+    "dexscreener_liquidity_usd": 82346798.88,
+    "dexpaprika_liquidity_usd": 82331518.03228185,
+    "liquidity_difference_dexpaprika_minus_dexscreener_usd": -15280.847718149424,
+    "dexscreener_volume_h24_usd": 32787388.5,
+    "dexpaprika_volume_24h_usd": 27062880.320033155,
+    "volume_difference_dexpaprika_minus_dexscreener_usd": -5724508.179966845,
+    "interpretation": "Exact pool identity and USD fields match. The observations are not time-aligned because DEX Screener supplies no metric timestamp; differences are descriptive only and do not prove agreement or disagreement."
+  },
+  "anonymous_rest_smoke": {
+    "artifact": "research-runs/provider-smokes/dexpaprika-public-api-ethereum-usdc-weth.json",
+    "retrieved_at_utc": "2026-10-17T14:19:16Z",
+    "http_status": 200,
+    "authorization_header_sent": false,
+    "observed_endpoint": "GET /networks/ethereum/pools/0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640",
+    "values_match_mcp_response": true
+  },
+  "latest_bounded_client_smoke": {
+    "artifact": "research-runs/provider-smokes/dexpaprika-client-ethereum-usdc-weth.json",
+    "retrieved_at_utc": "2026-10-17T14:21:15Z",
+    "liquidity_usd": 82322075.63242704,
+    "volume_24h_usd": 27074443.82718024,
+    "price_time": "2026-10-17T14:19:23Z"
+  }
+}
