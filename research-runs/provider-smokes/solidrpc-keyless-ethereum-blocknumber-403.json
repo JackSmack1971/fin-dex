@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "provider": "SolidRPC keyless public Ethereum RPC",
+  "source": "https://solidrpc.io/docs/public-rpc",
+  "endpoint": "https://rpc.solidrpc.io/public/evm/1",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "eth_blockNumber",
+    "params": [],
+    "id": 1
+  },
+  "http_method": "POST",
+  "authorization_header_sent": false,
+  "observation": "The bounded probe aborted on the first eth_blockNumber call with HTTP 403; eth_getLogs was not reached. urllib did not expose the response body.",
+  "http_status": 403,
+  "retrieved_at_utc": null,
+  "observed_at_or_before_utc": "2026-10-17T15:14:04Z",
+  "retry_policy": "No retry; stop provider branch."
+}

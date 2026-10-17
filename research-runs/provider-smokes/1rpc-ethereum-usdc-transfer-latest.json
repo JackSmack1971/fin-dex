@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "provider": "1rpc_public_ethereum",
+  "status": "UNAVAILABLE_METHOD_NOT_AVAILABLE",
+  "endpoint": "https://public.1rpc.io/eth",
+  "chain": "Ethereum mainnet (chain ID 1 per provider network documentation)",
+  "retrieved_at_utc": "2026-10-17T14:39:42.5163427Z",
+  "authorization_header_sent": false,
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "eth_getLogs",
+    "params": [
+      {
+        "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+        "fromBlock": "latest",
+        "toBlock": "latest",
+        "topics": [
+          "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"
+        ]
+      }
+    ]
+  },
+  "transport": {
+    "http_status": 200,
+    "response": {
+      "jsonrpc": "2.0",
+      "id": 1,
+      "error": {
+        "code": -32000,
+        "message": "method not available"
+      }
+    }
+  },
+  "limitations": [
+    "The provider documents a free public Ethereum EVM JSON-RPC endpoint and a 200-request daily public quota, but this exact eth_getLogs call was denied by the JSON-RPC method layer.",
+    "No logs, block timestamp, or historical coverage were returned.",
+    "HTTP 200 is not treated as method success or provider qualification.",
+    "One request was made; no retry, credential, alternate host, or proxy was used."
+  ]
+}

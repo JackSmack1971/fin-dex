@@ -1,0 +1,22 @@
+{
+  "provider": "github_public_repo_release_atom",
+  "endpoint": "https://github.com/OffchainLabs/nitro/releases.atom",
+  "repository": "OffchainLabs/nitro",
+  "request_method": "GET",
+  "authentication": "none",
+  "retrieval_started_utc": "2026-10-17T14:41:52.6207554Z",
+  "retrieval_completed_utc": "2026-10-17T14:41:53.0016629Z",
+  "http_status": 200,
+  "content_type": "application/atom+xml; charset=utf-8",
+  "response_bytes": 63308,
+  "feed_title": "Release notes from nitro",
+  "feed_updated_utc": "2026-09-29T14:02:26Z",
+  "first_entry_title": "Arbitrum Nitro v3.12.1",
+  "first_entry_updated_utc": "2026-10-02T22:54:03Z",
+  "first_entry_url": "https://github.com/OffchainLabs/nitro/releases/tag/v3.12.1",
+  "first_entry_id": "tag:github.com,2008:Repository/410897288/v3.12.1",
+  "entry_count": 10,
+  "route_format_officially_documented": false,
+  "qualification": "RESPONDED_UNQUALIFIED; repository-specific tagged software releases only; route convention not found in official docs",
+  "notes": "No account, key, retry, or credentials used. Release updated timestamp is publisher metadata, not necessarily event time."
+}

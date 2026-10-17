@@ -1,0 +1,55 @@
+{
+  "provider": "hive_tool_catalog",
+  "tool": "mcp__hive__search_tools",
+  "retrieved_at_utc": "2026-10-17T17:34:28.926Z",
+  "query": "stablecoin transfer history Ethereum public logs free",
+  "evidence_phase": "logs",
+  "runtime_status": "ok",
+  "credits_used": 0,
+  "toolset_results": [
+    {
+      "id": "network_infrastructure",
+      "purpose": "Read chain state, gas, blocks, receipts, logs, transaction status, supported networks, and Solana priority fees.",
+      "route_ids": ["transaction_debug"],
+      "matching_route": false,
+      "route_note": "Transaction debug requires a transaction hash and its logs step has no automatic substitute; it is not a chain-wide stablecoin transfer history route."
+    }
+  ],
+  "relevant_tool_discovery": {
+    "name": "fetch_public_api",
+    "provider": "Open Data Fetch",
+    "read_only": true,
+    "material": true,
+    "credit_cost": 1,
+    "availability": "ok",
+    "allowed_hosts": [
+      "api.hyperliquid.xyz",
+      "api.coingecko.com",
+      "api.llama.fi",
+      "coins.llama.fi",
+      "stablecoins.llama.fi",
+      "api.dexscreener.com",
+      "api.binance.com",
+      "api.bybit.com",
+      "api.kraken.com",
+      "cloudflare-eth.com",
+      "ethereum-rpc.publicnode.com"
+    ],
+    "invoked": false,
+    "reason_not_invoked": "A material Hive credit is outside the verified-free-only scope; host allowlisting is not provider authorization or free entitlement."
+  },
+  "evidence_receipt": {
+    "receipt_id": "7521cc38-d7f0-4961-b674-ab23c134a9b0",
+    "receipt_version": "1.0",
+    "server_version": "1.11.2",
+    "build_sha": "0f7088f057c5441ac196104563c34fee15a1ca18",
+    "input_digest": "2da909fd1c67b64a320d4cf2455f86f0ff88040e90eac7fa78e384da34da7ba2",
+    "result_digest": "13d08de7a692e73d76e4cdec2a87fb729ad001a2cc61bc74de1513935c9a27b",
+    "source": "live",
+    "origin_source": "live",
+    "cache_status": "unknown",
+    "truncated": false,
+    "warnings": []
+  },
+  "interpretation": "This observation describes the current Hive tool catalog response only. It does not establish that any upstream RPC host is free, authorized, supports eth_getLogs, or may be used for chain-wide indexing. No provider API request was made."
+}

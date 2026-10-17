@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "provider": "bybit_v5_public_market",
+  "status": "UNAVAILABLE",
+  "requests": [
+    {
+      "endpoint": "GET /v5/market/funding/history",
+      "source_url": "https://api.bybit.com/v5/market/funding/history?category=linear&symbol=BTCUSDT&limit=1",
+      "instrument": "BTCUSDT linear perpetual",
+      "retrieved_at_utc": "2026-10-17T14:36:30.0405946Z",
+      "http_status": 403,
+      "authorization_header_sent": false,
+      "response_body_retained": false
+    },
+    {
+      "endpoint": "GET /v5/market/open-interest",
+      "source_url": "https://api.bybit.com/v5/market/open-interest?category=linear&symbol=BTCUSDT&intervalTime=1h&limit=1",
+      "instrument": "BTCUSDT linear perpetual",
+      "interval": "1h",
+      "retrieved_at_utc": "2026-10-17T14:36:30.5235349Z",
+      "http_status": 403,
+      "authorization_header_sent": false,
+      "response_body_retained": false
+    }
+  ],
+  "attempt_policy": {
+    "request_count": 2,
+    "max_rows_per_successful_response": 1,
+    "retry": false,
+    "alternate_host_or_proxy": false,
+    "credentials": false
+  },
+  "limitations": [
+    "HTTP 403 establishes runtime denial for these exact requests only, not provider-wide unavailability.",
+    "The provider documentation describes response fields and history parameters but does not explicitly state a zero-charge entitlement for this use.",
+    "No market data payload was received; units, response coverage, and provider timestamps were not verified."
+  ]
+}

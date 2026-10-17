@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "provider": "gdelt_doc_public",
+  "provider_name": "GDELT DOC 2.0 API",
+  "base_url": "https://api.gdeltproject.org/api/v2/doc/doc",
+  "documentation": "https://blog.gdeltproject.org/gdelt-doc-2-0-api-debuts/",
+  "terms": "https://www.gdeltproject.org/about.html",
+  "documentation_checked_at": "2026-10-17",
+  "access": {
+    "auth": "none documented for public DOC 2.0 URL",
+    "payment": "GDELT says released datasets are available without fee",
+    "runtime_readiness": "UNAVAILABLE",
+    "last_smoke": {
+      "artifact": "research-runs/provider-smokes/gdelt-doc-one-day-smoke-2026-10-17.json",
+      "status": "UNAVAILABLE_RATE_LIMITED",
+      "retrieved_at_utc": "2026-10-17T14:26:19Z",
+      "completed_at_utc": "2026-10-17T14:26:28Z",
+      "http_status": 429,
+      "request_url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%22Ethereum%22&mode=artlist&format=json&timespan=1d&sort=datedesc&maxrecords=3",
+      "note": "The second bounded anonymous GET for Ethereum article discovery received HTTP 429. No retry was made. The exact operation must pass a future anonymous smoke before operational use."
+    },
+    "registration_is_authorization": false,
+    "qualification_scope": "Official free terms support the data entitlement, but this environment's DOC endpoint response is currently rate-limited; no returned article data has been qualified."
+  },
+  "route": {
+    "method": "GET",
+    "path": "/api/v2/doc/doc",
+    "fixed_parameters": {"mode": "artlist", "format": "json", "timespan": "7d", "sort": "datedesc"},
+    "variable_parameters": {"query": "1..300 characters", "maxrecords": "1..25"},
+    "local_budget": "one request per command",
+    "timeout_seconds": 10,
+    "max_response_bytes": 1000000,
+    "process_cache_seconds": 60,
+    "automatic_retries": 0
+  },
+  "use_policy": {
+    "purpose": "catalyst discovery lead only; not event verification",
+    "primary_source_rule": "Open the returned publisher URL and corroborate material claims from an official issuer, governance, regulator, or other primary record.",
+    "source_independence": "GDELT indexes third-party news sources. Multiple articles can be syndicated duplicates, and the index is not independent primary evidence.",
+    "timestamps": "Preserve GDELT seendate as index/article-seen metadata; actual event time and publisher publication/update time require separate verification.",
+    "attribution": "Cite the GDELT Project when using its data."
+  },
+  "failure_handling": {
+    "429_or_auth_or_payment": "stop provider branch; no retry and no inferred zero",
+    "malformed_or_empty": "preserve as malformed or zero results as appropriate; do not infer absence of event",
+    "fallback": null
+  }
+}
