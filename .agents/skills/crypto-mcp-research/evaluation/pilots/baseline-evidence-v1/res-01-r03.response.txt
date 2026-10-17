@@ -1,0 +1,1 @@
+NO_VERIFIED_CONCLUSION — The fixture contains prices only for `base:0x1111111111111111111111111111111111111111`; it provides no second asset on another chain, so the same-ticker assets cannot be resolved or compared over a matched window.

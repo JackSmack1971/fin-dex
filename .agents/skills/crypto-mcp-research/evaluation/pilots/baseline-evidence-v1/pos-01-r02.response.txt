@@ -1,0 +1,1 @@
+NO_VERIFIED_CONCLUSION — the supplied fixture contains no evidence (`null`) to establish matched UTC endpoints, spot prices, independent market sources, or the 24-hour performance comparison.

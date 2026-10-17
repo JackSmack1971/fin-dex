@@ -1,0 +1,1 @@
+NO_VERIFIED_CONCLUSION — The fixture contains two successful USD observations for the same Base asset on different dates, but no second-chain asset or matched-window observations. It cannot resolve two same-ticker assets across chains or support a price comparison.

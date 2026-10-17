@@ -1,0 +1,74 @@
+{
+  "native_execution": true,
+  "execution_status": "PROCESS_EXITED",
+  "exit_code": 0,
+  "session_ids": [
+    "01a146ee-5053-7101-903e-bdaab9b86eaa"
+  ],
+  "runtime": "codex-cli 0.163.0",
+  "requested_model": "gpt-6-luna",
+  "model_runtime_id": "codex-cli 0.163.0|gpt-6-luna",
+  "condition": "BASELINE",
+  "case_id": "FAIL-01",
+  "replicate": 1,
+  "started_at_utc": "2026-10-16T22:56:25.497058Z",
+  "finished_at_utc": "2026-10-16T22:56:31.522063Z",
+  "elapsed_ms": 6025.007,
+  "frozen_input_sha256": "df89f4207a0175952940bc2d93a43cbe9017a576149a1ae9585e24f73132b8e4",
+  "submitted_prompt_sha256": "cad2013fe690d4872b79a513accbe359c563b2af05e0d745d070be7c626da5f7",
+  "fixture_id": "FAIL-01-fixture-v1",
+  "fixture_content_sha256": "40b0f8c4a6e361b69cca46e6dea9fd64e392348ac1aca512e39e0a8328287837",
+  "fixture_evidence_submitted_sha256": "710f59235266cb28ae3768379ebdcf04ebdd19b3706f9b558aa74227fadf5bfd",
+  "base_instructions_sha256": "e2aba9d52ebf18949616f7cd3c584f7a4d9fedc8e0d56a9f5136614960843d70",
+  "condition_instructions_sha256": "1e5206f86d5f94e8e868980c3c3b853afc31d40540ecaee1c2cc7120b37dda6a",
+  "tool_permissions_sha256": "55c40942d2c84a8df70aec3f445a4eb946ae548d837ec0570a6bf6b9b9dabac4",
+  "configured_tool_servers": [
+    "coingecko",
+    "coinpaprika",
+    "dexpaprika",
+    "cryptocom_market",
+    "hive",
+    "gdelt"
+  ],
+  "actual_tool_call_events": [],
+  "actual_tool_call_count": 0,
+  "observed_response": "{\"routing_decision\":false,\"rationale\":\"This is a synthetic provider-failure case with a supplied substitute response; answer from the fixture without activating a specialized workflow. The primary provider timed out. The fixture reports a substitute price of USD 1.25 for the specified asset, observed at 2026-10-11T00:00:00Z. No live execution is verified.\"}",
+  "native_model_metadata_events": [],
+  "evidence_files": {
+    "prompt": "fail-01-r01.prompt.txt",
+    "events": "fail-01-r01.events.jsonl",
+    "response": "fail-01-r01.response.txt",
+    "stderr": "fail-01-r01.stderr.txt"
+  },
+  "completion_status": "NATIVE_SESSION_COMPLETED_RESPONSE_RETAINED",
+  "adjudication_status": "PENDING_OBJECTIVE_REVIEW_AND_DUAL_RATER_JUDGMENT",
+  "tool_call_outcomes": [],
+  "unsupported_claims": {
+    "status": "PENDING_INDEPENDENT_ADJUDICATION",
+    "distinct_claim_ids": []
+  },
+  "objective_errors": {
+    "status": "PENDING_DETERMINISTIC_OR_INDEPENDENT_ADJUDICATION",
+    "asset_identity_errors": "UNMEASURED",
+    "timestamp_unit_mismatches": "UNMEASURED",
+    "source_independence_errors": "UNMEASURED",
+    "unauthorized_external_operations": 0,
+    "routing_decision_to_skill_activation_mapping": "NOT_APPLICABLE"
+  },
+  "evidence_references": {
+    "frozen_case_source": "../../corpus-v1.json#cases/FAIL-01",
+    "fixture_source": "../../fixtures-v1.json#/fixtures/FAIL-01-fixture-v1",
+    "full_fixture_content_sha256": "40b0f8c4a6e361b69cca46e6dea9fd64e392348ac1aca512e39e0a8328287837",
+    "fixture_oracle_assertions_withheld_from_model": true,
+    "native_response_file": "fail-01-r01.response.txt",
+    "native_event_stream_file": "fail-01-r01.events.jsonl"
+  },
+  "effective_instruction_digests": {
+    "shared_pilot_instructions_sha256": "e2aba9d52ebf18949616f7cd3c584f7a4d9fedc8e0d56a9f5136614960843d70",
+    "baseline_condition_instructions_sha256": "1e5206f86d5f94e8e868980c3c3b853afc31d40540ecaee1c2cc7120b37dda6a",
+    "full_runner_instruction_scaffold_sha256": "5d587c223ada0484f782a7fe9e5c74c59aae2929fd9f42d0595f654cbe7e899d",
+    "repository_AGENTS_md": "NOT_LOADED_ISOLATED_WORKING_DIRECTORY",
+    "fin_dex_skill": "NOT_AVAILABLE_IN_ISOLATED_WORKING_DIRECTORY",
+    "codex_internal_system_prompt": "NOT_EXPOSED_BY_CLI"
+  }
+}

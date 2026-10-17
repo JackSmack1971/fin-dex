@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a146ee-3a8f-76e3-926e-944c42b90c12"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"{\"routing_decision\":true,\"rationale\":\"The task requires resolving same-ticker assets across chains and comparing matched-window prices, which warrants a specialized crypto research workflow if available. The fixture provides prices for only one Base asset at two dates, so it cannot support cross-chain asset resolution or a matched-window comparison. NO_VERIFIED_CONCLUSION.\"}"}}
+{"type":"turn.completed","usage":{"input_tokens":16958,"cached_input_tokens":16128,"cache_write_input_tokens":0,"output_tokens":74,"reasoning_output_tokens":0}}

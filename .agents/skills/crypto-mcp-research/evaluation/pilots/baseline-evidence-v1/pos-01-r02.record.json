@@ -1,0 +1,74 @@
+{
+  "native_execution": true,
+  "execution_status": "PROCESS_EXITED",
+  "exit_code": 0,
+  "session_ids": [
+    "01a146ed-7191-7a93-8520-bd91a68687d4"
+  ],
+  "runtime": "codex-cli 0.163.0",
+  "requested_model": "gpt-6-luna",
+  "model_runtime_id": "codex-cli 0.163.0|gpt-6-luna",
+  "condition": "BASELINE",
+  "case_id": "POS-01",
+  "replicate": 2,
+  "started_at_utc": "2026-10-16T22:55:28.350125Z",
+  "finished_at_utc": "2026-10-16T22:55:33.562326Z",
+  "elapsed_ms": 5212.201,
+  "frozen_input_sha256": "eeba5356fe8bae42c32fa0b14aa64ba4c3db974b7775ab4c6b904173c13cb91f",
+  "submitted_prompt_sha256": "e343237c73ff4c988a2cc521a4c83a5e33c0b2381c3ed1d6316698cd56aef263",
+  "fixture_id": "POS-01-fixture-v1",
+  "fixture_content_sha256": "a0b7300eaccf6fc249a22f04a28c0b3961b35b4caf86b7474de84f82753460e1",
+  "fixture_evidence_submitted_sha256": null,
+  "base_instructions_sha256": "e2aba9d52ebf18949616f7cd3c584f7a4d9fedc8e0d56a9f5136614960843d70",
+  "condition_instructions_sha256": "1e5206f86d5f94e8e868980c3c3b853afc31d40540ecaee1c2cc7120b37dda6a",
+  "tool_permissions_sha256": "55c40942d2c84a8df70aec3f445a4eb946ae548d837ec0570a6bf6b9b9dabac4",
+  "configured_tool_servers": [
+    "coingecko",
+    "coinpaprika",
+    "dexpaprika",
+    "cryptocom_market",
+    "hive",
+    "gdelt"
+  ],
+  "actual_tool_call_events": [],
+  "actual_tool_call_count": 0,
+  "observed_response": "NO_VERIFIED_CONCLUSION — the supplied fixture contains no evidence (`null`) to establish matched UTC endpoints, spot prices, independent market sources, or the 24-hour performance comparison.",
+  "native_model_metadata_events": [],
+  "evidence_files": {
+    "prompt": "pos-01-r02.prompt.txt",
+    "events": "pos-01-r02.events.jsonl",
+    "response": "pos-01-r02.response.txt",
+    "stderr": "pos-01-r02.stderr.txt"
+  },
+  "completion_status": "NATIVE_SESSION_COMPLETED_RESPONSE_RETAINED",
+  "adjudication_status": "PENDING_ROUTING_ACTIVATION_MAPPING",
+  "tool_call_outcomes": [],
+  "unsupported_claims": {
+    "status": "PENDING_INDEPENDENT_ADJUDICATION",
+    "distinct_claim_ids": []
+  },
+  "objective_errors": {
+    "status": "PENDING_DETERMINISTIC_OR_INDEPENDENT_ADJUDICATION",
+    "asset_identity_errors": "UNMEASURED",
+    "timestamp_unit_mismatches": "UNMEASURED",
+    "source_independence_errors": "UNMEASURED",
+    "unauthorized_external_operations": 0,
+    "routing_decision_to_skill_activation_mapping": "PENDING"
+  },
+  "evidence_references": {
+    "frozen_case_source": "../../corpus-v1.json#cases/POS-01",
+    "fixture_source": "../../fixtures-v1.json#/fixtures/POS-01-fixture-v1",
+    "full_fixture_content_sha256": "a0b7300eaccf6fc249a22f04a28c0b3961b35b4caf86b7474de84f82753460e1",
+    "fixture_oracle_assertions_withheld_from_model": true,
+    "native_response_file": "pos-01-r02.response.txt",
+    "native_event_stream_file": "pos-01-r02.events.jsonl"
+  },
+  "effective_instruction_digests": {
+    "shared_pilot_instructions_sha256": "e2aba9d52ebf18949616f7cd3c584f7a4d9fedc8e0d56a9f5136614960843d70",
+    "baseline_condition_instructions_sha256": "1e5206f86d5f94e8e868980c3c3b853afc31d40540ecaee1c2cc7120b37dda6a",
+    "full_runner_instruction_scaffold_sha256": "5d587c223ada0484f782a7fe9e5c74c59aae2929fd9f42d0595f654cbe7e899d",
+    "repository_AGENTS_md": "NOT_LOADED_ISOLATED_WORKING_DIRECTORY",
+    "fin_dex_skill": "NOT_AVAILABLE_IN_ISOLATED_WORKING_DIRECTORY",
+    "codex_internal_system_prompt": "NOT_EXPOSED_BY_CLI"
+  }
+}

@@ -1,0 +1,1 @@
+NO_VERIFIED_CONCLUSION — the fixture contains two USD prices for the same Base asset at different times and from different providers, but no second-chain asset or matched-window prices for comparison.

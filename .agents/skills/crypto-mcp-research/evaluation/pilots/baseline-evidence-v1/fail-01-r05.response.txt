@@ -1,0 +1,1 @@
+NO_VERIFIED_CONCLUSION — the primary provider timed out, and the fixture contains one successful substitute price of USD 1.25 for the specified asset at 2026-10-11T00:00:00Z. This supports only that fixture observation; it does not establish a broader or current market price.

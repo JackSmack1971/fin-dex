@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a146ed-85d3-7e71-b94f-bd06f759c107"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"{\"routing_decision\":true,\"rationale\":\"Comparing 24-hour spot performance for a specific token against ETH requires matched UTC endpoints and independent market sources, so a specialized crypto research workflow would be warranted if available.\"}"}}
+{"type":"turn.completed","usage":{"input_tokens":16772,"cached_input_tokens":11776,"cache_write_input_tokens":0,"output_tokens":49,"reasoning_output_tokens":0}}

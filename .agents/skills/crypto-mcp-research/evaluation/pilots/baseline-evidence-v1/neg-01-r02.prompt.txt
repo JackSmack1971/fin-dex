@@ -1,0 +1,11 @@
+Offline baseline evaluation. Do not invoke any tools, external providers, skills, or sub-agents. Do not make external or live-data claims. For routing cases, answer whether a specialized crypto research workflow would be warranted if available, without activating it; return JSON with boolean field routing_decision and a brief rationale. For research/provider-failure cases, answer the task using only the supplied synthetic fixture evidence; state NO_VERIFIED_CONCLUSION for claims the fixture cannot support. Do not score your own output or invent observations.
+
+TRIAL INPUT (frozen case input is reproduced verbatim):
+Explain what a cryptocurrency is to a beginner without researching a specific asset.
+
+SYNTHETIC FIXTURE EVIDENCE (oracle assertions withheld):
+null
+
+Use the exact frozen case input and its bound synthetic fixture. Preserve the corpus expected behavior, evidence requirements, scoring rubric, and failure criteria. Do not call external providers, launch research agents, or invoke paid, wallet, transaction, publication, or state-changing tools. Record no claims of live execution.
+
+Baseline: perform the task without the Fin-Dex crypto research skill and without specialist or reviewer agents. Follow only the shared frozen case and fixture instructions.

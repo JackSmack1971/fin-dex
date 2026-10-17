@@ -1,0 +1,3 @@
+A cryptocurrency is a kind of digital money that uses cryptography to help secure transactions. Many cryptocurrencies operate on a network of computers that share a record of transactions, rather than relying on one bank or company to keep that record.
+
+People may use cryptocurrencies to send value, or buy and sell them. Their prices can change sharply, and transactions may be difficult or impossible to reverse. A cryptocurrency is not automatically backed by a government or guaranteed to hold its value.

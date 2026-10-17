@@ -1,0 +1,1 @@
+The primary provider timed out. The fixture records a successful USD price response of **$1.25** for `base:0x1111111111111111111111111111111111111111`, observed at `2026-10-11T00:00:00Z`, from the independently retained substitute with `distinct-origin` provenance. No live execution is claimed.

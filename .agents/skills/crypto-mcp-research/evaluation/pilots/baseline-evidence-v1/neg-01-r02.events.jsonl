@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a146ed-af64-7373-97a5-9605735acdbf"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"A cryptocurrency is a type of digital money that uses cryptography to secure transactions. Many cryptocurrencies run on a shared record called a blockchain, which is maintained by a network of computers rather than a single bank or company.\n\nPeople can use cryptocurrencies to send value or interact with online services, depending on the currency. Their prices can change sharply, and transactions may be difficult or impossible to reverse, so they can carry substantial risk."}}
+{"type":"turn.completed","usage":{"input_tokens":16748,"cached_input_tokens":0,"cache_write_input_tokens":0,"output_tokens":88,"reasoning_output_tokens":0}}

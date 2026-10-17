@@ -1,0 +1,6 @@
+Reading prompt from stdin...
+2026-10-16T22:56:01.945128Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 429: error code: 1015\n")
+2026-10-16T22:56:02.251499Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 429: error code: 1015\n")
+2026-10-16T22:56:02.587674Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when AuthRequired(AuthRequiredError { www_authenticate_header: "Bearer resource_metadata=\"https://codex-app.tldraw.xyz/.well-known/oauth-protected-resource/mcp\", scope=\"openid profile email offline_access\"" })
+2026-10-16T22:56:02.753604Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when AuthRequired(AuthRequiredError { www_authenticate_header: "Bearer resource_metadata=\"https://openai-mcp.higgsfield.ai/.well-known/oauth-protected-resource/mcp\", scope=\"openid email profile\"" })
+2026-10-16T22:56:03.308478Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 429: error code: 1015\n")
