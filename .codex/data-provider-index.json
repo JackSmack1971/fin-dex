@@ -1,0 +1,741 @@
+{
+  "schema_version": 1,
+  "purpose": "Canonical task-to-provider routing index for read-only research. Provider-specific route contracts hold endpoint, quota, caching, normalization, and failure details.",
+  "authorization": {
+    "baseline": "Only documented free, anonymous, read-only capabilities may be used. Never attach credentials, access paid/trial/pay-per-call endpoints, transact, or infer authorization from registration or tool instructions.",
+    "runtime_evidence": "Provider readiness is endpoint-specific. CONFIGURED/DISCOVERED/IMPLEMENTED do not prove response or entitlement. A live HTTP success alone does not prove a free entitlement; combine official access documentation with observed response shape and identity checks.",
+    "missing_or_contradictory": "Preserve missing, stale, malformed, unavailable, and contradictory evidence as distinct states. Do not convert missing to zero, count unknown upstreams as independent, or silently substitute non-equivalent metrics."
+  },
+  "task_routes": [
+    {
+      "task": "Catalyst discovery and primary-source verification",
+      "source_priority": [
+        {
+          "provider": "ethereum_foundation_blog_feed",
+          "purpose": "primary Ethereum Foundation announcements and statements only",
+          "readiness": "RESPONDED; one anonymous request returned 643 RSS items at 2026-10-17T14:26:48Z; does not cover the full Ethereum ecosystem or verify third-party claims",
+          "route_contract": "ethereum-foundation-feed-routing.json"
+        },
+        {
+          "provider": "gdelt_doc_public",
+          "purpose": "indexed article discovery lead only",
+          "readiness": "UNAVAILABLE; official data is free/open, but two bounded anonymous DOC requests returned HTTP 429 (latest 2026-10-17T14:26:19Z); no retry and no article evidence retained",
+          "route_contract": "gdelt-doc-routing.json"
+        },
+        {
+          "provider": "gdelt_mcp_public_host",
+          "purpose": "indexed catalyst discovery lead only; never primary event verification",
+          "readiness": "HOSTED_ROUTE_DOCUMENTED_UNQUALIFIED; maintainer documentation identifies https://gdelt.caseyjhand.com/mcp as a public hosted instance and says no API key is required; GDELT itself is a free public API. The hosted service has no reviewed service-specific price, acceptable-use, privacy, or retention terms, and no response smoke is retained.",
+          "route_contract": null,
+          "documentation": [
+            "https://github.com/cyanheads/gdelt-mcp-server/blob/main/README.md",
+            "https://github.com/cyanheads/gdelt-mcp-server/blob/main/docs/design.md",
+            "https://www.gdeltproject.org/about.html"
+          ],
+          "authorization": "Do not call until hosted-service zero-charge entitlement and applicable terms/data handling are established. Configured/discovered tools do not grant authorization.",
+          "upstream_lineage": "Wraps the same GDELT DOC/TV APIs as the direct service; not independent of direct GDELT. The hosted wrapper documents transient retries, a 1-request-per-5-second upstream pacer, and a 48 KB response budget for article results."
+        },
+        {
+          "provider": "sec_press_release_rss",
+          "purpose": "primary SEC regulator announcements only",
+          "readiness": "DOCUMENTED_UNQUALIFIED; official feed is free for access/reuse and SEC requires a truthful declared company/contact User-Agent. Offline RSS parser is implemented and fixture-tested, but this workspace has no configured contact and no live request or response qualification",
+          "route_contract": "sec-press-release-routing.json"
+        },
+        {
+          "provider": "issuer/governance official announcement feeds",
+          "purpose": "primary project and issuer verification",
+          "readiness": "not integrated; verify official terms and read-only access per feed",
+          "route_contract": null
+        },
+        {
+          "provider": "base_engineering_blog_rss_candidate",
+          "purpose": "candidate primary Base engineering announcements and posts",
+          "readiness": "RESPONDED_UNQUALIFIED_FOR_ROUTINE_AUTOMATION; two bounded anonymous GETs to https://blog.base.dev/rss/ returned HTTP 200 and XML. The latest at 2026-10-17T17:22:51Z was 416876 bytes; its channel identifies Base Engineering Blog at https://blog.base.dev and contains 20 items. The Base organization links this blog from its official GitHub profile. The exact RSS route is not publisher-documented in the reviewed official sources; feed-specific rate limits, applicable terms, and permission to retain publisher content/metadata are unresolved. No response body was retained.",
+          "route_contract": null,
+          "documentation": [
+            "https://github.com/base",
+            "https://blog.base.dev/",
+            "https://www.base.org/blog/"
+          ],
+          "access_observation": {
+            "endpoint": "https://blog.base.dev/rss/",
+            "retrieved_at_utc": "2026-10-17T17:22:51Z",
+            "http_status": 200,
+            "content_type": "text/xml; charset=utf-8",
+            "response_bytes": 416876,
+            "channel_title": "Base Engineering Blog",
+            "channel_link": "https://blog.base.dev",
+            "item_count": 20,
+            "authorization_header": false,
+            "payment_challenge": false
+          },
+          "authorization": "Anonymous response observed without credential or payment challenge; this alone does not establish entitlement, acceptable-use terms, rate limits, or retention rights.",
+          "upstream_lineage": "Publisher-originated Base Engineering Blog content; distinct from GitHub tagged-release metadata, but not an independent verifier of statements or claims in its posts."
+        },
+        {
+          "provider": "circle_official_pressroom",
+          "purpose": "primary Circle and USDC issuer announcements",
+          "readiness": "OFFICIAL_WEB_DISCOVERY_ONLY; current official pressroom actively lists issuer press releases and a current Circle disclosure page identifies the pressroom as an investor disclosure channel, but the reviewed pressroom content contains no RSS link and current automated-access terms or a supported feed endpoint remain unverified; no feed request made",
+          "route_contract": null,
+          "documentation": [
+            "https://www.circle.com/pressroom",
+            "https://www.circle.com/es/blog/circle-blog-rss-feed-integrated-with-crypto-com-usdc-price-page",
+            "https://www.circle.com/pressroom/circle-to-announce-q3-2026-financial-results-on-november-4-2026"
+          ]
+        },
+        {
+          "provider": "uniswap_labs_official_blog",
+          "purpose": "official issuer/protocol announcement discovery candidate",
+          "readiness": "OFFICIAL_WEB_DISCOVERY_ONLY; no publisher-documented RSS/API route or automated-use terms established; no request made",
+          "catalog_endpoint": "https://blog.uniswap.org/",
+          "route_contract": null,
+          "smoke_evidence": null,
+          "discovery_evidence": [
+            "https://github.com/Uniswap/docs/issues/809",
+            "https://blog.uniswap.org/"
+          ]
+        },
+        {
+          "provider": "arbitrum_dao_governance_forum",
+          "purpose": "candidate public governance proposal discovery",
+          "readiness": "REJECTED_FOR_AUTOMATION; official terms prohibit using automated software/tools to access, search, or download service content except generally available web browsers; no automated request made",
+          "route_contract": null,
+          "documentation": [
+            "https://forum.arbitrum.foundation/",
+            "https://arbitrum.foundation/tos"
+          ]
+        },
+        {
+          "provider": "uniswap_governance_discourse",
+          "purpose": "candidate Uniswap DAO governance discussion discovery",
+          "readiness": "REJECTED_FOR_AUTOMATION; official forum terms prohibit automated access or monitoring; no request made",
+          "route_contract": null,
+          "documentation": [
+            "https://gov.uniswap.org/tos",
+            "https://gov.uniswap.org/latest"
+          ]
+        },
+        {
+          "provider": "github_public_repo_releases",
+          "purpose": "primary-source discovery for tagged OffchainLabs/nitro releases only",
+          "readiness": "RESPONDED; official GitHub REST docs allow unauthenticated public List releases calls and document 60 requests/hour/IP. One anonymous GET returned 10 published release records at 2026-10-17T15:24:12Z; this is a first-page snapshot and does not cover Arbitrum governance or general ecosystem events",
+          "route_contract": "github-nitro-releases-routing.json",
+          "documentation": [
+            "https://docs.github.com/en/rest/releases/releases?apiVersion=latest",
+            "https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api",
+            "https://docs.github.com/en/site-policy/github-terms/github-terms-of-service"
+          ],
+          "smoke_evidence": "research-runs/provider-smokes/github-nitro-releases-api-2026-10-17.json"
+        },
+        {
+          "provider": "snapshot_hub_graphql",
+          "purpose": "DAO governance proposal discovery for one exact Snapshot space; primary only for the participant-submitted proposal and its displayed schedule/state",
+          "readiness": "RESPONDED_STALE_DATA_UNQUALIFIED_FOR_ROUTINE_USE; official docs provide a no-key public GraphQL API and proposal query but do not explicitly establish zero-charge entitlement or metadata retention permission. One bounded anonymous query for yam.eth returned HTTP 200 and one exact-space proposal at 2026-10-17T17:16:38Z; its created time is 2023-04-22T13:42:32Z and freshness is STALE. No current catalyst evidence or completeness claim",
+          "route_contract": "snapshot-governance-routing.json",
+          "documentation": [
+            "https://github.com/snapshot-labs/snapshot-docs/blob/master/tools/api/README.md",
+            "https://github.com/snapshot-labs/snapshot-docs/blob/master/tools/api/api-keys.md",
+            "https://github.com/snapshot-labs/snapshot-hub/blob/master/src/helpers/schema.sql"
+          ],
+          "smoke_evidence": "research-runs/provider-smokes/snapshot-hub-yam-proposals-2026-10-17.json"
+        },
+        {
+          "provider": "github_public_repo_releases",
+          "purpose": "primary-source discovery for tagged ethereum-optimism/optimism releases only",
+          "readiness": "RESPONDED; one anonymous documented REST List releases request returned 10 published records for the exact official repository at 2026-10-17T15:49:00Z; first page only and release timestamps are not event time",
+          "route_contract": "github-optimism-releases-routing.json",
+          "documentation": [
+            "https://docs.github.com/en/rest/releases/releases?apiVersion=latest",
+            "https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api",
+            "https://docs.github.com/en/site-policy/github-terms/github-terms-of-service"
+          ],
+          "smoke_evidence": "research-runs/provider-smokes/github-optimism-releases-2026-10-17.json"
+        },
+        {
+          "provider": "github_public_repo_release_atom",
+          "purpose": "candidate tagged software release discovery for OffchainLabs/nitro only",
+          "readiness": "HISTORICAL_DISCOVERY_ONLY; anonymous GET returned HTTP 200 application/atom+xml with 10 entries at 2026-10-17T14:41:52Z, but the exact .atom route is not used because its route convention was not documented; use the documented anonymous REST List releases route instead",
+          "route_contract": null,
+          "documentation": [
+            "https://docs.github.com/en/site-policy/github-terms/github-terms-of-service",
+            "https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api"
+          ],
+          "smoke_evidence": "research-runs/provider-smokes/github-official-nitro-releases-atom-2026-10-17.json"
+        },
+        {
+          "provider": "github_public_repo_releases",
+          "purpose": "primary-source discovery for tagged base/base software releases only",
+          "readiness": "RESPONDED; Base officially directs node operators to base/base release records. One anonymous documented REST List releases request returned 10 published records at 2026-10-17T16:59:38Z; first page only, and release metadata is not event time",
+          "route_contract": "github-base-releases-routing.json",
+          "documentation": [
+            "https://www.base.org/blog/next-chapter-for-base-chain-1",
+            "https://github.com/base/base",
+            "https://docs.github.com/en/rest/releases/releases?apiVersion=2026-03-10",
+            "https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api",
+            "https://docs.github.com/en/site-policy/github-terms/github-terms-of-service"
+          ],
+          "smoke_evidence": "research-runs/provider-smokes/github-base-releases-2026-10-17.json"
+        },
+        {
+          "provider": "github_public_repo_releases",
+          "purpose": "primary-source discovery for tagged ethereum/go-ethereum execution-client releases only",
+          "readiness": "RESPONDED; one anonymous GitHub REST List releases request returned 10 exact-repository published release records at 2026-10-17T17:56:00Z; first page only, and release metadata is not event time.",
+          "route_contract": "github-ethereum-releases-routing.json",
+          "documentation": [
+            "https://github.com/ethereum/go-ethereum",
+            "https://docs.github.com/en/rest/releases/releases?apiVersion=2026-03-10",
+            "https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api",
+            "https://docs.github.com/en/site-policy/github-terms/github-terms-of-service"
+          ],
+          "smoke_evidence": "research-runs/provider-smokes/github-ethereum-releases-2026-10-17.json"
+        }
+      ],
+      "fallback": "The Ethereum Foundation feed is primary only for its own statements. Snapshot is a proposal discovery/index route and the only retained sample is stale; it is not an independent verification source. GDELT discovery output is not proof of an event; use the relevant primary issuer/DAO/regulator record or report UNVERIFIED.",
+      "required_evidence": [
+        "canonical entity/project identity",
+        "original publisher and URL",
+        "publication/index/event timestamps in UTC",
+        "primary-source verification",
+        "syndication and correction notes"
+      ]
+    },
+    {
+      "task": "Protocol TVL, fees/revenue, and stablecoin supply context",
+      "source_priority": [
+        {
+          "provider": "defillama_public",
+          "purpose": "aggregated protocol/chain metrics",
+          "readiness": "PARTIALLY_QUALIFIED; /tvl/{protocol}, /v2/historicalChainTvl/Ethereum, /overview/fees/Ethereum?dataType=dailyRevenue, /summary/fees/aave-v3?dataType=dailyRevenue, /stablecoins.llama.fi/stablecoinchains, and /stablecoincharts/Ethereum have endpoint-specific anonymous response evidence; stablecoin historical USD-peg series has 3,245 daily points and a passing one-year replay; overview dailyRevenue unit remains unverified; Aave V3 history endpoint returns dated chart rows but unit and exact daily timestamp semantics remain unverified; current chain aggregate time remains unverified; transfer-level stablecoin flows and other routes remain unqualified",
+          "route_contract": "data-provider-routing.json"
+        }
+      ],
+      "fallback": "None qualified. Do not equate stablecoin market-cap deltas with transfer flow, TVL with liquidity, or fees with revenue.",
+      "required_evidence": [
+        "protocol/chain/stablecoin identity",
+        "exact endpoint",
+        "source units and methodology",
+        "observation timestamps where supplied",
+        "retrieval UTC",
+        "coverage and double-count caveats"
+      ]
+    },
+    {
+      "task": "Transfer-level stablecoin activity",
+      "source_priority": [
+        {
+          "provider": "publicnode_ethereum_rpc",
+          "purpose": "candidate direct Ethereum USDC Transfer log query",
+          "readiness": "REJECTED_FOR_THIS_USE; official page lists a free Ethereum RPC, but PublicNode terms prohibit automated data gathering/scraping; no request made",
+          "route_contract": null
+        },
+        {
+          "provider": "blockscout_pro_api",
+          "purpose": "candidate indexed EVM token-transfer API",
+          "readiness": "DOCUMENTED_FREE_TIER_REQUIRES_ACCOUNT_AND_API_KEY; a Blockscout app connector is discoverable in this runtime, but its billing/authorization is unknown. Its exposed get_token_transfers_by_address tool is address-scoped, not chain-wide; no call made",
+          "route_contract": null
+        },
+        {
+          "provider": "routescan_keyless_erc20_transfers",
+          "purpose": "candidate exact-chain, exact-token ERC-20 transfer history for stablecoin-flow analysis",
+          "readiness": "DOCUMENTED_FREE_KEYLESS_READ_ONLY_ENDPOINT; official docs expose GET /erc20-transfers with tokenAddress and inclusive timestampFrom/exclusive timestampTo filters, up to 100 rows per page and cursor pagination. Official keyless limits are 2 requests/second and 10,000 calls/day. No runtime request made. Current Terms restrict API use to internal business purposes and say API Content is for personal/private use, with commercial decisions/trading/financial gain requiring explicit written approval; this project's use scope is unresolved.",
+          "route_contract": null,
+          "documentation": [
+            "https://routescan.io/docs/api/tokens",
+            "https://routescan.io/docs/plans-and-limits/api-keys-and-pricing",
+            "https://routescan.io/docs/plans-and-limits/rate-limits",
+            "https://routescan.io/terms-and-conditions",
+            "https://routescan.io/docs/api/conventions",
+            "https://routescan.io/docs"
+          ],
+          "authentication": "Free Keyless tier needs no account or API key; registered free keys have higher limits but are outside this candidate.",
+          "read_only_method": "GET exact-chain /erc20-transfers with exact tokenAddress and optional time bounds; do not expose Routescan's other APIs or the cross-chain all-chain option.",
+          "documented_public_limits": "2 requests/second and up to 10,000 calls/day for the Free Keyless tier; page limit maximum 100 with cursor pagination.",
+          "response_dimensions": "chainId, blockNumber, txHash, logIndex, from, to, createdAt, timestamp, raw integer amount, optional amountInUsd, tokenAddress, token metadata and cursor fields.",
+          "coverage_caveats": "Only indexed chains and returned pages; transfer rows require exact chain and token identity. Gross ERC-20 transfer events can include mint/burn records; derive net flow only with an explicit zero-address and direction method. API coverage/completeness and reorganization behavior require response-level validation.",
+          "upstream_lineage": "Routescan describes the API as serving Routescan-indexed chain data; underlying RPC/indexing inputs and independence from other indexers are not established by reviewed docs.",
+          "policy": "Candidate only. Do not call or integrate until project use is confirmed to fit the current Terms or written authorization is obtained; if later eligible, apply required attribution outside private use. No request made.",
+          "smoke_evidence": null
+        },
+        {
+          "provider": "1rpc_public_ethereum",
+          "purpose": "candidate public Ethereum JSON-RPC for exact ERC-20 Transfer logs",
+          "readiness": "UNAVAILABLE_FOR_ETH_GETLOGS; official docs list a public Ethereum endpoint described as free, with a documented default quota of 200 requests/day and 2 MiB request/response bounds. One anonymous USDC Transfer-filter request for latest block returned HTTP 200 but JSON-RPC error -32000 method not available at 2026-10-17T14:39:42Z. No logs returned; no retry or credentials",
+          "route_contract": null,
+          "documentation": [
+            "https://docs.1rpc.io/guide/how-to-use-1rpc",
+            "https://docs.1rpc.io/overview/supported-networks",
+            "https://docs.1rpc.io/using-the-web3-api/errors",
+            "https://docs.1rpc.io/web3-relay/zero-tracking",
+            "https://www.1rpc.io/",
+            "https://www.1rpc.io/tou",
+            "https://ethereum.github.io/execution-apis/api/methods/eth_getLogs/"
+          ],
+          "smoke_evidence": "research-runs/provider-smokes/1rpc-ethereum-usdc-transfer-latest.json",
+          "documented_public_limits": "200 requests/day default per user; request and response size limit 2 MiB; docs indicate service blocking until the next UTC day after quota exhaustion",
+          "upstream_lineage": "1RPC says requests are randomly dispatched to RPC providers; the specific upstream serving an observation is not exposed by the reviewed docs or retained response, so source identity/independence is unknown",
+          "policy": "Public Ethereum endpoint is described as free; no paid plan/key used. The free public route still failed for eth_getLogs in the retained smoke, and no retry was made. Terms last updated March 2023; data research use/redistribution scope is not established"
+        },
+        {
+          "provider": "llamanodes_public_ethereum_rpc",
+          "purpose": "candidate keyless public Ethereum JSON-RPC for bounded Transfer logs",
+          "readiness": "UNQUALIFIED_CANDIDATE; official LlamaNodes page labels eth.llamarpc.com a free public RPC, but current official documentation/terms/rate limits and explicit eth_getLogs support could not be verified; the official page returned HTTP 526 during review; no endpoint call made",
+          "route_contract": null,
+          "documentation": [
+            "https://llamarpc.com/eth",
+            "https://github.com/llamanodes/web3-proxy",
+            "https://ethereum.github.io/execution-apis/api/methods/eth_getLogs/"
+          ],
+          "upstream_lineage": "UNKNOWN; public LlamaNodes proxy source describes load-balancing across multiple upstream providers, but this does not establish the production route for this public endpoint"
+        },
+        {
+          "provider": "oneinch_catalog_rpc_claim",
+          "purpose": "candidate Ethereum RPC mentioned by the discovery catalog",
+          "readiness": "NOT_VERIFIED; no official 1inch documentation was found confirming rpc.1inch.io/eth, free anonymous access, rate limits, or eth_getLogs support; no request made",
+          "route_contract": null,
+          "documentation": []
+        },
+        {
+          "provider": "solidrpc_public_ethereum",
+          "purpose": "keyless bounded Ethereum JSON-RPC candidate for transfer logs",
+          "readiness": "DOCUMENTED_PUBLIC_ROUTE_BUT_UNAVAILABLE_IN_THIS_RUNTIME; official docs describe a keyless endpoint and filtered eth_getLogs window up to 2,000 blocks; the endpoint documentation says it is not intended for indexing or production backfills. One anonymous eth_blockNumber attempt returned HTTP 403 before any logs request; response body unavailable; no retry.",
+          "route_contract": null,
+          "documentation": [
+            "https://solidrpc.io/docs/public-rpc"
+          ],
+          "smoke_evidence": "research-runs/provider-smokes/solidrpc-keyless-ethereum-blocknumber-403.json"
+        },
+        {
+          "provider": "drpc_public_ethereum",
+          "purpose": "public Ethereum JSON-RPC candidate for bounded transfer log reads",
+          "readiness": "DOCUMENTED_PUBLIC_ENDPOINT_BUT_UNAVAILABLE_IN_THIS_RUNTIME; official dRPC docs describe public Ethereum RPC endpoints as free of charge and list eth_getLogs. One anonymous eth_blockNumber attempt returned HTTP 403 before any logs request; response body unavailable; no retry.",
+          "route_contract": null,
+          "documentation": [
+            "https://drpc.org/docs/ethereum-api",
+            "https://drpc.org/docs/howitworks/ratelimiting"
+          ],
+          "smoke_evidence": "research-runs/provider-smokes/drpc-public-ethereum-blocknumber-403.json"
+        },
+        {
+          "provider": "blastapi_public_ethereum_rpc",
+          "purpose": "candidate public Ethereum JSON-RPC for bounded Transfer logs listed in the discovery catalog",
+          "readiness": "REJECTED_DEPRECATED_SERVICE; BlastAPI's current official service notice says Blast products are no longer available and directs users to migrate traffic to Alchemy. No request made; Alchemy account/key routes are outside this anonymous keyless candidate and are not substituted",
+          "route_contract": null,
+          "documentation": [
+            "https://blastapi.io/blog/media/image-12.png",
+            "https://www.alchemy.com/blog/alchemy-acquires-bware-labs"
+          ],
+          "catalog_endpoint": "https://eth-mainnet.public.blastapi.io",
+          "upstream_lineage": "Blast API was Bware Labs infrastructure acquired by Alchemy; current Blast products are officially deprecated"
+        },
+        {
+          "provider": "ankr_public_ethereum_rpc",
+          "purpose": "bounded Ethereum ERC-20 Transfer log reads for one exact token contract",
+          "readiness": "UNAVAILABLE_ANONYMOUS_ACCESS_REQUIRES_KEY; official docs describe https://rpc.ankr.com/eth as a no-signup free Ethereum Public RPC and document eth_getLogs, approximately 1,800 requests/minute, a 1,000-block maximum range and 200,000 logs per response. Two anonymous eth_blockNumber probes were issued while capturing the result; the second returned HTTP 200 but JSON-RPC -32000 Unauthorized requiring an API key at 2026-10-17T18:12:15Z, while the first response was not serialized. No credential was used and eth_getLogs was not called. Fixture-tested client is contract-gated and will not make requests until anonymous access is documented or observed to work again. Internal research only under Ankr Terms; do not sign up, add credentials, or retry.",
+          "route_contract": "ankr-public-ethereum-routing.json",
+          "documentation": [
+            "https://www.ankr.com/infrastructure/build-on-ethereum/",
+            "https://www.ankr.com/web3-api/",
+            "https://www.ankr.com/docs/rpc-service/getting-started/basics-public/",
+            "https://www.ankr.com/docs/rpc-service/service-plans/",
+            "https://www.ankr.com/docs/rpc-service/chains/chains-api/ethereum/history-p2/",
+            "https://www.ankr.com/terms/",
+            "https://www.ankr.com/privacy-policy/"
+          ],
+          "read_only_method": "The fixed client invokes eth_chainId and eth_getLogs only; arbitrary JSON-RPC and write-capable methods are not exposed",
+          "documented_public_limits": "approximately 1,800 requests/minute across public endpoints; eth_getLogs maximum block range 1,000 and maximum 200,000 logs per response",
+          "authentication": "The official Ethereum Public RPC page documents https://rpc.ankr.com/eth, usable directly without email signup, credit card, or personal information; no key is sent",
+          "policy": "Ankr Terms (effective 2026-07-15) grant royalty-free use for the customer's own internal business purposes and restrict third-party service access and commercial exploitation without prior written consent. The adapter is bounded to internal read-only research; no provider-service redistribution or external access. Broader commercial or third-party use remains unauthorized and outside scope.",
+          "upstream_lineage": "Ankr public RPC infrastructure; node/operator lineage and independence from other RPC providers not established",
+          "smoke_evidence": "research-runs/provider-smokes/ankr-ethereum-public-eth-blocknumber-401.json",
+          "request_made": true
+        },
+        {
+          "provider": "cloudflare_public_ethereum_gateway",
+          "purpose": "candidate Ethereum JSON-RPC for bounded historical Transfer logs",
+          "readiness": "NOT_QUALIFIED_USAGE_BASED_GATEWAY; official Cloudflare Web3 documentation describes Ethereum Gateway as a paid add-on with usage-based billing; no demonstrably zero-charge entitlement for this workflow established",
+          "route_contract": null,
+          "documentation": [
+            "https://developers.cloudflare.com/web3/ethereum-gateway/",
+            "https://developers.cloudflare.com/web3/reference/limits/",
+            "https://developers.cloudflare.com/web3/get-started/",
+            "https://developers.cloudflare.com/web3/ethereum-gateway/reference/supported-networks/"
+          ],
+          "public_hostname": "https://cloudflare-eth.com/v1/mainnet",
+          "read_only_method": "Ethereum JSON-RPC methods are documented, but only a fixed eth_getLogs method would be acceptable; gateway also supports writes",
+          "authentication": "A public hostname is documented, but official setup requires an account and paid gateway subscription; no anonymous public-gateway entitlement established",
+          "policy": "Do not call or integrate until zero-charge public-host entitlement and applicable terms are explicitly established",
+          "smoke_evidence": null,
+          "request_made": false
+        },
+        {
+          "provider": "hive_tool_catalog",
+          "purpose": "zero-credit runtime discovery of candidate log and transfer tools; discovery only, not a transfer data source",
+          "readiness": "RESPONDED_FOR_ONE_FREE_DISCOVERY_QUERY; no dedicated chain-wide stablecoin transfer route returned; generic fetch_public_api is material at one Hive credit",
+          "route_contract": null,
+          "smoke_evidence": "research-runs/provider-smokes/hive-discovery-stablecoin-transfer.json",
+          "material_call_made": false
+        }
+      ],
+      "fallback": "No qualified chain-wide transfer-history provider. Ankr's official docs describe a free no-signup Ethereum Public RPC, but two anonymous eth_blockNumber probes were issued and the second returned JSON-RPC -32000 Unauthorized requiring an API key; no key was used, no eth_getLogs call was made, and the implemented adapter is now contract-gated. Its route remains unavailable unless zero-charge anonymous access is documented or observed again. DeFiLlama stablecoin supply changes are not transfer flow. PublicNode remains rejected under automated-collection terms; Blockscout remains account/API-key and address-scoped. Routescan has a documented keyless exact-token ERC-20 history candidate, but it is not routed because its current Terms restrict purpose/content use and this project's eligibility is unresolved. 1RPC returned JSON-RPC method-unavailable for eth_getLogs; SolidRPC and dRPC public endpoints returned HTTP 403 on eth_blockNumber before a logs call. BlastAPI is rejected because its official service notice says Blast products are no longer available. LlamaNodes remains unqualified because its terms, rate limits, and eth_getLogs support could not be established. Cloudflare Gateway is a paid usage-based add-on; anonymous zero-charge entitlement is unproven. Hive discovery returned no chain-wide stablecoin transfer route; its generic fetch tool costs one Hive credit and was not called. The catalog's `rpc.1inch.io/eth` claim lacks matching official route documentation. No further retries, credentials, paid routes, or proxies.",
+      "required_evidence": [
+        "exact chain and issuer token contract",
+        "block range and log event definition",
+        "gross transfers versus mint/burn treatment",
+        "raw token units and decimals",
+        "retrieval UTC and source block timestamps",
+        "coverage/completeness and reorganization caveat",
+        "upstream provider and terms authorization"
+      ]
+    },
+    {
+      "task": "Exact DEX pair liquidity and turnover observations",
+      "source_priority": [
+        {
+          "provider": "dexscreener_public",
+          "purpose": "pair-level indexer response",
+          "readiness": "PARTIALLY_QUALIFIED; one Ethereum pair identity-matched; metric timestamp absent",
+          "route_contract": "dexscreener-routing.json"
+        },
+        {
+          "provider": "dexpaprika",
+          "purpose": "candidate comparator for the same pair",
+          "readiness": "RESPONDED; the bounded anonymous client returned HTTP-success data for the exact Ethereum Uniswap V3 USDC/WETH pool at 2026-10-17T14:21:15Z. Docs and a separate direct no-Authorization request establish the keyless route. Pool timestamp scope and upstream independence from DEX Screener remain unresolved.",
+          "route_contract": "dexpaprika-routing.json",
+          "historical_ohlcv_readiness": "UNAVAILABLE_KEYLESS_QUOTA_EXHAUSTED; one anonymous 1h/24h pool OHLCV request returned HTTP 402 with anonymous monthly allowance exhausted; no data; no retry or credentials. Official access documentation conflicts: per-chain API pages advertise 50,000 anonymous requests/month/IP and broad OHLCV history; pricing advertises a 100,000-credit/month registered-key tier and narrower history; previously reviewed OpenAPI/rate-limit material states 10,000 credits/IP/rolling 30 days and 15 requests/minute. Retain the observed anonymous HTTP 402 and do not infer usable quota.",
+          "historical_ohlcv_evidence": "research-runs/provider-smokes/dexpaprika-ethereum-usdc-weth-ohlcv-24h.json",
+          "fallback_implementation": ".agents/skills/crypto-mcp-research/scripts/dex_pair_router.py",
+          "fallback_scope": "Exact pair-address lookup and exact-token pool discovery (detailed first page only), plus a separate pool-specific keyless OHLCV route restricted to the last 24h at 1h+ intervals. Returned token IDs must exactly match the contract; base/quote orientation remains unverified; no automatic pagination. Current live fallback availability is unverified after adjacent OHLCV route returned 402."
+        },
+        {
+          "provider": "geckoterminal_public_api",
+          "purpose": "documented keyless DEX pool/token candidate for comparison",
+          "readiness": "DOCUMENTED_PUBLIC_KEYLESS_BUT_NOT_ROUTED; official docs expose read-only pool, token, OHLCV and trade GET endpoints and a free public API. Official docs state approximately 10 calls/minute, while CoinGecko Support updated 2026-10-02 states 30 calls/minute. CoinGecko API Terms require cache refresh within 24 hours and deletion of stored data on termination; immutable research-run retention fit is unresolved. No live request made.",
+          "route_contract": null,
+          "documentation": [
+            "https://api.geckoterminal.com/docs/index.html",
+            "https://support.coingecko.com/articles/6867086195-does-geckoterminal-have-an-api",
+            "https://www.coingecko.com/en/api_terms",
+            "https://www.geckoterminal.com/terms-conditions",
+            "https://www.coingecko.com/en/api/dex"
+          ],
+          "authorization": "public keyless read API documented; no credentials used or required for the candidate route",
+          "request_limits": "conflicted: API docs approximately 10 calls/minute subject to traffic; Support says 30 calls/minute (2026-10-02)",
+          "upstream_lineage": "GeckoTerminal is part of CoinGecko; CoinGecko identifies its on-chain DEX API as GeckoTerminal-powered. Do not count the two as independent. Independence from DEX Screener is not established by this documentation review.",
+          "retention": "API Terms discourage storage, require cache refresh at least every 24 hours, and require deletion of stored API data on termination; immutable research-run retention suitability unresolved",
+          "smoke_evidence": null
+        }
+      ],
+      "fallback": "Implemented bounded DEX Screener fallback to DexPaprika for the same exact EVM pair address or Solana pool ID, plus exact-token discovery on mapped EVM networks and Solana. Token fallback reads one detailed page (limit 100), requires exact requested EVM contract (case-insensitive) or Solana mint (case-sensitive) in returned token IDs, and exposes continuation metadata; base/quote orientation remains unverified. A separate keyless pool-OHLCV operation is implemented for the documented no-key 24h, hourly-or-coarser window, but is not equivalent to token-wide history. Fallback follows no-observation or eligible availability failures only; stop on auth/payment, malformed, or identity errors. At most one request per provider. Current DexPaprika anonymous quota is exhausted; runtime fallback availability is unverified, and source independence/metric equivalence are not established.",
+      "required_evidence": [
+        "chain ID",
+        "pair address",
+        "base/quote contracts and orientation",
+        "DEX identity",
+        "reported liquidity/volume units",
+        "observation and retrieval UTC separately",
+        "depth-vs-turnover caveat",
+        "upstream provenance"
+      ]
+    },
+    {
+      "task": "Broad daily market sentiment context",
+      "source_priority": [
+        {
+          "provider": "alternative_fng_public",
+          "purpose": "daily Fear & Greed composite",
+          "readiness": "QUALIFIED for GET /fng/?limit=7&format=json; retained seven-row response",
+          "route_contract": "alternative-fng-routing.json"
+        }
+      ],
+      "fallback": "None qualified. Do not replace with another sentiment scale without aligned method and time window.",
+      "required_evidence": [
+        "index value 0..100",
+        "classification",
+        "provider Unix timestamp normalized to UTC",
+        "retrieval UTC",
+        "freshness",
+        "Data from alternative.me attribution",
+        "composite and input-overlap caveat"
+      ]
+    },
+    {
+      "task": "Contract/token security screening",
+      "source_priority": [
+        {
+          "provider": "goplus_public",
+          "purpose": "exact-chain EVM and Solana token security heuristics",
+          "readiness": "PARTIALLY_QUALIFIED for exact Ethereum USDC, Base USDC, and Solana Pyth anonymous responses; the Solana endpoint is beta; no response has a metric timestamp and upstream lineage is unspecified",
+          "route_contract": "goplus-routing.json",
+          "smoke_evidence": [
+            "research-runs/provider-smokes/goplus-ethereum-usdc.json",
+            "research-runs/provider-smokes/goplus-base-usdc.json",
+            "research-runs/provider-smokes/goplus-solana-pyth.json"
+          ]
+        },
+        {
+          "provider": "rugcheck_solana_public_api",
+          "purpose": "candidate cached Solana token risk report for heuristic comparison",
+          "readiness": "DOCUMENTED_FREE_ANONYMOUS_READ_ONLY_BUT_API_DATA_USE_AND_RETENTION_SCOPE_UNRESOLVED; current RugCheck docs describe a keyless GET token report/summary endpoint, cached responses on the free plan, and one request per second. No request made.",
+          "route_contract": null,
+          "documentation": [
+            "https://fluxrpc.com/docs/rugcheck",
+            "https://fluxrpc.com/docs/rugcheck/getting-started",
+            "https://fluxrpc.com/docs/rugcheck/getTokenReportSummary",
+            "https://fluxrpc.com/terms-conditions",
+            "https://fluxrpc.com/privacy-policy"
+          ],
+          "endpoint_template": "GET https://api.rugcheck.xyz/v1/tokens/{solana_mint}/report/summary",
+          "authentication": "Official getting-started docs state no authentication for the public endpoint; do not use API keys, refresh=true, bulk, or paid features.",
+          "documented_limits_and_freshness": "Free unauthenticated rate limit is one request per second. Free reports are cached; forcing report regeneration is a paid-key feature. No documented cache age/freshness ceiling was found.",
+          "policy": "No call or route until API data reuse and local retention scope are established. FluxRPC Terms cover the website and associated services, but do not clearly grant automated research reuse or immutable retention rights for RugCheck report data.",
+          "upstream_lineage": "RugCheck says risk scores use many data sources but does not enumerate their origins in the reviewed docs; shared upstreams with GoPlus and DEX indexers are unknown. Do not claim independence.",
+          "scope": "Solana token mints only; report output is a provider heuristic, not an audit or guarantee.",
+          "smoke_evidence": null,
+          "request_made": false
+        },
+        {
+          "provider": "sourcify_contract_repository",
+          "purpose": "single exact EVM contract source/bytecode verification metadata; not a security verdict",
+          "readiness": "RESPONDED_FOR_EXACT_BASE_USDC_MINIMAL_LOOKUP; other contracts and chains are unqualified",
+          "route_contract": "sourcify-routing.json",
+          "smoke_evidence": "research-runs/provider-smokes/sourcify-base-usdc.json"
+        },
+        {
+          "provider": "honeypot_is_public_api",
+          "purpose": "candidate buy/sell simulation for contract honeypot indicators",
+          "readiness": "REJECTED_FOR_THIS_WORKFLOW_PENDING_WRITTEN_PERMISSION; official API terms prohibit use to develop, produce, or market a product primarily competitive with Honeypot.is",
+          "route_contract": null,
+          "smoke_evidence": null,
+          "official_terms": "https://docs.honeypot.is/terms",
+          "request_made": false
+        },
+        {
+          "provider": "Hive check_token_safety",
+          "purpose": "existing aggregated security signal",
+          "readiness": "tool discovered; one material execution may consume a hosted credit; no automatic zero-cost entitlement established",
+          "route_contract": null
+        }
+      ],
+      "fallback": "No automatic security-verdict fallback. Sourcify may be queried separately for exact EVM source/bytecode verification metadata, but it does not assess safety or independently corroborate GoPlus. Honeypot.is is rejected for this workflow pending written permission because its official API terms include a broad competition clause. Hive is a discovered hosted signal without established zero-cost entitlement. Missing risk fields are unknown, not passed. A heuristic is not a contract audit.",
+      "required_evidence": [
+        "exact chain and contract",
+        "provider/tool and upstream source",
+        "retrieval and observation time",
+        "reported flags and missing fields",
+        "coverage and method caveats"
+      ]
+    },
+    {
+      "task": "Historical derivatives funding/open interest",
+      "source_priority": [
+        {
+          "provider": "defillama_public",
+          "purpose": "provider-aggregated historical perp open-interest context",
+          "readiness": "QUALIFIED_FOR_PROVIDER_AGGREGATE_HISTORICAL_RESPONSE_SHAPE; anonymous route returned 142 protocol rows and 2,061 dated aggregate points through 2026-10-17; units and sampling semantics unverified; not contract-specific",
+          "route_contract": "data-provider-routing.json",
+          "smoke_evidence": "research-runs/provider-smokes/defillama-open-interest-overview.json"
+        },
+        {
+          "provider": "binance_usdm_public",
+          "purpose": "USDⓈ-M exact-symbol historical open-interest statistics",
+          "readiness": "IMPLEMENTED_FIXTURE_TESTED; official route documents public market-data access, latest 30-day history, millisecond period-end timestamps, and bounded intervals. One bounded anonymous ETHUSDT request returned HTTP 451 (region restriction) in this environment; no retry. OI units are preserved without inferring denomination; terms do not establish redistribution rights.",
+          "route_contract": "binance-futures-routing.json",
+          "documentation": [
+            "https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-usd-s-m-futures/api/rest-api/market-data",
+            "https://www.binance.com/en/terms"
+          ],
+          "smoke_evidence": "research-runs/provider-smokes/binance-usdm-ethusdt-oi-451-2026-10-17.json"
+        },
+        {
+          "provider": "binance_vision_um_metrics_archive",
+          "purpose": "candidate historical USD-M futures open-interest metric archives for exact symbols",
+          "readiness": "DOCUMENTED_FREE_BUT_CONDITIONAL_AND_UNQUALIFIED; official Binance Vision terms grant free access under CC BY-NC-SA 4.0 but restrict eligible use to enumerated noncommercial purposes. This project’s fit with those purposes is unestablished, so no dataset request or route is authorized. Binance public-data repository documents daily/monthly archives and checksums, but the reviewed README does not specify the metrics schema, exact rate/download limits, field units, or timestamp semantics. User-reported repository issue evidence describes a 2026-06-25 create_time convention shift and duplicate boundary labels; treat this as an unresolved data-quality warning, not a Binance specification.",
+          "route_contract": null,
+          "documentation": [
+            "https://github.com/binance/binance-public-data/blob/master/README.md",
+            "https://github.com/binance/binance-public-data/blob/master/TERMS_AND_CONDITIONS.md",
+            "https://github.com/binance/binance-public-data/issues/491"
+          ],
+          "access_notes": "Official terms say datasets are free of charge, licensed CC BY-NC-SA 4.0, and permitted noncommercial uses are limited to academic research, non-monetized open educational projects, personal non-production backtesting, and noncommercial open-source evaluations. Redistribution must retain identical licensing and attribution. Project eligibility is unknown; no access until explicitly resolved.",
+          "upstream_lineage": "Binance Vision public futures metrics archive; the official terms caution some metrics may incorporate third-party data, and exact lineage for USD-M metrics was not established",
+          "smoke_evidence": null
+        },
+        {
+          "provider": "bybit_v5_public_market",
+          "purpose": "linear/inverse perpetual funding history and sampled OI candidate",
+          "readiness": "UNAVAILABLE in this environment; official docs describe funding and OI history routes. One anonymous single-row request to each returned HTTP 403 at 2026-10-17T14:36:30Z; bodies unavailable; no retries, alternate hosts, proxies, or credentials used. Official docs do not explicitly establish zero-charge entitlement for this use, so candidate is not qualified",
+          "route_contract": null,
+          "documentation": [
+            "https://bybit-exchange.github.io/docs/v5/market/history-fund-rate",
+            "https://bybit-exchange.github.io/docs/api-explorer/v5/market/open-interest",
+            "https://www.bybit.com/common-static/compliance/legal/BYBIT/df1923006718fbba8ba70d7d762b9866.pdf"
+          ],
+          "smoke_evidence": "research-runs/provider-smokes/bybit-public-derivatives-2026-10-17.json"
+        },
+        {
+          "provider": "dydx_public_indexer",
+          "purpose": "candidate venue-specific historical funding for dYdX perpetual markets",
+          "readiness": "REJECTED_FOR_THIS_ENVIRONMENT; official dYdX v4 documentation describes the Indexer as a read-only REST service and documents GET historical funding, but current Terms state dYdX services/products are unavailable to persons or entities located in the United States or Canada. Workspace location is New York; no endpoint request was made. Official rate limits and free-tier entitlement were not verified.",
+          "route_contract": null,
+          "documentation": [
+            "https://docs.dydx.exchange/concepts-architecture/indexer",
+            "https://docs.dydx.exchange/api_integration-clients/indexer_client",
+            "https://docs.dydx.xyz/indexer-client/http",
+            "https://docs.dydx.xyz/policies/terms"
+          ]
+        },
+        {
+          "provider": "hyperliquid_public_info",
+          "purpose": "Hyperliquid-specific historical funding and current perpetual context",
+          "readiness": "RESPONDED for ETH only: one anonymous 24-hour fundingHistory request returned 24 identity/window-matched hourly rows at 2026-10-17T15:10:58Z; a seven-day anonymous request returned 168 identity/window-matched hourly rows at 2026-10-17T16:52:36Z and is retained in a passing deterministic replay run. One metaAndAssetCtxs request returned current ETH OI/funding context at 2026-10-17T15:11:31Z. Historical OI is not provided; OI unit and snapshot observation time remain unverified. No Authorization header/payment flow used. Redistribution rights remain unverified.",
+          "route_contract": "hyperliquid-routing.json",
+          "documentation": [
+            "https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/info-endpoint/perpetuals",
+            "https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/rate-limits-and-user-limits",
+            "https://hyperliquid.gitbook.io/hyperliquid-docs/trading/funding"
+          ],
+          "smoke_evidence": [
+            "research-runs/provider-smokes/hyperliquid-eth-funding-24h.json",
+            "research-runs/provider-smokes/hyperliquid-eth-perp-snapshot.json"
+          ],
+          "expanded_window_evidence": "research-runs/2026-10-17-hyperliquid-eth-funding-7d-replay/manifest.json"
+        },
+        {
+          "provider": "fin_data_mcp_http_v2_derivatives",
+          "purpose": "runtime-discovered candidate connector for current and recent instrument-level derivatives data",
+          "readiness": "UNQUALIFIED_RUNTIME_TOOL_METADATA_ONLY; the live Codex registry exposes `crypto_funding_rate` with history=true and `crypto_open_interest` for OKX-style instrument IDs, but descriptions do not establish the connector upstream, exact endpoint, authentication, payment/credit cost, rate limits, terms, or retention. The project-scoped `.codex/config.toml` does not enable this connector. No tool call made.",
+          "route_contract": null,
+          "documentation": [
+            "https://app.okx.com/docs-v5/en/",
+            "https://app.okx.com/docs-v5/agent_en/",
+            "https://app.okx.com/docs-v5/log_en/"
+          ]
+        },
+        {
+          "provider": "okx_public_rubik_oi_history",
+          "purpose": "candidate instrument-level historical contract open interest",
+          "readiness": "UNQUALIFIED_DOCUMENTATION_GAP_AND_US_SCOPE; official change log confirms a contract open-interest-history endpoint was added on 2024-06-13, but the current API reference and agent tool catalogue do not expose its request parameters, history coverage, response schema, or endpoint-specific rate limit. OKX US risk disclosures, last updated 2026-06-18, state OKX US offers spot and buy/sell/convert services while foreign OKX products are unavailable to US users. No request made.",
+          "route_contract": null,
+          "documentation": [
+            "https://www.okx.com/docs-v5/log_en/",
+            "https://app.okx.com/docs-v5/en/",
+            "https://app.okx.com/docs-v5/agent_en/",
+            "https://app.okx.com/en-us/help/us-risk-and-compliance-disclosures"
+          ],
+          "access_notes": "Official API docs describe public unauthenticated REST calls as IP-restricted and show a US production API domain, but those generic details do not establish authorization, endpoint support, or zero-charge access for this historical derivatives route. Do not infer its path or call it until the exact endpoint contract and U.S. scope are documented."
+        },
+        {
+          "provider": "hive_archive_derivatives_catalog",
+          "purpose": "catalog discovery for historical venue funding and open-interest archives",
+          "readiness": "RESPONDED_FOR_ONE_FREE_DISCOVERY_QUERY; historical archive tools are material at one Hive credit each; upstream lineage, terms, retention, rate limits, and complete venue coverage are unverified",
+          "route_contract": null,
+          "smoke_evidence": "research-runs/provider-smokes/hive-discovery-derivatives-history.json",
+          "material_call_made": false
+        },
+        {
+          "provider": "kraken_futures_market_analytics",
+          "purpose": "candidate exact-symbol historical funding and open-interest analytics",
+          "readiness": "DOCUMENTED_PUBLIC_READ_ONLY_BUT_TERMS_AND_WORKSPACE_SCOPE_UNRESOLVED; official docs expose open-interest and funding analytics by symbol, with public GET and time-bucket parameters. Kraken says public endpoints have no per-call cost. No request made.",
+          "route_contract": null,
+          "documentation": [
+            "https://docs.kraken.com/api/docs/futures-api/charts/market-analytics",
+            "https://docs.kraken.com/api/docs/futures-api/charts/charts/",
+            "https://support.kraken.com/articles/360022635612-request-limits-rest-api-derivatives",
+            "https://www.kraken.com/gb/legal/global-terms",
+            "https://support.kraken.com/in/articles/360023786632-kraken-derivatives-eligibility"
+          ],
+          "endpoint_template": "GET https://futures.kraken.com/api/charts/v1/analytics/{symbol}/{open-interest|funding}?since={epoch_seconds}&interval={seconds}&to={epoch_seconds}",
+          "documented_intervals_seconds": [
+            60,
+            300,
+            900,
+            1800,
+            3600,
+            14400,
+            43200,
+            86400,
+            604800
+          ],
+          "authentication": "Public chart GET; no API key shown in the official request example",
+          "request_cost": "Kraken says there is no cost associated with public endpoints; this is distinct from confirming acceptable use or a particular market's availability",
+          "numeric_public_rate_limit": "Not found for this charts endpoint in reviewed official rate-limit documentation",
+          "policy": "Do not request until the project use scope is known. Current Kraken Global Terms permit content use for the customer's own benefit and require prior permission for other purposes. US Futures offerings are separate; availability and applicability of this international Futures analytics route to this New York workspace are not established.",
+          "upstream_lineage": "Kraken Futures market analytics; no independent upstream source claimed",
+          "smoke_evidence": null,
+          "request_made": false
+        },
+        {
+          "provider": "cryptocom_exchange_public_derivatives",
+          "purpose": "candidate venue-specific hourly historical funding and current ticker open-interest context",
+          "readiness": "DOCUMENTED_PUBLIC_READ_ONLY_BUT_PERSONAL_USE_TERMS_AND_WORKSPACE_SCOPE_UNRESOLVED; official Exchange v1 docs describe anonymous public GET market-data endpoints. public/get-valuations supports funding_hist with hourly settled history and a default 30-day lookback; public/get-tickers includes current oi and a published timestamp. No request made.",
+          "route_contract": null,
+          "documentation": [
+            "https://exchange-developer.crypto.com/exchange/v1/docs/api/rest-single-page/",
+            "https://exchange-developer.crypto.com/exchange/v1/docs/api/rest/public-get-valuations",
+            "https://exchange-developer.crypto.com/exchange/v1/docs/api/rest/public-get-tickers",
+            "https://static2.crypto.com/exchange/assets/documents/us-tnc.pdf"
+          ],
+          "endpoint_templates": [
+            "GET https://api.crypto.com/exchange/v1/public/get-valuations?instrument_name={instrument}&valuation_type=funding_hist&count={count}&start_ts={unix_seconds}&end_ts={unix_seconds}",
+            "GET https://api.crypto.com/exchange/v1/public/get-tickers?instrument_name={instrument}"
+          ],
+          "documented_history_and_limits": "funding_hist returns hourly funding settlements; default start is 30 days ago. Official Exchange v1 REST docs state public calls are limited to 100 requests/second per method per IP. The ticker OI value is current 24h-summary endpoint context with published timestamp, not historical OI; OI denomination is not established by the reviewed schema.",
+          "authentication": "Official public market-data GET endpoints show no API key or signature requirement.",
+          "policy": "Do not query or route until Fin-Dex use scope is established. Current US Exchange Terms restrict use of Exchange Materials/Market Data for others' benefit and restrict publishing, distribution, commercialization, and profit without express written consent. Whether this repository workflow is solely personal use or involves an organization/third party is unresolved.",
+          "upstream_lineage": "Crypto.com Exchange venue-originated market data; no independent upstream claimed.",
+          "smoke_evidence": null,
+          "request_made": false
+        }
+      ],
+      "fallback": "Hyperliquid public info supplies venue-specific ETH historical funding over bounded windows (client ceiling now seven days; seven-day ETH response (168 rows) is retained as a normalized local replay artifact; exact HTTP wire bytes and redistribution rights are not established) and a current ETH OI snapshot; it does not provide historical OI or cross-venue context. Binance now has a bounded exact-symbol historical OI client, but this environment received HTTP 451 and must report it unavailable. DeFiLlama provides only provider-aggregate historical OI context; do not substitute it for instrument-level history. Bybit remains unavailable after HTTP 403. No retries, alternate hosts, proxies, or credentials. dYdX Indexer documents historical funding via read-only GET, but is excluded for this New York workspace under current dYdX Terms; no endpoint request was made, and its free entitlement/rate limits were not verified. Hive free discovery exposed historical funding and OI archives only as material one-credit calls; no material tool was invoked, and their upstream/terms/retention are unverified, so they are not eligible under the verified-free-only scope. Kraken public charts document funding and OI but remain unqueried until the project use scope is clarified against Kraken content terms; US applicability and a numeric chart request limit are also unverified. Crypto.com Exchange v1 now documents hourly historical funding and timestamped current ticker OI, but its US Exchange Terms restrict market-data use for others' benefit and redistribution/commercial use without written consent; do not route until Fin-Dex usage scope is established. Its ticker OI is current only, not a historical OI series.",
+      "required_evidence": [
+        "exchange and exact instrument",
+        "contract type",
+        "funding units and interval",
+        "OI unit/denominator",
+        "observation time/window",
+        "retrieval UTC",
+        "history coverage and gaps"
+      ]
+    },
+    {
+      "task": "Historical observations and deterministic replay",
+      "source_priority": [
+        {
+          "provider": "coinpaprika_historical_ticker_mcp",
+          "purpose": "daily historical token price snapshots by exact platform and contract",
+          "readiness": "RESPONDED_FOR_EXACT_ETHEREUM_USDC_DAILY_QUERY; 7 daily rows retained; no exact retrieval timestamp; free-plan usage is personal/non-commercial only and current project scope is not verified",
+          "route_contract": "coinpaprika-history-routing.json",
+          "smoke_evidence": "research-runs/2026-10-17-coinpaprika-ethereum-usdc-daily-replay/provider_response.json"
+        },
+        {
+          "provider": "defillama_public",
+          "purpose": "historical chain TVL source observations",
+          "readiness": "PARTIALLY_QUALIFIED for Ethereum only; 3,308 daily observations retained with a passing percent-change replay manifest",
+          "route_contract": "data-provider-routing.json"
+        },
+        {
+          "provider": "retained research-run fixtures",
+          "purpose": "offline deterministic calculation replay",
+          "readiness": "validators available; apply only to saved fixtures/manifests",
+          "route_contract": null
+        }
+      ],
+      "fallback": "Replay may not perform provider calls or reconstruct missing inputs. If a source observation is absent, retain NOT_REPLAYABLE/BLOCKED with exact missing inputs.",
+      "required_evidence": [
+        "original provider payload or immutable fixture",
+        "canonical asset/pair identity",
+        "observation and retrieval timestamps",
+        "units",
+        "versioned formula",
+        "input IDs and output tolerance"
+      ]
+    }
+  ],
+  "cross_provider_rules": {
+    "source_independence": "A different API wrapper is not independent. DEX Screener reports its own blockchain-log indexer; DeFiLlama and Alternative.me have separate aggregated methodologies. DexPaprika is a distinct provider, but no pool-level evidence currently establishes its upstream collection as independent of DEX Screener. Verify whether a specific comparison shares upstream observations before marking CORROBORATED.",
+    "request_budgets_and_caching": "Use each referenced provider route contract. Each new client currently limits to one GET per command, a bounded timeout/body size, a short process-local cache, and no automatic retries.",
+    "units_and_time": "Preserve provider units and source timestamps. Retrieval timestamps are not metric observation timestamps. Normalize to UTC only when the source supplies a timestamp that can be safely interpreted.",
+    "contradiction_handling": "Retain conflicting values side by side. Reconcile identity, windows, unit, methodology, and provenance before a conclusion; otherwise label CONFLICTED or UNVERIFIED."
+  }
+}

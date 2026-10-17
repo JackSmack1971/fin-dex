@@ -1,0 +1,16 @@
+{
+  "provider": "gdelt_doc_public",
+  "status": "UNAVAILABLE_RATE_LIMITED",
+  "method": "GET",
+  "endpoint": "https://api.gdeltproject.org/api/v2/doc/doc?query=%22Ethereum+Foundation%22&mode=artlist&format=json&maxrecords=3&timespan=7d&sort=datedesc",
+  "query": "\"Ethereum Foundation\"",
+  "max_records": 3,
+  "timespan": "7d",
+  "anonymous_request": true,
+  "http_status": 429,
+  "retrieved_at_utc": null,
+  "retrieval_timestamp_limitation": "The command returned only a classified HTTP 429 error and did not print a timestamp; a later clock reading is not substituted as retrieval time.",
+  "retry_performed": false,
+  "article_payload_retained": false,
+  "qualification": "Official GDELT terms support free use of datasets, but no article response was observed. Direct endpoint operations remain unavailable until a new bounded anonymous smoke succeeds. The configured GDELT MCP is a separate proxy and is not qualified by this observation."
+}

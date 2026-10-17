@@ -1,0 +1,61 @@
+{
+  "provider": "hive_tool_catalog",
+  "tool": "mcp__hive__search_tools",
+  "retrieved_at_utc": "2026-10-17T17:35:28.119Z",
+  "query": "historical open interest and funding rate instrument exchange",
+  "evidence_phase": "funding",
+  "runtime_status": "ok",
+  "credits_used": 0,
+  "toolset_results": [
+    {
+      "id": "rwa_perp_analysis",
+      "purpose": "Cross-venue current RWA perp funding/OI analysis across Hyperliquid HIP-3, Ostium, Avantis, Lighter, and Extended.",
+      "route_ids": ["rwa_universe_map"],
+      "crypto_scope": "RWA-focused and current context; not historical BTC/ETH crypto-perpetual funding/OI history"
+    }
+  ],
+  "material_tool_discovery": [
+    {
+      "name": "archive_get_open_interest_history",
+      "provider": "Hive Archive",
+      "read_only": true,
+      "material": true,
+      "credit_cost": 1,
+      "summary_claim": "Historical perp open-interest snapshots for one base coin across venues; retention is shorter than funding.",
+      "invoked": false
+    },
+    {
+      "name": "archive_get_funding_history",
+      "provider": "Hive Archive",
+      "read_only": true,
+      "material": true,
+      "credit_cost": 1,
+      "summary_claim": "Historical funding settlements across up to 33 venues, archive described as starting 2023-11.",
+      "invoked": false
+    },
+    {
+      "name": "get_open_interest_history",
+      "provider": "CCXT",
+      "read_only": true,
+      "material": true,
+      "credit_cost": 1,
+      "summary_claim": "Historical open interest for a derivatives contract; venue endpoint and free-tier terms not specified in discovery metadata.",
+      "invoked": false
+    }
+  ],
+  "evidence_receipt": {
+    "receipt_id": "0f8efa84-70e1-4364-9fec-9945d214a8f4",
+    "receipt_version": "1.0",
+    "server_version": "1.11.2",
+    "build_sha": "0f7088f057c5441ac196104563c34fee15a1ca18",
+    "input_digest": "017757aa1763f76bf8fc66218fb719e6c9dfc70240ea11cdd608397b72b1039c",
+    "result_digest": "2b12b2acca84073e44f34401e91d9278cad1b1d2ce2a00e7e4c6b855be8f2a13",
+    "source": "live",
+    "cache_status": "unknown",
+    "truncated": false,
+    "warnings": [],
+    "credit_cost": 0,
+    "credits_used": 0
+  },
+  "interpretation": "This is Hive catalog metadata only. Material access costs one Hive credit per tool. Discovery does not verify upstream endpoints, provider entitlement, rate limits, terms, retention, exact venue/symbol coverage, units, or timestamp semantics. No material call was made."
+}
