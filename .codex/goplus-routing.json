@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "provider": "goplus_public",
+  "status": "PARTIALLY_QUALIFIED",
+  "scope": "Anonymous read-only EVM token and Solana mint security heuristic lookup by exact chain/cluster and contract/mint address.",
+  "authorization": {
+    "official_access_docs": "https://docs.gopluslabs.io/reference/api-overview",
+    "official_rate_docs": "https://docs.gopluslabs.io/reference/support",
+    "official_endpoint_docs": "https://docs.gopluslabs.io/reference/tokensecurityusingget_1",
+    "official_solana_endpoint_docs": "https://docs.gopluslabs.io/reference/solanatokensecurityusingget",
+    "free_access_claim": "Official docs describe the API as free/open and state 30 calls/minute; route still requires the retained anonymous smoke response.",
+    "credentials": "Never send Authorization or other credentials. Stop on authentication, payment, or access-token errors."
+  },
+  "route": {
+    "method": "GET",
+    "path": "/api/v1/token_security/{chain_id}",
+    "query": [
+      "contract_addresses={exact_evm_contract}"
+    ],
+    "fixed_host": "https://api.gopluslabs.io",
+    "input_identity": [
+      "numeric EVM chain ID",
+      "20-byte EVM contract address"
+    ],
+    "local_budget": "one request per CLI command",
+    "timeout_seconds": 10,
+    "max_response_bytes": 500000,
+    "process_cache_seconds": 300,
+    "automatic_retries": 0
+  },
+  "solana_route": {
+    "method": "GET",
+    "path": "/api/v1/solana/token_security",
+    "query": ["contract_addresses={exact_solana_mint}"],
+    "fixed_host": "https://api.gopluslabs.io",
+    "input_identity": ["Solana cluster", "32-byte base58 token mint"],
+    "local_budget": "one request per CLI command",
+    "timeout_seconds": 10,
+    "max_response_bytes": 500000,
+    "process_cache_seconds": 300,
+    "automatic_retries": 0,
+    "readiness": "RESPONDED for one exact Pyth Network mint; no provider metric timestamp; beta endpoint",
+    "official_endpoint_docs": "https://docs.gopluslabs.io/reference/solanatokensecurityusingget",
+    "free_access_docs": "https://docs.gopluslabs.io/reference/support",
+    "evidence": "research-runs/provider-smokes/goplus-solana-pyth.json",
+    "limits": "GoPlus identifies this endpoint as beta. Preserve response flags as heuristic evidence; missing fields are unknown, not a pass."
+  },
+  "evidence": {
+    "upstream_lineage": "unspecified",
+    "observation_timestamp": "not supplied by response; freshness remains unverified",
+    "retrieval_timestamp": "UTC captured locally",
+    "missing_fields": "unknown, never zero or passed",
+    "interpretation": "Heuristic security screening only; not an audit, guarantee, or sufficient execution basis.",
+    "chain_specific_smokes": [
+      {
+        "artifact": "research-runs/provider-smokes/goplus-ethereum-usdc.json",
+        "chain_id": "1",
+        "contract_address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+        "retrieved_at_utc": "2026-10-17T14:02:17Z",
+        "status": "RESPONDED_IDENTITY_MATCHED",
+        "freshness": "UNVERIFIED_NO_PROVIDER_TIMESTAMP"
+      },
+      {
+        "artifact": "research-runs/provider-smokes/goplus-base-usdc.json",
+        "chain_id": "8453",
+        "contract_address": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+        "retrieved_at_utc": "2026-10-17T15:00:24Z",
+        "status": "RESPONDED_IDENTITY_MATCHED",
+        "freshness": "UNVERIFIED_NO_PROVIDER_TIMESTAMP",
+        "token_identity_source": "GoPlus official supported-mainstream-token reference"
+      },
+      {
+        "artifact": "research-runs/provider-smokes/goplus-solana-pyth.json",
+        "chain_id": "solana",
+        "contract_address": "HZ1JovNiVvGrGNiiYvEozEVgZ58xaU3RKwX8eACQBCt3",
+        "retrieved_at_utc": "2026-10-17T15:43:42Z",
+        "status": "RESPONDED_IDENTITY_MATCHED",
+        "freshness": "UNVERIFIED_NO_PROVIDER_TIMESTAMP",
+        "token_identity": "GoPlus response metadata identifies Pyth Network (PYTH); exact on-chain identity not independently checked"
+      }
+    ],
+    "qualification_limit": "Anonymous response shapes are qualified only for the exact retained Ethereum USDC, Base USDC, and Solana Pyth queries. The Solana endpoint is beta. Upstream lineage and provider metric timestamps remain unknown; heuristic output is not an audit or safety guarantee."
+  },
+  "failure_handling": {
+    "auth_payment_rate_or_partial": "stop this provider branch; no retry or fallback",
+    "no_security_data": "preserve as NO_SECURITY_DATA",
+    "malformed_or_identity_mismatch": "reject response",
+    "fallback": null
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "provider": "ankr_public_ethereum_rpc",
+  "provider_name": "Ankr Ethereum Public RPC",
+  "documentation": [
+    "https://www.ankr.com/infrastructure/build-on-ethereum/",
+    "https://www.ankr.com/docs/rpc-service/getting-started/basics-public/",
+    "https://www.ankr.com/docs/rpc-service/service-plans/",
+    "https://www.ankr.com/docs/rpc-service/chains/chains-api/ethereum/history-p2/",
+    "https://www.ankr.com/terms/",
+    "https://www.ankr.com/privacy-policy/"
+  ],
+  "documentation_checked_at": "2026-10-17",
+  "access": {
+    "runtime_readiness": "UNAVAILABLE_ANONYMOUS_ACCESS_REQUIRES_KEY",
+    "authentication": "Official Ethereum RPC page documents https://rpc.ankr.com/eth for direct use; public endpoint requires no email signup or personal information.",
+    "cost": "Official Service Plans list Public plan as free, no contract; this route uses no key, account, Freemium or Premium access.",
+    "terms_scope": "Ankr Terms effective 2026-07-15 grant royalty-free use solely for the customer's own internal business purposes and restrict third-party access and commercial exploitation without prior written consent. This route is for internal research only; do not expose the service or redistribute Ankr service content.",
+    "registration_is_authorization": false,
+    "smoke_evidence": "research-runs/provider-smokes/ankr-ethereum-public-eth-blocknumber-401.json",
+    "anonymous_probe": "Two eth_blockNumber probes were issued while capturing the result. The first response was not serialized; the second returned HTTP 200 with JSON-RPC -32000 Unauthorized requiring an API key. No credential was used and eth_getLogs was not called. No further requests are permitted under the current unavailable status."
+  },
+  "route": {
+    "task": "bounded Ethereum ERC-20 Transfer logs for one exact token contract",
+    "implementation": ".agents/skills/crypto-mcp-research/scripts/ankr_public_ethereum.py",
+    "endpoint": "POST https://rpc.ankr.com/eth",
+    "allowed_methods": ["eth_chainId", "eth_getLogs"],
+    "identity": ["Ethereum mainnet chain ID 1", "exact 20-byte EVM token address", "Transfer(address,address,uint256) topic"],
+    "block_range": "Inclusive, at most 1,000 blocks; Public plan documented maximum.",
+    "provider_response_limit": "Ankr documents up to 200,000 logs per eth_getLogs response; client response body limit is 2,000,000 bytes.",
+    "requests_per_invocation": 2,
+    "timeout_seconds": 10,
+    "automatic_retries": 0,
+    "credentials": "None; never add or infer API credentials.",
+    "cache": "None. Each invocation is a bounded fresh read.",
+    "readiness": "Fixture-tested implementation, but the exact official no-signup endpoint returned JSON-RPC Unauthorized and required an API key. Contract gate blocks all live requests until Ankr documents or demonstrates zero-charge anonymous access again; do not register, add a key, or retry."
+  },
+  "evidence": {
+    "upstream_lineage": "Ankr public Ethereum RPC backed by globally distributed nodes; the exact serving node/operator is not disclosed per response.",
+    "observation_timestamp": "eth_getLogs does not include block timestamps; outputs explicitly retain null timestamps.",
+    "units": "Transfer data is raw uint256 token base units. Decimals, USD valuation and net flows are not inferred.",
+    "coverage": "Bounded block-range response only. Empty logs do not prove zero transfers or completeness; log coverage and reorganization finality are not attested.",
+    "independence": "UNKNOWN; do not treat as independent corroboration of other RPCs/indexers without per-observation lineage."
+  },
+  "failure_policy": {
+    "authentication_payment_forbidden_rate_limit": "Stop this provider branch; no retry or fallback.",
+    "timeout_network_error": "Stop this invocation; no retry.",
+    "malformed_identity_mismatch_response_too_large": "Reject response; no retry or fallback.",
+    "fallback": null
+  },
+  "prohibited": [
+    "write-capable JSON-RPC methods",
+    "API keys, signup, Freemium, Premium, or paid routes",
+    "ranges wider than 1,000 blocks",
+    "commercial exploitation or third-party service access absent prior written consent",
+    "claims of complete history, UTC event time, USD value, net flow, or zero transfers without additional evidence"
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "provider": "sourcify_contract_repository",
+  "source_url": "https://sourcify.dev/server/v2/contract/8453/0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+  "retrieved_at_utc": "2026-10-17T17:25:39Z",
+  "http_status": 200,
+  "content_type": "application/json; charset=utf-8",
+  "response_bytes": 210,
+  "authorization_header_sent": false,
+  "requested_identity": {
+    "chain_id": "8453",
+    "address": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913"
+  },
+  "returned_minimal_record": {
+    "match": "exact_match",
+    "creationMatch": "exact_match",
+    "runtimeMatch": "exact_match",
+    "chainId": "8453",
+    "address": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+    "verifiedAt": "2024-08-08T13:59:29Z",
+    "matchId": "1839631"
+  },
+  "identity_status": "VERIFIED",
+  "scope": "One Base USDC contract lookup. This reports Sourcify bytecode/source verification metadata, not token safety or audit status.",
+  "wire_response_retained": false,
+  "notes": [
+    "The body was parsed in memory and only the documented minimal metadata fields were retained.",
+    "A separate Ethereum USDC request using a fields query returned HTTP 400 at 2026-10-17T17:25:17Z; its body was not retained and that contract was not fetched again.",
+    "The successful default-field request returned no source files or source code."
+  ]
+}
