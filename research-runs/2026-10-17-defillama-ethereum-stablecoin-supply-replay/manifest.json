@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "run_id": "2026-10-17-defillama-ethereum-stablecoin-supply-replay",
+  "task_specification": "Retain DeFiLlama Ethereum stablecoin historical market-cap response and deterministically replay the USD-pegged circulating supply percent change over the matched one-year endpoints.",
+  "timestamps": {
+    "started_at_utc": "2026-10-17T14:23:04Z",
+    "completed_at_utc": "2026-10-17T14:23:30Z"
+  },
+  "asset_identity": {
+    "canonical_id": "chain:defillama:Ethereum:stablecoin_supply:peggedUSD",
+    "identity_status": "RESOLVED",
+    "chain": "Ethereum",
+    "contract": null,
+    "instrument": null
+  },
+  "research_horizon": {
+    "start_utc": "2025-10-17T00:00:00Z",
+    "end_utc": "2026-10-17T00:00:00Z",
+    "decision_horizon": null
+  },
+  "repository": {
+    "status": "AVAILABLE",
+    "revision": "29b81b3b83858cd4faaf0b77a1403c7d0755f3cc",
+    "reason": null
+  },
+  "methodology_version": "defillama_stablecoin_usd_pegged_circulating_supply_percent_change.v1",
+  "configuration_references": [
+    ".codex/data-provider-routing.json"
+  ],
+  "specialists": [],
+  "lifecycle": {
+    "collection_state": "CLOSED",
+    "reconciliation_completed": true
+  },
+  "evidence_ledgers": [],
+  "synthesis": null,
+  "reviews": [],
+  "verdict": "NO_VERIFIED_CONCLUSION",
+  "artifacts": [
+    {
+      "path": "provider_response.json",
+      "sha256": "576c1b64f8b0a39ae8e1d1468d1a147a5f14930d0450eefadc7e624bb6f7eb00",
+      "kind": "provider_response"
+    },
+    {
+      "path": "observations.json",
+      "sha256": "61a621f855949e6547ea9a54d9f4812d7f702997eba11cdc1ab909785561054a",
+      "kind": "observations"
+    }
+  ],
+  "calculations": [
+    {
+      "id": "ethereum_stablecoin_usd_pegged_supply_1y_percent_change",
+      "formula": "percent_change.v1",
+      "formula_version": "percent_change.v1",
+      "inputs": [
+        "ethereum_stablecoin_usd_pegged_supply_2025-10-17",
+        "ethereum_stablecoin_usd_pegged_supply_2026-10-17"
+      ],
+      "input_timestamps": {
+        "ethereum_stablecoin_usd_pegged_supply_2025-10-17": "2025-10-17T00:00:00Z",
+        "ethereum_stablecoin_usd_pegged_supply_2026-10-17": "2026-10-17T00:00:00Z"
+      },
+      "source_observations": {
+        "ethereum_stablecoin_usd_pegged_supply_2025-10-17": "observations.json",
+        "ethereum_stablecoin_usd_pegged_supply_2026-10-17": "observations.json"
+      },
+      "unit": "percent",
+      "sampling_window": "matched daily provider endpoints exactly one year apart: 2025-10-17 through 2026-10-17 UTC",
+      "rounding": "python_round_half_even.v1",
+      "rounding_digits": 12,
+      "missing_data": "error",
+      "status": "REPLAYABLE",
+      "expected_value": -10.543908897711,
+      "tolerance": 1e-12
+    }
+  ]
+}

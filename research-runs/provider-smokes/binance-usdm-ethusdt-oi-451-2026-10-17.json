@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "provider": "binance_usdm_public",
+  "route": "GET https://fapi.binance.com/futures/data/openInterestHist?symbol=ETHUSDT&period=1h&limit=2",
+  "request": {
+    "method": "GET",
+    "authorization_header_sent": false,
+    "api_key_sent": false,
+    "request_count": 1
+  },
+  "response": {
+    "status": "UNAVAILABLE",
+    "http_status": 451,
+    "classification": "REGION_UNAVAILABLE",
+    "body_retained": false,
+    "retrieval_time_exact": false,
+    "completed_by_utc": "2026-10-17T15:34:36Z",
+    "retry": false
+  },
+  "interpretation": "One bounded read-only request was denied due to a region restriction in this environment. This does not establish global endpoint unavailability, data response shape, or provider qualification.",
+  "documentation": "https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-usd-s-m-futures/api/rest-api/market-data"
+}

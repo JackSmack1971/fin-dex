@@ -1,0 +1,201 @@
+{
+  "schema_version": 1,
+  "smoke_status": "RESPONDED",
+  "provider": "Hyperliquid first-party public info API",
+  "http_method": "POST",
+  "endpoint": "https://api.hyperliquid.xyz/info",
+  "request_body": {
+    "type": "fundingHistory",
+    "coin": "ETH",
+    "startTime": 1792163457732,
+    "endTime": 1792249857732
+  },
+  "authorization_header_sent": false,
+  "read_only_operation": true,
+  "result": {
+    "provider": "hyperliquid_public_info",
+    "upstream_origin": "Hyperliquid first-party perp market data",
+    "endpoint": "POST /info type=fundingHistory",
+    "source_url": "https://api.hyperliquid.xyz/info",
+    "requested_coin": "ETH",
+    "requested_window_ms": {
+      "start": 1792163457732,
+      "end": 1792249857732
+    },
+    "retrieved_at_utc": "2026-10-17T15:10:58Z",
+    "cache": "miss",
+    "row_count": 24,
+    "funding_interval_note": "Hyperliquid documents hourly funding settlement; retain each returned timestamp and do not extrapolate missing intervals.",
+    "unit": "funding_rate_decimal per funding period, as returned; not annualized",
+    "data": [
+      {
+        "coin": "ETH",
+        "time_ms": 1792166400041,
+        "funding_rate_decimal": 9.799e-06,
+        "funding_rate_raw": "0.000009799",
+        "premium_raw": "-0.0004216077"
+      },
+      {
+        "coin": "ETH",
+        "time_ms": 1792170000000,
+        "funding_rate_decimal": 9.5822e-06,
+        "funding_rate_raw": "0.0000095822",
+        "premium_raw": "-0.000423342"
+      },
+      {
+        "coin": "ETH",
+        "time_ms": 1792173600043,
+        "funding_rate_decimal": -8.4739e-06,
+        "funding_rate_raw": "-0.0000084739",
+        "premium_raw": "-0.0005677912"
+      },
+      {
+        "coin": "ETH",
+        "time_ms": 1792177200033,
+        "funding_rate_decimal": -7.0145e-06,
+        "funding_rate_raw": "-0.0000070145",
+        "premium_raw": "-0.0005561156"
+      },
+      {
+        "coin": "ETH",
+        "time_ms": 1792180800063,
+        "funding_rate_decimal": -8.7593e-06,
+        "funding_rate_raw": "-0.0000087593",
+        "premium_raw": "-0.0005700745"
+      },
+      {
+        "coin": "ETH",
+        "time_ms": 1792184400023,
+        "funding_rate_decimal": 6.573e-07,
+        "funding_rate_raw": "0.0000006573",
+        "premium_raw": "-0.0004947418"
+      },
+      {
+        "coin": "ETH",
+        "time_ms": 1792188000007,
+        "funding_rate_decimal": 4.9037e-06,
+        "funding_rate_raw": "0.0000049037",
+        "premium_raw": "-0.0004607704"
+      },
+      {
+        "coin": "ETH",
+        "time_ms": 1792191600029,
+        "funding_rate_decimal": 7.9764e-06,
+        "funding_rate_raw": "0.0000079764",
+        "premium_raw": "-0.0004361888"
+      },
+      {
+        "coin": "ETH",
+        "time_ms": 1792195200116,
+        "funding_rate_decimal": 9.3774e-06,
+        "funding_rate_raw": "0.0000093774",
+        "premium_raw": "-0.0004249806"
+      },
+      {
+        "coin": "ETH",
+        "time_ms": 1792198800083,
+        "funding_rate_decimal": -6.8239e-06,
+        "funding_rate_raw": "-0.0000068239",
+        "premium_raw": "-0.0005545908"
+      },
+      {
+        "coin": "ETH",
+        "time_ms": 1792202400105,
+        "funding_rate_decimal": -3.7237e-06,
+        "funding_rate_raw": "-0.0000037237",
+        "premium_raw": "-0.0005297897"
+      },
+      {
+        "coin": "ETH",
+        "time_ms": 1792206000080,
+        "funding_rate_decimal": 2.5265e-06,
+        "funding_rate_raw": "0.0000025265",
+        "premium_raw": "-0.0004797877"
+      },
+      {
+        "coin": "ETH",
+        "time_ms": 1792209600067,
+        "funding_rate_decimal": 1.4586e-06,
+        "funding_rate_raw": "0.0000014586",
+        "premium_raw": "-0.0004883312"
+      },
+      {
+        "coin": "ETH",
+        "time_ms": 1792213200014,
+        "funding_rate_decimal": 5.297e-07,
+        "funding_rate_raw": "0.0000005297",
+        "premium_raw": "-0.0004957627"
+      },
+      {
+        "coin": "ETH",
+        "time_ms": 1792216800053,
+        "funding_rate_decimal": 5.5697e-06,
+        "funding_rate_raw": "0.0000055697",
+        "premium_raw": "-0.0004554426"
+      },
+      {
+        "coin": "ETH",
+        "time_ms": 1792220400018,
+        "funding_rate_decimal": 3.7667e-06,
+        "funding_rate_raw": "0.0000037667",
+        "premium_raw": "-0.0004698665"
+      },
+      {
+        "coin": "ETH",
+        "time_ms": 1792224000014,
+        "funding_rate_decimal": 4.6825e-06,
+        "funding_rate_raw": "0.0000046825",
+        "premium_raw": "-0.0004625397"
+      },
+      {
+        "coin": "ETH",
+        "time_ms": 1792227600055,
+        "funding_rate_decimal": 2.8693e-06,
+        "funding_rate_raw": "0.0000028693",
+        "premium_raw": "-0.0004770458"
+      },
+      {
+        "coin": "ETH",
+        "time_ms": 1792231200000,
+        "funding_rate_decimal": 2.1976e-06,
+        "funding_rate_raw": "0.0000021976",
+        "premium_raw": "-0.0004824189"
+      },
+      {
+        "coin": "ETH",
+        "time_ms": 1792234800052,
+        "funding_rate_decimal": 3.8534e-06,
+        "funding_rate_raw": "0.0000038534",
+        "premium_raw": "-0.0004691728"
+      },
+      {
+        "coin": "ETH",
+        "time_ms": 1792238400072,
+        "funding_rate_decimal": -8.124e-07,
+        "funding_rate_raw": "-0.0000008124",
+        "premium_raw": "-0.0005064994"
+      },
+      {
+        "coin": "ETH",
+        "time_ms": 1792242000055,
+        "funding_rate_decimal": -3.3291e-06,
+        "funding_rate_raw": "-0.0000033291",
+        "premium_raw": "-0.0005266329"
+      },
+      {
+        "coin": "ETH",
+        "time_ms": 1792245600046,
+        "funding_rate_decimal": 8.3286e-06,
+        "funding_rate_raw": "0.0000083286",
+        "premium_raw": "-0.0004333712"
+      },
+      {
+        "coin": "ETH",
+        "time_ms": 1792249200046,
+        "funding_rate_decimal": 1.22498e-05,
+        "funding_rate_raw": "0.0000122498",
+        "premium_raw": "-0.0004020016"
+      }
+    ]
+  }
+}

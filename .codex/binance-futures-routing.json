@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "provider": "binance_usdm_public",
+  "base_url": "https://fapi.binance.com",
+  "documentation": "https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-usd-s-m-futures/api/rest-api/market-data",
+  "documentation_checked_at": "2026-10-17",
+  "access": {
+    "authentication": "Official USDⓈ-M market-data route is documented as public market data; client sends no API key or Authorization header.",
+    "payment": "No payment or account flow used. Official route docs describe IP request weight but do not grant redistribution rights.",
+    "policy": "Read-only internal research candidate. No redistribution or commercial-use rights are claimed; confirm applicable Binance terms before broader use or publishing retained values.",
+    "readiness": "IMPLEMENTED_FIXTURE_TESTED; LIVE_UNAVAILABLE_REGION",
+    "smoke_evidence": "research-runs/provider-smokes/binance-usdm-ethusdt-oi-451-2026-10-17.json"
+  },
+  "supported_routes": [
+    {
+      "task": "historical open-interest statistics for one exact USDⓈ-M futures symbol",
+      "tool": "scripts/binance_futures_public.py {symbol} --period {period} --limit {limit}",
+      "request": "GET /futures/data/openInterestHist?symbol={symbol}&period={period}&limit={limit}",
+      "fields": ["symbol", "sumOpenInterest", "sumOpenInterestValue", "timestamp"],
+      "identity": "Each returned symbol must exactly equal the requested uppercase symbol.",
+      "bounds": "One request per command, one exact symbol, one documented interval, local limit 1–100 (official maximum 500), 10-second timeout, 500KB response ceiling, 30-second in-process cache, no retries. Official endpoint coverage is latest 30 days only.",
+      "periods": ["5m", "15m", "30m", "1h", "2h", "4h", "6h", "8h", "12h", "1d"],
+      "timestamps": "Provider timestamp is the end time of the period in Unix milliseconds; normalized UTC is retained alongside the original integer.",
+      "units": "Provider describes sumOpenInterest as total open interest and sumOpenInterestValue as total open-interest value. Do not infer contract or quote denomination not specified in the route schema; raw strings are preserved.",
+      "freshness": "Latest row is checked against retrieval time; marked STALE when older than max(two periods, one minute). Historical rows are not removed.",
+      "runtime_evidence": {
+        "status": "UNAVAILABLE",
+        "http_status": 451,
+        "reason": "region restriction from the current environment",
+        "retrieval_time": "not captured exactly; completion observed no later than 2026-10-17T15:34:36Z",
+        "authorization_header_sent": false,
+        "retry": false
+      }
+    }
+  ],
+  "request_policy": {
+    "allowlist": ["GET /futures/data/openInterestHist"],
+    "max_requests_per_command": 1,
+    "max_limit": 100,
+    "retry_policy": "No retries; stop on 401/402/403/404/429/451, timeout, malformed response, or identity mismatch.",
+    "cache_seconds": 30,
+    "upstream_independence": "First-party Binance USDⓈ-M venue observations. Distinct from Hyperliquid and DeFiLlama aggregate context; not a market-wide series.",
+    "fallback": "Do not replace a missing Binance USDⓈ-M history series with Hyperliquid data or DeFiLlama aggregate OI. Preserve venue and contract identity."
+  }
+}

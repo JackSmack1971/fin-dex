@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "provider": "hyperliquid_public_info",
+  "base_url": "https://api.hyperliquid.xyz/info",
+  "documentation": [
+    "https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/info-endpoint/perpetuals",
+    "https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/rate-limits-and-user-limits",
+    "https://hyperliquid.gitbook.io/hyperliquid-docs/trading/funding"
+  ],
+  "access": {
+    "authentication": "No credential or Authorization header is used; public info request examples require only Content-Type: application/json.",
+    "payment": "Public info endpoint; no payment or key flow used. Per-request credits/charges are not documented for this anonymous route.",
+    "runtime_readiness": "RESPONDED_FOR_ETH_FUNDING_HISTORY_AND_CURRENT_PERP_SNAPSHOT; anonymous seven-day ETH fundingHistory returned 168 identity/window-matched hourly rows at 2026-10-17T16:52:36Z and is retained in a validated local replay run. No Authorization header/payment flow used; terms and redistribution rights remain unverified.",
+    "terms_review": "No provider Terms page was successfully retrieved in this bounded review; no redistribution right is claimed. Official API docs specify inclusive millisecond start/end bounds but no maximum history window, so the client uses a conservative seven-day local maximum. Official historical-data docs say users may use the API to record additional historical datasets. A seven-day ETH response is retained locally for deterministic replay; this does not establish redistribution rights.",
+    "smoke_evidence": [
+      "research-runs/provider-smokes/hyperliquid-eth-funding-24h.json",
+      "research-runs/provider-smokes/hyperliquid-eth-perp-snapshot.json",
+      "research-runs/provider-smokes/hyperliquid-eth-funding-7d-2026-10-17.json",
+      "research-runs/2026-10-17-hyperliquid-eth-funding-7d-replay/manifest.json"
+    ]
+  },
+  "supported_routes": [
+    {
+      "task": "historical funding for one exact perpetual instrument",
+      "tool": "scripts/hyperliquid_public.py funding-history {coin} --start-ms {start} --end-ms {end}",
+      "request": "POST /info with type=fundingHistory, coin, startTime, endTime",
+      "source_priority": "Supplemental venue-specific funding history; not cross-venue aggregate funding.",
+      "bounds": "One coin and a maximum seven-day window per command; local output cap 200 rows; one request and no retries. Seven days is a conservative local bound, not a provider-documented maximum.",
+      "normalization": "Preserve Unix-millisecond settlement timestamps and raw fundingRate; normalized funding_rate_decimal is per funding period, not annualized. Hyperliquid documentation describes hourly settlements. The endpoint docs specify inclusive millisecond start/end times but do not state a maximum historical window.",
+      "identity": "Every returned row must exactly match requested coin and fall within requested inclusive time window.",
+      "upstream_provenance": "Hyperliquid first-party perpetual market data.",
+      "runtime_evidence": {
+        "status": "RESPONDED",
+        "retrieved_at_utc": "2026-10-17T15:10:58Z",
+        "coin": "ETH",
+        "window_hours": 24,
+        "rows": 24,
+        "authorization_header_sent": false,
+        "expanded_window_smoke": {
+          "status": "RESPONDED",
+          "evidence": "research-runs/provider-smokes/hyperliquid-eth-funding-7d-2026-10-17.json",
+          "retrieved_at_utc": "2026-10-17T16:03:17Z",
+          "coin": "ETH",
+          "window_hours": 168,
+          "rows": 168,
+          "authorization_header_sent": false,
+          "raw_response_retained": false
+        },
+        "expanded_window_replay_run": "research-runs/2026-10-17-hyperliquid-eth-funding-7d-replay/manifest.json"
+      }
+    },
+    {
+      "task": "current per-instrument perpetual context including open interest",
+      "tool": "scripts/hyperliquid_public.py perp-snapshot {coin}",
+      "request": "POST /info with type=metaAndAssetCtxs",
+      "bounds": "One response, select one exact coin by matching metadata universe index to asset context index; one request and no retries.",
+      "normalization": "Preserve provider numeric strings and numeric parses. OI USD denomination is unverified; the endpoint supplies no observation timestamp, so retrieval time is not market observation time.",
+      "identity": "Requested coin must occur exactly once in the returned metadata universe.",
+      "runtime_evidence": {
+        "status": "RESPONDED",
+        "retrieved_at_utc": "2026-10-17T15:11:31Z",
+        "coin": "ETH",
+        "authorization_header_sent": false,
+        "historical_oi": "NOT_PROVIDED"
+      }
+    }
+  ],
+  "rate_limits": {
+    "official": "1200 aggregate REST weight/minute per IP; fundingHistory weight 20 plus additional weight per 20 returned items; other documented info calls weight 20.",
+    "local": "One request per invocation, 10-second timeout, 1MB response ceiling, 30-second memory cache, no retries."
+  },
+  "independence": {
+    "status": "FIRST_PARTY_VENUE_SOURCE",
+    "rule": "Distinct venue-origin observations from DeFiLlama aggregate data, but one venue is not market-wide funding or OI. Do not count multiple wrappers over Hyperliquid as independent."
+  },
+  "known_gaps": [
+    "No historical per-instrument open-interest endpoint was qualified; this route only returns a current OI context without an observation timestamp.",
+    "The returned OI unit is preserved but its USD denomination is not verified.",
+    "Only ETH funding and current perp context have live response evidence; other coin identifiers remain implementation-only.",
+    "Only ETH funding history has a retained seven-day replay artifact; other coin identifiers remain implementation-only. Redistribution rights remain unverified."
+  ],
+  "fallback": "Do not substitute aggregate DeFiLlama OI for instrument-level OI or use Hyperliquid ETH history for another venue/instrument. Preserve unavailable and missing history explicitly."
+}

@@ -1,0 +1,28 @@
+{
+  "provider": "hyperliquid_public_info",
+  "smoke_status": "RESPONDED",
+  "endpoint": "POST https://api.hyperliquid.xyz/info type=fundingHistory",
+  "documentation": "https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/info-endpoint/perpetuals.md",
+  "requested_coin": "ETH",
+  "requested_window_ms": {
+    "start": 1791648197053,
+    "end": 1792252997053
+  },
+  "requested_window_utc": {
+    "start": "2026-10-10T16:03:17.053Z",
+    "end": "2026-10-17T16:03:17.053Z"
+  },
+  "response_summary": {
+    "row_count": 168,
+    "first_row_time_ms": 1791651600025,
+    "last_row_time_ms": 1792252800013,
+    "first_row_time_utc": "2026-10-10T17:00:00.025Z",
+    "last_row_time_utc": "2026-10-17T16:00:00.013Z"
+  },
+  "retrieved_at_utc": "2026-10-17T16:03:17Z",
+  "authorization_header_sent": false,
+  "paid_or_keyed_route_used": false,
+  "retry": false,
+  "raw_response_retained": false,
+  "retention_note": "Only route/window/shape summary retained. Full row payload was not saved; deterministic replay over the expanded seven-day source series is not established. Provider data-retention and redistribution rights remain unverified."
+}
