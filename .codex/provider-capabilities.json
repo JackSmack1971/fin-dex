@@ -334,13 +334,19 @@
     {
       "id": "dexpaprika",
       "endpoint": "https://mcp.dexpaprika.com/streamable-http",
-      "status": "DISCOVERED",
+      "status": "RESPONDED",
       "status_evidence": {
         "kind": "tool_metadata_visible_in_codex_session",
         "observed_at_utc": "2026-10-16T11:03:05Z",
         "tool_identity": "mcp__dexpaprika__filterNetworkTokens"
       },
-      "responded_evidence": null,
+      "responded_evidence": {
+        "outcome": "success",
+        "tool_identity": "mcp__dexpaprika__getPoolDetails",
+        "observed_at_utc": "2026-10-17T14:16:50Z",
+        "artifact": "research-runs/provider-smokes/dexpaprika-ethereum-usdc-weth-pool.json",
+        "scope": "one read-only Ethereum Uniswap V3 pool response; exact pool and token identities matched retained DEX Screener record; source independence unresolved"
+      },
       "qualification_evidence": null,
       "automatic_research_allowlist": [
         "getNetworkDexes",
@@ -533,6 +539,18 @@
               "kind": "visible_codex_tool_registry",
               "observed_at_utc": "2026-10-16T11:03:05Z",
               "tool_identity": "mcp__dexpaprika__filterNetworkTokens"
+            }
+          }
+        },
+        {
+          "status": "RESPONDED",
+          "evidence": {
+            "successful_call": {
+              "outcome": "success",
+              "tool_identity": "mcp__dexpaprika__getPoolDetails",
+              "observed_at_utc": "2026-10-17T14:16:50Z",
+              "artifact": "research-runs/provider-smokes/dexpaprika-ethereum-usdc-weth-pool.json",
+              "scope": "one read-only Ethereum Uniswap V3 pool response; exact pool and token identities matched retained DEX Screener record; source independence unresolved"
             }
           }
         }

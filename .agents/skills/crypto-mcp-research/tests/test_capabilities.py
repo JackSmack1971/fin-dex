@@ -94,12 +94,17 @@ class TestCapabilities(unittest.TestCase):
         self.assertTrue(any('prohibited or unknown-effect tool marked' in e for e in errors))
         self.assertTrue(any('only verified, permitted READ_ONLY' in e for e in errors))
 
-    def test_current_discovered_status_does_not_claim_response(self):
+    def test_current_provider_statuses_match_the_recorded_lifecycle(self):
         for provider in self.inventory['providers']:
-            self.assertEqual(provider['status'], 'DISCOVERED')
-            self.assertEqual([x['status'] for x in provider['status_history']],
-                             ['CONFIGURED', 'DISCOVERED'])
-            self.assertIsNone(provider['responded_evidence'])
+            expected = ['CONFIGURED', 'DISCOVERED']
+            if provider['id'] == 'dexpaprika':
+                expected.append('RESPONDED')
+                self.assertIsNotNone(provider['responded_evidence'])
+            else:
+                self.assertEqual(provider['status'], 'DISCOVERED')
+                self.assertIsNone(provider['responded_evidence'])
+            self.assertEqual(provider['status'], expected[-1])
+            self.assertEqual([x['status'] for x in provider['status_history']], expected)
             self.assertIsNone(provider['qualification_evidence'])
 
     def test_status_transitions_require_observation_evidence(self):
