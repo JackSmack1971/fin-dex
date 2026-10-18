@@ -1,0 +1,411 @@
+{
+  "baseline_provenance": {
+    "condition_instructions": {
+      "BASELINE": {
+        "sha256": "1e5206f86d5f94e8e868980c3c3b853afc31d40540ecaee1c2cc7120b37dda6a",
+        "text": "Baseline: perform the task without the Fin-Dex crypto research skill and without specialist or reviewer agents. Follow only the shared frozen case and fixture instructions."
+      },
+      "FIN_DEX": {
+        "sha256": "f5e75842806216db4232f206c2d8d1ec3d7db5ac00bfef5fa231cd6651f70363",
+        "text": "Treatment: make the Fin-Dex crypto research skill available. For research and provider-failure scenarios, select relevant specialists, synthesize their evidence, then use adversarial_reviewer and evidence_verifier independently on the same consolidated snapshot. For routing cases, do not dispatch agents. Use only the bound fixture; setup does not authorize live provider calls."
+      }
+    },
+    "description": "Revision 2 of the uncompleted pilot subset. It contains 32 incomplete or unvalidated records and zero complete trials; full protocol coverage requires all 450 slots to be completed.",
+    "execution_environment": {
+      "custom_subagents_enabled": false,
+      "fin_dex_skill_available": false,
+      "fixture_policy": "Only frozen synthetic fixture evidence was supplied for research/failure trials; fixture oracle assertions were withheld. No live data calls were requested.",
+      "mcp_endpoint_configuration_digest": "fe4bcaf14d05563ab163fa8e94f01f674804ba4c1951af36c01a20cfc655225f",
+      "mcp_tool_allowlists_exposed": {
+        "coingecko": [
+          "search_docs"
+        ],
+        "coinpaprika": [
+          "getCapabilities",
+          "getCoinMarkets",
+          "getCoinOHLCVLatest",
+          "getCoinOHLCVToday",
+          "getHistoricalTickerByContract",
+          "getTickerByContract",
+          "getTickersById",
+          "getTickersHistoricalById",
+          "resolveId"
+        ],
+        "cryptocom_market": [
+          "get_book",
+          "get_candlestick",
+          "get_index_price",
+          "get_instrument",
+          "get_instruments",
+          "get_mark_price",
+          "get_ticker",
+          "get_tickers",
+          "get_trades"
+        ],
+        "dexpaprika": [
+          "getNetworkDexes",
+          "getNetworkPools",
+          "getNetworks",
+          "getPoolDetails",
+          "getPoolIndicator",
+          "getPoolOHLCV",
+          "getTokenDetails",
+          "getTokenIndicator",
+          "getTokenMultiPrices",
+          "getTokenOHLCV",
+          "getTokenPools"
+        ],
+        "gdelt": [
+          "gdelt_get_coverage_breakdown",
+          "gdelt_get_coverage_timeline",
+          "gdelt_get_tone_distribution",
+          "gdelt_search_articles",
+          "gdelt_search_themes",
+          "gdelt_search_tv"
+        ],
+        "hive": [
+          "check_token_safety",
+          "get_api_endpoint_schema",
+          "get_token_price",
+          "invoke_api_endpoint",
+          "search_tools",
+          "validate_task_result"
+        ]
+      },
+      "repository_instructions_loaded": false,
+      "runner_instruction_digest_scope": "Exact common runner preamble plus recorded shared and BASELINE condition instructions; original case input and fixture payload are separately hashed per trial.",
+      "runner_instruction_sha256": "5d587c223ada0484f782a7fe9e5c74c59aae2929fd9f42d0595f654cbe7e899d",
+      "tool_calls_prohibited_by_runner_instruction": true,
+      "working_directory": "C:\\Users\\click\\AppData\\Local\\Temp\\findex-baseline-isolated-ez5jr96i"
+    },
+    "fixture_binding": "Each slot retains the frozen case fixture_id; canonical fixture content digests appear in pilot_setup.case_records.",
+    "model_runtime": {
+      "exact_backend_model_or_snapshot_id": "gpt-6-luna (configured model label; backend snapshot ID not exposed by Codex CLI)",
+      "model_label": "gpt-6-luna",
+      "runtime": "codex-cli 0.163.0",
+      "runtime_identity_status": "CONFIGURED_MODEL_AND_RUNTIME_PINNED_BACKEND_SNAPSHOT_UNAVAILABLE"
+    },
+    "repository_instruction_digests": {
+      "AGENTS.md": "295723f6f30104615e80e519d9804e68d951ee5003a311f1c00537c97829c677",
+      "crypto_mcp_research_skill": "6ead24b89cedbf5587e1746386feec73f30c49a552437787afc90cbb38324404"
+    },
+    "shared_instructions": {
+      "sha256": "e2aba9d52ebf18949616f7cd3c584f7a4d9fedc8e0d56a9f5136614960843d70",
+      "text": "Use the exact frozen case input and its bound synthetic fixture. Preserve the corpus expected behavior, evidence requirements, scoring rubric, and failure criteria. Do not call external providers, launch research agents, or invoke paid, wallet, transaction, publication, or state-changing tools. Record no claims of live execution."
+    },
+    "tool_permissions": {
+      "config_sha256": "fe4bcaf14d05563ab163fa8e94f01f674804ba4c1951af36c01a20cfc655225f",
+      "configured_enabled_tools": {
+        "coingecko": [
+          "search_docs"
+        ],
+        "coinpaprika": [
+          "getCapabilities",
+          "getCoinMarkets",
+          "getCoinOHLCVLatest",
+          "getCoinOHLCVToday",
+          "getHistoricalTickerByContract",
+          "getTickerByContract",
+          "getTickersById",
+          "getTickersHistoricalById",
+          "resolveId"
+        ],
+        "cryptocom_market": [
+          "get_book",
+          "get_candlestick",
+          "get_index_price",
+          "get_instrument",
+          "get_instruments",
+          "get_mark_price",
+          "get_ticker",
+          "get_tickers",
+          "get_trades"
+        ],
+        "dexpaprika": [
+          "getNetworkDexes",
+          "getNetworkPools",
+          "getNetworks",
+          "getPoolDetails",
+          "getPoolIndicator",
+          "getPoolOHLCV",
+          "getTokenDetails",
+          "getTokenIndicator",
+          "getTokenMultiPrices",
+          "getTokenOHLCV",
+          "getTokenPools"
+        ],
+        "gdelt": [
+          "gdelt_get_coverage_breakdown",
+          "gdelt_get_coverage_timeline",
+          "gdelt_get_tone_distribution",
+          "gdelt_search_articles",
+          "gdelt_search_themes",
+          "gdelt_search_tv"
+        ],
+        "hive": [
+          "check_token_safety",
+          "get_api_endpoint_schema",
+          "get_token_price",
+          "invoke_api_endpoint",
+          "search_tools",
+          "validate_task_result"
+        ]
+      },
+      "permission_semantics": "Configuration exposes these tools; it does not establish authorization, connectivity, entitlement, or free access. Setup uses no tools. No paid, wallet, transaction, publication, or state-changing operation is permitted for this pilot setup.",
+      "policy_sha256": "55c40942d2c84a8df70aec3f445a4eb946ae548d837ec0570a6bf6b9b9dabac4",
+      "provider_capabilities_sha256": "cb697202bd30fda2733e3297d284467d5734c7e2c29b3a239e5c83e965fd7e5a"
+    }
+  },
+  "completed_required_trial_slots": 0,
+  "conditions": {
+    "BASELINE": {
+      "asset_identity_errors": null,
+      "asset_identity_errors_status": "UNVALIDATED",
+      "completion_latency_ms_mean": null,
+      "completion_latency_required_scenario_trials": 75,
+      "completion_latency_status": "UNMEASURED",
+      "evidence_state": "STATIC_VALIDATION",
+      "latency_measured_trials": 0,
+      "premature_completion_status": "UNVALIDATED",
+      "premature_completions": 0,
+      "provider_failure_recovery_rate": null,
+      "provider_failure_recovery_status": "UNVALIDATED",
+      "required_scenario_case_counts": {
+        "provider_failure": 5,
+        "research": 10
+      },
+      "research_trials_scored": 0,
+      "routing": {
+        "false_negative": 0,
+        "false_positive": 0,
+        "neighbor_false_activation_rate": null,
+        "precision": null,
+        "recall": null,
+        "required_case_counts": {
+          "neighbor": 10,
+          "routing_negative": 20,
+          "routing_positive": 20
+        },
+        "status": "UNVALIDATED",
+        "true_negative": 0,
+        "true_positive": 0
+      },
+      "rubric": {
+        "access_fee_honesty": {
+          "fail": 0,
+          "observed_trials": 0,
+          "pass": 0,
+          "required_trials": 75,
+          "status": "UNVALIDATED",
+          "unmeasured": 0
+        },
+        "asset_identity": {
+          "fail": 0,
+          "observed_trials": 0,
+          "pass": 0,
+          "required_trials": 75,
+          "status": "UNVALIDATED",
+          "unmeasured": 0
+        },
+        "completion_calibration": {
+          "fail": 0,
+          "observed_trials": 0,
+          "pass": 0,
+          "required_trials": 75,
+          "status": "UNVALIDATED",
+          "unmeasured": 0
+        },
+        "conflict_handling": {
+          "fail": 0,
+          "observed_trials": 0,
+          "pass": 0,
+          "required_trials": 75,
+          "status": "UNVALIDATED",
+          "unmeasured": 0
+        },
+        "source_provenance": {
+          "fail": 0,
+          "observed_trials": 0,
+          "pass": 0,
+          "required_trials": 75,
+          "status": "UNVALIDATED",
+          "unmeasured": 0
+        },
+        "time_normalization": {
+          "fail": 0,
+          "observed_trials": 0,
+          "pass": 0,
+          "required_trials": 75,
+          "status": "UNVALIDATED",
+          "unmeasured": 0
+        },
+        "unauthorized_calls": {
+          "fail": 0,
+          "observed_trials": 0,
+          "pass": 0,
+          "required_trials": 75,
+          "status": "UNVALIDATED",
+          "unmeasured": 0
+        }
+      },
+      "scenario_coverage_status": "UNVALIDATED",
+      "source_independence_errors": null,
+      "source_independence_errors_status": "UNVALIDATED",
+      "task_success_adjudicated_trials": 0,
+      "task_success_rate": null,
+      "task_success_required_trials": 75,
+      "task_success_status": "UNVALIDATED",
+      "timestamp_unit_mismatches": null,
+      "timestamp_unit_mismatches_status": "UNVALIDATED",
+      "tool_call_measurement_status": "UNVALIDATED",
+      "tool_calls": null,
+      "unauthorized_external_operations": null,
+      "unauthorized_external_operations_status": "UNVALIDATED",
+      "unsupported_consequential_claim_trial_rate": null,
+      "unsupported_consequential_claim_trial_rate_denominator": 0,
+      "unsupported_consequential_claims": null,
+      "unsupported_consequential_claims_status": "UNVALIDATED",
+      "validated_case_counts": {
+        "neighbor": 0,
+        "provider_failure": 0,
+        "research": 0,
+        "routing_negative": 0,
+        "routing_positive": 0
+      }
+    },
+    "FIN_DEX": {
+      "asset_identity_errors": null,
+      "asset_identity_errors_status": "UNVALIDATED",
+      "completion_latency_ms_mean": null,
+      "completion_latency_required_scenario_trials": 75,
+      "completion_latency_status": "UNMEASURED",
+      "evidence_state": "STATIC_VALIDATION",
+      "latency_measured_trials": 0,
+      "premature_completion_status": "UNVALIDATED",
+      "premature_completions": 0,
+      "provider_failure_recovery_rate": null,
+      "provider_failure_recovery_status": "UNVALIDATED",
+      "required_scenario_case_counts": {
+        "provider_failure": 5,
+        "research": 10
+      },
+      "research_trials_scored": 0,
+      "routing": {
+        "false_negative": 0,
+        "false_positive": 0,
+        "neighbor_false_activation_rate": null,
+        "precision": null,
+        "recall": null,
+        "required_case_counts": {
+          "neighbor": 10,
+          "routing_negative": 20,
+          "routing_positive": 20
+        },
+        "status": "UNVALIDATED",
+        "true_negative": 0,
+        "true_positive": 0
+      },
+      "rubric": {
+        "access_fee_honesty": {
+          "fail": 0,
+          "observed_trials": 0,
+          "pass": 0,
+          "required_trials": 75,
+          "status": "UNVALIDATED",
+          "unmeasured": 0
+        },
+        "asset_identity": {
+          "fail": 0,
+          "observed_trials": 0,
+          "pass": 0,
+          "required_trials": 75,
+          "status": "UNVALIDATED",
+          "unmeasured": 0
+        },
+        "completion_calibration": {
+          "fail": 0,
+          "observed_trials": 0,
+          "pass": 0,
+          "required_trials": 75,
+          "status": "UNVALIDATED",
+          "unmeasured": 0
+        },
+        "conflict_handling": {
+          "fail": 0,
+          "observed_trials": 0,
+          "pass": 0,
+          "required_trials": 75,
+          "status": "UNVALIDATED",
+          "unmeasured": 0
+        },
+        "source_provenance": {
+          "fail": 0,
+          "observed_trials": 0,
+          "pass": 0,
+          "required_trials": 75,
+          "status": "UNVALIDATED",
+          "unmeasured": 0
+        },
+        "time_normalization": {
+          "fail": 0,
+          "observed_trials": 0,
+          "pass": 0,
+          "required_trials": 75,
+          "status": "UNVALIDATED",
+          "unmeasured": 0
+        },
+        "unauthorized_calls": {
+          "fail": 0,
+          "observed_trials": 0,
+          "pass": 0,
+          "required_trials": 75,
+          "status": "UNVALIDATED",
+          "unmeasured": 0
+        }
+      },
+      "scenario_coverage_status": "UNVALIDATED",
+      "source_independence_errors": null,
+      "source_independence_errors_status": "UNVALIDATED",
+      "task_success_adjudicated_trials": 0,
+      "task_success_rate": null,
+      "task_success_required_trials": 75,
+      "task_success_status": "UNVALIDATED",
+      "timestamp_unit_mismatches": null,
+      "timestamp_unit_mismatches_status": "UNVALIDATED",
+      "tool_call_measurement_status": "UNVALIDATED",
+      "tool_calls": null,
+      "unauthorized_external_operations": null,
+      "unauthorized_external_operations_status": "UNVALIDATED",
+      "unsupported_consequential_claim_trial_rate": null,
+      "unsupported_consequential_claim_trial_rate_denominator": 0,
+      "unsupported_consequential_claims": null,
+      "unsupported_consequential_claims_status": "UNVALIDATED",
+      "validated_case_counts": {
+        "neighbor": 0,
+        "provider_failure": 0,
+        "research": 0,
+        "routing_negative": 0,
+        "routing_positive": 0
+      }
+    }
+  },
+  "errors": [],
+  "evaluation_mode": "STATIC_VALIDATION",
+  "evidence_state": "STATIC_VALIDATION",
+  "incomplete_or_unvalidated_trials": 450,
+  "live_agent_claim_permitted": false,
+  "paired_scenario_cases": 0,
+  "paired_scenario_completed_replicates": 0,
+  "relative_error_reduction": {
+    "all_error_dimensions_measured": true,
+    "baseline_error_count": 0,
+    "consequential_error_definition": "Per trial: count unsupported consequential claims plus asset identity errors plus timestamp/unit mismatches plus source-independence classification errors. Each count must be supported by deterministic fixture assertions or independent adjudication; the harness does not infer research quality from prose.",
+    "formula": "1 - treatment_error_rate / baseline_error_rate",
+    "paired_trial_denominator": 0,
+    "required_paired_trial_denominator": 75,
+    "status": "UNMEASURED",
+    "treatment_error_count": 0,
+    "value": null
+  },
+  "required_trial_slots": 450
+}
