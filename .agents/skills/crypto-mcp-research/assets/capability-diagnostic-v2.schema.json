@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "capability-diagnostic-v2.schema.json",
+  "title": "Offline capability diagnostic v2",
+  "type": "object",
+  "required": ["schema_version", "format", "generated_at", "network_calls_made", "historical_inventory_count", "historical_inventory_note", "operations"],
+  "properties": {
+    "schema_version": {"const": 2},
+    "format": {"const": "capability-diagnostic-v2"},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "network_calls_made": {"const": false},
+    "historical_inventory_count": {"const": 85},
+    "historical_inventory_note": {"type": "string"},
+    "operations": {"type": "array", "items": {"$ref": "#/$defs/operation"}}
+  },
+  "$defs": {
+    "state": {"type": "object", "required": ["state", "evidence_refs"], "properties": {
+      "state": {"enum": ["YES", "NO", "UNKNOWN", "UNSUPPORTED"]},
+      "evidence_refs": {"type": "array", "items": {"type": "string"}}
+    }, "additionalProperties": false},
+    "operation": {"type": "object", "required": ["canonical_identity", "provider", "operation", "transport", "configuration_origin", "states", "evidence", "generated_at", "age_seconds", "freshness", "freshness_scope", "source_ttl_seconds", "side_effect_uncertainty", "read_only_eligible", "invocation_arguments_sha256"], "properties": {
+      "canonical_identity": {"type": "string", "minLength": 1}, "provider": {"type": "string"}, "operation": {"type": "string"}, "transport": {"type": "string"}, "configuration_origin": {"type": ["string", "null"]},
+      "states": {"type": "object", "required": ["configured", "registered", "runtime_discovered", "model_exposed", "invocation_authorized", "authentication_established", "provider_responded", "query_qualified"], "properties": {
+        "configured": {"$ref": "#/$defs/state"}, "registered": {"$ref": "#/$defs/state"}, "runtime_discovered": {"$ref": "#/$defs/state"}, "model_exposed": {"$ref": "#/$defs/state"}, "invocation_authorized": {"$ref": "#/$defs/state"}, "authentication_established": {"$ref": "#/$defs/state"}, "provider_responded": {"$ref": "#/$defs/state"}, "query_qualified": {"$ref": "#/$defs/state"}
+      }, "additionalProperties": false},
+      "evidence": {"type": "array", "items": {"type": "object", "required": ["id", "source", "scope", "observed_at", "retrieved_at"], "properties": {"id": {"type": "string"}, "source": {"type": "string"}, "scope": {"type": "string"}, "observed_at": {"type": ["string", "null"]}, "retrieved_at": {"type": ["string", "null"]}}, "additionalProperties": true}},
+      "generated_at": {"type": "string", "format": "date-time"}, "age_seconds": {"type": ["integer", "null"], "minimum": 0}, "freshness": {"enum": ["FRESH", "STALE", "UNKNOWN"]}, "freshness_scope": {"type": "string"}, "source_ttl_seconds": {"type": ["integer", "null"], "minimum": 0}, "side_effect_uncertainty": {"type": "string"}, "read_only_eligible": {"type": "string"}, "invocation_arguments_sha256": {"type": ["string", "null"]}
+    }, "additionalProperties": false}
+  }, "additionalProperties": false
+}

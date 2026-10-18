@@ -1,0 +1,7 @@
+{
+  "exit_code": 2,
+  "stdout": "{\"state\": \"BLOCKED\", \"reason\": \"specialist native thread ID is missing: market_analyst\"}",
+  "state": "BLOCKED",
+  "reviewer_dispatch": "NOT_DISPATCHED",
+  "native_thread_id_support": "UNAVAILABLE_FROM_OBSERVED_INTERFACE"
+}

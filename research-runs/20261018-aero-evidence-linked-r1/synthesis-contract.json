@@ -1,0 +1,90 @@
+{
+  "synthesis_owner": "primary-session",
+  "specialist_phase": {
+    "state": "CLOSED",
+    "expected_agent_ids": [
+      "market_analyst",
+      "liquidity_analyst",
+      "onchain_analyst"
+    ]
+  },
+  "reconciliation": {
+    "completed": true
+  },
+  "revision": {
+    "id": "aero-evidence-linked-r1",
+    "snapshot": {
+      "asset": {
+        "symbol": "AERO",
+        "chain": "Base",
+        "chain_id": 8453,
+        "contract": "0x940181a94A35A4569E4529A3CDfB74e38FD98631"
+      },
+      "as_of_utc": "2026-10-18T06:08:53Z",
+      "claims": [
+        {
+          "id": "provider-routing",
+          "statement": "DEX Screener and DeFiLlama local adapter code is present and callable by local invocation; both are LOCAL_REST_ADAPTER, mcp_registered=false. Saved responses demonstrate only exact queries, not current authorization or blanket provider qualification.",
+          "status": "SINGLE_SOURCE",
+          "evidence": [
+            "effective-capabilities.json",
+            "dexscreener-token-pairs.json",
+            "defillama-aerodrome-protocol-tvl.json",
+            "defillama-aerodrome-daily-revenue.json"
+          ]
+        },
+        {
+          "id": "aero-liquidity",
+          "statement": "DEX Screener returned 30 Base AERO pair records; the largest reported liquidity was $42,448,898.05 for Aerodrome AERO/USDC. No metric observation time, executable depth, or exhaustive pool coverage is established.",
+          "status": "SINGLE_SOURCE",
+          "evidence": [
+            "liquidity-handoff.json",
+            "dexscreener-token-pairs.json"
+          ]
+        },
+        {
+          "id": "aerodrome-context",
+          "statement": "DeFiLlama retained TVL response was 396386584.64219195 with no declared unit or protocol identity; dailyRevenue total24h was 146831 with no declared unit. These responses do not establish AERO token value capture.",
+          "status": "SINGLE_SOURCE",
+          "evidence": [
+            "onchain-handoff.json",
+            "defillama-aerodrome-protocol-tvl.json",
+            "defillama-aerodrome-daily-revenue.json"
+          ]
+        },
+        {
+          "id": "aero-indicator-replay",
+          "statement": "Deterministic replay matched all 14 required AERO indicator fields. MACD 12/26=0.0482401500882671, signal 9=0.05823475255614251, histogram=-0.00999460246787541. EMA starts at first close; RSI14 uses arithmetic mean gains/losses (not Wilder); ATR remains unavailable without OHLC. The original disputed specialist MACD value was not retained and cannot be reproduced.",
+          "status": "SINGLE_SOURCE",
+          "evidence": [
+            "market-handoff.json",
+            "research-runs/20261018-aero/calculations.json",
+            "research-runs/market-analyst/coinpaprika-daily-history.json"
+          ]
+        },
+        {
+          "id": "review-identity-boundary",
+          "statement": "All selected specialists returned PARTIAL terminal handoffs and their files were persisted and schema-validated. The observed collaboration interface exposed handles/status but no authentic native thread IDs; reviewer dispatch must remain blocked.",
+          "status": "UNVERIFIED",
+          "evidence": [
+            "execution.json",
+            "market-handoff.json",
+            "liquidity-handoff.json",
+            "onchain-handoff.json"
+          ]
+        }
+      ],
+      "specialist_statuses": {
+        "market_analyst": "PARTIAL",
+        "liquidity_analyst": "PARTIAL",
+        "onchain_analyst": "PARTIAL"
+      },
+      "review_identity": {
+        "native_thread_ids": "UNAVAILABLE_FROM_OBSERVED_INTERFACE",
+        "reviewer_dispatch": "BLOCKED_PENDING_NATIVE_THREAD_IDS"
+      }
+    },
+    "sha256": "3d087f104132c4b00a94b4197c1e2abd96682a92d4b8b391e7e8aaaebbca2eb4"
+  },
+  "reviews": []
+}

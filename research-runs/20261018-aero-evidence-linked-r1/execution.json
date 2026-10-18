@@ -1,0 +1,24 @@
+{
+  "identity_source": "Codex collaboration list_agents status observed during this session; agent handles and terminal status were exposed, native thread IDs were not.",
+  "native_thread_id_support": "UNAVAILABLE_FROM_OBSERVED_INTERFACE",
+  "specialists": [
+    {
+      "agent_id": "market_analyst",
+      "runtime_agent_handle": "aero_market_r3",
+      "terminal": true,
+      "execution_status": "PARTIAL"
+    },
+    {
+      "agent_id": "liquidity_analyst",
+      "runtime_agent_handle": "aero_liquidity_r3",
+      "terminal": true,
+      "execution_status": "PARTIAL"
+    },
+    {
+      "agent_id": "onchain_analyst",
+      "runtime_agent_handle": "aero_onchain_r3",
+      "terminal": true,
+      "execution_status": "PARTIAL"
+    }
+  ]
+}

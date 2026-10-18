@@ -1,0 +1,2265 @@
+{
+  "generated_by": "scripts/effective_capabilities.py",
+  "interpretation": [
+    "MCP inventory records native MCP tools only; local adapters are separate operations.",
+    "Exposure is not provider authorization. Historical response evidence is not current connectivity.",
+    "Route qualification never promotes every route or the provider to qualified status."
+  ],
+  "network_calls_made": false,
+  "operations": [
+    {
+      "authorization": "EXPOSED_BY_PROJECT_ALLOWLIST; connection grant/entitlement unverified",
+      "canonical_operation_id": "mcp__coingecko__search_docs",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__coingecko__search_docs(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "search_docs",
+      "provider": "coingecko",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "NOT_EXPOSED_BY_PROJECT_ALLOWLIST",
+      "canonical_operation_id": "mcp__coingecko__execute",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__coingecko__execute(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "execute",
+      "provider": "coingecko",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "unbounded_code_execution"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "EXPOSED_BY_PROJECT_ALLOWLIST; connection grant/entitlement unverified",
+      "canonical_operation_id": "mcp__coinpaprika__getCapabilities",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__coinpaprika__getCapabilities(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "getCapabilities",
+      "provider": "coinpaprika",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "NOT_EXPOSED_BY_PROJECT_ALLOWLIST",
+      "canonical_operation_id": "mcp__coinpaprika__getCoinById",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__coinpaprika__getCoinById(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "getCoinById",
+      "provider": "coinpaprika",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "NOT_EXPOSED_BY_PROJECT_ALLOWLIST",
+      "canonical_operation_id": "mcp__coinpaprika__getCoinEvents",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__coinpaprika__getCoinEvents(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "getCoinEvents",
+      "provider": "coinpaprika",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "NOT_EXPOSED_BY_PROJECT_ALLOWLIST",
+      "canonical_operation_id": "mcp__coinpaprika__getCoinExchanges",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__coinpaprika__getCoinExchanges(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "getCoinExchanges",
+      "provider": "coinpaprika",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "EXPOSED_BY_PROJECT_ALLOWLIST; connection grant/entitlement unverified",
+      "canonical_operation_id": "mcp__coinpaprika__getCoinMarkets",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__coinpaprika__getCoinMarkets(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "getCoinMarkets",
+      "provider": "coinpaprika",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "EXPOSED_BY_PROJECT_ALLOWLIST; connection grant/entitlement unverified",
+      "canonical_operation_id": "mcp__coinpaprika__getCoinOHLCVLatest",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__coinpaprika__getCoinOHLCVLatest(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "getCoinOHLCVLatest",
+      "provider": "coinpaprika",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "EXPOSED_BY_PROJECT_ALLOWLIST; connection grant/entitlement unverified",
+      "canonical_operation_id": "mcp__coinpaprika__getCoinOHLCVToday",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__coinpaprika__getCoinOHLCVToday(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "getCoinOHLCVToday",
+      "provider": "coinpaprika",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "NOT_EXPOSED_BY_PROJECT_ALLOWLIST",
+      "canonical_operation_id": "mcp__coinpaprika__getCoins",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__coinpaprika__getCoins(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "getCoins",
+      "provider": "coinpaprika",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "NOT_EXPOSED_BY_PROJECT_ALLOWLIST",
+      "canonical_operation_id": "mcp__coinpaprika__getContracts",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__coinpaprika__getContracts(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "getContracts",
+      "provider": "coinpaprika",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "NOT_EXPOSED_BY_PROJECT_ALLOWLIST",
+      "canonical_operation_id": "mcp__coinpaprika__getExchangeByID",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__coinpaprika__getExchangeByID(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "getExchangeByID",
+      "provider": "coinpaprika",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "NOT_EXPOSED_BY_PROJECT_ALLOWLIST",
+      "canonical_operation_id": "mcp__coinpaprika__getExchangeMarkets",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__coinpaprika__getExchangeMarkets(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "getExchangeMarkets",
+      "provider": "coinpaprika",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "NOT_EXPOSED_BY_PROJECT_ALLOWLIST",
+      "canonical_operation_id": "mcp__coinpaprika__getExchanges",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__coinpaprika__getExchanges(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "getExchanges",
+      "provider": "coinpaprika",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "NOT_EXPOSED_BY_PROJECT_ALLOWLIST",
+      "canonical_operation_id": "mcp__coinpaprika__getGlobal",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__coinpaprika__getGlobal(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "getGlobal",
+      "provider": "coinpaprika",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "EXPOSED_BY_PROJECT_ALLOWLIST; connection grant/entitlement unverified",
+      "canonical_operation_id": "mcp__coinpaprika__getHistoricalTickerByContract",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__coinpaprika__getHistoricalTickerByContract(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "getHistoricalTickerByContract",
+      "provider": "coinpaprika",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "NOT_EXPOSED_BY_PROJECT_ALLOWLIST",
+      "canonical_operation_id": "mcp__coinpaprika__getPeopleById",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__coinpaprika__getPeopleById(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "getPeopleById",
+      "provider": "coinpaprika",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "NOT_EXPOSED_BY_PROJECT_ALLOWLIST",
+      "canonical_operation_id": "mcp__coinpaprika__getPlatforms",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__coinpaprika__getPlatforms(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "getPlatforms",
+      "provider": "coinpaprika",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "NOT_EXPOSED_BY_PROJECT_ALLOWLIST",
+      "canonical_operation_id": "mcp__coinpaprika__getTagById",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__coinpaprika__getTagById(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "getTagById",
+      "provider": "coinpaprika",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "NOT_EXPOSED_BY_PROJECT_ALLOWLIST",
+      "canonical_operation_id": "mcp__coinpaprika__getTags",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__coinpaprika__getTags(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "getTags",
+      "provider": "coinpaprika",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "EXPOSED_BY_PROJECT_ALLOWLIST; connection grant/entitlement unverified",
+      "canonical_operation_id": "mcp__coinpaprika__getTickerByContract",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__coinpaprika__getTickerByContract(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "getTickerByContract",
+      "provider": "coinpaprika",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "NOT_EXPOSED_BY_PROJECT_ALLOWLIST",
+      "canonical_operation_id": "mcp__coinpaprika__getTickers",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__coinpaprika__getTickers(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "getTickers",
+      "provider": "coinpaprika",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "EXPOSED_BY_PROJECT_ALLOWLIST; connection grant/entitlement unverified",
+      "canonical_operation_id": "mcp__coinpaprika__getTickersById",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__coinpaprika__getTickersById(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "getTickersById",
+      "provider": "coinpaprika",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "EXPOSED_BY_PROJECT_ALLOWLIST; connection grant/entitlement unverified",
+      "canonical_operation_id": "mcp__coinpaprika__getTickersHistoricalById",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__coinpaprika__getTickersHistoricalById(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "getTickersHistoricalById",
+      "provider": "coinpaprika",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "NOT_EXPOSED_BY_PROJECT_ALLOWLIST",
+      "canonical_operation_id": "mcp__coinpaprika__priceConverter",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__coinpaprika__priceConverter(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "priceConverter",
+      "provider": "coinpaprika",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "EXPOSED_BY_PROJECT_ALLOWLIST; connection grant/entitlement unverified",
+      "canonical_operation_id": "mcp__coinpaprika__resolveId",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__coinpaprika__resolveId(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "resolveId",
+      "provider": "coinpaprika",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "NOT_EXPOSED_BY_PROJECT_ALLOWLIST",
+      "canonical_operation_id": "mcp__coinpaprika__search",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__coinpaprika__search(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "search",
+      "provider": "coinpaprika",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "NOT_EXPOSED_BY_PROJECT_ALLOWLIST",
+      "canonical_operation_id": "mcp__coinpaprika__status",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__coinpaprika__status(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "status",
+      "provider": "coinpaprika",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "provider_status"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "NOT_EXPOSED_BY_PROJECT_ALLOWLIST",
+      "canonical_operation_id": "mcp__coinpaprika__submitFeedback",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__coinpaprika__submitFeedback(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "submitFeedback",
+      "provider": "coinpaprika",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "feedback"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "NOT_EXPOSED_BY_PROJECT_ALLOWLIST",
+      "canonical_operation_id": "mcp__dexpaprika__filterNetworkTokens",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__dexpaprika__filterNetworkTokens(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "filterNetworkTokens",
+      "provider": "dexpaprika",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "RESPONDED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "NOT_EXPOSED_BY_PROJECT_ALLOWLIST",
+      "canonical_operation_id": "mcp__dexpaprika__getCapabilities",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__dexpaprika__getCapabilities(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "getCapabilities",
+      "provider": "dexpaprika",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "RESPONDED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "NOT_EXPOSED_BY_PROJECT_ALLOWLIST",
+      "canonical_operation_id": "mcp__dexpaprika__getDexPools",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__dexpaprika__getDexPools(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "getDexPools",
+      "provider": "dexpaprika",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "RESPONDED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "EXPOSED_BY_PROJECT_ALLOWLIST; connection grant/entitlement unverified",
+      "canonical_operation_id": "mcp__dexpaprika__getNetworkDexes",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__dexpaprika__getNetworkDexes(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "getNetworkDexes",
+      "provider": "dexpaprika",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "RESPONDED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "EXPOSED_BY_PROJECT_ALLOWLIST; connection grant/entitlement unverified",
+      "canonical_operation_id": "mcp__dexpaprika__getNetworkPools",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__dexpaprika__getNetworkPools(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "getNetworkPools",
+      "provider": "dexpaprika",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "RESPONDED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "NOT_EXPOSED_BY_PROJECT_ALLOWLIST",
+      "canonical_operation_id": "mcp__dexpaprika__getNetworkPoolsFilter",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__dexpaprika__getNetworkPoolsFilter(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "getNetworkPoolsFilter",
+      "provider": "dexpaprika",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "RESPONDED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "EXPOSED_BY_PROJECT_ALLOWLIST; connection grant/entitlement unverified",
+      "canonical_operation_id": "mcp__dexpaprika__getNetworks",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__dexpaprika__getNetworks(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "getNetworks",
+      "provider": "dexpaprika",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "RESPONDED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "EXPOSED_BY_PROJECT_ALLOWLIST; connection grant/entitlement unverified",
+      "canonical_operation_id": "mcp__dexpaprika__getPoolDetails",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__dexpaprika__getPoolDetails(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "getPoolDetails",
+      "provider": "dexpaprika",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "RESPONDED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "RESPONDED_FOR_THIS_TOOL",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "EXPOSED_BY_PROJECT_ALLOWLIST; connection grant/entitlement unverified",
+      "canonical_operation_id": "mcp__dexpaprika__getPoolIndicator",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__dexpaprika__getPoolIndicator(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "getPoolIndicator",
+      "provider": "dexpaprika",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "RESPONDED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "EXPOSED_BY_PROJECT_ALLOWLIST; connection grant/entitlement unverified",
+      "canonical_operation_id": "mcp__dexpaprika__getPoolOHLCV",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__dexpaprika__getPoolOHLCV(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "getPoolOHLCV",
+      "provider": "dexpaprika",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "RESPONDED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "NOT_EXPOSED_BY_PROJECT_ALLOWLIST",
+      "canonical_operation_id": "mcp__dexpaprika__getPoolTransactions",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__dexpaprika__getPoolTransactions(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "getPoolTransactions",
+      "provider": "dexpaprika",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "RESPONDED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "NOT_EXPOSED_BY_PROJECT_ALLOWLIST",
+      "canonical_operation_id": "mcp__dexpaprika__getStats",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__dexpaprika__getStats(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "getStats",
+      "provider": "dexpaprika",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "RESPONDED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "EXPOSED_BY_PROJECT_ALLOWLIST; connection grant/entitlement unverified",
+      "canonical_operation_id": "mcp__dexpaprika__getTokenDetails",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__dexpaprika__getTokenDetails(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "getTokenDetails",
+      "provider": "dexpaprika",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "RESPONDED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "EXPOSED_BY_PROJECT_ALLOWLIST; connection grant/entitlement unverified",
+      "canonical_operation_id": "mcp__dexpaprika__getTokenIndicator",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__dexpaprika__getTokenIndicator(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "getTokenIndicator",
+      "provider": "dexpaprika",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "RESPONDED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "EXPOSED_BY_PROJECT_ALLOWLIST; connection grant/entitlement unverified",
+      "canonical_operation_id": "mcp__dexpaprika__getTokenMultiPrices",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__dexpaprika__getTokenMultiPrices(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "getTokenMultiPrices",
+      "provider": "dexpaprika",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "RESPONDED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "EXPOSED_BY_PROJECT_ALLOWLIST; connection grant/entitlement unverified",
+      "canonical_operation_id": "mcp__dexpaprika__getTokenOHLCV",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__dexpaprika__getTokenOHLCV(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "getTokenOHLCV",
+      "provider": "dexpaprika",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "RESPONDED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "EXPOSED_BY_PROJECT_ALLOWLIST; connection grant/entitlement unverified",
+      "canonical_operation_id": "mcp__dexpaprika__getTokenPools",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__dexpaprika__getTokenPools(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "getTokenPools",
+      "provider": "dexpaprika",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "RESPONDED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "NOT_EXPOSED_BY_PROJECT_ALLOWLIST",
+      "canonical_operation_id": "mcp__dexpaprika__getTopTokens",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__dexpaprika__getTopTokens(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "getTopTokens",
+      "provider": "dexpaprika",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "RESPONDED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "NOT_EXPOSED_BY_PROJECT_ALLOWLIST",
+      "canonical_operation_id": "mcp__dexpaprika__search",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__dexpaprika__search(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "search",
+      "provider": "dexpaprika",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "RESPONDED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "NOT_EXPOSED_BY_PROJECT_ALLOWLIST",
+      "canonical_operation_id": "mcp__dexpaprika__submitFeedback",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__dexpaprika__submitFeedback(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "submitFeedback",
+      "provider": "dexpaprika",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "RESPONDED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "feedback"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "EXPOSED_BY_PROJECT_ALLOWLIST; connection grant/entitlement unverified",
+      "canonical_operation_id": "mcp__cryptocom_market__get_book",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__cryptocom_market__get_book(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "get_book",
+      "provider": "cryptocom_market",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "EXPOSED_BY_PROJECT_ALLOWLIST; connection grant/entitlement unverified",
+      "canonical_operation_id": "mcp__cryptocom_market__get_candlestick",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__cryptocom_market__get_candlestick(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "get_candlestick",
+      "provider": "cryptocom_market",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "EXPOSED_BY_PROJECT_ALLOWLIST; connection grant/entitlement unverified",
+      "canonical_operation_id": "mcp__cryptocom_market__get_index_price",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__cryptocom_market__get_index_price(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "get_index_price",
+      "provider": "cryptocom_market",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "EXPOSED_BY_PROJECT_ALLOWLIST; connection grant/entitlement unverified",
+      "canonical_operation_id": "mcp__cryptocom_market__get_instrument",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__cryptocom_market__get_instrument(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "get_instrument",
+      "provider": "cryptocom_market",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "EXPOSED_BY_PROJECT_ALLOWLIST; connection grant/entitlement unverified",
+      "canonical_operation_id": "mcp__cryptocom_market__get_instruments",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__cryptocom_market__get_instruments(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "get_instruments",
+      "provider": "cryptocom_market",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "EXPOSED_BY_PROJECT_ALLOWLIST; connection grant/entitlement unverified",
+      "canonical_operation_id": "mcp__cryptocom_market__get_mark_price",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__cryptocom_market__get_mark_price(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "get_mark_price",
+      "provider": "cryptocom_market",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "EXPOSED_BY_PROJECT_ALLOWLIST; connection grant/entitlement unverified",
+      "canonical_operation_id": "mcp__cryptocom_market__get_ticker",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__cryptocom_market__get_ticker(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "get_ticker",
+      "provider": "cryptocom_market",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "EXPOSED_BY_PROJECT_ALLOWLIST; connection grant/entitlement unverified",
+      "canonical_operation_id": "mcp__cryptocom_market__get_tickers",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__cryptocom_market__get_tickers(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "get_tickers",
+      "provider": "cryptocom_market",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "EXPOSED_BY_PROJECT_ALLOWLIST; connection grant/entitlement unverified",
+      "canonical_operation_id": "mcp__cryptocom_market__get_trades",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__cryptocom_market__get_trades(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "get_trades",
+      "provider": "cryptocom_market",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "EXPOSED_BY_PROJECT_ALLOWLIST; connection grant/entitlement unverified",
+      "canonical_operation_id": "mcp__hive__check_token_safety",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__hive__check_token_safety(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "check_token_safety",
+      "provider": "hive",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "EXPOSED_BY_PROJECT_ALLOWLIST; connection grant/entitlement unverified",
+      "canonical_operation_id": "mcp__hive__get_api_endpoint_schema",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__hive__get_api_endpoint_schema(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "get_api_endpoint_schema",
+      "provider": "hive",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "EXPOSED_BY_PROJECT_ALLOWLIST; connection grant/entitlement unverified",
+      "canonical_operation_id": "mcp__hive__get_token_price",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__hive__get_token_price(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "get_token_price",
+      "provider": "hive",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "NOT_EXPOSED_BY_PROJECT_ALLOWLIST",
+      "canonical_operation_id": "mcp__hive__get_wallet_portfolio",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__hive__get_wallet_portfolio(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "get_wallet_portfolio",
+      "provider": "hive",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "wallet"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "EXPOSED_BY_PROJECT_ALLOWLIST; connection grant/entitlement unverified",
+      "canonical_operation_id": "mcp__hive__invoke_api_endpoint",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__hive__invoke_api_endpoint(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "invoke_api_endpoint",
+      "provider": "hive",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "EXPOSED_BY_PROJECT_ALLOWLIST; connection grant/entitlement unverified",
+      "canonical_operation_id": "mcp__hive__search_tools",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__hive__search_tools(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "search_tools",
+      "provider": "hive",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "EXPOSED_BY_PROJECT_ALLOWLIST; connection grant/entitlement unverified",
+      "canonical_operation_id": "mcp__hive__validate_task_result",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__hive__validate_task_result(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "validate_task_result",
+      "provider": "hive",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "NOT_EXPOSED_BY_PROJECT_ALLOWLIST",
+      "canonical_operation_id": "mcp__hive__invoke_stateful_endpoint",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__hive__invoke_stateful_endpoint(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "invoke_stateful_endpoint",
+      "provider": "hive",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "stateful"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "EXPOSED_BY_PROJECT_ALLOWLIST; connection grant/entitlement unverified",
+      "canonical_operation_id": "mcp__gdelt__gdelt_get_coverage_breakdown",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__gdelt__gdelt_get_coverage_breakdown(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "gdelt_get_coverage_breakdown",
+      "provider": "gdelt",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "EXPOSED_BY_PROJECT_ALLOWLIST; connection grant/entitlement unverified",
+      "canonical_operation_id": "mcp__gdelt__gdelt_get_coverage_timeline",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__gdelt__gdelt_get_coverage_timeline(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "gdelt_get_coverage_timeline",
+      "provider": "gdelt",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "EXPOSED_BY_PROJECT_ALLOWLIST; connection grant/entitlement unverified",
+      "canonical_operation_id": "mcp__gdelt__gdelt_get_tone_distribution",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__gdelt__gdelt_get_tone_distribution(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "gdelt_get_tone_distribution",
+      "provider": "gdelt",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "NOT_EXPOSED_BY_PROJECT_ALLOWLIST",
+      "canonical_operation_id": "mcp__gdelt__gdelt_get_tv_clips",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__gdelt__gdelt_get_tv_clips(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "gdelt_get_tv_clips",
+      "provider": "gdelt",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "NOT_EXPOSED_BY_PROJECT_ALLOWLIST",
+      "canonical_operation_id": "mcp__gdelt__gdelt_get_tv_context",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__gdelt__gdelt_get_tv_context(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "gdelt_get_tv_context",
+      "provider": "gdelt",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "NOT_EXPOSED_BY_PROJECT_ALLOWLIST",
+      "canonical_operation_id": "mcp__gdelt__gdelt_list_tv_stations",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__gdelt__gdelt_list_tv_stations(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "gdelt_list_tv_stations",
+      "provider": "gdelt",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "EXPOSED_BY_PROJECT_ALLOWLIST; connection grant/entitlement unverified",
+      "canonical_operation_id": "mcp__gdelt__gdelt_search_articles",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__gdelt__gdelt_search_articles(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "gdelt_search_articles",
+      "provider": "gdelt",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "EXPOSED_BY_PROJECT_ALLOWLIST; connection grant/entitlement unverified",
+      "canonical_operation_id": "mcp__gdelt__gdelt_search_themes",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__gdelt__gdelt_search_themes(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "gdelt_search_themes",
+      "provider": "gdelt",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "authorization": "EXPOSED_BY_PROJECT_ALLOWLIST; connection grant/entitlement unverified",
+      "canonical_operation_id": "mcp__gdelt__gdelt_search_tv",
+      "free_access_and_limits": "NOT_ESTABLISHED_BY_LOCAL_MCP_INVENTORY",
+      "inventory_listed": true,
+      "invocation_method": "mcp__gdelt__gdelt_search_tv(...) using the active tool schema",
+      "mcp_registered": true,
+      "operation": "gdelt_search_tv",
+      "provider": "gdelt",
+      "provider_qualification": "NOT_ESTABLISHED",
+      "provider_status": "DISCOVERED",
+      "registration_evidence": "ACTIVE_PROJECT_CONFIG",
+      "route_qualification": "NOT_ESTABLISHED_FOR_THIS_OPERATION",
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "DISCOVERED_METADATA_ONLY",
+      "supported_research_tasks": [
+        "research_data"
+      ],
+      "transport": "MCP"
+    },
+    {
+      "adapter_code_state": "PRESENT_IN_CHECKED_OUT_TREE",
+      "adapter_discovered": true,
+      "adapter_path": "C:\\TEST-repos\\fin-dex\\.agents\\skills\\crypto-mcp-research\\scripts\\dexscreener_public.py",
+      "authorization": "NO_CREDENTIAL_REQUIRED; session/network permission not established",
+      "authorization_evidence": {
+        "credentials_available": "NOT_APPLICABLE",
+        "credentials_required": false,
+        "status": "NO_CREDENTIAL_REQUIRED"
+      },
+      "canonical_operation_id": "dexscreener:token_pair_discovery",
+      "capability_evidence_scope": "OFFLINE_LOCAL_CONFIGURATION_AND_RETAINED_ARTIFACTS; NO_LIVE_PROBE",
+      "chain_identifier_semantics": "Use the exact DEX Screener provider chainId string, not the numeric EVM chain ID; Base is `base` (not `8453`).",
+      "endpoint": "GET /token-pairs/v1/{chainId}/{tokenAddress}",
+      "free_access_and_limits": {
+        "contract_path": ".codex/dexscreener-routing.json",
+        "evidence": "https://docs.dexscreener.com/faq",
+        "request_policy": {
+          "fallback_policy": "For exact pair-address and exact-token pool reads, use the fixed DexPaprika fallback after a primary no-observation or eligible availability failure only when the DexPaprika route contract permits a request. Current anonymous quota status is UNAVAILABLE_KEYLESS_QUOTA_EXHAUSTED; skip the fallback until a documented quota reset or provider-documented access-state change is recorded and separately requalified. The DexPaprika client checks this machine-readable contract field before every request and blocks live anonymous HTTP until zero-charge requalification. Do not substitute the MCP connector because its billing path is unverified. When eligible, token fallback returns only the first bounded page and exposes continuation metadata. Never fall back on primary auth/payment, malformed, or identity failures. Preserve fallback source identity, timestamps, units and caveats. At most one request per provider per command.",
+          "max_requests_per_command": 2,
+          "max_requests_per_provider_per_command": 1,
+          "max_response_bytes": 5000000,
+          "maximum_cache_ttl_seconds": 600,
+          "memory_cache_ttl_seconds": 30,
+          "official_documented_rate_limit": "300 requests/minute for pair and token-pair endpoints",
+          "retry_policy": "No automatic retries. On 401, 403, 402, 404, 429, timeout, malformed response, identity mismatch, or network error, stop the provider branch and report the classified status.",
+          "timeout_seconds": 10
+        }
+      },
+      "historical_git_presence": "NOT_INSPECTED",
+      "invocation_method": "python .agents/skills/crypto-mcp-research/scripts/dexscreener_public.py token-pairs --chain {dexScreenerChainId} --token {tokenAddress}",
+      "mcp_registered": false,
+      "operation": "token_pair_discovery",
+      "provider": "dexscreener",
+      "provider_qualification": "PARTIALLY_QUALIFIED",
+      "route_qualification": {
+        "provider_smoke_scope": {
+          "access_qualification": "Official FAQ documents the API as free and identifies the endpoint's indexer; one anonymous GET returned the documented pair response with exact chain and pair identity and no credential or payment challenge.",
+          "artifact": "research-runs/provider-smokes/dexscreener-ethereum-usdc-weth.json",
+          "chain_id": "ethereum",
+          "endpoint": "GET /latest/dex/pairs/{chainId}/{pairId}",
+          "measurement_qualification": "Not qualified for freshness-sensitive liquidity or turnover claims because the response has no metric observation timestamp; retrieval time is recorded separately.",
+          "pair_address": "0x88e6A0c2dDD26FEEb64F039a2c41296FcB3f5640",
+          "response_pair_count": 1,
+          "retrieved_at_utc": "2026-10-17T13:55:38Z",
+          "status": "RESPONDED_IDENTITY_MATCHED"
+        },
+        "status": "NO_EXACT_ROUTE_QUALIFICATION_RETAINED"
+      },
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [
+        {
+          "artifact": "dexscreener-token-pairs.json",
+          "artifact_sha256": "f40388299e0bcdd345d89f7633b15ed0c0739500a4232f26c8323a6fb0d34129",
+          "endpoint": "GET /token-pairs/v1/{chainId}/{tokenAddress}",
+          "freshness": "UNVERIFIED_NO_OBSERVATION_TIMESTAMP",
+          "identity": {
+            "chain_id": "base",
+            "status": "RESPONSE_IDENTITY_MATCHED",
+            "token_address": "0x940181a94A35A4569E4529A3CDfB74e38FD98631"
+          },
+          "interpretation": "Retained response evidence for this exact query; does not establish current connectivity or provider-wide qualification.",
+          "mcp_registered": false,
+          "retrieved_at_utc": "2026-10-18T06:08:52Z",
+          "source_url": "https://api.dexscreener.com/token-pairs/v1/base/0x940181a94A35A4569E4529A3CDfB74e38FD98631",
+          "status": "RESPONDED_ROUTE_IDENTITY_MATCHED",
+          "transport": "LOCAL_REST_ADAPTER"
+        }
+      ],
+      "runtime_availability": "HISTORICAL_RESPONSE_ONLY",
+      "runtime_evidence": {
+        "current_session_probe": false,
+        "status": "HISTORICAL_RESPONSE_ONLY"
+      },
+      "supported_research_tasks": [
+        "pair-level DEX price, liquidity, and turnover observation"
+      ],
+      "transport": "LOCAL_REST_ADAPTER"
+    },
+    {
+      "adapter_code_state": "PRESENT_IN_CHECKED_OUT_TREE",
+      "adapter_discovered": true,
+      "adapter_path": "C:\\TEST-repos\\fin-dex\\.agents\\skills\\crypto-mcp-research\\scripts\\dexscreener_public.py",
+      "authorization": "NO_CREDENTIAL_REQUIRED; session/network permission not established",
+      "authorization_evidence": {
+        "credentials_available": "NOT_APPLICABLE",
+        "credentials_required": false,
+        "status": "NO_CREDENTIAL_REQUIRED"
+      },
+      "canonical_operation_id": "dexscreener:pair_snapshot",
+      "capability_evidence_scope": "OFFLINE_LOCAL_CONFIGURATION_AND_RETAINED_ARTIFACTS; NO_LIVE_PROBE",
+      "chain_identifier_semantics": "Use the exact DEX Screener provider chainId string, not the numeric EVM chain ID; Base is `base` (not `8453`).",
+      "endpoint": "GET /latest/dex/pairs/{chainId}/{pairId}",
+      "free_access_and_limits": {
+        "contract_path": ".codex/dexscreener-routing.json",
+        "evidence": "https://docs.dexscreener.com/faq",
+        "request_policy": {
+          "fallback_policy": "For exact pair-address and exact-token pool reads, use the fixed DexPaprika fallback after a primary no-observation or eligible availability failure only when the DexPaprika route contract permits a request. Current anonymous quota status is UNAVAILABLE_KEYLESS_QUOTA_EXHAUSTED; skip the fallback until a documented quota reset or provider-documented access-state change is recorded and separately requalified. The DexPaprika client checks this machine-readable contract field before every request and blocks live anonymous HTTP until zero-charge requalification. Do not substitute the MCP connector because its billing path is unverified. When eligible, token fallback returns only the first bounded page and exposes continuation metadata. Never fall back on primary auth/payment, malformed, or identity failures. Preserve fallback source identity, timestamps, units and caveats. At most one request per provider per command.",
+          "max_requests_per_command": 2,
+          "max_requests_per_provider_per_command": 1,
+          "max_response_bytes": 5000000,
+          "maximum_cache_ttl_seconds": 600,
+          "memory_cache_ttl_seconds": 30,
+          "official_documented_rate_limit": "300 requests/minute for pair and token-pair endpoints",
+          "retry_policy": "No automatic retries. On 401, 403, 402, 404, 429, timeout, malformed response, identity mismatch, or network error, stop the provider branch and report the classified status.",
+          "timeout_seconds": 10
+        }
+      },
+      "historical_git_presence": "NOT_INSPECTED",
+      "invocation_method": "python .agents/skills/crypto-mcp-research/scripts/dexscreener_public.py pair --chain {dexScreenerChainId} --pair {pairAddress}",
+      "mcp_registered": false,
+      "operation": "pair_snapshot",
+      "provider": "dexscreener",
+      "provider_qualification": "PARTIALLY_QUALIFIED",
+      "route_qualification": {
+        "access_qualification": "Official FAQ documents the API as free and identifies the endpoint's indexer; one anonymous GET returned the documented pair response with exact chain and pair identity and no credential or payment challenge.",
+        "artifact": "research-runs/provider-smokes/dexscreener-ethereum-usdc-weth.json",
+        "chain_id": "ethereum",
+        "endpoint": "GET /latest/dex/pairs/{chainId}/{pairId}",
+        "measurement_qualification": "Not qualified for freshness-sensitive liquidity or turnover claims because the response has no metric observation timestamp; retrieval time is recorded separately.",
+        "pair_address": "0x88e6A0c2dDD26FEEb64F039a2c41296FcB3f5640",
+        "response_pair_count": 1,
+        "retrieved_at_utc": "2026-10-17T13:55:38Z",
+        "status": "RESPONDED_IDENTITY_MATCHED"
+      },
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "HISTORICAL_RESPONSE_ONLY",
+      "runtime_evidence": {
+        "current_session_probe": false,
+        "status": "HISTORICAL_RESPONSE_ONLY"
+      },
+      "supported_research_tasks": [
+        "pair-level DEX price, liquidity, and turnover observation"
+      ],
+      "transport": "LOCAL_REST_ADAPTER"
+    },
+    {
+      "adapter_code_state": "PRESENT_IN_CHECKED_OUT_TREE",
+      "adapter_discovered": true,
+      "adapter_path": "C:\\TEST-repos\\fin-dex\\.agents\\skills\\crypto-mcp-research\\scripts\\dexpaprika_public.py",
+      "authorization": "NO_CREDENTIAL_REQUIRED; session/network permission not established",
+      "authorization_evidence": {
+        "credentials_available": "NOT_APPLICABLE",
+        "credentials_required": false,
+        "status": "NO_CREDENTIAL_REQUIRED"
+      },
+      "canonical_operation_id": "dexpaprika:exact_dex_pool_snapshot",
+      "capability_evidence_scope": "OFFLINE_LOCAL_CONFIGURATION_AND_RETAINED_ARTIFACTS; NO_LIVE_PROBE",
+      "endpoint": "GET /networks/{network}/pools/{pool_address}",
+      "free_access_and_limits": {
+        "contract_path": ".codex/dexpaprika-routing.json",
+        "evidence": "Official access documentation is currently conflicted: the DexPaprika per-chain API pages advertise unauthenticated REST endpoints and 50,000 free requests/month per IP without signup; the pricing page advertises a 100,000-credit/month free registered-key tier; the reviewed OpenAPI/rate-limit material previously documented 10,000 credits per IP per rolling 30 days and 15 requests/minute. These are not reconciled into a single allowance. The exact anonymous pool route has prior HTTP 200 evidence, but a later anonymous OHLCV request returned HTTP 402 for exhausted monthly allowance. Do not add a key, register, retry, or use paid hosts.",
+        "request_policy": {
+          "direct_client_requests_per_command": 1,
+          "documented_keyless_allowance": "CONFLICTED: reviewed OpenAPI/rate-limit material states 10,000 credits per IP per rolling 30 days and 15 requests/minute; official per-chain API pages advertise 50,000 free requests/month per IP without signup; official pricing page advertises 100,000 monthly credits for the free registered-key tier. The anonymous client's observed 402 exhaustion is retained; do not assume any advertised ceiling is presently available.",
+          "fallback_client": ".agents/skills/crypto-mcp-research/scripts/dex_pair_router.py",
+          "local_requests_per_command": 2,
+          "max_requests_per_command": 2,
+          "max_requests_per_provider_per_command": 1,
+          "max_response_bytes": 2000000,
+          "memory_cache_ttl_seconds": 30,
+          "prohibited": [
+            "api-pro.dexpaprika.com",
+            "credentials",
+            "pool transactions",
+            "paid-only token OHLCV/indicators",
+            "keyless pool OHLCV windows beyond 24h or intervals finer than 1h"
+          ],
+          "retry_policy": "No automatic retry; on auth, payment, rate-limit, timeout, malformed response, or identity mismatch stop and report the exact state.",
+          "runtime_call_gate": "The client permits anonymous HTTP only when access.keyless_runtime_status is READY_ZERO_CHARGE_REQUALIFIED. Current status is UNAVAILABLE_KEYLESS_QUOTA_EXHAUSTED. Resume only after a documented quota reset or provider-documented access-state change is recorded and a separately bounded zero-charge requalification succeeds. The MCP connector is a separate billing path and is not an automatic substitute.",
+          "timeout_seconds": 10
+        }
+      },
+      "historical_git_presence": "NOT_INSPECTED",
+      "invocation_method": "scripts/dexpaprika_public.py pool-snapshot --network {network} --pool-address {pool_address}",
+      "mcp_registered": false,
+      "operation": "exact_dex_pool_snapshot",
+      "provider": "dexpaprika",
+      "provider_qualification": "PARTIALLY_QUALIFIED_FOR_KEYLESS_REST_ROUTE_AND_CLIENT_RESPONSE",
+      "route_qualification": {
+        "smoke_evidence": {
+          "anonymous_rest_smoke_artifact": "research-runs/provider-smokes/dexpaprika-public-api-ethereum-usdc-weth.json",
+          "artifact": "research-runs/provider-smokes/dexpaprika-client-ethereum-usdc-weth.json",
+          "mcp_comparison_artifact": "research-runs/provider-smokes/dexpaprika-ethereum-usdc-weth-pool.json",
+          "mcp_response_artifact": "research-runs/provider-smokes/dexpaprika-ethereum-usdc-weth-pool.json",
+          "retrieved_at_utc": "2026-10-17T14:21:15Z",
+          "source_url": "https://api.dexpaprika.com/networks/ethereum/pools/0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640"
+        },
+        "status": "NOT_ESTABLISHED"
+      },
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "UNAVAILABLE_KEYLESS_QUOTA_EXHAUSTED",
+      "runtime_evidence": {
+        "current_session_probe": false,
+        "status": "UNAVAILABLE_KEYLESS_QUOTA_EXHAUSTED"
+      },
+      "supported_research_tasks": [
+        "exact DEX pool snapshot"
+      ],
+      "transport": "LOCAL_REST_ADAPTER"
+    },
+    {
+      "adapter_code_state": "PRESENT_IN_CHECKED_OUT_TREE",
+      "adapter_discovered": true,
+      "adapter_path": "C:\\TEST-repos\\fin-dex\\.agents\\skills\\crypto-mcp-research\\scripts\\dexpaprika_public.py",
+      "authorization": "NO_CREDENTIAL_REQUIRED; session/network permission not established",
+      "authorization_evidence": {
+        "credentials_available": "NOT_APPLICABLE",
+        "credentials_required": false,
+        "status": "NO_CREDENTIAL_REQUIRED"
+      },
+      "canonical_operation_id": "dexpaprika:bounded_exact_token_pool_discovery",
+      "capability_evidence_scope": "OFFLINE_LOCAL_CONFIGURATION_AND_RETAINED_ARTIFACTS; NO_LIVE_PROBE",
+      "endpoint": "GET /networks/{network}/pools/search?token_address={token_address}&limit={limit}&detailed=true",
+      "free_access_and_limits": {
+        "contract_path": ".codex/dexpaprika-routing.json",
+        "evidence": "Official access documentation is currently conflicted: the DexPaprika per-chain API pages advertise unauthenticated REST endpoints and 50,000 free requests/month per IP without signup; the pricing page advertises a 100,000-credit/month free registered-key tier; the reviewed OpenAPI/rate-limit material previously documented 10,000 credits per IP per rolling 30 days and 15 requests/minute. These are not reconciled into a single allowance. The exact anonymous pool route has prior HTTP 200 evidence, but a later anonymous OHLCV request returned HTTP 402 for exhausted monthly allowance. Do not add a key, register, retry, or use paid hosts.",
+        "request_policy": {
+          "direct_client_requests_per_command": 1,
+          "documented_keyless_allowance": "CONFLICTED: reviewed OpenAPI/rate-limit material states 10,000 credits per IP per rolling 30 days and 15 requests/minute; official per-chain API pages advertise 50,000 free requests/month per IP without signup; official pricing page advertises 100,000 monthly credits for the free registered-key tier. The anonymous client's observed 402 exhaustion is retained; do not assume any advertised ceiling is presently available.",
+          "fallback_client": ".agents/skills/crypto-mcp-research/scripts/dex_pair_router.py",
+          "local_requests_per_command": 2,
+          "max_requests_per_command": 2,
+          "max_requests_per_provider_per_command": 1,
+          "max_response_bytes": 2000000,
+          "memory_cache_ttl_seconds": 30,
+          "prohibited": [
+            "api-pro.dexpaprika.com",
+            "credentials",
+            "pool transactions",
+            "paid-only token OHLCV/indicators",
+            "keyless pool OHLCV windows beyond 24h or intervals finer than 1h"
+          ],
+          "retry_policy": "No automatic retry; on auth, payment, rate-limit, timeout, malformed response, or identity mismatch stop and report the exact state.",
+          "runtime_call_gate": "The client permits anonymous HTTP only when access.keyless_runtime_status is READY_ZERO_CHARGE_REQUALIFIED. Current status is UNAVAILABLE_KEYLESS_QUOTA_EXHAUSTED. Resume only after a documented quota reset or provider-documented access-state change is recorded and a separately bounded zero-charge requalification succeeds. The MCP connector is a separate billing path and is not an automatic substitute.",
+          "timeout_seconds": 10
+        }
+      },
+      "historical_git_presence": "NOT_INSPECTED",
+      "invocation_method": ".agents/skills/crypto-mcp-research/scripts/dexpaprika_public.py token-pools --network {network} --token-address {token_address} --limit 100",
+      "mcp_registered": false,
+      "operation": "bounded_exact_token_pool_discovery",
+      "provider": "dexpaprika",
+      "provider_qualification": "PARTIALLY_QUALIFIED_FOR_KEYLESS_REST_ROUTE_AND_CLIENT_RESPONSE",
+      "route_qualification": {
+        "smoke_evidence": null,
+        "status": "IMPLEMENTED_FIXTURE_TESTED; no exact-token search live smoke is retained, and current anonymous quota exhaustion prevents live requalification."
+      },
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "UNAVAILABLE_KEYLESS_QUOTA_EXHAUSTED",
+      "runtime_evidence": {
+        "current_session_probe": false,
+        "status": "UNAVAILABLE_KEYLESS_QUOTA_EXHAUSTED"
+      },
+      "supported_research_tasks": [
+        "bounded exact-token pool discovery"
+      ],
+      "transport": "LOCAL_REST_ADAPTER"
+    },
+    {
+      "adapter_code_state": "PRESENT_IN_CHECKED_OUT_TREE",
+      "adapter_discovered": true,
+      "adapter_path": "C:\\TEST-repos\\fin-dex\\.agents\\skills\\crypto-mcp-research\\scripts\\dexpaprika_public.py",
+      "authorization": "NO_CREDENTIAL_REQUIRED; session/network permission not established",
+      "authorization_evidence": {
+        "credentials_available": "NOT_APPLICABLE",
+        "credentials_required": false,
+        "status": "NO_CREDENTIAL_REQUIRED"
+      },
+      "canonical_operation_id": "dexpaprika:fallback_for_exact_dex_screener_pair_address_snapshot",
+      "capability_evidence_scope": "OFFLINE_LOCAL_CONFIGURATION_AND_RETAINED_ARTIFACTS; NO_LIVE_PROBE",
+      "endpoint": "GET /networks/{network}/pools/{pool_address}",
+      "free_access_and_limits": {
+        "contract_path": ".codex/dexpaprika-routing.json",
+        "evidence": "Official access documentation is currently conflicted: the DexPaprika per-chain API pages advertise unauthenticated REST endpoints and 50,000 free requests/month per IP without signup; the pricing page advertises a 100,000-credit/month free registered-key tier; the reviewed OpenAPI/rate-limit material previously documented 10,000 credits per IP per rolling 30 days and 15 requests/minute. These are not reconciled into a single allowance. The exact anonymous pool route has prior HTTP 200 evidence, but a later anonymous OHLCV request returned HTTP 402 for exhausted monthly allowance. Do not add a key, register, retry, or use paid hosts.",
+        "request_policy": {
+          "direct_client_requests_per_command": 1,
+          "documented_keyless_allowance": "CONFLICTED: reviewed OpenAPI/rate-limit material states 10,000 credits per IP per rolling 30 days and 15 requests/minute; official per-chain API pages advertise 50,000 free requests/month per IP without signup; official pricing page advertises 100,000 monthly credits for the free registered-key tier. The anonymous client's observed 402 exhaustion is retained; do not assume any advertised ceiling is presently available.",
+          "fallback_client": ".agents/skills/crypto-mcp-research/scripts/dex_pair_router.py",
+          "local_requests_per_command": 2,
+          "max_requests_per_command": 2,
+          "max_requests_per_provider_per_command": 1,
+          "max_response_bytes": 2000000,
+          "memory_cache_ttl_seconds": 30,
+          "prohibited": [
+            "api-pro.dexpaprika.com",
+            "credentials",
+            "pool transactions",
+            "paid-only token OHLCV/indicators",
+            "keyless pool OHLCV windows beyond 24h or intervals finer than 1h"
+          ],
+          "retry_policy": "No automatic retry; on auth, payment, rate-limit, timeout, malformed response, or identity mismatch stop and report the exact state.",
+          "runtime_call_gate": "The client permits anonymous HTTP only when access.keyless_runtime_status is READY_ZERO_CHARGE_REQUALIFIED. Current status is UNAVAILABLE_KEYLESS_QUOTA_EXHAUSTED. Resume only after a documented quota reset or provider-documented access-state change is recorded and a separately bounded zero-charge requalification succeeds. The MCP connector is a separate billing path and is not an automatic substitute.",
+          "timeout_seconds": 10
+        }
+      },
+      "historical_git_presence": "NOT_INSPECTED",
+      "invocation_method": ".agents/skills/crypto-mcp-research/scripts/dex_pair_router.py pair --chain {chainId} --pair {pairAddress}; token-pools --chain {chainId} --token {tokenAddress}",
+      "mcp_registered": false,
+      "operation": "fallback_for_exact_dex_screener_pair_address_snapshot",
+      "provider": "dexpaprika",
+      "provider_qualification": "PARTIALLY_QUALIFIED_FOR_KEYLESS_REST_ROUTE_AND_CLIENT_RESPONSE",
+      "route_qualification": {
+        "smoke_evidence": null,
+        "status": "IMPLEMENTED_FIXTURE_TESTED; exact pool snapshot had prior live response; token-pool search and current live fallback are not live-qualified because current keyless quota is exhausted."
+      },
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "UNAVAILABLE_KEYLESS_QUOTA_EXHAUSTED",
+      "runtime_evidence": {
+        "current_session_probe": false,
+        "status": "UNAVAILABLE_KEYLESS_QUOTA_EXHAUSTED"
+      },
+      "supported_research_tasks": [
+        "fallback for exact DEX Screener pair-address snapshot"
+      ],
+      "transport": "LOCAL_REST_ADAPTER"
+    },
+    {
+      "adapter_code_state": "PRESENT_IN_CHECKED_OUT_TREE",
+      "adapter_discovered": true,
+      "adapter_path": "C:\\TEST-repos\\fin-dex\\.agents\\skills\\crypto-mcp-research\\scripts\\dexpaprika_public.py",
+      "authorization": "NO_CREDENTIAL_REQUIRED; session/network permission not established",
+      "authorization_evidence": {
+        "credentials_available": "NOT_APPLICABLE",
+        "credentials_required": false,
+        "status": "NO_CREDENTIAL_REQUIRED"
+      },
+      "canonical_operation_id": "dexpaprika:bounded_historical_ohlcv_for_a_specific_dex_pool",
+      "capability_evidence_scope": "OFFLINE_LOCAL_CONFIGURATION_AND_RETAINED_ARTIFACTS; NO_LIVE_PROBE",
+      "endpoint": "GET /networks/{network}/pools/{pool_address}/ohlcv",
+      "free_access_and_limits": {
+        "contract_path": ".codex/dexpaprika-routing.json",
+        "evidence": "Official access documentation is currently conflicted: the DexPaprika per-chain API pages advertise unauthenticated REST endpoints and 50,000 free requests/month per IP without signup; the pricing page advertises a 100,000-credit/month free registered-key tier; the reviewed OpenAPI/rate-limit material previously documented 10,000 credits per IP per rolling 30 days and 15 requests/minute. These are not reconciled into a single allowance. The exact anonymous pool route has prior HTTP 200 evidence, but a later anonymous OHLCV request returned HTTP 402 for exhausted monthly allowance. Do not add a key, register, retry, or use paid hosts.",
+        "request_policy": {
+          "direct_client_requests_per_command": 1,
+          "documented_keyless_allowance": "CONFLICTED: reviewed OpenAPI/rate-limit material states 10,000 credits per IP per rolling 30 days and 15 requests/minute; official per-chain API pages advertise 50,000 free requests/month per IP without signup; official pricing page advertises 100,000 monthly credits for the free registered-key tier. The anonymous client's observed 402 exhaustion is retained; do not assume any advertised ceiling is presently available.",
+          "fallback_client": ".agents/skills/crypto-mcp-research/scripts/dex_pair_router.py",
+          "local_requests_per_command": 2,
+          "max_requests_per_command": 2,
+          "max_requests_per_provider_per_command": 1,
+          "max_response_bytes": 2000000,
+          "memory_cache_ttl_seconds": 30,
+          "prohibited": [
+            "api-pro.dexpaprika.com",
+            "credentials",
+            "pool transactions",
+            "paid-only token OHLCV/indicators",
+            "keyless pool OHLCV windows beyond 24h or intervals finer than 1h"
+          ],
+          "retry_policy": "No automatic retry; on auth, payment, rate-limit, timeout, malformed response, or identity mismatch stop and report the exact state.",
+          "runtime_call_gate": "The client permits anonymous HTTP only when access.keyless_runtime_status is READY_ZERO_CHARGE_REQUALIFIED. Current status is UNAVAILABLE_KEYLESS_QUOTA_EXHAUSTED. Resume only after a documented quota reset or provider-documented access-state change is recorded and a separately bounded zero-charge requalification succeeds. The MCP connector is a separate billing path and is not an automatic substitute.",
+          "timeout_seconds": 10
+        }
+      },
+      "historical_git_presence": "NOT_INSPECTED",
+      "invocation_method": ".agents/skills/crypto-mcp-research/scripts/dexpaprika_public.py pool-ohlcv --network {network} --pool-address {pool_address} --start -24h --interval 1h --limit 24",
+      "mcp_registered": false,
+      "operation": "bounded_historical_ohlcv_for_a_specific_dex_pool",
+      "provider": "dexpaprika",
+      "provider_qualification": "PARTIALLY_QUALIFIED_FOR_KEYLESS_REST_ROUTE_AND_CLIENT_RESPONSE",
+      "route_qualification": {
+        "smoke_evidence": null,
+        "status": "IMPLEMENTED_FIXTURE_TESTED; exact anonymous route previously returned HTTP 402 because keyless quota was exhausted. No retry, key, signup, or paid host; live rows remain unavailable."
+      },
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "UNAVAILABLE_KEYLESS_QUOTA_EXHAUSTED",
+      "runtime_evidence": {
+        "current_session_probe": false,
+        "status": "UNAVAILABLE_KEYLESS_QUOTA_EXHAUSTED"
+      },
+      "supported_research_tasks": [
+        "bounded historical OHLCV for a specific DEX pool"
+      ],
+      "transport": "LOCAL_REST_ADAPTER"
+    },
+    {
+      "adapter_code_state": "PRESENT_IN_CHECKED_OUT_TREE",
+      "adapter_discovered": true,
+      "adapter_path": "C:\\TEST-repos\\fin-dex\\.agents\\skills\\crypto-mcp-research\\scripts\\defillama_public.py",
+      "authorization": "NO_CREDENTIAL_REQUIRED; session/network permission not established",
+      "authorization_evidence": {
+        "credentials_available": "NOT_APPLICABLE",
+        "credentials_required": false,
+        "status": "NO_CREDENTIAL_REQUIRED"
+      },
+      "canonical_operation_id": "defillama:protocol_tvl_and_chain_breakdown",
+      "capability_evidence_scope": "OFFLINE_LOCAL_CONFIGURATION_AND_RETAINED_ARTIFACTS; NO_LIVE_PROBE",
+      "endpoint": "GET /tvl/{protocol}",
+      "free_access_and_limits": {
+        "contract_path": ".codex/data-provider-routing.json",
+        "evidence": "https://api-docs.defillama.com/llms-free.txt",
+        "request_policy": {
+          "fallback_policy": "No fallback is currently qualified for these metric definitions. Report UNAVAILABLE rather than substituting a non-equivalent metric.",
+          "max_requests_per_command": 1,
+          "max_response_bytes": 5000000,
+          "maximum_cache_ttl_seconds": 3600,
+          "memory_cache_ttl_seconds": 300,
+          "retry_policy": "No automatic retries. On 401, 403, 402, 429, timeout, malformed response, or network error, stop this provider branch and report the classified status.",
+          "timeout_seconds": 10
+        }
+      },
+      "historical_git_presence": "NOT_INSPECTED",
+      "invocation_method": "python .agents/skills/crypto-mcp-research/scripts/defillama_public.py protocol-tvl --protocol {protocol}; python .agents/skills/crypto-mcp-research/scripts/defillama_public.py protocol-history --protocol {protocol}; python .agents/skills/crypto-mcp-research/scripts/defillama_public.py chain-tvl-history --chain {chain}",
+      "mcp_registered": false,
+      "operation": "protocol_tvl_and_chain_breakdown",
+      "provider": "defillama",
+      "provider_qualification": "PARTIALLY_QUALIFIED",
+      "route_qualification": {
+        "observations": [
+          {
+            "artifact": "research-runs/provider-smokes/defillama-protocol-tvl.json",
+            "endpoint": "GET /tvl/{protocol}",
+            "other_endpoints": "See endpoint_observations; no other endpoint is qualified beyond those listed.",
+            "protocol_slug": "aave",
+            "qualification": "Official free-endpoint documentation states no authentication is required; one anonymous GET returned the documented numeric response shape from api.llama.fi without a payment or credential challenge. This verifies only this endpoint and protocol query at the recorded observation time.",
+            "response_type": "finite numeric TVL value",
+            "status": "QUALIFIED"
+          }
+        ],
+        "status": "HISTORICAL_QUERY_QUALIFICATION_ONLY"
+      },
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [
+        {
+          "artifact": "defillama-aerodrome-protocol-tvl.json",
+          "artifact_sha256": "2d21ca703863c3a60c244493e3de812804758f76da51f4c11c9f3eaf593a93f6",
+          "endpoint": "GET /tvl/{protocol}",
+          "freshness": "SOURCE_TIMESTAMP_NOT_ASSESSED",
+          "identity": {
+            "protocol_slug": "aerodrome",
+            "response_does_not_return_protocol_identity": true,
+            "status": "QUERY_SLUG_ONLY"
+          },
+          "interpretation": "Retained response evidence for this exact query; does not establish current connectivity or provider-wide qualification.",
+          "mcp_registered": false,
+          "retrieved_at_utc": "2026-10-18T06:08:53Z",
+          "source_url": "https://api.llama.fi/tvl/aerodrome",
+          "status": "RESPONDED_ROUTE_SHAPE_MATCHED_IDENTITY_LIMITED",
+          "transport": "LOCAL_REST_ADAPTER"
+        }
+      ],
+      "runtime_availability": "HISTORICAL_RESPONSE_ONLY",
+      "runtime_evidence": {
+        "current_session_probe": false,
+        "status": "HISTORICAL_RESPONSE_ONLY"
+      },
+      "supported_research_tasks": [
+        "protocol TVL and chain breakdown"
+      ],
+      "transport": "LOCAL_REST_ADAPTER"
+    },
+    {
+      "adapter_code_state": "PRESENT_IN_CHECKED_OUT_TREE",
+      "adapter_discovered": true,
+      "adapter_path": "C:\\TEST-repos\\fin-dex\\.agents\\skills\\crypto-mcp-research\\scripts\\defillama_public.py",
+      "authorization": "NO_CREDENTIAL_REQUIRED; session/network permission not established",
+      "authorization_evidence": {
+        "credentials_available": "NOT_APPLICABLE",
+        "credentials_required": false,
+        "status": "NO_CREDENTIAL_REQUIRED"
+      },
+      "canonical_operation_id": "defillama:fees_and_revenue",
+      "capability_evidence_scope": "OFFLINE_LOCAL_CONFIGURATION_AND_RETAINED_ARTIFACTS; NO_LIVE_PROBE",
+      "endpoint": [
+        "GET /overview/fees[/{chain}]",
+        "GET /summary/fees/{protocol}"
+      ],
+      "free_access_and_limits": {
+        "contract_path": ".codex/data-provider-routing.json",
+        "evidence": "https://api-docs.defillama.com/llms-free.txt",
+        "request_policy": {
+          "fallback_policy": "No fallback is currently qualified for these metric definitions. Report UNAVAILABLE rather than substituting a non-equivalent metric.",
+          "max_requests_per_command": 1,
+          "max_response_bytes": 5000000,
+          "maximum_cache_ttl_seconds": 3600,
+          "memory_cache_ttl_seconds": 300,
+          "retry_policy": "No automatic retries. On 401, 403, 402, 429, timeout, malformed response, or network error, stop this provider branch and report the classified status.",
+          "timeout_seconds": 10
+        }
+      },
+      "historical_git_presence": "NOT_INSPECTED",
+      "invocation_method": "python .agents/skills/crypto-mcp-research/scripts/defillama_public.py fees --chain {chain} --data-type {dataType}; python .agents/skills/crypto-mcp-research/scripts/defillama_public.py protocol-fees --protocol {protocol} --data-type {dataType}",
+      "mcp_registered": false,
+      "operation": "fees_and_revenue",
+      "provider": "defillama",
+      "provider_qualification": "PARTIALLY_QUALIFIED",
+      "route_qualification": {
+        "observations": [
+          {
+            "chain": "Ethereum",
+            "data_type": "dailyRevenue",
+            "endpoint": "GET /overview/fees[/{chain}]",
+            "evidence_artifact": "research-runs/provider-smokes/defillama-ethereum-daily-revenue.json",
+            "freshness": "UNVERIFIED: retrieval time is 2026-10-17T14:12:36Z; response includes period aggregates but no exact source observation timestamp.",
+            "qualification": "Official free API docs state these listed endpoints require no authentication. One anonymous Ethereum dailyRevenue request returned the documented overview shape without a credential or payment challenge. The endpoint and query are qualified only for this response shape.",
+            "response_shape": "605 protocol rows; totalDataChart and totalDataChartBreakdown intentionally empty by query flags; Aave V3 row present with total24h=112525, total7d=951462, total30d=3910731",
+            "retrieved_at_utc": "2026-10-17T14:12:36Z",
+            "source_url": "https://api.llama.fi/overview/fees/Ethereum?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=true&dataType=dailyRevenue",
+            "status": "QUALIFIED_FOR_ETHEREUM_DAILY_REVENUE_RESPONSE_SHAPE",
+            "tool": "scripts/defillama_public.py fees --chain Ethereum --data-type dailyRevenue",
+            "unit": "UNVERIFIED: response schema and docs reviewed do not explicitly declare a currency unit for these summary values; do not label USD.",
+            "upstream_origin": "defillama_aggregated_index"
+          },
+          {
+            "data_type": "dailyRevenue",
+            "endpoint": "GET /summary/fees/{protocol}",
+            "evidence_artifact": "research-runs/provider-smokes/defillama-aave-v3-daily-revenue-history.json",
+            "freshness": "Historical chart dates retained; retrieval time recorded separately. Current summary freshness is unverified.",
+            "methodology": "Provider response includes metric-specific methodology; retain it and methodologyURL with any claim.",
+            "protocol_slug": "aave-v3",
+            "qualification": "Official free API docs list this exact route and dataType. One anonymous Aave V3 response matched the documented summary-with-historical-data shape. Qualification is limited to this protocol and metric query.",
+            "response_observed_at_utc": "2026-10-17T14:53:45.0459557Z",
+            "response_shape": "Aave V3 metadata and methodology plus dated totalDataChart rows; chart dates are Unix seconds; request was anonymous and returned HTTP 200",
+            "retrieval_started_at_utc": "2026-10-17T14:53:44.5810874Z",
+            "source_timestamp": "Unix-second date on each historical chart row; no exact timestamp semantics beyond dated series documented",
+            "source_url": "https://api.llama.fi/summary/fees/aave-v3?dataType=dailyRevenue",
+            "status": "QUALIFIED_FOR_AAVE_V3_DAILY_REVENUE_HISTORICAL_RESPONSE_SHAPE",
+            "tool": "scripts/defillama_public.py protocol-fees --protocol aave-v3 --data-type dailyRevenue",
+            "unit": "UNVERIFIED: official endpoint schema does not name a currency unit",
+            "upstream_origin": "defillama_aggregated_index"
+          }
+        ],
+        "status": "HISTORICAL_QUERY_QUALIFICATION_ONLY"
+      },
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [
+        {
+          "artifact": "defillama-aerodrome-daily-revenue.json",
+          "artifact_sha256": "7d572d1888e21b3a38e52dde83239cd5e6c9f6d05233d55e371f21c75415d011",
+          "endpoint": "GET /summary/fees/{protocol}",
+          "freshness": "SOURCE_TIMESTAMP_NOT_ASSESSED",
+          "identity": {
+            "address": "base:0x940181a94A35A4569E4529A3CDfB74e38FD98631",
+            "chains": [
+              "Base",
+              "Arc"
+            ],
+            "name": "Aerodrome",
+            "protocol_slug": "aerodrome",
+            "status": "RESPONSE_IDENTITY_RETURNED",
+            "symbol": "AERO"
+          },
+          "interpretation": "Retained response evidence for this exact query; does not establish current connectivity or provider-wide qualification.",
+          "mcp_registered": false,
+          "retrieved_at_utc": "2026-10-18T06:08:53Z",
+          "source_url": "https://api.llama.fi/summary/fees/aerodrome?dataType=dailyRevenue",
+          "status": "RESPONDED_ROUTE_QUERY_MATCHED_IDENTITY_RETURNED",
+          "transport": "LOCAL_REST_ADAPTER"
+        }
+      ],
+      "runtime_availability": "HISTORICAL_RESPONSE_ONLY",
+      "runtime_evidence": {
+        "current_session_probe": false,
+        "status": "HISTORICAL_RESPONSE_ONLY"
+      },
+      "supported_research_tasks": [
+        "fees and revenue"
+      ],
+      "transport": "LOCAL_REST_ADAPTER"
+    },
+    {
+      "adapter_code_state": "PRESENT_IN_CHECKED_OUT_TREE",
+      "adapter_discovered": true,
+      "adapter_path": "C:\\TEST-repos\\fin-dex\\.agents\\skills\\crypto-mcp-research\\scripts\\defillama_public.py",
+      "authorization": "NO_CREDENTIAL_REQUIRED; session/network permission not established",
+      "authorization_evidence": {
+        "credentials_available": "NOT_APPLICABLE",
+        "credentials_required": false,
+        "status": "NO_CREDENTIAL_REQUIRED"
+      },
+      "canonical_operation_id": "defillama:stablecoin_supply_and_flows",
+      "capability_evidence_scope": "OFFLINE_LOCAL_CONFIGURATION_AND_RETAINED_ARTIFACTS; NO_LIVE_PROBE",
+      "endpoint": "GET /stablecoincharts/{chain}",
+      "free_access_and_limits": {
+        "contract_path": ".codex/data-provider-routing.json",
+        "evidence": "https://api-docs.defillama.com/llms-free.txt",
+        "request_policy": {
+          "fallback_policy": "No fallback is currently qualified for these metric definitions. Report UNAVAILABLE rather than substituting a non-equivalent metric.",
+          "max_requests_per_command": 1,
+          "max_response_bytes": 5000000,
+          "maximum_cache_ttl_seconds": 3600,
+          "memory_cache_ttl_seconds": 300,
+          "retry_policy": "No automatic retries. On 401, 403, 402, 429, timeout, malformed response, or network error, stop this provider branch and report the classified status.",
+          "timeout_seconds": 10
+        }
+      },
+      "historical_git_presence": "NOT_INSPECTED",
+      "invocation_method": "python .agents/skills/crypto-mcp-research/scripts/defillama_public.py stablecoins; python .agents/skills/crypto-mcp-research/scripts/defillama_public.py stablecoin-chains; python .agents/skills/crypto-mcp-research/scripts/defillama_public.py stablecoin-history --chain {chain}",
+      "mcp_registered": false,
+      "operation": "stablecoin_supply_and_flows",
+      "provider": "defillama",
+      "provider_qualification": "PARTIALLY_QUALIFIED",
+      "route_qualification": {
+        "observations": [],
+        "status": "NO_MATCHING_ROUTE_QUALIFICATION"
+      },
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "HISTORICAL_RESPONSE_ONLY",
+      "runtime_evidence": {
+        "current_session_probe": false,
+        "status": "HISTORICAL_RESPONSE_ONLY"
+      },
+      "supported_research_tasks": [
+        "stablecoin supply and flows"
+      ],
+      "transport": "LOCAL_REST_ADAPTER"
+    },
+    {
+      "adapter_code_state": "PRESENT_IN_CHECKED_OUT_TREE",
+      "adapter_discovered": true,
+      "adapter_path": "C:\\TEST-repos\\fin-dex\\.agents\\skills\\crypto-mcp-research\\scripts\\defillama_public.py",
+      "authorization": "NO_CREDENTIAL_REQUIRED; session/network permission not established",
+      "authorization_evidence": {
+        "credentials_available": "NOT_APPLICABLE",
+        "credentials_required": false,
+        "status": "NO_CREDENTIAL_REQUIRED"
+      },
+      "canonical_operation_id": "defillama:historical_open_interest_context",
+      "capability_evidence_scope": "OFFLINE_LOCAL_CONFIGURATION_AND_RETAINED_ARTIFACTS; NO_LIVE_PROBE",
+      "endpoint": "GET /overview/open-interest",
+      "free_access_and_limits": {
+        "contract_path": ".codex/data-provider-routing.json",
+        "evidence": "https://api-docs.defillama.com/llms-free.txt",
+        "request_policy": {
+          "fallback_policy": "No fallback is currently qualified for these metric definitions. Report UNAVAILABLE rather than substituting a non-equivalent metric.",
+          "max_requests_per_command": 1,
+          "max_response_bytes": 5000000,
+          "maximum_cache_ttl_seconds": 3600,
+          "memory_cache_ttl_seconds": 300,
+          "retry_policy": "No automatic retries. On 401, 403, 402, 429, timeout, malformed response, or network error, stop this provider branch and report the classified status.",
+          "timeout_seconds": 10
+        }
+      },
+      "historical_git_presence": "NOT_INSPECTED",
+      "invocation_method": "python .agents/skills/crypto-mcp-research/scripts/defillama_public.py open-interest",
+      "mcp_registered": false,
+      "operation": "historical_open_interest_context",
+      "provider": "defillama",
+      "provider_qualification": "PARTIALLY_QUALIFIED",
+      "route_qualification": {
+        "observations": [
+          {
+            "endpoint": "GET /overview/open-interest",
+            "evidence_artifact": "research-runs/provider-smokes/defillama-open-interest-overview.json",
+            "freshness": "Historical aggregate series; latest chart date is 2026-10-17T00:00:00Z. No subdaily/current observation time supplied.",
+            "identity": "aggregate across indexed perp protocols; not exchange-specific or instrument-specific open interest",
+            "qualification": "Official free API docs list the route and chart-exclusion parameters. One anonymous GET returned a dated aggregate response without a payment or credential challenge. Qualification covers this provider-aggregate response only.",
+            "response_observed_at_utc": "2026-10-17T14:55:33.6473373Z",
+            "response_shape": "142 protocol rows; aggregate totalDataChart contains 2,061 chronological Unix-second date/value rows from 2021-02-25T00:00:00Z through 2026-10-17T00:00:00Z; 218,576-byte response",
+            "retrieval_started_at_utc": "2026-10-17T14:55:33.3071444Z",
+            "source_timestamp": "Unix-second chart dates; sampling and exact observation semantics not documented",
+            "source_url": "https://api.llama.fi/overview/open-interest?excludeTotalDataChart=false&excludeTotalDataChartBreakdown=true",
+            "status": "QUALIFIED_FOR_PROVIDER_AGGREGATE_HISTORICAL_RESPONSE_SHAPE",
+            "tool": "scripts/defillama_public.py open-interest",
+            "unit": "UNVERIFIED: official docs and response schema do not declare the value unit",
+            "upstream_origin": "defillama_aggregated_index"
+          }
+        ],
+        "status": "HISTORICAL_QUERY_QUALIFICATION_ONLY"
+      },
+      "run_evidence_scope": "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE",
+      "run_response_evidence": [],
+      "runtime_availability": "HISTORICAL_RESPONSE_ONLY",
+      "runtime_evidence": {
+        "current_session_probe": false,
+        "status": "HISTORICAL_RESPONSE_ONLY"
+      },
+      "supported_research_tasks": [
+        "historical open interest context"
+      ],
+      "transport": "LOCAL_REST_ADAPTER"
+    }
+  ],
+  "schema_version": 1
+}

@@ -29,9 +29,15 @@ def validate_handoff(doc):
     if not isinstance(doc, dict):
         return ["root must be object"]
     required = {"schema_version", "agent_id", "task_id", "status", "asset_scope", "claims", "observations", "conflicts", "coverage_gaps", "tool_calls"}
-    if set(doc) - required - {"review"}: errors.append("unknown top-level fields")
+    v2_fields = {"lifecycle_id", "artifact_id"} if doc.get("schema_version") == 2 else set()
+    if set(doc) - required - {"review"} - v2_fields: errors.append("unknown top-level fields")
     for key in required - set(doc): errors.append(f"missing {key}")
-    if doc.get("schema_version") != 1: errors.append("schema_version must be 1")
+    version = doc.get("schema_version")
+    if version not in {1, 2}: errors.append("schema_version must be 1 or 2")
+    if version == 2:
+        for key in ("lifecycle_id", "artifact_id"):
+            if not isinstance(doc.get(key), str) or not ID.fullmatch(doc.get(key, "")):
+                errors.append(f"invalid {key}")
     if doc.get("agent_id") not in AGENTS: errors.append("invalid agent_id")
     if doc.get("status") not in {"COMPLETE", "PARTIAL", "FAILED", "BLOCKED"}: errors.append("invalid handoff status")
     if not isinstance(doc.get("task_id"), str) or not ID.fullmatch(doc.get("task_id", "")): errors.append("invalid task_id")
@@ -53,9 +59,13 @@ def validate_handoff(doc):
         for k in ("source", "tool", "asset_id", "metric", "unit"):
             if not isinstance(obs.get(k), str) or not obs[k].strip(): errors.append(f"{p}.{k}: nonempty string required")
         parsed = {}
-        for k in ("observed_at_utc", "retrieved_at_utc"):
-            try: parsed[k] = timestamp(obs[k])
-            except (KeyError, TypeError, ValueError) as e: errors.append(f"{p}.{k}: {e}")
+        if "observed_at_utc" not in obs:
+            errors.append(f"{p}.observed_at_utc: required; use null when the provider supplies no observation time")
+        elif obs["observed_at_utc"] is not None:
+            try: parsed["observed_at_utc"] = timestamp(obs["observed_at_utc"])
+            except (KeyError, TypeError, ValueError) as e: errors.append(f"{p}.observed_at_utc: {e}")
+        try: parsed["retrieved_at_utc"] = timestamp(obs["retrieved_at_utc"])
+        except (KeyError, TypeError, ValueError) as e: errors.append(f"{p}.retrieved_at_utc: {e}")
         if len(parsed) == 2 and parsed["observed_at_utc"] > parsed["retrieved_at_utc"]:
             errors.append(f"{p}: observed time after retrieval time")
     for collection in ("claims", "conflicts", "coverage_gaps"):

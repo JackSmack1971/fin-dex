@@ -1,0 +1,1 @@
+{"provider":"defillama","upstream_origin":"defillama_aggregated_index","endpoint":"GET /tvl/{protocol}","source_url":"https://api.llama.fi/tvl/aerodrome","retrieved_at_utc":"2026-10-18T06:08:53Z","cache":"miss","data":396386584.64219195}

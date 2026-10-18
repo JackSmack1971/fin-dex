@@ -22,6 +22,87 @@ EXPECTED_ENDPOINTS = {
 STATUSES = {"CONFIGURED", "DISCOVERED", "RESPONDED", "QUALIFIED", "UNAVAILABLE"}
 EFFECTS = {"READ_ONLY", "STATEFUL", "UNKNOWN"}
 PROHIBITED_CATEGORIES = {"feedback", "wallet", "trading", "credential_change", "stateful", "unknown_effect"}
+DIAGNOSTIC_STATES = {"YES", "NO", "UNKNOWN", "UNSUPPORTED"}
+DIAGNOSTIC_DIMENSIONS = {"configured", "registered", "runtime_discovered", "model_exposed",
+                         "invocation_authorized", "authentication_established",
+                         "provider_responded", "query_qualified"}
+
+
+def validate_diagnostic(report):
+    """Validate the v2 diagnostic contract without promoting offline evidence."""
+    errors = []
+    if not isinstance(report, dict) or report.get("schema_version") != 2 or report.get("format") != "capability-diagnostic-v2":
+        return ["diagnostic: schema_version 2 capability-diagnostic-v2 object required"]
+    if not _timestamp(report.get("generated_at")):
+        errors.append("diagnostic: generated_at must be a UTC timestamp")
+    if report.get("network_calls_made") is not False:
+        errors.append("diagnostic: offline generation must declare network_calls_made false")
+    operations = report.get("operations")
+    if not isinstance(operations, list):
+        return errors + ["diagnostic: operations must be an array"]
+    identities = set()
+    for i, op in enumerate(operations):
+        prefix = f"diagnostic.operations[{i}]"
+        if not isinstance(op, dict) or not isinstance(op.get("canonical_identity"), str) or not op["canonical_identity"]:
+            errors.append(f"{prefix}: canonical_identity required")
+            continue
+        provider, operation, transport = op.get("provider"), op.get("operation"), op.get("transport")
+        expected_identity = (f"mcp__{provider}__{operation}" if transport == "MCP"
+                             else f"{provider}:{operation}" if transport == "LOCAL_REST_ADAPTER"
+                             else None)
+        if not isinstance(provider, str) or not isinstance(operation, str) or op["canonical_identity"] != expected_identity:
+            errors.append(f"{prefix}: canonical identity must match exact provider, operation, and transport")
+        if op["canonical_identity"] in identities:
+            errors.append(f"{prefix}: duplicate canonical identity")
+        identities.add(op["canonical_identity"])
+        evidence = op.get("evidence")
+        if not isinstance(evidence, list):
+            errors.append(f"{prefix}: evidence must be an array")
+            evidence = []
+        indexed = {e.get("id"): e for e in evidence if isinstance(e, dict) and isinstance(e.get("id"), str)}
+        if len(indexed) != len(evidence):
+            errors.append(f"{prefix}: evidence ids must be present and unique")
+        for evidence_id, item in indexed.items():
+            for time_key in ("observed_at", "retrieved_at"):
+                if item.get(time_key) is not None and not _timestamp(item.get(time_key)):
+                    errors.append(f"{prefix}.evidence[{evidence_id}]: {time_key} must be UTC or null")
+        states = op.get("states")
+        if not isinstance(states, dict) or set(states) != DIAGNOSTIC_DIMENSIONS:
+            errors.append(f"{prefix}: states must contain each defined dimension exactly once")
+            continue
+        for dim, record in states.items():
+            if not isinstance(record, dict) or record.get("state") not in DIAGNOSTIC_STATES:
+                errors.append(f"{prefix}.{dim}: invalid state")
+                continue
+            if record["state"] == "UNSUPPORTED" and dim != "authentication_established":
+                errors.append(f"{prefix}.{dim}: UNSUPPORTED is only valid for authentication")
+            refs = record.get("evidence_refs")
+            if not isinstance(refs, list) or any(ref not in indexed for ref in refs):
+                errors.append(f"{prefix}.{dim}: evidence_refs must resolve")
+                refs = []
+            if record.get("state") == "NO":
+                if not refs or any(not any(word in str(indexed[x].get("scope", "")).lower()
+                                            for word in ("absent", "denied", "disabled", "not registered"))
+                                   for x in refs):
+                    errors.append(f"{prefix}.{dim}: NO requires scoped absence or denial evidence")
+            if dim in {"registered", "runtime_discovered", "model_exposed", "invocation_authorized", "provider_responded"} and record.get("state") == "YES":
+                if not refs or all(indexed[x].get("source") in {"ACTIVE_PROJECT_CONFIGURATION", "DIAGNOSTIC_GENERATION"} for x in refs):
+                    errors.append(f"{prefix}.{dim}: static evidence cannot establish YES")
+            if dim == "invocation_authorized" and record.get("state") == "YES":
+                if not isinstance(op.get("invocation_arguments_sha256"), str) or not re.fullmatch(r"[0-9a-f]{64}", op["invocation_arguments_sha256"]):
+                    errors.append(f"{prefix}: authorization YES requires exact invocation argument digest")
+                if not refs or any(indexed[x].get("scope") != "exact invocation arguments" for x in refs):
+                    errors.append(f"{prefix}: authorization YES requires exact-argument evidence scope")
+        ttl = op.get("source_ttl_seconds")
+        if ttl is not None and (not isinstance(ttl, int) or isinstance(ttl, bool) or ttl < 0):
+            errors.append(f"{prefix}: source_ttl_seconds must be a nonnegative integer or null")
+        if ttl is None and op.get("freshness") != "UNKNOWN":
+            errors.append(f"{prefix}: freshness must be UNKNOWN without an applicable TTL")
+        if ttl is None and op.get("freshness_scope") != "NO_APPLICABLE_SOURCE_TTL":
+            errors.append(f"{prefix}: freshness_scope must state that no applicable TTL exists")
+        if op.get("generated_at") != report.get("generated_at"):
+            errors.append(f"{prefix}: generated_at must match report generation time")
+    return errors
 
 
 def transition_status(previous, new, evidence=None):
@@ -231,15 +312,24 @@ def main():
                         default=pathlib.Path(__file__).resolve().parents[4] / ".codex" / "config.toml")
     parser.add_argument("inventory", nargs="?", type=pathlib.Path,
                         default=pathlib.Path(__file__).resolve().parents[4] / ".codex" / "provider-capabilities.json")
+    parser.add_argument("--diagnostic", type=pathlib.Path,
+                        help="validate an opt-in v2 diagnostic JSON report")
     args = parser.parse_args()
-    errors = validate(args.config, args.inventory)
+    if args.diagnostic:
+        try:
+            errors = validate_diagnostic(json.loads(args.diagnostic.read_text(encoding="utf-8")))
+        except (OSError, UnicodeError, json.JSONDecodeError) as exc:
+            errors = [f"diagnostic: cannot parse ({type(exc).__name__})"]
+    else:
+        errors = validate(args.config, args.inventory)
     for error in errors:
         print(f"ERROR: {error}")
-    if not errors:
+    if not errors and not args.diagnostic:
         inventory = json.loads(args.inventory.read_text(encoding="utf-8"))
         for provider in inventory["providers"]:
             print(f"{provider['id']}: {provider['status']} (live response unverified)")
-    print(f"{'FAIL' if errors else 'PASS'}: offline provider-policy validation; live connectivity and qualification are unverified")
+    label = "offline v2 diagnostic validation" if args.diagnostic else "offline provider-policy validation"
+    print(f"{'FAIL' if errors else 'PASS'}: {label}; live connectivity and qualification are unverified")
     return 1 if errors else 0
 
 
