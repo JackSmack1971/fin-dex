@@ -1,0 +1,240 @@
+{
+  "schema_version": 1,
+  "agent_id": "market_analyst",
+  "task_id": "aero-2026-10-18-retained-market-replay",
+  "status": "PARTIAL",
+  "asset_scope": [
+    {
+      "asset_id": "AERO",
+      "chain_id": "8453",
+      "contract": "0x940181a94A35A4569E4529A3CDfB74e38FD98631"
+    },
+    {
+      "asset_id": "BTC",
+      "instrument": "BTC/USD benchmark"
+    },
+    {
+      "asset_id": "ETH",
+      "instrument": "ETH/USD benchmark"
+    },
+    {
+      "asset_id": "SOL",
+      "instrument": "SOL/USD benchmark"
+    }
+  ],
+  "claims": [
+    {
+      "id": "aero-replay",
+      "statement": "Offline replay of the retained 93-point AERO USD series (2026-07-18T00:00:00Z–2026-10-18T00:00:00Z) matched all 14 fields in the complete indicator contract. EMA uses the first close as seed; RSI(14) uses arithmetic-mean gains/losses, not Wilder smoothing; ATR is unavailable without OHLC. The original specialist MACD disagreement is NOT_REPRODUCIBLE because its reported value was not found in persisted handoffs.",
+      "status": "SINGLE_SOURCE",
+      "observation_ids": [
+        "aero-replay-observation"
+      ]
+    },
+    {
+      "id": "matched-benchmark-returns",
+      "statement": "Using matching daily USD point-price endpoints and (end/start - 1) * 100, AERO/BTC/ETH/SOL returns were respectively -11.82%/-1.91%/-4.12%/-5.88% over 7d (Oct 11–18), 33.25%/3.43%/-4.89%/-3.81% over 30d (Sep 18–Oct 18), and 89.18%/26.12%/28.31%/35.00% over 90d (Jul 20–Oct 18).",
+      "status": "SINGLE_SOURCE",
+      "observation_ids": [
+        "aero-replay-observation",
+        "benchmark-series-observation"
+      ]
+    }
+  ],
+  "observations": [
+    {
+      "id": "aero-replay-observation",
+      "source": "CoinPaprika hosted-free response retained at research-runs/market-analyst/coinpaprika-daily-history.json; comparison against research-runs/20261018-aero/calculations.json",
+      "tool": "retained getTickersHistoricalById fixture; .agents/skills/crypto-mcp-research/scripts/indicator_replay.py",
+      "upstream_provenance": "CoinPaprika fixture labels the series AERO but does not retain a canonical provider ID or echo the queried contract/platform; Base contract linkage is unverified.",
+      "asset_id": "AERO (requested identity: base:8453/0x940181a94A35A4569E4529A3CDfB74e38FD98631; mapping unverified by this fixture)",
+      "venue": null,
+      "metric": "complete_indicator_replay",
+      "value": {
+        "coverage": {
+          "count": 93,
+          "start_utc": "2026-07-18T00:00:00Z",
+          "end_utc": "2026-10-18T00:00:00Z"
+        },
+        "last_point": {
+          "price_usd": 0.841757,
+          "volume_24h_usd": 35756581,
+          "market_cap_usd": 845057656,
+          "circulating_supply_aero": 1003921721
+        },
+        "return_formula": "(ending price / starting price - 1) * 100",
+        "indicators": {
+          "close_2026_10_18_usd": {
+            "status": "MATCH",
+            "replayed": 0.841757,
+            "stored": 0.841757
+          },
+          "returns_pct.7d": {
+            "status": "MATCH",
+            "replayed": -11.822265334470261,
+            "stored": -11.82
+          },
+          "returns_pct.30d": {
+            "status": "MATCH",
+            "replayed": 33.253284406922944,
+            "stored": 33.25
+          },
+          "returns_pct.90d": {
+            "status": "MATCH",
+            "replayed": 89.17673128699786,
+            "stored": 89.18
+          },
+          "sma_usd.7": {
+            "status": "MATCH",
+            "replayed": 0.8844580000000001,
+            "stored": 0.884458
+          },
+          "sma_usd.20": {
+            "status": "MATCH",
+            "replayed": 0.8494699499999999,
+            "stored": 0.84947
+          },
+          "sma_usd.50": {
+            "status": "MATCH",
+            "replayed": 0.7047399,
+            "stored": 0.70474
+          },
+          "sma_usd.90": {
+            "status": "MATCH",
+            "replayed": 0.5864776555555555,
+            "stored": 0.586478
+          },
+          "rsi14": {
+            "status": "MATCH",
+            "replayed": 48.37845248778542,
+            "stored": 48.38
+          },
+          "macd12_26_usd": {
+            "status": "MATCH",
+            "replayed": 0.0482401500882671,
+            "stored": 0.04824
+          },
+          "macd_signal9_usd": {
+            "status": "MATCH",
+            "replayed": 0.05823475255614251,
+            "stored": 0.058235
+          },
+          "macd_histogram_usd": {
+            "status": "MATCH",
+            "replayed": -0.00999460246787541,
+            "stored": -0.009995
+          },
+          "max_drawdown_pct": {
+            "status": "MATCH",
+            "replayed": -16.247288297461914,
+            "stored": -16.25
+          },
+          "atr14": {
+            "status": "MATCH",
+            "replayed": "UNAVAILABLE: point-price observations do not contain OHLC candles",
+            "stored": "UNAVAILABLE: point-in-time price snapshots are not OHLC candles"
+          }
+        },
+        "ema_seed": "first observed close; alpha=2/(period+1)",
+        "rsi_method": "arithmetic mean gains/losses; not Wilder smoothing",
+        "original_macd_disagreement": "NOT_REPRODUCIBLE: disputed specialist value not found in persisted handoffs"
+      },
+      "unit": "USD price, volume, market capitalization; AERO supply; indicator units as named",
+      "observed_at_utc": "2026-10-18T00:00:00Z",
+      "retrieved_at_utc": "2026-10-18T05:17:13Z",
+      "methodology": "Retained fixture metadata specifies getTickersHistoricalById, 1d, USD, start 2026-07-18, limit 100. Replay was offline; no new provider calls. Values are point-price calculations, not OHLC-based indicators.",
+      "coverage": "Circulating supply only; total supply unavailable. One vendor source; AERO contract mapping and original MACD disagreement are unverified/unavailable."
+    },
+    {
+      "id": "benchmark-series-observation",
+      "source": "CoinPaprika hosted-free response retained at research-runs/market-analyst/coinpaprika-daily-history.json; calculations at research-runs/20261018-aero/calculations.json",
+      "tool": "retained getTickersHistoricalById fixture; .agents/skills/crypto-mcp-research/scripts/indicator_replay.py",
+      "upstream_provenance": "CoinPaprika fixture labels benchmark series BTC, ETH, and SOL; canonical provider IDs are not recorded in this fixture.",
+      "asset_id": "BTC, ETH, SOL",
+      "venue": null,
+      "metric": "matched_daily_usd_returns_and_final_snapshots",
+      "value": {
+        "coverage": {
+          "count_per_asset": 93,
+          "start_utc": "2026-07-18T00:00:00Z",
+          "end_utc": "2026-10-18T00:00:00Z"
+        },
+        "last_points": {
+          "BTC": {
+            "price_usd": 81635.73,
+            "volume_24h_usd": 11661726702,
+            "market_cap_usd": 1640860965458,
+            "circulating_supply": 20099790
+          },
+          "ETH": {
+            "price_usd": 2411.27,
+            "volume_24h_usd": 4601114872,
+            "market_cap_usd": 294523994859,
+            "circulating_supply": 122144666
+          },
+          "SOL": {
+            "price_usd": 103.75,
+            "volume_24h_usd": 966555778,
+            "market_cap_usd": 61148969031,
+            "circulating_supply": 589381881
+          }
+        },
+        "returns_pct": {
+          "BTC": {
+            "7d": -1.9057286854596067,
+            "30d": 3.4317075562562804,
+            "90d": 26.11823786117988
+          },
+          "ETH": {
+            "7d": -4.116420141229536,
+            "30d": -4.887293142134425,
+            "90d": 28.307157822839677
+          },
+          "SOL": {
+            "7d": -5.878617436269618,
+            "30d": -3.810495086222876,
+            "90d": 35.003253090435926
+          }
+        }
+      },
+      "unit": "USD price, USD 24h volume and capitalization; native-asset circulating supply; returns percent",
+      "observed_at_utc": "2026-10-18T00:00:00Z",
+      "retrieved_at_utc": "2026-10-18T05:17:13Z",
+      "methodology": "Retained CoinPaprika 1d USD point-price observations; matched endpoints and formula (end/start - 1) * 100. No new provider calls.",
+      "coverage": "93 daily points per asset; single provider; prices are not OHLC candles."
+    }
+  ],
+  "conflicts": [],
+  "coverage_gaps": [
+    {
+      "id": "aero-contract-mapping",
+      "description": "Retained fixture has the AERO symbol key but no canonical provider ID or echoed Base contract/platform; mapping to the requested contract remains unverified.",
+      "provider_status": "UNVERIFIED"
+    },
+    {
+      "id": "original-macd-value",
+      "description": "Original specialist MACD disagreement value was not present in persisted handoffs, so the original discrepancy cannot be reproduced."
+    },
+    {
+      "id": "supply-and-independent-source",
+      "description": "Only circulating supply is retained; total supply is unavailable. No independent market-data source was used."
+    }
+  ],
+  "tool_calls": [
+    {
+      "tool": "mcp__coinpaprika__getTickersHistoricalById (retained fixture metadata)",
+      "source": "CoinPaprika hosted-free retained response",
+      "outcome": "NOT_CALLED",
+      "call_count": 0,
+      "retrieved_at_utc": "2026-10-18T05:17:13Z",
+      "reason": "This handoff used only retained observations and offline replay; no live provider calls were made."
+    },
+    {
+      "tool": "indicator_replay.py",
+      "source": "Local deterministic replay",
+      "outcome": "SUCCESS",
+      "call_count": 1,
+      "reason": "All complete-contract AERO fields matched; missing expected fields are represented as NOT_REPORTED and cannot satisfy a complete replay."
+    }
+  ]
+}

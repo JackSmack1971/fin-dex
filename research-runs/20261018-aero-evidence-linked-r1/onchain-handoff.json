@@ -1,0 +1,153 @@
+{
+  "schema_version": 1,
+  "agent_id": "onchain_analyst",
+  "task_id": "aero-defillama-retained-context-r1",
+  "status": "PARTIAL",
+  "asset_scope": [
+    {
+      "asset_id": "AERO",
+      "chain_id": "8453",
+      "contract": "0x940181a94A35A4569E4529A3CDfB74e38FD98631"
+    }
+  ],
+  "claims": [
+    {
+      "id": "aero-identity",
+      "statement": "The retained DeFiLlama fees/revenue response identifies Aerodrome with symbol AERO and address base:0x940181a94A35A4569E4529A3CDfB74e38FD98631. This provider metadata is not independent contract verification.",
+      "status": "SINGLE_SOURCE",
+      "observation_ids": [
+        "aero-identity-observation"
+      ]
+    },
+    {
+      "id": "aero-tvl",
+      "statement": "The retained GET /tvl/aerodrome response returned 396386584.64219195; its unit and source observation time are not specified, and the response does not return protocol identity.",
+      "status": "SINGLE_SOURCE",
+      "observation_ids": [
+        "aero-tvl-observation"
+      ]
+    },
+    {
+      "id": "aero-daily-revenue",
+      "statement": "The retained dailyRevenue response reports total24h 146831, totalAllTime 488160261, and a latest totalDataChart pair of Unix timestamp 1792281600 and value 148141. Units and source observation time are not specified. These provider-aggregated metrics do not establish AERO token value capture.",
+      "status": "SINGLE_SOURCE",
+      "observation_ids": [
+        "aero-daily-revenue-observation"
+      ]
+    }
+  ],
+  "observations": [
+    {
+      "id": "aero-identity-observation",
+      "source": "DeFiLlama aggregated index",
+      "tool": "python .agents/skills/crypto-mcp-research/scripts/defillama_public.py protocol-fees --protocol aerodrome --data-type dailyRevenue (retained response; not re-queried)",
+      "upstream_provenance": "defillama_aggregated_index",
+      "asset_id": "AERO",
+      "venue": "Aerodrome protocol metadata",
+      "metric": "provider-reported symbol, chain and address identity",
+      "value": {
+        "symbol": "AERO",
+        "chains": [
+          "Base",
+          "Arc"
+        ],
+        "address": "base:0x940181a94A35A4569E4529A3CDfB74e38FD98631"
+      },
+      "unit": "metadata",
+      "observed_at_utc": null,
+      "retrieved_at_utc": "2026-10-18T06:08:53Z",
+      "methodology": "Copied from the retained response; not independently verified contract-level evidence.",
+      "coverage": "Single retained response; provider metadata lists multiple chains and child protocols.",
+      "evidence_artifacts": [
+        {
+          "artifact": "defillama-aerodrome-daily-revenue.json",
+          "sha256": "7d572d1888e21b3a38e52dde83239cd5e6c9f6d05233d55e371f21c75415d011",
+          "source_url": "https://api.llama.fi/summary/fees/aerodrome?dataType=dailyRevenue"
+        }
+      ]
+    },
+    {
+      "id": "aero-tvl-observation",
+      "source": "DeFiLlama aggregated index",
+      "tool": "python .agents/skills/crypto-mcp-research/scripts/defillama_public.py protocol-tvl --protocol aerodrome (retained response; not re-queried)",
+      "upstream_provenance": "defillama_aggregated_index",
+      "asset_id": "AERO",
+      "venue": "Aerodrome protocol slug aerodrome",
+      "metric": "protocol TVL response data",
+      "value": 396386584.64219195,
+      "unit": "not specified in retained response",
+      "observed_at_utc": null,
+      "retrieved_at_utc": "2026-10-18T06:08:53Z",
+      "methodology": "Scalar returned for the requested protocol slug; response contains no protocol identity or source timestamp.",
+      "coverage": "Exact retained route/query response only.",
+      "evidence_artifacts": [
+        {
+          "artifact": "defillama-aerodrome-protocol-tvl.json",
+          "sha256": "2d21ca703863c3a60c244493e3de812804758f76da51f4c11c9f3eaf593a93f6",
+          "source_url": "https://api.llama.fi/tvl/aerodrome"
+        }
+      ]
+    },
+    {
+      "id": "aero-daily-revenue-observation",
+      "source": "DeFiLlama aggregated index",
+      "tool": "python .agents/skills/crypto-mcp-research/scripts/defillama_public.py protocol-fees --protocol aerodrome --data-type dailyRevenue (retained response; not re-queried)",
+      "upstream_provenance": "defillama_aggregated_index",
+      "asset_id": "AERO",
+      "venue": "Aerodrome protocol slug aerodrome",
+      "metric": "dailyRevenue summary and latest totalDataChart pair",
+      "value": {
+        "total24h": 146831,
+        "totalAllTime": 488160261,
+        "latest_chart_pair": {
+          "timestamp_unix_seconds": 1792281600,
+          "value": 148141
+        },
+        "totalDataChart_row_count": 1147
+      },
+      "unit": "not specified in retained response; chart timestamp is Unix seconds",
+      "observed_at_utc": null,
+      "retrieved_at_utc": "2026-10-18T06:08:53Z",
+      "methodology": "Fields copied from the retained response. Chart timestamp is not treated as retrieval time. Aggregation scope and units are not inferred.",
+      "coverage": "Exact retained dailyRevenue query only; does not establish AERO token value capture.",
+      "evidence_artifacts": [
+        {
+          "artifact": "defillama-aerodrome-daily-revenue.json",
+          "sha256": "7d572d1888e21b3a38e52dde83239cd5e6c9f6d05233d55e371f21c75415d011",
+          "source_url": "https://api.llama.fi/summary/fees/aerodrome?dataType=dailyRevenue"
+        }
+      ]
+    }
+  ],
+  "conflicts": [],
+  "coverage_gaps": [
+    {
+      "id": "aero-contract-verification",
+      "description": "No independent chain/RPC or explorer evidence was collected for chain ID, deployed contract identity, supply or unlock definition, holder/custody concentration, emissions, or token value capture. The retained DeFiLlama metadata alone does not establish those facts.",
+      "provider_status": "UNVERIFIED"
+    },
+    {
+      "id": "defillama-capability-scope",
+      "description": "The retained effective-capabilities artifact classifies DeFiLlama as a discovered local REST adapter, not an MCP tool. It records adapter code in the checked-out tree and no credentials required, but no current-session authorization or connectivity probe. These retained responses establish only their exact query responses; they do not establish blanket provider qualification or current availability.",
+      "provider_status": "UNVERIFIED"
+    }
+  ],
+  "tool_calls": [
+    {
+      "tool": "python .agents/skills/crypto-mcp-research/scripts/defillama_public.py protocol-tvl --protocol aerodrome",
+      "source": "Local DeFiLlama REST adapter; retained response artifact in research-runs/20261018-aero-evidence-linked-r1; effective-capabilities.json records LOCAL_REST_ADAPTER and mcp_registered false.",
+      "outcome": "SUCCESS",
+      "call_count": 1,
+      "retrieved_at_utc": "2026-10-18T06:08:53Z",
+      "reason": "Retained invocation response reported; no new query made for this handoff."
+    },
+    {
+      "tool": "python .agents/skills/crypto-mcp-research/scripts/defillama_public.py protocol-fees --protocol aerodrome --data-type dailyRevenue",
+      "source": "Local DeFiLlama REST adapter; retained response artifact in research-runs/20261018-aero-evidence-linked-r1; effective-capabilities.json records LOCAL_REST_ADAPTER and mcp_registered false.",
+      "outcome": "SUCCESS",
+      "call_count": 1,
+      "retrieved_at_utc": "2026-10-18T06:08:53Z",
+      "reason": "Retained invocation response reported; no new query made for this handoff."
+    }
+  ]
+}

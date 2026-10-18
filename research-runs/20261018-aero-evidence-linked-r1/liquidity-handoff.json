@@ -1,0 +1,271 @@
+{
+  "schema_version": 1,
+  "agent_id": "liquidity_analyst",
+  "task_id": "aero-base-liquidity-20261018",
+  "status": "PARTIAL",
+  "asset_scope": [
+    {
+      "asset_id": "AERO",
+      "chain_id": "base",
+      "contract": "0x940181a94A35A4569E4529A3CDfB74e38FD98631"
+    }
+  ],
+  "claims": [
+    {
+      "id": "C-ds-route",
+      "statement": "The retained DEX Screener token-pairs query for provider chain slug base and the specified AERO contract returned 30 Base pair records with response identity marked VERIFIED. The route response is query-specific evidence, not a qualification of every route or complete enumeration of all AERO pools. Its liquidity and volume measurements have no provider observation timestamp, so freshness is unverified.",
+      "status": "SINGLE_SOURCE",
+      "observation_ids": [
+        "O-ds-route",
+        "O-ds-pools"
+      ]
+    },
+    {
+      "id": "C-leading-pools",
+      "statement": "Among the 30 returned records, the largest by reported liquidity was Aerodrome AERO/USDC pool 0x6cDcb1C4A4D1C3C6d054b27AC5B77e89eAFb971d. The next largest listed pools were Aerodrome AERO/WETH 0x7f670f78B17dEC44d5Ef68a48740b6f8849cc2e6, Aerodrome AERO/cbBTC 0xdFe5F275020def30993f042174Fc2D335678b626, and Aerodrome AERO/WETH 0x4e506648d493C8870f55e870480f92f2F33ecE51. In each pair record, AERO is the base token; the named counterasset is the quote token. These are DEX pool addresses, not centralized exchange instrument identifiers.",
+      "status": "SINGLE_SOURCE",
+      "observation_ids": [
+        "O-ds-pools"
+      ]
+    },
+    {
+      "id": "C-no-depth",
+      "statement": "The retained response provides provider-reported pool liquidity values and 24-hour turnover, but no size-specific execution quote, price-impact curve, spread, or order-book snapshot. Executable depth and slippage therefore remain unverified; reported turnover and pool liquidity are not substitutes for those measures.",
+      "status": "UNVERIFIED",
+      "observation_ids": [
+        "O-ds-pools"
+      ]
+    }
+  ],
+  "observations": [
+    {
+      "id": "O-ds-route",
+      "source": "DEX Screener",
+      "tool": "python .agents/skills/crypto-mcp-research/scripts/dexscreener_public.py token-pairs --chain base --token 0x940181a94A35A4569E4529A3CDfB74e38FD98631",
+      "upstream_provenance": "DEX Screener custom blockchain indexer, as recorded in the retained response wrapper.",
+      "asset_id": "AERO",
+      "venue": "Base token-pair discovery route",
+      "metric": "route response and identity",
+      "value": {
+        "transport": "LOCAL_REST_ADAPTER",
+        "endpoint": "GET /token-pairs/v1/{chainId}/{tokenAddress}",
+        "requested_chain_id": "base",
+        "requested_token": "0x940181a94A35A4569E4529A3CDfB74e38FD98631",
+        "response_identity_status": "VERIFIED",
+        "pair_count": 30,
+        "route_qualification": "NO_EXACT_ROUTE_QUALIFICATION_RETAINED; exact query response is retained and identity-matched",
+        "freshness_status": "UNVERIFIED_NO_OBSERVATION_TIMESTAMP",
+        "mcp_registered": false
+      },
+      "unit": "response metadata",
+      "observed_at_utc": null,
+      "retrieved_at_utc": "2026-10-18T06:08:52Z",
+      "methodology": "Inspected the retained adapter response and its wrapper; did not issue a new provider request.",
+      "coverage": "One token-pairs response containing 30 records. Does not establish complete AERO pool enumeration or current-session availability.",
+      "evidence_artifacts": [
+        {
+          "artifact": "dexscreener-token-pairs.json",
+          "sha256": "f40388299e0bcdd345d89f7633b15ed0c0739500a4232f26c8323a6fb0d34129",
+          "source_url": "https://api.dexscreener.com/token-pairs/v1/base/0x940181a94A35A4569E4529A3CDfB74e38FD98631"
+        }
+      ]
+    },
+    {
+      "id": "O-ds-pools",
+      "source": "DEX Screener",
+      "tool": "python .agents/skills/crypto-mcp-research/scripts/dexscreener_public.py token-pairs --chain base --token 0x940181a94A35A4569E4529A3CDfB74e38FD98631",
+      "upstream_provenance": "DEX Screener custom blockchain indexer, as recorded in the retained response wrapper.",
+      "asset_id": "AERO",
+      "venue": "Returned Base DEX pools, ranked by provider-reported liquidity",
+      "metric": "leading returned pool snapshots",
+      "value": [
+        {
+          "dex": "aerodrome",
+          "pool_address": "0x6cDcb1C4A4D1C3C6d054b27AC5B77e89eAFb971d",
+          "base_token": {
+            "symbol": "AERO",
+            "address": "0x940181a94A35A4569E4529A3CDfB74e38FD98631"
+          },
+          "quote_token": {
+            "symbol": "USDC",
+            "address": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913"
+          },
+          "price_quote_per_base": 0.8371,
+          "price_usd": 0.8371,
+          "liquidity": {
+            "reported_usd": 42448898.05,
+            "base_token_units": 25354414,
+            "quote_token_units": 21224449
+          },
+          "volume_24h_usd": 2117647.93,
+          "transactions_24h": {
+            "buys": 399,
+            "sells": 8392
+          }
+        },
+        {
+          "dex": "aerodrome",
+          "pool_address": "0x7f670f78B17dEC44d5Ef68a48740b6f8849cc2e6",
+          "base_token": {
+            "symbol": "AERO",
+            "address": "0x940181a94A35A4569E4529A3CDfB74e38FD98631"
+          },
+          "quote_token": {
+            "symbol": "WETH",
+            "address": "0x4200000000000000000000000000000000000006"
+          },
+          "price_quote_per_base": 0.0003504,
+          "price_usd": 0.8452,
+          "liquidity": {
+            "reported_usd": 3360645.39,
+            "base_token_units": 1987889,
+            "quote_token_units": 696.5587
+          },
+          "volume_24h_usd": 53595.12,
+          "transactions_24h": {
+            "buys": 64,
+            "sells": 463
+          }
+        },
+        {
+          "dex": "aerodrome",
+          "pool_address": "0xdFe5F275020def30993f042174Fc2D335678b626",
+          "base_token": {
+            "symbol": "AERO",
+            "address": "0x940181a94A35A4569E4529A3CDfB74e38FD98631"
+          },
+          "quote_token": {
+            "symbol": "cbBTC",
+            "address": "0xcbB7C0000aB88B473b1f5aFd9ef808440eed33Bf"
+          },
+          "price_quote_per_base": 1.024e-05,
+          "price_usd": 0.8363,
+          "liquidity": {
+            "reported_usd": 2481812.66,
+            "base_token_units": 2078473,
+            "quote_token_units": 9.109
+          },
+          "volume_24h_usd": 6848084.72,
+          "transactions_24h": {
+            "buys": 1425,
+            "sells": 1792
+          }
+        },
+        {
+          "dex": "aerodrome",
+          "pool_address": "0x4e506648d493C8870f55e870480f92f2F33ecE51",
+          "base_token": {
+            "symbol": "AERO",
+            "address": "0x940181a94A35A4569E4529A3CDfB74e38FD98631"
+          },
+          "quote_token": {
+            "symbol": "WETH",
+            "address": "0x4200000000000000000000000000000000000006"
+          },
+          "price_quote_per_base": 0.0003475,
+          "price_usd": 0.8374,
+          "liquidity": {
+            "reported_usd": 2220845.95,
+            "base_token_units": 1344879,
+            "quote_token_units": 454.3282
+          },
+          "volume_24h_usd": 2086251.83,
+          "transactions_24h": {
+            "buys": 436,
+            "sells": 1025
+          }
+        },
+        {
+          "dex": "aerodrome",
+          "pool_address": "0xBE00fF35AF70E8415D0eB605a286D8A45466A4c1",
+          "base_token": {
+            "symbol": "AERO",
+            "address": "0x940181a94A35A4569E4529A3CDfB74e38FD98631"
+          },
+          "quote_token": {
+            "symbol": "USDC",
+            "address": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913"
+          },
+          "price_quote_per_base": 0.843,
+          "price_usd": 0.843,
+          "liquidity": {
+            "reported_usd": 1578898.84,
+            "base_token_units": 1205673,
+            "quote_token_units": 562434
+          },
+          "volume_24h_usd": 395958.03,
+          "transactions_24h": {
+            "buys": 52,
+            "sells": 219
+          }
+        }
+      ],
+      "unit": "USD for reported liquidity and 24h volume; base and quote token units as returned; prices in quote-token units per AERO except price_usd",
+      "observed_at_utc": null,
+      "retrieved_at_utc": "2026-10-18T06:08:52Z",
+      "methodology": "Sorted the 30 returned records by their provider-reported liquidity.usd field descending. Reported liquidity is a pool valuation/reserve-style metric and is not used as executable depth. The provider gives no observation timestamp for liquidity or volume; pairCreatedAt, where present, is pool creation time and not a metric timestamp.",
+      "coverage": "Five highest-liquidity rows among the 30 returned records only. DEX Screener labels some Uniswap rows with v3/v4, but no such version label was present for these Aerodrome rows; no pool-type inference is made. AERO/USDC, AERO/WETH, and AERO/cbBTC identify pool base/quote orientation. Volume may reflect routed, arbitrage, wash, or manipulated activity.",
+      "evidence_artifacts": [
+        {
+          "artifact": "dexscreener-token-pairs.json",
+          "sha256": "f40388299e0bcdd345d89f7633b15ed0c0739500a4232f26c8323a6fb0d34129",
+          "source_url": "https://api.dexscreener.com/token-pairs/v1/base/0x940181a94A35A4569E4529A3CDfB74e38FD98631"
+        }
+      ]
+    }
+  ],
+  "conflicts": [],
+  "coverage_gaps": [
+    {
+      "id": "G-depth",
+      "description": "No quoted execution depth, trade-size-specific quote, spread, or slippage measurement is present. No trade-size assumption can be evaluated, and fees and price impact remain unquantified."
+    },
+    {
+      "id": "G-freshness",
+      "description": "The retained DEX Screener token-pairs response has retrieval time 2026-10-18T06:08:52Z but no observation timestamp for its liquidity or turnover fields; their freshness cannot be established."
+    },
+    {
+      "id": "G-enumeration",
+      "description": "The response contains 30 pair records but does not prove exhaustive pool discovery or coverage of every Base DEX."
+    },
+    {
+      "id": "G-dexpaprika",
+      "description": "The local DexPaprika adapter is present and its exact pool snapshot route is documented separately, but its current keyless call gate is UNAVAILABLE_KEYLESS_QUOTA_EXHAUSTED. The effective capability snapshot records native DexPaprika MCP tools as exposed by the project allowlist with connection grant and entitlement unverified; the MCP billing path is separate and is not used as a substitute. No AERO-specific DexPaprika response is retained here."
+    },
+    {
+      "id": "G-cryptocom",
+      "description": "Crypto.com MCP exposes instrument, ticker, book, trade, candle, index-price and mark-price operations in the active tool inventory; no AERO exchange instrument was established or queried. DEX pool addresses are not Crypto.com instrument identifiers, so no venue comparison is made."
+    }
+  ],
+  "tool_calls": [
+    {
+      "tool": "dexscreener_public.py token-pairs",
+      "source": "DEX Screener local REST adapter",
+      "outcome": "SUCCESS",
+      "call_count": 1,
+      "retrieved_at_utc": "2026-10-18T06:08:52Z",
+      "reason": "Retained response only; invocation recorded as python .agents/skills/crypto-mcp-research/scripts/dexscreener_public.py token-pairs --chain base --token 0x940181a94A35A4569E4529A3CDfB74e38FD98631. The adapter is present in the checked-out tree, is not an MCP tool, requires no credential per its local capability record, and current network permission is not established."
+    },
+    {
+      "tool": "dexpaprika_public.py pool-snapshot",
+      "source": "DexPaprika local REST adapter",
+      "outcome": "NOT_CALLED",
+      "call_count": 0,
+      "reason": "No retained AERO pool snapshot was found. The route contract records the keyless runtime gate as UNAVAILABLE_KEYLESS_QUOTA_EXHAUSTED; no re-query was made."
+    },
+    {
+      "tool": "mcp__dexpaprika__getTokenPools; mcp__dexpaprika__getPoolDetails",
+      "source": "DexPaprika native MCP tool inventory",
+      "outcome": "NOT_CALLED",
+      "call_count": 0,
+      "reason": "These read-only MCP tools are visible in the active inventory, but their AERO route evidence and connection grant/entitlement are unverified. The separate MCP billing path was not used to bypass the local adapter's access gate."
+    },
+    {
+      "tool": "mcp__cryptocom_market__get_instruments; mcp__cryptocom_market__get_instrument; mcp__cryptocom_market__get_book; mcp__cryptocom_market__get_ticker",
+      "source": "Crypto.com Market Data native MCP tool inventory",
+      "outcome": "NOT_CALLED",
+      "call_count": 0,
+      "reason": "These read-only tools are visible, but no exact AERO exchange instrument was established. No CEX comparison or order-book claim is made."
+    }
+  ]
+}
