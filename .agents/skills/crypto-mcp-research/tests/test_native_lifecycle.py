@@ -1,4 +1,5 @@
 import copy
+import hashlib
 import importlib.util
 import json
 from pathlib import Path
@@ -83,6 +84,118 @@ class TestNativeLifecycle(unittest.TestCase):
         self.assertEqual(receipt["logical_sha256"], module.sha256(module.canonical_json_bytes(handoff())))
         self.assertEqual(receipt["stored_bytes_sha256"], module.sha256(output.read_bytes()))
         self.assertNotEqual(receipt["logical_sha256"], receipt["stored_bytes_sha256"])
+
+    def local_response_handoff(self):
+        doc = handoff()
+        response = {"provider": "dexscreener", "endpoint": "GET /token-pairs/v1/{chainId}/{tokenAddress}",
+                    "source_url": "https://api.dexscreener.com/token-pairs/v1/base/0x1111111111111111111111111111111111111111",
+                    "retrieved_at_utc": "2026-10-18T05:00:00Z", "data": {"pairs": []}}
+        raw = json.dumps(response, separators=(",", ":")).encode("utf-8")
+        artifact = self.root / "provider-response.json"
+        artifact.write_bytes(raw)
+        doc["observations"] = [{
+            "id": "local-pairs", "source": "DEX Screener local REST adapter",
+            "tool": "LOCAL REST: python .agents/skills/crypto-mcp-research/scripts/dexscreener_public.py token-pairs --chain base --token 0x1111111111111111111111111111111111111111",
+            "asset_id": "base:0x1111111111111111111111111111111111111111",
+            "metric": "token pairs", "value": {"pair_count": 0}, "unit": "pairs",
+            "observed_at_utc": "2026-10-18T05:00:00Z", "retrieved_at_utc": "2026-10-18T05:00:00Z",
+            "evidence_artifacts": [{"artifact": artifact.name,
+                                    "sha256": hashlib.sha256(raw).hexdigest(),
+                                    "source_url": response["source_url"]}],
+        }]
+        return doc, artifact
+
+    def test_local_rest_observation_requires_a_retained_response_reference(self):
+        doc, _ = self.local_response_handoff()
+        doc["observations"][0].pop("evidence_artifacts")
+        self.write_json(self.handoff_path, doc)
+        with self.assertRaisesRegex(ValueError, "lacks a retained raw response reference"):
+            self.gate()
+        self.assertFalse(self.permit_path.exists())
+
+    def test_case_variant_local_rest_label_cannot_skip_response_reference(self):
+        doc, _ = self.local_response_handoff()
+        observation = doc["observations"][0]
+        observation["tool"] = observation["tool"].replace("LOCAL REST:", "local rest:")
+        observation["source"] = "DEX Screener"
+        observation.pop("evidence_artifacts")
+        self.write_json(self.handoff_path, doc)
+        with self.assertRaisesRegex(ValueError, "lacks a retained raw response reference"):
+            self.gate()
+        self.assertFalse(self.permit_path.exists())
+
+    def test_compact_provider_alias_with_generic_tool_cannot_skip_response_reference(self):
+        doc, _ = self.local_response_handoff()
+        observation = doc["observations"][0]
+        observation["tool"] = "token-pairs"
+        observation["source"] = "DexScreener"
+        observation.pop("evidence_artifacts")
+        self.write_json(self.handoff_path, doc)
+        with self.assertRaisesRegex(ValueError, "lacks a retained raw response reference"):
+            self.gate()
+        self.assertFalse(self.permit_path.exists())
+
+    def test_local_rest_response_reference_is_hash_and_metadata_bound_into_permit(self):
+        doc, artifact = self.local_response_handoff()
+        self.write_json(self.handoff_path, doc)
+        permit = self.gate()
+        receipt = permit["handoff_artifacts"][0]["evidence_artifacts"][0]
+        self.assertEqual(receipt["observation_id"], "local-pairs")
+        self.assertEqual(receipt["sha256"], hashlib.sha256(artifact.read_bytes()).hexdigest())
+        self.assertEqual(receipt["reported_value_derivation"], "NOT_AUTOMATICALLY_VERIFIED")
+        artifact.write_text('{"changed":true}', encoding="utf-8")
+        with self.assertRaisesRegex(ValueError, "raw evidence changed after reviewer dispatch"):
+            module._verify_permitted_evidence_artifacts(permit["handoff_artifacts"])
+
+    def test_local_rest_evidence_rejects_retrieval_mismatch_and_path_escape(self):
+        doc, _ = self.local_response_handoff()
+        doc["observations"][0]["retrieved_at_utc"] = "2026-10-18T05:01:00Z"
+        self.write_json(self.handoff_path, doc)
+        with self.assertRaisesRegex(ValueError, "retrieval time differs"):
+            self.gate()
+        self.permit_path.unlink(missing_ok=True)
+        doc["observations"][0]["retrieved_at_utc"] = "2026-10-18T05:00:00Z"
+        doc["observations"][0]["evidence_artifacts"][0]["artifact"] = "../provider-response.json"
+        self.write_json(self.handoff_path, doc)
+        with self.assertRaisesRegex(ValueError, "must be run-relative and contained"):
+            self.gate()
+
+    def test_changed_response_and_updated_permit_do_not_match_dispatcher_review_binding(self):
+        doc, artifact = self.local_response_handoff()
+        self.write_json(self.handoff_path, doc)
+        permit = self.gate()
+        old_permit_digest = permit["permit_payload_sha256"]
+        reviewer_paths, review_entries = [], []
+        for role in ("adversarial_reviewer", "evidence_verifier"):
+            reviewer = handoff(role, "COMPLETE")
+            reviewer["claims"] = copy.deepcopy(self.snapshot["claims"])
+            reviewer["review"] = {
+                "synthesis_revision": permit["synthesis_revision"],
+                "synthesis_sha256": permit["synthesis_sha256"],
+                "dispatch_permit_sha256": old_permit_digest,
+                "claim_ids": ["C1"],
+            }
+            path = self.root / f"{role}.json"
+            self.write_json(path, reviewer)
+            reviewer_paths.append(path)
+            review_entries.append({"agent_id": role, "handoff": path.name,
+                                   "synthesis_revision": permit["synthesis_revision"],
+                                   "synthesis_sha256": permit["synthesis_sha256"],
+                                   "dispatch_permit_sha256": old_permit_digest})
+        contract = self.contract()
+        contract["reviews"] = review_entries
+        self.write_json(self.contract_path, contract)
+
+        response = json.loads(artifact.read_text(encoding="utf-8"))
+        response["data"] = {"pairs": [{"pairAddress": "changed after dispatch"}]}
+        self.write_json(artifact, response)
+        new_bytes = artifact.read_bytes()
+        permit["handoff_artifacts"][0]["evidence_artifacts"][0]["sha256"] = hashlib.sha256(new_bytes).hexdigest()
+        permit = module._seal_permit({key: value for key, value in permit.items()
+                                      if key != "permit_payload_sha256"})
+        self.write_json(self.permit_path, permit)
+        with self.assertRaisesRegex(ValueError, "reviewer dispatch permit digest mismatch"):
+            module.validate_review_handoffs(self.permit_path, self.contract_path, reviewer_paths)
 
     def test_failed_write_does_not_overwrite_existing_artifact(self):
         self.handoff_path.write_text("keep this probe record", encoding="utf-8")
@@ -225,7 +338,7 @@ class TestNativeLifecycle(unittest.TestCase):
         permit["claim_ids"] = ["FORGED"]
         self.write_json(self.permit_path, permit)
         calls = []
-        with self.assertRaisesRegex(ValueError, "fabricated or stale"):
+        with self.assertRaisesRegex(ValueError, "permit payload digest"):
             module.dispatch_reviewers_after_gate(self.contract_path, self.snapshot_path,
                 self.execution_path, [self.handoff_path], self.permit_path,
                 lambda value: calls.append(value))
@@ -278,12 +391,14 @@ class TestNativeLifecycle(unittest.TestCase):
             doc = handoff(role, "COMPLETE")
             doc["claims"] = copy.deepcopy(self.snapshot["claims"])
             doc["review"] = {"synthesis_revision": permit["synthesis_revision"],
-                             "synthesis_sha256": permit["synthesis_sha256"], "claim_ids": ["C1"]}
+                             "synthesis_sha256": permit["synthesis_sha256"],
+                             "dispatch_permit_sha256": permit["permit_payload_sha256"], "claim_ids": ["C1"]}
             self.write_json(path, doc)
             reviewer_paths.append(path)
             review_entries.append({"agent_id": role, "handoff": path.name,
                                    "synthesis_revision": permit["synthesis_revision"],
-                                   "synthesis_sha256": permit["synthesis_sha256"]})
+                                   "synthesis_sha256": permit["synthesis_sha256"],
+                                   "dispatch_permit_sha256": permit["permit_payload_sha256"]})
         contract = self.contract()
         contract["reviews"] = review_entries
         self.write_json(self.contract_path, contract)
@@ -307,6 +422,8 @@ class TestNativeLifecycle(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "reviewer handoff root"):
             module.validate_review_handoffs(self.permit_path, self.contract_path, [path])
         permit["handoff_artifacts"] = [None]
+        permit = module._seal_permit({key: value for key, value in permit.items()
+                                      if key != "permit_payload_sha256"})
         self.write_json(self.permit_path, permit)
         with self.assertRaisesRegex(ValueError, "bindings are malformed"):
             module.validate_review_handoffs(self.permit_path, self.contract_path, [path])
@@ -317,13 +434,15 @@ class TestNativeLifecycle(unittest.TestCase):
         for role in ("adversarial_reviewer", "evidence_verifier"):
             doc = handoff(role, "COMPLETE")
             doc["review"] = {"synthesis_revision": permit["synthesis_revision"],
-                             "synthesis_sha256": permit["synthesis_sha256"], "claim_ids": ["C1"]}
+                             "synthesis_sha256": permit["synthesis_sha256"],
+                             "dispatch_permit_sha256": permit["permit_payload_sha256"], "claim_ids": ["C1"]}
             path = self.root / f"{role}.json"
             self.write_json(path, doc)
             paths.append(path)
             reviews.append({"agent_id": role, "handoff": path.name,
                             "synthesis_revision": permit["synthesis_revision"],
-                            "synthesis_sha256": permit["synthesis_sha256"]})
+                            "synthesis_sha256": permit["synthesis_sha256"],
+                            "dispatch_permit_sha256": permit["permit_payload_sha256"]})
         doc = json.loads(paths[0].read_text(encoding="utf-8")); doc["review"] = []
         self.write_json(paths[0], doc)
         contract = self.contract(); contract["reviews"] = reviews
@@ -337,13 +456,15 @@ class TestNativeLifecycle(unittest.TestCase):
         for role in ("adversarial_reviewer", "evidence_verifier"):
             doc = handoff(role, "COMPLETE")
             doc["review"] = {"synthesis_revision": permit["synthesis_revision"],
-                             "synthesis_sha256": permit["synthesis_sha256"], "claim_ids": ["C1"]}
+                             "synthesis_sha256": permit["synthesis_sha256"],
+                             "dispatch_permit_sha256": permit["permit_payload_sha256"], "claim_ids": ["C1"]}
             path = self.root / f"{role}.json"
             self.write_json(path, doc)
             paths.append(path)
             reviews.append({"agent_id": role, "handoff": path.name,
                             "synthesis_revision": permit["synthesis_revision"],
-                            "synthesis_sha256": permit["synthesis_sha256"]})
+                            "synthesis_sha256": permit["synthesis_sha256"],
+                            "dispatch_permit_sha256": permit["permit_payload_sha256"]})
         reviews[0]["handoff"] = None
         contract = self.contract(); contract["reviews"] = reviews
         self.write_json(self.contract_path, contract)

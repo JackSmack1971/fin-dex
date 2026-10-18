@@ -12,6 +12,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import re
 import subprocess
 import sys
 from typing import Callable
@@ -32,6 +33,21 @@ def sha256(data):
     return hashlib.sha256(data).hexdigest()
 
 
+def _seal_permit(permit):
+    payload = {key: value for key, value in permit.items() if key != "permit_payload_sha256"}
+    permit["permit_payload_sha256"] = sha256(canonical_json_bytes(payload))
+    return permit
+
+
+def _verify_permit_seal(permit):
+    declared = permit.get("permit_payload_sha256")
+    payload = {key: value for key, value in permit.items() if key != "permit_payload_sha256"}
+    computed = sha256(canonical_json_bytes(payload))
+    if not isinstance(declared, str) or declared != computed:
+        raise ValueError("review permit payload digest is missing or mismatched")
+    return computed
+
+
 def _load_json(path):
     raw = Path(path).read_bytes()
     if not raw:
@@ -49,6 +65,97 @@ def _run_validator(script, args):
                             text=True, encoding="utf-8", errors="replace")
     return {"command": command, "exit_code": result.returncode,
             "stdout": result.stdout, "stderr": result.stderr}
+
+
+def _validate_handoff_evidence_artifacts(document, handoff_path):
+    """Bind local REST observations to retained response bytes and request metadata."""
+    receipts = []
+    base = Path(handoff_path).resolve().parent
+    for observation in document.get("observations", []):
+        tool = observation.get("tool", "")
+        source = observation.get("source", "")
+        tool_lower, source_lower = tool.casefold(), source.casefold()
+        source_compact = re.sub(r"[^a-z0-9]", "", source_lower)
+        adapter_scripts = ("dexscreener_public.py", "dexpaprika_public.py", "defillama_public.py")
+        known_provider_names = ("dexscreener", "dexpaprika", "defillama")
+        is_local_rest = (
+            ("local" in tool_lower and "rest" in tool_lower) or
+            "local rest adapter" in source_lower or
+            any(name in tool_lower for name in adapter_scripts) or
+            any(host in tool_lower for host in ("api.dexscreener.com", "api.llama.fi", "api.dexpaprika.com")) or
+            any(name in source_compact for name in known_provider_names) and "mcp" not in source_lower
+        )
+        references = observation.get("evidence_artifacts", [])
+        if is_local_rest and not references:
+            raise ValueError(f"local REST observation lacks a retained raw response reference: {observation.get('id')}")
+        seen = set()
+        for reference in references:
+            relative = Path(reference["artifact"])
+            if relative.is_absolute() or ".." in relative.parts:
+                raise ValueError(f"evidence artifact path must be run-relative and contained: {reference['artifact']}")
+            target = (base / relative).resolve()
+            if not target.is_relative_to(base):
+                raise ValueError(f"evidence artifact escapes the handoff run directory: {reference['artifact']}")
+            if target in seen:
+                raise ValueError(f"duplicate evidence artifact reference: {reference['artifact']}")
+            seen.add(target)
+            try:
+                raw = target.read_bytes()
+                response = json.loads(raw.decode("utf-8"))
+            except (OSError, UnicodeError, json.JSONDecodeError) as exc:
+                raise ValueError(f"evidence artifact is missing or invalid: {reference['artifact']}: {exc}") from exc
+            digest = sha256(raw)
+            if digest != reference["sha256"]:
+                raise ValueError(f"evidence artifact digest mismatch: {reference['artifact']}")
+            if not isinstance(response, dict) or "data" not in response:
+                raise ValueError(f"evidence artifact is not a retained provider response: {reference['artifact']}")
+            if response.get("source_url") != reference["source_url"]:
+                raise ValueError(f"evidence artifact source URL mismatch: {reference['artifact']}")
+            if response.get("retrieved_at_utc") != observation.get("retrieved_at_utc"):
+                raise ValueError(f"evidence artifact retrieval time differs from observation: {observation.get('id')}")
+            expected_provider = next((provider for script, provider in (
+                ("dexscreener_public.py", "dexscreener"),
+                ("dexpaprika_public.py", "dexpaprika"),
+                ("defillama_public.py", "defillama")) if script in tool_lower), None)
+            if expected_provider is None:
+                expected_provider = next((provider for marker, provider in (
+                    ("dexscreener", "dexscreener"), ("dexpaprika", "dexpaprika"),
+                    ("defillama", "defillama")) if marker in source_compact), None)
+            if expected_provider is None:
+                raise ValueError(f"cannot identify local REST provider from observation: {observation.get('id')}")
+            if response.get("provider") != expected_provider:
+                raise ValueError(f"evidence artifact provider differs from invocation: {reference['artifact']}")
+            receipts.append({
+                "observation_id": observation.get("id"),
+                "path": str(target),
+                "sha256": digest,
+                "provider": response.get("provider"),
+                "endpoint": response.get("endpoint"),
+                "source_url": response.get("source_url"),
+                "retrieved_at_utc": response.get("retrieved_at_utc"),
+                "response_data_present": True,
+                "reported_value_derivation": "NOT_AUTOMATICALLY_VERIFIED",
+            })
+    return receipts
+
+
+def _verify_permitted_evidence_artifacts(handoff_artifacts):
+    """Reject a reviewer result if any pre-review raw evidence bytes have changed."""
+    for handoff in handoff_artifacts:
+        for reference in handoff.get("evidence_artifacts", []):
+            try:
+                raw = Path(reference["path"]).read_bytes()
+                response = json.loads(raw.decode("utf-8"))
+            except (OSError, UnicodeError, json.JSONDecodeError) as exc:
+                raise ValueError(f"permitted raw evidence is unavailable: {reference.get('path')}: {exc}") from exc
+            if sha256(raw) != reference.get("sha256"):
+                raise ValueError(f"permitted raw evidence changed after reviewer dispatch: {reference.get('path')}")
+            if (not isinstance(response, dict) or response.get("provider") != reference.get("provider") or
+                    response.get("endpoint") != reference.get("endpoint") or
+                    response.get("source_url") != reference.get("source_url") or
+                    response.get("retrieved_at_utc") != reference.get("retrieved_at_utc") or
+                    "data" not in response):
+                raise ValueError(f"permitted raw evidence metadata changed: {reference.get('path')}")
 
 
 def _exclusive_write(path, data):
@@ -166,12 +273,13 @@ def _build_review_permit(contract_path, snapshot_path, execution_path, handoff_p
         artifact_result = _run_validator(ARTIFACT_VALIDATOR, [path])
         if artifact_result["exit_code"] != 0:
             raise ValueError(f"saved handoff validation failed for {path}: {artifact_result['stdout']}")
+        evidence_artifacts = _validate_handoff_evidence_artifacts(doc, path)
         loaded.append(doc)
         artifact_receipts.append({
             "path": str(path.resolve()), "agent_id": doc["agent_id"],
             "logical_sha256": sha256(canonical_json_bytes(doc)),
             "stored_bytes_sha256": sha256(raw), "byte_count": len(raw),
-            "validator": artifact_result,
+            "validator": artifact_result, "evidence_artifacts": evidence_artifacts,
         })
     if seen != set(expected):
         raise ValueError("persisted handoffs do not exactly match selected specialists")
@@ -215,7 +323,7 @@ def _build_review_permit(contract_path, snapshot_path, execution_path, handoff_p
 def prepare_review_dispatch(contract_path, snapshot_path, execution_path,
                             handoff_paths, permit_path):
     """Run checks and persist a permit without replacing an existing record."""
-    permit = _build_review_permit(contract_path, snapshot_path, execution_path, handoff_paths)
+    permit = _seal_permit(_build_review_permit(contract_path, snapshot_path, execution_path, handoff_paths))
     permit_bytes = (json.dumps(permit, ensure_ascii=False, indent=2, allow_nan=False) + "\n").encode("utf-8")
     _exclusive_write(permit_path, permit_bytes)
     return permit
@@ -230,7 +338,8 @@ def authorize_review_dispatch(contract_path, snapshot_path, execution_path,
         raise ValueError(f"reviewer dispatch permit is unavailable: {exc}") from exc
     if not isinstance(permit, dict):
         raise ValueError("reviewer dispatch permit root must be a JSON object")
-    expected = _build_review_permit(contract_path, snapshot_path, execution_path, handoff_paths)
+    _verify_permit_seal(permit)
+    expected = _seal_permit(_build_review_permit(contract_path, snapshot_path, execution_path, handoff_paths))
     if permit != expected:
         raise ValueError("reviewer dispatch permit is fabricated or stale; rerun pre-review gate")
     return permit
@@ -252,6 +361,7 @@ def validate_review_handoffs(permit_path, contract_path, reviewer_paths):
         raise ValueError("review permit and synthesis contract must be JSON objects")
     if permit.get("state") != "REVIEW_DISPATCH_ALLOWED":
         raise ValueError("reviewer dispatch permit is absent or invalid")
+    permit_digest = _verify_permit_seal(permit)
     revision = contract.get("revision")
     if not isinstance(contract, dict) or not isinstance(revision, dict):
         raise ValueError("review synthesis contract is invalid")
@@ -264,6 +374,7 @@ def validate_review_handoffs(permit_path, contract_path, reviewer_paths):
             any(not isinstance(x, dict) or not isinstance(x.get("path"), str) or not x["path"]
                 for x in handoff_artifacts)):
         raise ValueError("review permit specialist handoff bindings are malformed")
+    _verify_permitted_evidence_artifacts(handoff_artifacts)
     expected_roles = {"adversarial_reviewer", "evidence_verifier"}
     docs, receipts, seen = [], [], set()
     specialist_paths = [Path(x["path"]) for x in handoff_artifacts]
@@ -282,6 +393,8 @@ def validate_review_handoffs(permit_path, contract_path, reviewer_paths):
             raise ValueError(f"reviewer revision mismatch: {role}")
         if binding.get("synthesis_sha256") != permit.get("synthesis_sha256"):
             raise ValueError(f"reviewer digest mismatch: {role}")
+        if binding.get("dispatch_permit_sha256") != permit_digest:
+            raise ValueError(f"reviewer dispatch permit digest mismatch: {role}")
         if binding.get("claim_ids") != permit.get("claim_ids"):
             raise ValueError(f"reviewer claim IDs differ from permit: {role}")
         artifact_result = _run_validator(ARTIFACT_VALIDATOR, [path])
@@ -301,7 +414,8 @@ def validate_review_handoffs(permit_path, contract_path, reviewer_paths):
         if not isinstance(review, dict):
             raise ValueError("invalid final reviewer binding entry")
         if (review.get("synthesis_revision") != permit["synthesis_revision"] or
-                review.get("synthesis_sha256") != permit["synthesis_sha256"]):
+                review.get("synthesis_sha256") != permit["synthesis_sha256"] or
+                review.get("dispatch_permit_sha256") != permit_digest):
             raise ValueError(f"final synthesis reviewer entry is unbound: {review.get('agent_id')}")
         if not isinstance(review.get("handoff"), str) or not review["handoff"]:
             raise ValueError(f"final synthesis reviewer handoff path is invalid: {review.get('agent_id')}")
