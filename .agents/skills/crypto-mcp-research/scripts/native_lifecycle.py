@@ -175,13 +175,34 @@ def _exclusive_write(path, data):
     return path
 
 
-def persist_handoff(document, output_path):
+def persist_handoff(document, output_path, known_artifacts=()):
     """Persist one native return and verify its saved bytes and schema."""
     if not isinstance(document, dict):
         raise ValueError("handoff must be a JSON object")
     logical = canonical_json_bytes(document)
-    stored = (json.dumps(document, ensure_ascii=False, indent=2, allow_nan=False) + "\n").encode("utf-8")
-    target = _exclusive_write(output_path, stored)
+    if document.get("schema_version") == 2:
+        stored = logical
+        target = Path(output_path)
+        for known in known_artifacts:
+            if not isinstance(known, dict):
+                raise ValueError("known artifact history entries must be objects")
+            if known.get("artifact_id") == document.get("artifact_id"):
+                known_path = known.get("path")
+                if not isinstance(known_path, str) or Path(known_path).resolve() != target.resolve():
+                    raise ValueError("artifact_id already used at another path; recovery requires a new artifact ID")
+        if target.exists():
+            actual = target.read_bytes()
+            existing, _ = _load_json(target)
+            if actual != stored or existing != document:
+                raise ValueError("occupied artifact path contains different or malformed content; recovery requires a new path and artifact ID")
+            if existing.get("artifact_id") != document.get("artifact_id") or existing.get("lifecycle_id") != document.get("lifecycle_id"):
+                raise ValueError("occupied artifact path has different artifact or lifecycle binding")
+        else:
+            target = _exclusive_write(target, stored)
+    else:
+        # Historical v1 bytes and persistence semantics remain unchanged.
+        stored = (json.dumps(document, ensure_ascii=False, indent=2, allow_nan=False) + "\n").encode("utf-8")
+        target = _exclusive_write(output_path, stored)
     reread, actual = _load_json(target)
     if reread != document:
         raise ValueError("persisted handoff content differs from returned JSON")
@@ -197,6 +218,95 @@ def persist_handoff(document, output_path):
         "byte_count": len(actual),
         "validator": result,
     }
+
+
+def validate_lifecycle_v2(lifecycle, artifact_paths, retained_history=()):
+    """Validate exact v2 artifact correlation for one closed lifecycle.
+
+    Correlation IDs and SHA-256 digests detect mismatch/replay in the supplied
+    collection; they do not authenticate evidence or authorize execution.
+    """
+    errors = []
+    if not isinstance(lifecycle, dict) or lifecycle.get("schema_version") != 2:
+        return ["lifecycle must use schema_version 2"]
+    lifecycle_id = lifecycle.get("lifecycle_id")
+    task_id = lifecycle.get("task_id")
+    if not isinstance(lifecycle_id, str) or not lifecycle_id.strip(): errors.append("invalid lifecycle_id")
+    if not isinstance(task_id, str) or not task_id.strip(): errors.append("invalid task_id")
+    expected = lifecycle.get("expected_artifacts")
+    if not isinstance(expected, list) or not expected: return errors + ["expected_artifacts must be nonempty"]
+    paths = [Path(p) for p in artifact_paths]
+    docs, seen_ids, seen_paths = {}, {}, set()
+    history_ids = set()
+    for entry in retained_history:
+        if isinstance(entry, dict) and isinstance(entry.get("artifact_id"), str):
+            history_ids.add(entry["artifact_id"])
+    for path in paths:
+        resolved = path.resolve()
+        if resolved in seen_paths: errors.append(f"duplicate artifact path: {path}"); continue
+        seen_paths.add(resolved)
+        try:
+            raw = path.read_bytes(); doc = json.loads(raw.decode("utf-8"))
+        except (OSError, UnicodeError, json.JSONDecodeError) as exc:
+            errors.append(f"invalid artifact {path}: {exc}"); continue
+        if not isinstance(doc, dict) or doc.get("schema_version") != 2:
+            errors.append(f"artifact must use v2: {path}"); continue
+        ident = doc.get("artifact_id")
+        if not isinstance(ident, str) or not ident.strip(): errors.append(f"missing artifact_id: {path}"); continue
+        if ident in seen_ids: errors.append(f"duplicate artifact_id across paths: {ident}")
+        if ident in history_ids: errors.append(f"artifact_id replay from retained history: {ident}")
+        seen_ids[ident] = str(resolved); docs[ident] = (doc, raw, resolved)
+        if doc.get("lifecycle_id") != lifecycle_id: errors.append(f"lifecycle_id mismatch: {path}")
+        if doc.get("task_id") != task_id: errors.append(f"task_id mismatch: {path}")
+        try:
+            canonical = canonical_json_bytes(doc)
+            if raw != canonical: errors.append(f"v2 artifact is not canonical UTF-8 JSON: {path}")
+        except (TypeError, ValueError) as exc:
+            errors.append(f"v2 artifact is not finite canonical JSON: {path}: {exc}")
+        if isinstance(doc.get("agent_id"), str):
+            result = _run_validator(ARTIFACT_VALIDATOR, [path])
+            if result["exit_code"] != 0: errors.append(f"invalid v2 handoff {path}: {result['stdout'].strip()}")
+        if "claims" in doc and "as_of_utc" in doc:
+            result = _run_validator(SCRIPT_DIR / "validate_evidence.py", [path])
+            if result["exit_code"] != 0: errors.append(f"invalid v2 evidence ledger {path}: {result['stdout'].strip()}")
+    expected_ids = set()
+    for i, ref in enumerate(expected):
+        if not isinstance(ref, dict): errors.append(f"expected_artifacts[{i}] must be object"); continue
+        ident, role, status = ref.get("artifact_id"), ref.get("role"), ref.get("status")
+        if not isinstance(ident, str) or not ident: errors.append(f"expected_artifacts[{i}].artifact_id required"); continue
+        if ident in expected_ids: errors.append(f"duplicate expected artifact_id: {ident}")
+        expected_ids.add(ident)
+        record = docs.get(ident)
+        if record is None: errors.append(f"missing expected artifact receipt: {ident}"); continue
+        doc = record[0]
+        if role is not None and doc.get("agent_id", doc.get("role")) != role: errors.append(f"role mismatch: {ident}")
+        if status is not None and doc.get("status", doc.get("execution_status")) != status: errors.append(f"terminal status mismatch: {ident}")
+        kind = ref.get("kind")
+        if kind is not None and doc.get("artifact_type") != kind: errors.append(f"artifact kind mismatch: {ident}")
+    if set(docs) != expected_ids: errors.append("unexpected artifact receipts in lifecycle collection")
+    snapshot_id = lifecycle.get("snapshot_artifact_id")
+    snapshot_digest = lifecycle.get("snapshot_sha256")
+    if not isinstance(snapshot_id, str) or not snapshot_id: errors.append("snapshot_artifact_id required")
+    if not isinstance(snapshot_digest, str) or not re.fullmatch(r"[a-f0-9]{64}", snapshot_digest): errors.append("snapshot_sha256 must be lowercase SHA-256")
+    elif snapshot_id in docs:
+        snapshot_doc, snapshot_raw, _ = docs[snapshot_id]
+        if sha256(snapshot_raw) != snapshot_digest and sha256(canonical_json_bytes(snapshot_doc)) != snapshot_digest:
+            errors.append("frozen snapshot digest mismatch")
+    eligibility_id = lifecycle.get("eligibility_artifact_id")
+    if not isinstance(eligibility_id, str) or not eligibility_id: errors.append("eligibility_artifact_id required")
+    if eligibility_id in docs:
+        eligibility = docs[eligibility_id][0]
+        if eligibility.get("result") == "REVIEW_ELIGIBLE":
+            if eligibility.get("lifecycle_id") != lifecycle_id: errors.append("eligibility lifecycle binding mismatch")
+            if eligibility.get("snapshot_sha256") != snapshot_digest: errors.append("eligibility snapshot binding mismatch")
+            if eligibility.get("schema_version") != 2: errors.append("v1 artifact cannot establish new REVIEW_ELIGIBLE result")
+    for ident, (doc, _, _) in docs.items():
+        if doc.get("agent_id") in {"adversarial_reviewer", "evidence_verifier"}:
+            binding = doc.get("review")
+            if not isinstance(binding, dict): errors.append(f"reviewer binding missing: {ident}")
+            elif binding.get("synthesis_sha256") != snapshot_digest:
+                errors.append(f"reviewer frozen snapshot digest mismatch: {ident}")
+    return errors
 
 
 def _build_review_permit(contract_path, snapshot_path, execution_path, handoff_paths):
@@ -450,6 +560,10 @@ def main():
     review.add_argument("--contract", required=True, type=Path)
     review.add_argument("--permit", required=True, type=Path)
     review.add_argument("--handoff", action="append", required=True, type=Path)
+    v2 = sub.add_parser("validate-lifecycle-v2")
+    v2.add_argument("--lifecycle", required=True, type=Path)
+    v2.add_argument("--artifact", action="append", required=True, type=Path)
+    v2.add_argument("--history", type=Path, help="optional retained artifact registry JSON array")
     args = ap.parse_args()
     try:
         if args.command == "persist-handoff":
@@ -464,6 +578,14 @@ def main():
         elif args.command == "prepare-review":
             result = prepare_review_dispatch(args.contract, args.snapshot, args.execution,
                                              args.handoff, args.permit)
+        elif args.command == "validate-lifecycle-v2":
+            lifecycle, _ = _load_json(args.lifecycle)
+            history = _load_json(args.history)[0] if args.history else []
+            errors = validate_lifecycle_v2(lifecycle, args.artifact, history)
+            result = {"state": "BLOCKED" if errors else "LIFECYCLE_V2_VALIDATED", "errors": errors,
+                      "scope": "supplied lifecycle collection and retained history only"}
+            if errors:
+                print(json.dumps(result, ensure_ascii=False, indent=2)); return 2
         else:
             result = validate_review_handoffs(args.permit, args.contract, args.handoff)
         print(json.dumps(result, ensure_ascii=False, indent=2))

@@ -29,9 +29,15 @@ def validate_handoff(doc):
     if not isinstance(doc, dict):
         return ["root must be object"]
     required = {"schema_version", "agent_id", "task_id", "status", "asset_scope", "claims", "observations", "conflicts", "coverage_gaps", "tool_calls"}
-    if set(doc) - required - {"review"}: errors.append("unknown top-level fields")
+    v2_fields = {"lifecycle_id", "artifact_id"} if doc.get("schema_version") == 2 else set()
+    if set(doc) - required - {"review"} - v2_fields: errors.append("unknown top-level fields")
     for key in required - set(doc): errors.append(f"missing {key}")
-    if doc.get("schema_version") != 1: errors.append("schema_version must be 1")
+    version = doc.get("schema_version")
+    if version not in {1, 2}: errors.append("schema_version must be 1 or 2")
+    if version == 2:
+        for key in ("lifecycle_id", "artifact_id"):
+            if not isinstance(doc.get(key), str) or not ID.fullmatch(doc.get(key, "")):
+                errors.append(f"invalid {key}")
     if doc.get("agent_id") not in AGENTS: errors.append("invalid agent_id")
     if doc.get("status") not in {"COMPLETE", "PARTIAL", "FAILED", "BLOCKED"}: errors.append("invalid handoff status")
     if not isinstance(doc.get("task_id"), str) or not ID.fullmatch(doc.get("task_id", "")): errors.append("invalid task_id")

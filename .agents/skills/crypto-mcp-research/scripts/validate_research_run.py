@@ -87,7 +87,11 @@ def validate(run_path, replay=False):
     required = {"schema_version", "run_id", "task_specification", "timestamps", "asset_identity", "research_horizon", "repository", "methodology_version", "configuration_references", "specialists", "lifecycle", "evidence_ledgers", "synthesis", "reviews", "verdict", "artifacts", "calculations"}
     missing = required - doc.keys()
     if missing: errors.append("manifest: missing fields " + ", ".join(sorted(missing)))
-    if doc.get("schema_version") != 1: errors.append("manifest: unsupported schema_version")
+    version = doc.get("schema_version")
+    if version not in {1, 2}: errors.append("manifest: unsupported schema_version")
+    if version == 2:
+        for key in ("lifecycle_id", "artifact_id"):
+            if not isinstance(doc.get(key), str) or not doc[key].strip(): errors.append(f"manifest: {key} required for v2")
     for key in ("run_id", "task_specification", "methodology_version"):
         if not isinstance(doc.get(key), str) or not doc[key].strip(): errors.append(f"manifest: {key} must be a nonempty string")
     asset = doc.get("asset_identity")
@@ -155,10 +159,35 @@ def validate(run_path, replay=False):
     if not isinstance(specialists, list): errors.append("specialists must be an array"); specialists = []
     if len(specialists) > 3: errors.append("specialist dispatch exceeds limit of three")
     lifecycle = doc.get("lifecycle", {})
-    if not isinstance(lifecycle, dict) or lifecycle.get("collection_state") not in {"OPEN", "CLOSED"} or not isinstance(lifecycle.get("reconciliation_completed"), bool):
+    if version == 2:
+        if not isinstance(lifecycle, dict) or lifecycle.get("schema_version") != 2:
+            errors.append("lifecycle: v2 lifecycle record required")
+        else:
+            if lifecycle.get("lifecycle_id") != doc.get("lifecycle_id"): errors.append("lifecycle_id mismatch")
+            if lifecycle.get("task_id") != doc.get("run_id"): errors.append("lifecycle task_id must match run_id")
+            if lifecycle.get("collection_state") not in {"OPEN", "CLOSED"} or not isinstance(lifecycle.get("reconciliation_completed"), bool):
+                errors.append("lifecycle: valid collection_state and reconciliation_completed required")
+    elif not isinstance(lifecycle, dict) or lifecycle.get("collection_state") not in {"OPEN", "CLOSED"} or not isinstance(lifecycle.get("reconciliation_completed"), bool):
         errors.append("lifecycle: valid collection_state and reconciliation_completed required")
     elif doc.get("reviews") and (lifecycle["collection_state"] != "CLOSED" or lifecycle["reconciliation_completed"] is not True):
         errors.append("reviews cannot bind before collection closure and completed reconciliation")
+    if version == 2 and isinstance(lifecycle, dict):
+        validate_v2 = _validator("native_lifecycle.py", "validate_lifecycle_v2")
+        try:
+            bound_paths = [root / item["path"] for item in doc.get("artifacts", [])
+                           if isinstance(item, dict) and isinstance(item.get("path"), str)
+                           and item.get("artifact_id")]
+            # Run records name the exact artifact IDs at each path; the lifecycle
+            # validator independently verifies canonical bytes and expected receipts.
+            for item in doc.get("artifacts", []):
+                if not isinstance(item, dict) or not item.get("artifact_id"): continue
+                artifact_doc = _load_json(root / item["path"])
+                if artifact_doc.get("artifact_id") != item["artifact_id"] or artifact_doc.get("lifecycle_id") != doc.get("lifecycle_id"):
+                    errors.append(f"artifact lifecycle binding mismatch: {item['path']}")
+            history = doc.get("retained_artifact_history", [])
+            errors.extend(f"lifecycle: {e}" for e in validate_v2(lifecycle, bound_paths, history))
+        except (OSError, UnicodeError, json.JSONDecodeError, KeyError, TypeError, ValueError) as exc:
+            errors.append(f"lifecycle v2 validation failed safely: {exc}")
     validate_handoff = _validator("validate_handoffs.py", "validate_handoff")
     for i, agent in enumerate(specialists):
         if not isinstance(agent, dict): errors.append(f"specialists[{i}]: expected object"); continue

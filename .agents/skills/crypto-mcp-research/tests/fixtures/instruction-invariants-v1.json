@@ -1,0 +1,151 @@
+{
+  "schema": "instruction-invariants-v1",
+  "invariants": [
+    {
+      "id": "REV-01",
+      "primary_owner": "AGENTS.md",
+      "references": []
+    },
+    {
+      "id": "REV-02",
+      "primary_owner": "AGENTS.md",
+      "references": [
+        ".agents/skills/crypto-mcp-research/references/agent-handoffs.md"
+      ]
+    },
+    {
+      "id": "REV-03",
+      "primary_owner": "AGENTS.md",
+      "references": []
+    },
+    {
+      "id": "REV-04",
+      "primary_owner": "AGENTS.md",
+      "references": []
+    },
+    {
+      "id": "REV-05",
+      "primary_owner": "AGENTS.md",
+      "references": []
+    },
+    {
+      "id": "REV-06",
+      "primary_owner": "AGENTS.md",
+      "references": []
+    },
+    {
+      "id": "EVID-01",
+      "primary_owner": ".agents/skills/crypto-mcp-research/references/evidence-contract.md",
+      "references": [
+        ".agents/skills/crypto-mcp-research/SKILL.md"
+      ]
+    },
+    {
+      "id": "EVID-02",
+      "primary_owner": ".agents/skills/crypto-mcp-research/references/evidence-contract.md",
+      "references": []
+    },
+    {
+      "id": "EVID-03",
+      "primary_owner": ".agents/skills/crypto-mcp-research/references/reconciliation.md",
+      "references": []
+    },
+    {
+      "id": "MCP-01",
+      "primary_owner": "AGENTS.md",
+      "references": [
+        ".agents/skills/crypto-mcp-research/references/provider-routing.md"
+      ]
+    },
+    {
+      "id": "AUTH-01",
+      "primary_owner": "AGENTS.md",
+      "references": []
+    },
+    {
+      "id": "AUTH-02",
+      "primary_owner": "AGENTS.md",
+      "references": []
+    },
+    {
+      "id": "LIFE-01",
+      "primary_owner": "AGENTS.md",
+      "references": [
+        ".agents/skills/crypto-mcp-research/references/agent-handoffs.md"
+      ]
+    },
+    {
+      "id": "EVAL-01",
+      "primary_owner": ".agents/skills/crypto-mcp-research/evaluation/README.md",
+      "references": [
+        ".agents/skills/crypto-mcp-research/references/evaluation-plan.md"
+      ]
+    },
+    {
+      "id": "CFG-01",
+      "primary_owner": "AGENTS.md",
+      "references": [
+        ".agents/skills/crypto-mcp-research/references/provider-routing.md"
+      ]
+    },
+    {
+      "id": "AGENT-01",
+      "primary_owner": ".codex/agents/adversarial_reviewer.toml",
+      "references": [
+        ".agents/skills/crypto-mcp-research/references/agent-handoffs.md"
+      ]
+    },
+    {
+      "id": "AGENT-02",
+      "primary_owner": ".codex/agents/evidence_verifier.toml",
+      "references": [
+        ".agents/skills/crypto-mcp-research/references/agent-handoffs.md"
+      ]
+    },
+    {
+      "id": "AGENT-03",
+      "primary_owner": ".codex/agents/market_analyst.toml",
+      "references": []
+    },
+    {
+      "id": "AGENT-04",
+      "primary_owner": ".codex/agents/liquidity_analyst.toml",
+      "references": []
+    },
+    {
+      "id": "AGENT-05",
+      "primary_owner": ".codex/agents/onchain_analyst.toml",
+      "references": []
+    },
+    {
+      "id": "AGENT-06",
+      "primary_owner": ".codex/agents/catalyst_analyst.toml",
+      "references": []
+    },
+    {
+      "id": "OVERLAY-01",
+      "primary_owner": ".agents/skills/crypto-mcp-research/tests/fixtures/instruction-invariants-v1.json",
+      "references": []
+    }
+  ],
+  "routing_cases": {
+    "positive": [
+      "multi-provider research requiring relevant market and liquidity specialists"
+    ],
+    "negative": [
+      "generic code task must not activate crypto research skill"
+    ],
+    "near_neighbor": [
+      "single-provider spot price check should be handled without delegation"
+    ]
+  },
+  "overlay_audit": {
+    "entries": 193,
+    "dispositions": {
+      "ADOPT": 4,
+      "DEFER": 5,
+      "EXCLUDE": 184
+    },
+    "hash_mismatches": 0
+  }
+}

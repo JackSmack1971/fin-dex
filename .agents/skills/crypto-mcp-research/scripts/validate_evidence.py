@@ -25,6 +25,13 @@ def validate_with_warnings(data):
     warnings = []
     if not isinstance(data, dict):
         return ["root must be an object"], warnings
+    if data.get("schema_version") == 2:
+        for key in ("lifecycle_id", "artifact_id", "task_id"):
+            value = data.get(key)
+            if not isinstance(value, str) or not value.strip():
+                errors.append(f"{key}: required nonempty v2 correlation field")
+    elif "schema_version" in data and data.get("schema_version") != 1:
+        errors.append("schema_version: unsupported")
     try:
         utc(data.get("as_of_utc"))
     except (TypeError, ValueError) as exc:
