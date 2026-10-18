@@ -8,11 +8,15 @@ documentation as proof of current connectivity or authorization.
 from __future__ import annotations
 
 import argparse
+import datetime as dt
+import hashlib
 import json
+import math
 from pathlib import Path
 import re
 import sys
 from typing import Any
+from urllib.parse import parse_qs, urlparse
 
 try:
     import tomllib
@@ -141,7 +145,7 @@ def _operation_key(task: str) -> str:
     return re.sub(r"[^a-z0-9]+", "_", task.lower()).strip("_") or "documented_route"
 
 
-def _defillama_invocations(task: str, root: Path) -> tuple[str, str | None]:
+def _defillama_invocations(task: str, root: Path) -> tuple[str, str | list[str] | None]:
     script = ".agents/skills/crypto-mcp-research/scripts/defillama_public.py"
     mapping = {
         "protocol TVL and chain breakdown":
@@ -151,7 +155,7 @@ def _defillama_invocations(task: str, root: Path) -> tuple[str, str | None]:
         "fees and revenue":
             (f"python {script} fees --chain {{chain}} --data-type {{dataType}}; "
              f"python {script} protocol-fees --protocol {{protocol}} --data-type {{dataType}}",
-             "GET /overview/fees[/{chain}]"),
+             ["GET /overview/fees[/{chain}]", "GET /summary/fees/{protocol}"]),
         "stablecoin supply and flows":
             (f"python {script} stablecoins; python {script} stablecoin-chains; "
              f"python {script} stablecoin-history --chain {{chain}}", "GET /stablecoincharts/{chain}"),
@@ -234,7 +238,8 @@ def _local_operations(root: Path) -> list[dict[str, Any]]:
             for index, route in enumerate(contract.get("routing", [])):
                 task = route.get("task", "DeFi protocol context")
                 invocation, endpoint = _defillama_invocations(task, root)
-                matches = [x for x in observations if endpoint and endpoint in str(x.get("endpoint", ""))]
+                endpoints = endpoint if isinstance(endpoint, list) else [endpoint]
+                matches = [x for x in observations if x.get("endpoint") in endpoints]
                 result.append(local_operation(
                     provider=provider, operation_id=_operation_key(task), task=task,
                     adapter_path=adapter_path, invocation_method=invocation, endpoint=endpoint,
@@ -246,13 +251,173 @@ def _local_operations(root: Path) -> list[dict[str, Any]]:
     return result
 
 
-def build_effective_view(root: Path = REPO_ROOT) -> dict[str, Any]:
+def _response_endpoint_matches(actual: Any, expected: Any) -> bool:
+    expected_values = expected if isinstance(expected, list) else [expected]
+    return actual in expected_values
+
+
+def _valid_retrieval_time(value: Any) -> bool:
+    if not isinstance(value, str) or not value.endswith("Z"):
+        return False
+    try:
+        parsed = dt.datetime.fromisoformat(value[:-1] + "+00:00")
+    except ValueError:
+        return False
+    return parsed.utcoffset() == dt.timedelta(0)
+
+
+def _verify_run_response(provider: str, operation: str, expected_endpoint: Any,
+                         artifact_path: str, artifact_sha256: str,
+                         document: dict[str, Any]) -> dict[str, Any] | None:
+    """Describe a retained adapter response without promoting static capability state."""
+    endpoint = document.get("endpoint")
+    retrieved = document.get("retrieved_at_utc")
+    if (document.get("provider") != provider or
+            not _response_endpoint_matches(endpoint, expected_endpoint) or
+            not _valid_retrieval_time(retrieved) or
+            not isinstance(document.get("source_url"), str) or "data" not in document):
+        return None
+
+    identity: dict[str, Any] = {"status": "NOT_RETURNED_BY_RESPONSE"}
+    qualification: str | None = None
+    freshness = document.get("freshness_status", "SOURCE_TIMESTAMP_NOT_ASSESSED")
+    data = document["data"]
+    source_url = document.get("source_url")
+    if provider == "dexscreener" and operation in {"token_pair_discovery", "pair_snapshot"}:
+        requested_chain = document.get("requested_chain_id")
+        requested_token = document.get("requested_identifier")
+        expected_count = document.get("pair_count")
+        if isinstance(data, dict):
+            pairs = data.get("pairs")
+            if not isinstance(pairs, list) and isinstance(data.get("pair"), dict):
+                pairs = [data["pair"]]
+        else:
+            pairs = data
+        if not isinstance(pairs, list):
+            return None
+        parsed_url = urlparse(source_url or "")
+        url_parts = parsed_url.path.split("/")
+        expected_route_parts = (['', 'token-pairs', 'v1'] if operation == "token_pair_discovery"
+                                else ['', 'latest', 'dex', 'pairs'])
+        expected_part_count = len(expected_route_parts) + 2
+        url_identity_matches = (
+            parsed_url.scheme == "https" and parsed_url.netloc == "api.dexscreener.com" and
+            url_parts[:len(expected_route_parts)] == expected_route_parts and
+            len(url_parts) == expected_part_count and not parsed_url.query and not parsed_url.fragment and
+            url_parts[-2] == requested_chain and
+            url_parts[-1].lower() == str(requested_token).lower()
+        )
+        def matches_requested(pair: Any) -> bool:
+            if not isinstance(pair, dict) or pair.get("chainId") != requested_chain:
+                return False
+            if operation == "pair_snapshot":
+                returned = pair.get("pairAddress")
+                return isinstance(returned, str) and returned.lower() == str(requested_token).lower()
+            return any(
+                isinstance(pair.get(side), dict) and
+                str(pair[side].get("address", "")).lower() == str(requested_token).lower()
+                for side in ("baseToken", "quoteToken"))
+        identity_matches = (
+            isinstance(requested_chain, str) and isinstance(requested_token, str) and
+            isinstance(expected_count, int) and not isinstance(expected_count, bool) and
+            expected_count == len(pairs) and any(matches_requested(pair) for pair in pairs) and
+            all(matches_requested(pair) for pair in pairs) and url_identity_matches
+        )
+        if not identity_matches:
+            return None
+        identity = {"status": "RESPONSE_IDENTITY_MATCHED", "chain_id": requested_chain,
+                    ("pair_address" if operation == "pair_snapshot" else "token_address"): requested_token}
+        qualification = "RESPONDED_ROUTE_IDENTITY_MATCHED"
+    elif provider == "defillama":
+        parsed = urlparse(source_url or "")
+        route_slug = parsed.path.rstrip("/").split("/")[-1] if parsed.path else ""
+        if endpoint == "GET /tvl/{protocol}":
+            if not isinstance(data, (int, float)) or isinstance(data, bool) or not math.isfinite(data):
+                return None
+            if (parsed.scheme != "https" or parsed.netloc != "api.llama.fi" or
+                    parsed.path != f"/tvl/{route_slug}" or not route_slug):
+                return None
+            identity = {"status": "QUERY_SLUG_ONLY", "protocol_slug": route_slug,
+                        "response_does_not_return_protocol_identity": True}
+            qualification = "RESPONDED_ROUTE_SHAPE_MATCHED_IDENTITY_LIMITED"
+        elif endpoint == "GET /summary/fees/{protocol}":
+            query = parse_qs(parsed.query)
+            if (not isinstance(data, dict) or not isinstance(data.get("name"), str) or
+                    not isinstance(data.get("address"), str) or
+                    query.get("dataType") != ["dailyRevenue"] or
+                    parsed.scheme != "https" or parsed.netloc != "api.llama.fi" or
+                    parsed.path != f"/summary/fees/{route_slug}" or not route_slug or
+                    re.sub(r"[^a-z0-9]", "", data["name"].lower()) !=
+                    re.sub(r"[^a-z0-9]", "", route_slug.lower())):
+                return None
+            identity = {"status": "RESPONSE_IDENTITY_RETURNED", "protocol_slug": route_slug,
+                        "name": data["name"], "symbol": data.get("symbol"),
+                        "address": data["address"], "chains": data.get("chains")}
+            qualification = "RESPONDED_ROUTE_QUERY_MATCHED_IDENTITY_RETURNED"
+        else:
+            return None
+    else:
+        return None
+
+    if qualification is None:
+        return None
+
+    return {
+        "status": qualification,
+        "transport": "LOCAL_REST_ADAPTER",
+        "mcp_registered": False,
+        "endpoint": endpoint,
+        "source_url": source_url,
+        "retrieved_at_utc": retrieved,
+        "identity": identity,
+        "freshness": freshness,
+        "artifact": artifact_path,
+        "artifact_sha256": artifact_sha256,
+        "interpretation": "Retained response evidence for this exact query; does not establish current connectivity or provider-wide qualification.",
+    }
+
+
+def _attach_run_responses(operations: list[dict[str, Any]], run_dir: Path | None) -> None:
+    if run_dir is None:
+        return
+    run_dir = Path(run_dir).resolve()
+    if not run_dir.is_dir():
+        raise ValueError(f"run directory does not exist: {run_dir}")
+    for operation in operations:
+        operation["run_response_evidence"] = []
+        operation["run_evidence_scope"] = "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE"
+    for path in sorted(run_dir.glob("*.json")):
+        try:
+            resolved_path = path.resolve()
+            if not resolved_path.is_relative_to(run_dir):
+                continue
+            if resolved_path.stat().st_size > 5_500_000:
+                continue
+            raw = resolved_path.read_bytes()
+            document = json.loads(raw.decode("utf-8"))
+            if not isinstance(document, dict):
+                continue
+        except (OSError, UnicodeError, ValueError, json.JSONDecodeError):
+            continue
+        for operation in operations:
+            if operation["transport"] != "LOCAL_REST_ADAPTER":
+                continue
+            evidence = _verify_run_response(operation["provider"], operation["operation"],
+                                            operation.get("endpoint"), path.name,
+                                            hashlib.sha256(raw).hexdigest(), document)
+            if evidence is not None:
+                operation["run_response_evidence"].append(evidence)
+
+
+def build_effective_view(root: Path = REPO_ROOT, run_dir: Path | None = None) -> dict[str, Any]:
     """Build normalized local capability metadata without making network calls."""
     root = Path(root).resolve()
     if tomllib is None:
         raise RuntimeError("Python 3.11+ is required")
     config = tomllib.loads((root / ".codex/config.toml").read_text(encoding="utf-8"))
     inventory = _read_json(root / ".codex/provider-capabilities.json")
+    operations = _mcp_operations(config, inventory) + _local_operations(root)
+    _attach_run_responses(operations, run_dir)
     return {
         "schema_version": 1,
         "generated_by": "scripts/effective_capabilities.py",
@@ -262,7 +427,7 @@ def build_effective_view(root: Path = REPO_ROOT) -> dict[str, Any]:
             "Exposure is not provider authorization. Historical response evidence is not current connectivity.",
             "Route qualification never promotes every route or the provider to qualified status.",
         ],
-        "operations": _mcp_operations(config, inventory) + _local_operations(root),
+        "operations": operations,
     }
 
 
@@ -270,9 +435,11 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", type=Path, default=REPO_ROOT)
     parser.add_argument("--provider", help="filter to one canonical provider id")
+    parser.add_argument("--run-dir", type=Path,
+                        help="attach validated retained adapter responses from this run (no network calls)")
     args = parser.parse_args()
     try:
-        result = build_effective_view(args.root)
+        result = build_effective_view(args.root, args.run_dir)
     except (OSError, ValueError, RuntimeError, json.JSONDecodeError) as exc:
         print(json.dumps({"status": "ERROR", "reason": str(exc)}), file=sys.stderr)
         return 2

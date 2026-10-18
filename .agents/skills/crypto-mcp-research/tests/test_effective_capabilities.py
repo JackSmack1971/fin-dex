@@ -1,6 +1,8 @@
 import importlib.util
+import json
 from pathlib import Path
 import tempfile
+import hashlib
 
 ROOT = Path(__file__).resolve().parents[1]
 SPEC = importlib.util.spec_from_file_location(
@@ -88,5 +90,107 @@ def test_real_effective_view_separates_local_rest_adapters_from_mcp_tools():
     assert llama["mcp_registered"] is False
     assert llama["historical_git_presence"] == "NOT_INSPECTED"
     assert llama["route_qualification"]["status"] == "HISTORICAL_QUERY_QUALIFICATION_ONLY"
+    fees = next(x for x in operations if x["canonical_operation_id"] == "defillama:fees_and_revenue")
+    assert "GET /summary/fees/{protocol}" in fees["endpoint"]
+    assert "protocol-fees --protocol {protocol}" in fees["invocation_method"]
     assert mcp_llama == []
     assert view["network_calls_made"] is False
+
+
+def test_run_responses_attach_exact_local_route_evidence_without_promoting_capability(tmp_path):
+    run_dir = tmp_path / "run"
+    run_dir.mkdir()
+    token = "0x940181a94A35A4569E4529A3CDfB74e38FD98631"
+    dex_doc = {
+        "provider": "dexscreener",
+        "endpoint": "GET /token-pairs/v1/{chainId}/{tokenAddress}",
+        "source_url": f"https://api.dexscreener.com/token-pairs/v1/base/{token}",
+        "requested_chain_id": "base", "requested_identifier": token,
+        "retrieved_at_utc": "2026-10-18T05:42:45Z", "pair_count": 1,
+        "data": [{"chainId": "base", "baseToken": {"address": token},
+                  "quoteToken": {"address": "0x111"}}],
+    }
+    dex_path = run_dir / "dex.json"
+    dex_path.write_text(json.dumps(dex_doc), encoding="utf-8")
+    operations = [{
+        "provider": "dexscreener", "operation": "token_pair_discovery",
+        "transport": "LOCAL_REST_ADAPTER", "endpoint": dex_doc["endpoint"],
+        "provider_qualification": "PARTIALLY_QUALIFIED",
+        "runtime_availability": "HISTORICAL_RESPONSE_ONLY", "mcp_registered": False,
+    }]
+
+    module._attach_run_responses(operations, run_dir)
+
+    evidence = operations[0]["run_response_evidence"]
+    assert len(evidence) == 1
+    assert evidence[0]["status"] == "RESPONDED_ROUTE_IDENTITY_MATCHED"
+    assert evidence[0]["identity"] == {
+        "status": "RESPONSE_IDENTITY_MATCHED", "chain_id": "base", "token_address": token}
+    assert evidence[0]["artifact_sha256"] == hashlib.sha256(dex_path.read_bytes()).hexdigest()
+    assert operations[0]["provider_qualification"] == "PARTIALLY_QUALIFIED"
+    assert operations[0]["runtime_availability"] == "HISTORICAL_RESPONSE_ONLY"
+    assert operations[0]["mcp_registered"] is False
+    assert operations[0]["run_evidence_scope"] == "RETAINED_RUN_ARTIFACTS_ONLY; NOT_A_CURRENT_SESSION_PROBE"
+
+    dex_doc["source_url"] = (
+        f"https://api.dexscreener.com/token-pairs/v1/extra/base/{token}")
+    dex_path.write_text(json.dumps(dex_doc), encoding="utf-8")
+    module._attach_run_responses(operations, run_dir)
+    assert operations[0]["run_response_evidence"] == []
+
+
+def test_defillama_protocol_summary_retains_exact_route_and_response_identity(tmp_path):
+    run_dir = tmp_path / "run"
+    run_dir.mkdir()
+    document = {
+        "provider": "defillama", "endpoint": "GET /summary/fees/{protocol}",
+        "source_url": "https://api.llama.fi/summary/fees/aerodrome?dataType=dailyRevenue",
+        "retrieved_at_utc": "2026-10-18T05:42:56Z",
+        "data": {"name": "Aerodrome", "symbol": "AERO",
+                 "address": "base:0x940181a94A35A4569E4529A3CDfB74e38FD98631",
+                 "chains": ["Base", "Arc"]},
+    }
+    (run_dir / "fees.json").write_text(json.dumps(document), encoding="utf-8")
+    operation = [{"provider": "defillama", "operation": "fees_and_revenue",
+                  "transport": "LOCAL_REST_ADAPTER",
+                  "endpoint": ["GET /overview/fees[/{chain}]", "GET /summary/fees/{protocol}"],
+                  "provider_qualification": "PARTIALLY_QUALIFIED",
+                  "runtime_availability": "HISTORICAL_RESPONSE_ONLY", "mcp_registered": False}]
+
+    module._attach_run_responses(operation, run_dir)
+
+    evidence = operation[0]["run_response_evidence"]
+    assert len(evidence) == 1
+    assert evidence[0]["status"] == "RESPONDED_ROUTE_QUERY_MATCHED_IDENTITY_RETURNED"
+    assert evidence[0]["identity"]["address"].lower().endswith("0x940181a94a35a4569e4529a3cdfb74e38fd98631")
+    assert operation[0]["provider_qualification"] == "PARTIALLY_QUALIFIED"
+
+
+def test_dex_pair_snapshot_requires_requested_pair_identity(tmp_path):
+    run_dir = tmp_path / "run"
+    run_dir.mkdir()
+    pair_address = "0xabc123"
+    doc = {"provider": "dexscreener", "endpoint": "GET /latest/dex/pairs/{chainId}/{pairId}",
+           "source_url": "https://api.dexscreener.com/latest/dex/pairs/base/0xabc123",
+           "requested_chain_id": "base", "requested_identifier": pair_address,
+           "retrieved_at_utc": "2026-10-18T05:42:45Z", "pair_count": 1,
+           "data": [{"chainId": "base", "pairAddress": pair_address}]}
+    (run_dir / "pair.json").write_text(json.dumps(doc), encoding="utf-8")
+    operation = [{"provider": "dexscreener", "operation": "pair_snapshot",
+                  "transport": "LOCAL_REST_ADAPTER", "endpoint": doc["endpoint"]}]
+
+    module._attach_run_responses(operation, run_dir)
+
+    assert operation[0]["run_response_evidence"][0]["identity"] == {
+        "status": "RESPONSE_IDENTITY_MATCHED", "chain_id": "base", "pair_address": pair_address}
+
+    doc["data"][0]["pairAddress"] = "0xdifferent"
+    (run_dir / "pair.json").write_text(json.dumps(doc), encoding="utf-8")
+    module._attach_run_responses(operation, run_dir)
+    assert operation[0]["run_response_evidence"] == []
+
+    doc["data"][0]["pairAddress"] = pair_address
+    doc["source_url"] = "https://api.dexscreener.com/latest/dex/pairs/extra/base/0xabc123"
+    (run_dir / "pair.json").write_text(json.dumps(doc), encoding="utf-8")
+    module._attach_run_responses(operation, run_dir)
+    assert operation[0]["run_response_evidence"] == []
