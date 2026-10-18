@@ -236,7 +236,7 @@ class PaperTestingTests(unittest.TestCase):
         before = idempotency.ReservationStore(self.db).get("s-1")
         out = pathlib.Path(self.temp.name) / "runs"
         self.assertEqual(export_journal(self.db, out), 0)
-        artifact_path = out / "s-1.json"
+        artifact_path = out / f"{receipt['client_order_id']}.json"
         first = artifact_path.read_bytes()
         artifact = json.loads(first)
         self.assertEqual(artifact["status"], "ACKNOWLEDGED")
@@ -256,7 +256,9 @@ class PaperTestingTests(unittest.TestCase):
         finally: db.close()
         out = pathlib.Path(self.temp.name) / "runs"
         self.assertEqual(export_journal(self.db, out), 0)
-        artifact = json.loads((out / "s-1.json").read_text(encoding="utf-8"))
+        import idempotency
+        client_id = idempotency.ReservationStore(self.db).get("s-1")["client_order_id"]
+        artifact = json.loads((out / f"{client_id}.json").read_text(encoding="utf-8"))
         self.assertEqual(artifact["provenance"]["receipt"]["digest_status"], "COMPUTED_AT_EXPORT_LEGACY")
         db = sqlite3.connect(self.db)
         try: db.execute("UPDATE paper_intents SET request_digest=? WHERE signal_id='s-1'", ("0" * 64,)); db.commit()
@@ -280,7 +282,78 @@ class PaperTestingTests(unittest.TestCase):
         intent = {"signal":record,"venue_evidence":evidence,"instrument_metadata":metadata,"tool_schemas":OPS,"request":request,"request_digest":request_digest}
         store.reserve("s-1",request_digest,timestamp,json.dumps(intent,sort_keys=True,separators=(",", ":")))
         out=pathlib.Path(self.temp.name)/"runs"; self.assertEqual(export_journal(self.db,out),0)
-        artifact=json.loads((out/"s-1.json").read_text(encoding="utf-8")); self.assertEqual(artifact["status"],"PREPARED")
+        artifact=json.loads((out/f"{store.get('s-1')['client_order_id']}.json").read_text(encoding="utf-8")); self.assertEqual(artifact["status"],"PREPARED")
+
+    def test_export_uses_read_only_sqlite_and_does_not_migrate_legacy_schema(self):
+        import idempotency
+        self.adapter().submit_once(signal())
+        source = idempotency.ReservationStore(self.db).get("s-1")
+        legacy = pathlib.Path(self.temp.name) / "legacy.sqlite3"
+        db = sqlite3.connect(legacy)
+        try:
+            db.execute("""CREATE TABLE paper_intents (
+                signal_id TEXT PRIMARY KEY, request_digest TEXT NOT NULL, client_order_id TEXT NOT NULL UNIQUE,
+                state TEXT NOT NULL, created_at_utc TEXT NOT NULL, receipt_json TEXT,
+                intent_json TEXT NOT NULL DEFAULT '{}', reconciliation_json TEXT)""")
+            db.execute("INSERT INTO paper_intents VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                       tuple(source[k] for k in ("signal_id", "request_digest", "client_order_id", "state", "created_at_utc", "receipt_json", "intent_json", "reconciliation_json")))
+            db.commit()
+        finally: db.close()
+        def schema(path):
+            db = sqlite3.connect(path)
+            try:
+                return db.execute("SELECT type,name,sql FROM sqlite_master ORDER BY type,name").fetchall(), db.execute("PRAGMA table_info(paper_intents)").fetchall()
+            finally: db.close()
+        before = schema(legacy)
+        out = pathlib.Path(self.temp.name) / "legacy-runs"
+        self.assertEqual(export_journal(legacy, out), 0)
+        client_id = source["client_order_id"]
+        artifact = json.loads((out / f"{client_id}.json").read_text(encoding="utf-8"))
+        self.assertEqual(artifact["provenance"]["receipt"]["digest_status"], "COMPUTED_AT_EXPORT_LEGACY")
+        self.assertEqual(schema(legacy), before)
+
+    def test_export_missing_required_column_fails_without_schema_mutation(self):
+        broken = pathlib.Path(self.temp.name) / "broken.sqlite3"
+        db = sqlite3.connect(broken)
+        try:
+            db.execute("CREATE TABLE paper_intents (signal_id TEXT PRIMARY KEY, request_digest TEXT NOT NULL)")
+            db.execute("CREATE TABLE unrelated (value TEXT)")
+            db.commit()
+        finally: db.close()
+        db = sqlite3.connect(broken)
+        try:
+            before = db.execute("SELECT type,name,sql FROM sqlite_master ORDER BY type,name").fetchall()
+        finally: db.close()
+        self.assertEqual(export_journal(broken, pathlib.Path(self.temp.name) / "broken-runs"), 1)
+        db = sqlite3.connect(broken)
+        try:
+            after = db.execute("SELECT type,name,sql FROM sqlite_master ORDER BY type,name").fetchall()
+        finally: db.close()
+        self.assertEqual(after, before)
+
+    def test_export_revalidates_dispatch_mode_and_timestamp_order_without_freshness_gate(self):
+        self.adapter().submit_once(signal())
+        db = sqlite3.connect(self.db)
+        try:
+            raw = db.execute("SELECT intent_json FROM paper_intents WHERE signal_id='s-1'").fetchone()[0]
+            intent = json.loads(raw)
+            dispatch = intent["dispatch_check"]
+            dispatch["venue_evidence"]["observed_at_utc"] = "2020-01-01T00:00:00Z"
+            dispatch["venue_evidence"]["retrieved_at_utc"] = "2020-01-01T00:00:01Z"
+            dispatch["instrument_metadata"]["observed_at_utc"] = "2020-01-01T00:00:00Z"
+            dispatch["instrument_metadata"]["retrieved_at_utc"] = "2020-01-01T00:00:01Z"
+            db.execute("UPDATE paper_intents SET intent_json=? WHERE signal_id='s-1'", (json.dumps(intent, sort_keys=True, separators=(",", ":")),))
+            db.commit()
+        finally: db.close()
+        out = pathlib.Path(self.temp.name) / "historical-evidence"
+        self.assertEqual(export_journal(self.db, out), 0)
+        db = sqlite3.connect(self.db)
+        try:
+            intent["dispatch_check"]["venue_evidence"]["mode"] = "LIVE"
+            db.execute("UPDATE paper_intents SET intent_json=? WHERE signal_id='s-1'", (json.dumps(intent, sort_keys=True, separators=(",", ":")),))
+            db.commit()
+        finally: db.close()
+        self.assertEqual(export_journal(self.db, pathlib.Path(self.temp.name) / "live-evidence"), 1)
 
     def test_lifecycle_receipt_invariants_and_incomplete_nonfill(self):
         result = evaluation_completeness({"order_id": None, "fills": [], "fees": None, "funding": None, "account_equity": 10000, "equity_history": None})

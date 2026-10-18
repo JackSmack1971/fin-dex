@@ -1,26 +1,62 @@
 #!/usr/bin/env python3
 """Export validated SQLite paper intents as immutable, provenance-bearing artifacts."""
 from __future__ import annotations
-import argparse, hashlib, json, os, pathlib, re, sys, tempfile
+import argparse, hashlib, json, os, pathlib, re, sqlite3, sys
 import jsonschema
 import datetime as dt
+from decimal import Decimal, InvalidOperation
 
-from idempotency import ReservationStore
 from validate_paper_record import validate_signal, validate_run
 
 ROOT = pathlib.Path(__file__).resolve().parent
+REQUIRED_TOOLS = {"get_paper_status", "get_instrument_metadata", "submit_simulated_order", "reconcile_order"}
 
 def canonical(value):
     return json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False, allow_nan=False)
 
 def digest(value): return hashlib.sha256(canonical(value).encode("utf-8")).hexdigest()
+def client_order_id(signal_id, request_digest):
+    token = hashlib.sha256(f"{signal_id}\0{request_digest}".encode()).hexdigest()[:32]
+    return f"fdx-{token}"
 
 def parse_json(raw, label):
     if not isinstance(raw, str): raise ValueError(f"{label} missing")
     return json.loads(raw, parse_constant=lambda x: (_ for _ in ()).throw(ValueError(f"invalid number {x}")))
 
+def validate_evidence_pair(value, label):
+    if not isinstance(value, dict): raise ValueError(f"{label} must be an object")
+    observed, retrieved = value.get("observed_at_utc"), value.get("retrieved_at_utc")
+    try:
+        if not isinstance(observed, str) or not observed.endswith("Z") or not isinstance(retrieved, str) or not retrieved.endswith("Z"): raise ValueError()
+        obs = dt.datetime.fromisoformat(observed[:-1] + "+00:00")
+        ret = dt.datetime.fromisoformat(retrieved[:-1] + "+00:00")
+        if obs.utcoffset() != dt.timedelta(0) or ret.utcoffset() != dt.timedelta(0) or ret < obs: raise ValueError()
+    except (TypeError, ValueError): raise ValueError(f"{label} timestamps must be valid UTC Z values in observation/retrieval order")
+
+def validate_mode_evidence(value, schemas, label):
+    validate_evidence_pair(value, label)
+    if value.get("mode") != "SIMULATED": raise ValueError(f"{label} is not SIMULATED")
+    if not isinstance(value.get("account_id"), str) or not value["account_id"].strip(): raise ValueError(f"{label} account identity missing")
+    if value.get("tool_schema_digest") != digest(schemas): raise ValueError(f"{label} tool schema digest mismatch")
+
+def validate_metadata(value, signal, label):
+    if not isinstance(value, dict): raise ValueError(f"{label} must be an object")
+    validate_evidence_pair(value, label)
+    keys = ("venue", "instrument_id", "base", "quote", "instrument_type")
+    if any(value.get(k) != signal["asset"].get(k) for k in keys): raise ValueError(f"{label} instrument identity differs from signal")
+    for key in ("min_quantity", "max_quantity", "quantity_step", "price_tick"):
+        try:
+            number = Decimal(str(value[key]))
+            if not number.is_finite() or number <= 0: raise ValueError()
+        except (KeyError, InvalidOperation, ValueError, TypeError): raise ValueError(f"{label}.{key} must be finite and positive")
+    minimum, maximum, step = (Decimal(str(value[k])) for k in ("min_quantity", "max_quantity", "quantity_step"))
+    quantity = Decimal(str(signal["order"]["quantity"]))
+    if maximum < minimum or quantity < minimum or quantity > maximum or quantity % step != 0: raise ValueError(f"{label} quantity constraints do not support signal order")
+    if signal["order"]["order_type"] == "limit" and Decimal(str(signal["order"]["limit_price"])) % Decimal(str(value["price_tick"])) != 0:
+        raise ValueError(f"{label} price tick does not support signal order")
+
 def build_export(row):
-    if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._-]{0,127}", row["signal_id"]): raise ValueError("signal ID cannot be used as a safe artifact name")
+    if not re.fullmatch(r"fdx-[a-f0-9]{32}", row["client_order_id"]): raise ValueError("invalid client order ID artifact name")
     try:
         created = dt.datetime.fromisoformat(row["created_at_utc"][:-1] + "+00:00")
         if not row["created_at_utc"].endswith("Z") or created.utcoffset() != dt.timedelta(0): raise ValueError()
@@ -35,22 +71,26 @@ def build_export(row):
     meta = intent["instrument_metadata"]
     schemas = intent["tool_schemas"]
     evidence = intent["venue_evidence"]
+    dispatch_present = "dispatch_check" in intent
     dispatch = intent.get("dispatch_check")
-    if not isinstance(meta, dict) or any(meta.get(k) != signal["asset"].get(k) for k in ("venue", "instrument_id", "base", "quote", "instrument_type")): raise ValueError("instrument metadata does not match signal")
-    if not isinstance(schemas, dict) or digest(schemas) != evidence.get("tool_schema_digest"): raise ValueError("tool schema snapshot does not match mode evidence")
+    if not isinstance(schemas, dict) or set(schemas) != REQUIRED_TOOLS: raise ValueError("tool schema snapshot does not contain the exact supported operations")
+    validate_mode_evidence(evidence, schemas, "venue evidence")
+    validate_metadata(meta, signal, "instrument metadata")
     instrument_contract = {k:v for k,v in meta.items() if k not in {"observed_at_utc", "retrieved_at_utc"}}
     expected = {"account_id": evidence.get("account_id"), "asset": signal["asset"], "order": signal["order"], "signal_id": signal["signal_id"],
                 "signal_digest": digest(signal), "instrument_metadata_digest": digest(instrument_contract), "tool_schema_digest": evidence.get("tool_schema_digest")}
     if request != expected: raise ValueError("request cross-field consistency failure")
-    if dispatch:
+    if dispatch_present:
         if not isinstance(dispatch, dict) or not {"venue_evidence", "instrument_metadata", "tool_schemas"} <= dispatch.keys(): raise ValueError("dispatch evidence incomplete")
         de, dm, ds = dispatch["venue_evidence"], dispatch["instrument_metadata"], dispatch["tool_schemas"]
-        if not isinstance(de, dict) or de.get("mode") != "SIMULATED" or de.get("account_id") != request["account_id"]: raise ValueError("dispatch account or simulation evidence mismatch")
+        validate_mode_evidence(de, schemas, "dispatch venue evidence")
+        validate_metadata(dm, signal, "dispatch instrument metadata")
+        if de.get("account_id") != request["account_id"]: raise ValueError("dispatch account identity mismatch")
         if not isinstance(ds, dict) or ds != schemas or digest(ds) != request["tool_schema_digest"] or de.get("tool_schema_digest") != request["tool_schema_digest"]: raise ValueError("dispatch tool schema mismatch")
         dispatch_contract = {k:v for k,v in dm.items() if k not in {"observed_at_utc", "retrieved_at_utc"}} if isinstance(dm, dict) else None
         if dispatch_contract != instrument_contract: raise ValueError("dispatch instrument metadata mismatch")
     elif row["state"] == "UNKNOWN": raise ValueError("UNKNOWN state lacks dispatch evidence")
-    if row["client_order_id"] != ReservationStore.client_order_id(row["signal_id"], row["request_digest"]): raise ValueError("client order id mismatch")
+    if row["client_order_id"] != client_order_id(row["signal_id"], row["request_digest"]): raise ValueError("client order id mismatch")
     receipt = parse_json(row["receipt_json"], "receipt_json") if row["receipt_json"] else None
     if row["state"] == "ACKNOWLEDGED":
         if canonical(receipt) != row["receipt_json"]: raise ValueError("stored receipt is not canonical JSON")
@@ -61,8 +101,8 @@ def build_export(row):
         status = "ACKNOWLEDGED"
     elif row["state"] in {"RESERVED", "UNKNOWN"}:
         if receipt is not None: raise ValueError("unacknowledged state contains a receipt")
-        if row["state"] == "UNKNOWN" and not dispatch: raise ValueError("UNKNOWN state lacks dispatch evidence")
-        status = "SUBMISSION_UNKNOWN" if dispatch else "PREPARED"
+        if row["state"] == "UNKNOWN" and not dispatch_present: raise ValueError("UNKNOWN state lacks dispatch evidence")
+        status = "SUBMISSION_UNKNOWN" if dispatch_present else "PREPARED"
         receipt_digest = None; receipt_status = "NOT_PRESENT"
     else: raise ValueError("invalid journal lifecycle state")
     rec = parse_json(row["reconciliation_json"], "reconciliation_json") if row["reconciliation_json"] else {k:None for k in ("order_id", "fills", "fees", "funding", "account_equity", "equity_history")}
@@ -81,7 +121,7 @@ def build_export(row):
     run["provenance"] = {"journal_created_at_utc":{"value":row["created_at_utc"],"source":"paper_intents.created_at_utc"},
       "signal":{"source":"intent_json.signal"},"request":{"source":"intent_json.request","integrity":"sha256 verified against paper_intents.request_digest"},
       "instrument_metadata":{"source":"intent_json.instrument_metadata"},"account_identity":{"source":"intent_json.venue_evidence.account_id"},
-      "tool_schema_snapshot":{"source":"intent_json.tool_schemas"},"dispatch_evidence":{"source":"intent_json.dispatch_check","present":bool(dispatch)},
+      "tool_schema_snapshot":{"source":"intent_json.tool_schemas"},"dispatch_evidence":{"source":"intent_json.dispatch_check","present":dispatch_present},
       "receipt":{"source":"receipt_json","digest":receipt_digest,"digest_status":receipt_status,"hash_claim":"local integrity check; not a Liquid attestation"},
       "reconciliation":{"source":"reconciliation_json"}}
     jsonschema.validate(run, json.loads((ROOT / "schemas" / "journal-export-v1.schema.json").read_text(encoding="utf-8")))
@@ -102,17 +142,32 @@ def _exclusive_write(path, payload):
     return "exported"
 
 def export(database, outdir):
-    store = ReservationStore(database)
+    database = pathlib.Path(database).expanduser().resolve()
+    uri = database.as_uri() + "?mode=ro"
     outdir = pathlib.Path(outdir); outdir.mkdir(parents=True, exist_ok=True)
-    with store._database() as db:
-        rows = db.execute("SELECT signal_id,request_digest,client_order_id,state,created_at_utc,receipt_json,intent_json,reconciliation_json,receipt_digest FROM paper_intents ORDER BY created_at_utc, signal_id").fetchall()
+    try:
+        db = sqlite3.connect(uri, uri=True)
+    except sqlite3.Error as exc:
+        print(f"FAIL: cannot open journal read-only: {exc}", file=sys.stderr)
+        return 1
+    try:
+        columns = {r[1] for r in db.execute("PRAGMA table_info(paper_intents)")}
+        required = {"signal_id", "request_digest", "client_order_id", "state", "created_at_utc", "receipt_json", "intent_json", "reconciliation_json"}
+        if not required <= columns: raise ValueError(f"journal schema missing required columns: {', '.join(sorted(required - columns))}")
+        receipt_column = "receipt_digest" if "receipt_digest" in columns else "NULL AS receipt_digest"
+        rows = db.execute(f"SELECT signal_id,request_digest,client_order_id,state,created_at_utc,receipt_json,intent_json,reconciliation_json,{receipt_column} FROM paper_intents ORDER BY created_at_utc, client_order_id").fetchall()
+    except (sqlite3.Error, ValueError) as exc:
+        print(f"FAIL: journal schema or read error: {exc}", file=sys.stderr)
+        return 1
+    finally:
+        db.close()
     errors=[]
     for raw in rows:
         row=dict(zip(("signal_id","request_digest","client_order_id","state","created_at_utc","receipt_json","intent_json","reconciliation_json","receipt_digest"),raw))
         try:
             artifact=build_export(row)
             payload=(canonical(artifact)+"\n").encode()
-            print(f"{row['signal_id']}: {_exclusive_write(outdir / (row['signal_id'] + '.json'), payload)}")
+            print(f"{row['client_order_id']}: {_exclusive_write(outdir / (row['client_order_id'] + '.json'), payload)}")
         except Exception as exc:
             errors.append((row["signal_id"],str(exc)))
             print(f"{row['signal_id']}: INVALID: {exc}",file=sys.stderr)
