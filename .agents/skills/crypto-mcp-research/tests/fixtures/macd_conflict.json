@@ -1,0 +1,9 @@
+{
+  "case": "MACD signal seeded from first MACD value vs a specialist-reported signal using a nine-value SMA seed",
+  "closes": [10.0, 10.8, 10.4, 11.2, 10.9, 11.7, 11.3, 12.1, 11.8, 12.6, 12.2, 13.0, 12.7, 13.5, 13.1, 13.9, 13.6, 14.4, 14.0, 14.8, 14.5, 15.3, 14.9, 15.7, 15.4, 16.2, 15.8, 16.6, 16.3, 17.1],
+  "method": "EMA(12) and EMA(26) each start at the first close; signal EMA(9) starts at the first MACD value.",
+  "specialist_conflict": {
+    "method": "signal EMA(9) seeded with the arithmetic mean of its first nine MACD values",
+    "signal_seed_policy": "SMA_SEED"
+  }
+}

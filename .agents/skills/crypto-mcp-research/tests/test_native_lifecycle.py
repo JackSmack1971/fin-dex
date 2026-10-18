@@ -7,6 +7,7 @@ import unittest
 from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
+FIXTURES = ROOT / "tests" / "fixtures"
 SPEC = importlib.util.spec_from_file_location(
     "native_lifecycle", ROOT / "scripts" / "native_lifecycle.py")
 module = importlib.util.module_from_spec(SPEC)
@@ -132,6 +133,38 @@ class TestNativeLifecycle(unittest.TestCase):
         self.write_json(self.execution_path, execution)
         self.assert_blocked(self.contract_path, self.snapshot_path, self.execution_path,
                             [self.handoff_path], self.permit_path)
+
+    def test_terminal_receipt_without_native_thread_id_blocks_dispatch(self):
+        execution = {"specialists": [{
+            "agent_id": "market_analyst", "terminal": True,
+            "execution_status": "PARTIAL"}]}
+        self.write_json(self.execution_path, execution)
+        with self.assertRaisesRegex(ValueError, "native thread ID is missing: market_analyst"):
+            self.gate()
+        self.assertFalse(self.permit_path.exists())
+
+    def test_missing_persisted_handoff_is_an_explicit_pre_review_blocker(self):
+        missing = self.root / "market-returned-handoff.json"
+        with self.assertRaises(FileNotFoundError):
+            module.prepare_review_dispatch(self.contract_path, self.snapshot_path,
+                self.execution_path, [missing], self.permit_path)
+        self.assertFalse(self.permit_path.exists())
+
+    def test_aero_regression_fixture_preserves_open_and_missing_identity_blocks(self):
+        fixture = json.loads((FIXTURES / "aero_review_gate_incomplete.json").read_text(encoding="utf-8"))
+        contract = self.contract()
+        contract["specialist_phase"] = fixture["specialist_phase"]
+        self.write_json(self.contract_path, contract)
+        self.write_json(self.execution_path, {"specialists": fixture["specialists"]})
+        with self.assertRaisesRegex(ValueError, "collection is not closed"):
+            self.gate()
+
+        # Close only the synthetic fixture phase to exercise the next independent gate.
+        contract["specialist_phase"]["state"] = "CLOSED"
+        self.write_json(self.contract_path, contract)
+        with self.assertRaisesRegex(ValueError, "native thread ID is missing: market_analyst"):
+            self.gate()
+        self.assertFalse(self.permit_path.exists())
 
     def test_invalid_synthesis_blocks_dispatch(self):
         contract = self.contract(); contract["specialist_phase"]["state"] = "OPEN"

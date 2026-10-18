@@ -1,0 +1,13 @@
+{
+  "fixture_kind": "synthetic_minimization_of_retained_AERO_gate_state",
+  "specialist_phase": {
+    "state": "OPEN",
+    "expected_agent_ids": ["market_analyst", "liquidity_analyst", "onchain_analyst"]
+  },
+  "specialists": [
+    {"agent_id": "market_analyst", "terminal": true, "execution_status": "PARTIAL"},
+    {"agent_id": "liquidity_analyst", "terminal": true, "execution_status": "PARTIAL"},
+    {"agent_id": "onchain_analyst", "terminal": true, "execution_status": "BLOCKED"}
+  ],
+  "persisted_specialist_handoffs": []
+}

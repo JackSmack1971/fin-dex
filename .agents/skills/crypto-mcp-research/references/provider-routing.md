@@ -1,6 +1,6 @@
 # Provider routing and discovery (conditional)
 
-The project configuration lists six *named connectors*. The following is **provisional routing by provider name**, not a verified promise of tools, accuracy, free use, or feature coverage. Discover live tools first.
+The project configuration lists six named MCP connectors. Local REST adapters are a separate transport and are not MCP tools. Use `python scripts/effective_capabilities.py` to inspect the combined offline view of exact MCP tool identities and local adapter routes. It reads repository configuration and retained evidence only; it makes no network calls and does not prove current connectivity or runtime authorization. The following provider-name table remains provisional until an exact route is qualified.
 
 | Connector | Candidate evidence | Must verify in live metadata and response |
 |---|---|---|
@@ -10,6 +10,16 @@ The project configuration lists six *named connectors*. The following is **provi
 | `cryptocom_market` | exchange/venue-oriented market observations | spot vs derivatives; instrument convention; price vs mark; depth definition |
 | `hive` | specialized blockchain/project intelligence, if exposed | actual tool categories, provenance and pricing; don't assume all chains covered |
 | `gdelt` | indexed reporting and event leads | article publication vs event time; publisher credibility; duplicate syndication; entity matching |
+
+## Local REST adapters
+
+| Provider / operation family | Transport and invocation | Scope and qualification rule |
+|---|---|---|
+| DEX Screener pair/token reads | Local anonymous REST adapter: `python scripts/dexscreener_public.py pair --chain {chainId} --pair {pairAddress}` or `token-pairs --chain {chainId} --token {tokenAddress}` | Not registered in the MCP inventory. Inspect `.codex/dexscreener-routing.json`; exact pool/token identity and missing metric timestamps remain material. Historical qualification is query-specific. |
+| DexPaprika pool/pool-search/OHLCV | Local REST adapter: `python scripts/dexpaprika_public.py <pool-snapshot\|token-pools\|pool-ohlcv> ...` | Separate from `mcp__dexpaprika__*`. Inspect `.codex/dexpaprika-routing.json` for keyless quota state and route limits. Do not use the local route while its access gate says quota exhausted. |
+| DeFiLlama protocol/chain metrics | Local anonymous REST adapter: `python scripts/defillama_public.py <documented-command> ...` | Not an MCP server. Inspect `.codex/data-provider-routing.json`; prior successful calls qualify only the recorded endpoint/query/response shape, not all protocols, chains, metric units, or current access. |
+
+Run the effective capability view before dispatching specialists. It reports MCP exposure separately from local adapter discovery, credential requirements separately from observed runtime responses, and provider qualification separately from exact route evidence. A missing adapter file is not an MCP discovery failure; an MCP allowlist entry is not proof of authorization or a successful call.
 
 The exact visible tool inventory, effect classification, and bounded automatic-research surface are maintained in [`.codex/provider-capabilities.json`](../../../../.codex/provider-capabilities.json). Its provider statuses describe the observed stage only. A visible tool is `DISCOVERED`; it is not `RESPONDED` or `QUALIFIED` until a successful provider call and a separate qualification check are recorded.
 
