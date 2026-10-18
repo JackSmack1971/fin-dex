@@ -1,6 +1,7 @@
 # Provider routing and discovery (conditional)
 
 The project configuration lists six named MCP connectors. Local REST adapters are a separate transport and are not MCP tools. Use `python scripts/effective_capabilities.py` to inspect the combined offline view of exact MCP tool identities and local adapter routes. It reads repository configuration and retained evidence only; it makes no network calls and does not prove current connectivity or runtime authorization. The following provider-name table remains provisional until an exact route is qualified.
+For opt-in diagnostics, use `python scripts/effective_capabilities.py --format v2` (schema: `assets/capability-diagnostic-v2.schema.json`). V2 reports configured, registered, runtime discovery, model exposure, invocation authorization, authentication, provider response, and query qualification independently. Read each state with its evidence scope. Static configuration cannot establish runtime states; missing evidence is `UNKNOWN`, and `UNSUPPORTED` requires scoped evidence. Freshness remains `UNKNOWN` without an applicable TTL. Authorization evidence is specific to exact invocation arguments. The historical 85-operation count is a snapshot only; v1 remains the default.
 
 | Connector | Candidate evidence | Must verify in live metadata and response |
 |---|---|---|

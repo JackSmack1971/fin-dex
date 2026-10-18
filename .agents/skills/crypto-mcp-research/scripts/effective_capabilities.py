@@ -431,20 +431,80 @@ def build_effective_view(root: Path = REPO_ROOT, run_dir: Path | None = None) ->
     }
 
 
+DIMENSIONS = ("configured", "registered", "runtime_discovered", "model_exposed",
+              "invocation_authorized", "authentication_established", "provider_responded",
+              "query_qualified")
+
+
+def build_diagnostic_view(root: Path = REPO_ROOT, run_dir: Path | None = None,
+                          generated_at: str | None = None) -> dict[str, Any]:
+    """Build opt-in v2 diagnostics. Static files never prove runtime properties."""
+    base = build_effective_view(root, run_dir)
+    generated_at = generated_at or dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+    if not _valid_retrieval_time(generated_at):
+        raise ValueError("generated_at must be a UTC timestamp ending in Z")
+    operations = []
+    for old in base["operations"]:
+        is_mcp = old["transport"] == "MCP"
+        configured = old.get("mcp_registered") is True if is_mcp else old.get("adapter_discovered") is True
+        exposed = old.get("authorization", "").startswith("EXPOSED_BY_PROJECT_ALLOWLIST") if is_mcp else False
+        evidence = [{"id": "configuration", "source": "ACTIVE_PROJECT_CONFIGURATION",
+                     "scope": ("exact provider/operation configured" if configured else
+                               "checked active configuration; exact provider/operation absent or disabled"),
+                     "observed_at": None, "retrieved_at": None}]
+        states = {key: {"state": "UNKNOWN", "evidence_refs": []} for key in DIMENSIONS}
+        states["configured"] = {"state": "YES" if configured else "NO",
+                                 "evidence_refs": ["configuration"]}
+        states["registered"] = {"state": "UNKNOWN", "evidence_refs": []}
+        states["model_exposed"] = {"state": "UNKNOWN", "evidence_refs": []}
+        states["invocation_authorized"] = {"state": "UNKNOWN", "evidence_refs": []}
+        states["authentication_established"] = {"state": "UNKNOWN", "evidence_refs": []}
+        states["provider_responded"] = {"state": "UNKNOWN", "evidence_refs": []}
+        states["query_qualified"] = {"state": "UNKNOWN", "evidence_refs": []}
+        if is_mcp and exposed:
+            evidence.append({"id": "allowlist", "source": "ACTIVE_PROJECT_CONFIGURATION",
+                             "scope": "exact advertised tool name only", "observed_at": None,
+                             "retrieved_at": None})
+        evidence.append({"id": "generation", "source": "DIAGNOSTIC_GENERATION",
+                         "scope": "report only; does not refresh evidence", "observed_at": None,
+                         "retrieved_at": generated_at})
+        operations.append({
+            "canonical_identity": old["canonical_operation_id"],
+            "provider": old["provider"], "operation": old["operation"], "transport": old["transport"],
+            "configuration_origin": (".codex/config.toml and .codex/provider-capabilities.json" if is_mcp
+                                     else ".codex provider routing contract"),
+            "states": states, "evidence": evidence,
+            "generated_at": generated_at, "age_seconds": None,
+            "freshness": "UNKNOWN", "freshness_scope": "NO_APPLICABLE_SOURCE_TTL",
+            "source_ttl_seconds": None,
+            "side_effect_uncertainty": "UNKNOWN", "read_only_eligible": "UNKNOWN",
+            "invocation_arguments_sha256": None,
+        })
+    return {"schema_version": 2, "format": "capability-diagnostic-v2",
+            "generated_at": generated_at, "network_calls_made": False,
+            "historical_inventory_count": 85,
+            "historical_inventory_note": "85-operation inventory is a historical snapshot, not proof of current availability.",
+            "operations": operations}
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", type=Path, default=REPO_ROOT)
     parser.add_argument("--provider", help="filter to one canonical provider id")
     parser.add_argument("--run-dir", type=Path,
                         help="attach validated retained adapter responses from this run (no network calls)")
+    parser.add_argument("--format", choices=("v1", "v2"), default="v1",
+                        help="output format (default v1; v2 is opt-in diagnostics)")
+    parser.add_argument("--generated-at", help="fixed UTC generation time for deterministic v2 output")
     args = parser.parse_args()
     try:
-        result = build_effective_view(args.root, args.run_dir)
+        result = (build_diagnostic_view(args.root, args.run_dir, args.generated_at)
+                  if args.format == "v2" else build_effective_view(args.root, args.run_dir))
     except (OSError, ValueError, RuntimeError, json.JSONDecodeError) as exc:
         print(json.dumps({"status": "ERROR", "reason": str(exc)}), file=sys.stderr)
         return 2
     if args.provider:
-        result["operations"] = [x for x in result["operations"] if x["provider"] == args.provider]
+        result["operations"] = [x for x in result["operations"] if x.get("provider") == args.provider]
     print(json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True))
     return 0
 

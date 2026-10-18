@@ -3,12 +3,17 @@ import json
 from pathlib import Path
 import tempfile
 import hashlib
+import importlib.util
 
 ROOT = Path(__file__).resolve().parents[1]
 SPEC = importlib.util.spec_from_file_location(
     "effective_capabilities", ROOT / "scripts" / "effective_capabilities.py")
 module = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(module)
+VALIDATOR_SPEC = importlib.util.spec_from_file_location(
+    "validate_capabilities", ROOT / "scripts" / "validate_capabilities.py")
+validator = importlib.util.module_from_spec(VALIDATOR_SPEC)
+VALIDATOR_SPEC.loader.exec_module(validator)
 
 
 def operation(tmp_path, *, credentials_required=False, credentials_available=False):
@@ -194,3 +199,39 @@ def test_dex_pair_snapshot_requires_requested_pair_identity(tmp_path):
     (run_dir / "pair.json").write_text(json.dumps(doc), encoding="utf-8")
     module._attach_run_responses(operation, run_dir)
     assert operation[0]["run_response_evidence"] == []
+
+
+def test_v1_remains_default_and_v2_is_fixed_time_offline():
+    fixture = json.loads((ROOT / "tests" / "fixtures" /
+                          "capability-diagnostic-v2-input.json").read_text(encoding="utf-8"))
+    fixed = fixture["generated_at"]
+    first = module.build_diagnostic_view(generated_at=fixed)
+    second = module.build_diagnostic_view(generated_at=fixed)
+    assert first == second
+    assert first["schema_version"] == 2
+    assert first["historical_inventory_count"] == 85
+    assert first["network_calls_made"] is False
+    assert module.build_effective_view()["schema_version"] == 1
+    assert all(x["states"]["registered"]["state"] == "UNKNOWN" for x in first["operations"])
+    assert all(x["states"]["invocation_authorized"]["state"] == "UNKNOWN" for x in first["operations"])
+    assert all(x["freshness"] == "UNKNOWN" for x in first["operations"])
+    assert validator.validate_diagnostic(first) == []
+
+
+def test_v2_rejects_static_capability_promotion_and_bad_freshness():
+    report = module.build_diagnostic_view(generated_at="2026-10-18T12:00:00Z")
+    op = report["operations"][0]
+    op["states"]["provider_responded"] = {"state": "YES", "evidence_refs": ["configuration"]}
+    op["freshness"] = "FRESH"
+    errors = validator.validate_diagnostic(report)
+    assert any("static evidence cannot establish YES" in e for e in errors)
+    assert any("freshness must be UNKNOWN" in e for e in errors)
+
+
+def test_v2_authorization_is_bound_to_exact_invocation_arguments():
+    report = module.build_diagnostic_view(generated_at="2026-10-18T12:00:00Z")
+    op = report["operations"][0]
+    op["states"]["invocation_authorized"] = {"state": "YES", "evidence_refs": ["configuration"]}
+    errors = validator.validate_diagnostic(report)
+    assert any("exact invocation argument digest" in e for e in errors)
+    assert any("exact-argument evidence scope" in e for e in errors)
