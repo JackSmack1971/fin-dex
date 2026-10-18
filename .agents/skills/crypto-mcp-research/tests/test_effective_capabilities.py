@@ -81,7 +81,8 @@ def test_real_effective_view_separates_local_rest_adapters_from_mcp_tools():
     assert dex["adapter_discovered"] is True
     assert dex["adapter_code_state"] == "PRESENT_IN_CHECKED_OUT_TREE"
     assert dex["mcp_registered"] is False
-    assert "dexscreener_public.py pair" in dex["invocation_method"]
+    assert "dexscreener_public.py pair --chain {dexScreenerChainId}" in dex["invocation_method"]
+    assert "Base is `base` (not `8453`)" in dex["chain_identifier_semantics"]
     assert llama["adapter_discovered"] is True
     assert llama["transport"] == "LOCAL_REST_ADAPTER"
     assert llama["mcp_registered"] is False

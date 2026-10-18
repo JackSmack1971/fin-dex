@@ -197,12 +197,12 @@ def _local_operations(root: Path) -> list[dict[str, Any]]:
             qualification = access.get("smoke_evidence", {})
             for operation, endpoint, command in (
                 ("token_pair_discovery", "GET /token-pairs/v1/{chainId}/{tokenAddress}",
-                 "token-pairs --chain {chainId} --token {tokenAddress}"),
+                 "token-pairs --chain {dexScreenerChainId} --token {tokenAddress}"),
                 ("pair_snapshot", "GET /latest/dex/pairs/{chainId}/{pairId}",
-                 "pair --chain {chainId} --pair {pairAddress}"),
+                 "pair --chain {dexScreenerChainId} --pair {pairAddress}"),
             ):
                 exact = next((x for x in observations if x.get("endpoint") == endpoint), None)
-                result.append(local_operation(
+                operation_record = local_operation(
                     provider=provider, operation_id=operation, task=route.get("task", "DEX pool observations"),
                     adapter_path=adapter_path,
                     invocation_method=f"python {adapter_rel} {command}", endpoint=endpoint,
@@ -210,7 +210,11 @@ def _local_operations(root: Path) -> list[dict[str, Any]]:
                     route_qualification=exact or {"status": "NO_EXACT_ROUTE_QUALIFICATION_RETAINED",
                                                   "provider_smoke_scope": qualification},
                     provider_qualification=provider_qualification, free_access=free_access,
-                    authorization=auth))
+                    authorization=auth)
+                operation_record["chain_identifier_semantics"] = (
+                    "Use the exact DEX Screener provider chainId string, not the numeric EVM chain ID; "
+                    "Base is `base` (not `8453`).")
+                result.append(operation_record)
         elif provider == "dexpaprika":
             for index, route in enumerate(contract.get("supported_routes", [])):
                 command = route.get("tool")
