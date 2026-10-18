@@ -1,14 +1,21 @@
 # Opt-in paper testing
 
-This package is separate from the read-only `crypto-mcp-research` workflow. It accepts a frozen, versioned signal record; it does not generate signals. No Liquid connector is configured or qualified in this repository, so order submission is intentionally unavailable until a fresh runtime inventory verifies the simulation mode, exact tool schema, and account identity.
+This package is separate from the read-only crypto-mcp-research workflow. It accepts a frozen, versioned signal record; it does not generate signals. The Codex runtime exposes Liquid Co-Invest tools, but the inventory inspected on 2026-10-18 did not expose a direct order-submission tool. Its suggest_order operation creates a paper review link that must be confirmed in Liquid. Since the web app does not inherit the connector's paper mode, that operation cannot meet this adapter's simulated execution boundary. See [runtime discovery](liquid-runtime-discovery-2026-10-18.md).
 
 ## Safety boundary
 
 - No live trading, wallet connection, funding, signing, or credential storage is supported.
-- A future connector must implement `PaperVenue` and provide fresh, retained evidence that the account and order operation are simulated. Missing, stale, ambiguous, or changed evidence fails closed.
-- Only `get_paper_status`, `submit_simulated_order`, and `reconcile_order` are permitted by the adapter contract. Unknown operations are rejected.
-- The adapter never retries order submission. An uncertain response becomes `SUBMISSION_UNKNOWN` and requires reconciliation by stable client/order ID before any operator decision.
-- The current implementation is offline validation and lifecycle bookkeeping only. It cannot contact Liquid or claim an order was placed.
+- A future connector must implement PaperVenue; each submit independently reads the exact runtime tool schemas, paper status, and instrument metadata. It requires the qualified account ID, current simulated mode, and a fresh schema digest. Missing, stale, ambiguous, or changed evidence fails closed.
+- Only get_paper_status, get_instrument_metadata, submit_simulated_order, and reconcile_order are accepted. Unknown operations or schemas are rejected.
+- Before dispatch, SQLite atomically reserves the signal ID and immutable request digest in one canonical registry at `paper-testing/runs/paper-idempotency.sqlite3`. Callers cannot select per-adapter registry paths. After reservation, the adapter rechecks tool schemas, instrument metadata, and fresh mode/account evidence immediately before dispatch; any failed recheck consumes the reservation without sending, and the signal cannot be retried. Any existing reservation blocks another submit across adapter restarts. An uncertain response becomes SUBMISSION_UNKNOWN; it is never retried and must be reconciled by its stable client order ID.
+- This SQLite guarantee covers adapter processes on one host using the same persistent local filesystem. A deployment must preserve the canonical path across restarts and run a single adapter host. Multiple hosts or independent checkout/database copies are not qualified; they require a shared transactional idempotency service before dispatch is enabled. If the registry cannot be opened, submission fails before any venue call.
+- The reservation retains the frozen signal, runtime schema snapshot, fresh mode evidence, instrument metadata, request digest, acknowledgement, and raw reconciliation response in the same durable database.
+- The SQLite journal is the durable evidence store for this slice. The included exporter must emit a validated paper-run artifact before the one-order acceptance test.
+- Export retained journal rows with `python paper-testing/export_journal.py`. Each intent produces a canonical `paper-testing/runs/<client_order_id>.json` artifact after read-only journal access, cross-field and lifecycle validation, and JSON Schema validation. Artifacts are created exclusively; identical re-export is a no-op and conflicting content is an error. Any invalid journal row makes the command exit nonzero.
+- The exporter verifies the locally stored request digest and, where present, the receipt digest. These hashes are local integrity checks, not Liquid attestations. Legacy acknowledgements without a receipt anchor are explicitly marked as export-computed. A `RESERVED` row with dispatch evidence is exported as uncertain and must be reconciled; do not retry it.
+- See [Liquid capability report](liquid-capability-report.json) for operation-level evidence. Only `QUALIFIED` can unlock the one-order acceptance phase; current findings do not qualify any operation, so automated execution remains disabled.
+- The complete frozen signal is validated at submission, including direction/side consistency. Quantity and limit price must satisfy the instrument's finite decimal range and precision metadata.
+- The current implementation is a connector contract plus offline validation and lifecycle bookkeeping. No qualified connector can currently satisfy it, so it cannot contact Liquid or claim an order was placed.
 
 Validate records with:
 
@@ -17,16 +24,16 @@ python paper-testing/validate_paper_record.py path\to\signal.json --kind signal
 python paper-testing/validate_paper_record.py path\to\run.json --kind run
 ```
 
-Keep records under `paper-testing/runs/`; do not place credentials there. The proposed $10,000 balance, 30-day period, 7–21-day horizon, and BTC/ETH/SOL plus supported-altcoin universe are experiment parameters, not evidence that a run has started. Metrics remain incomplete unless required fills, fees, funding, equity history, and stable identifiers are observed.
+Keep records under paper-testing/runs/; do not place credentials there. Keep the SQLite registry on persistent local storage and out of version control. The proposed $10,000 balance, 30-day period, 7–21-day horizon, and BTC/ETH/SOL plus supported-altcoin universe are experiment parameters, not evidence that a run has started. Metrics remain incomplete unless required fills, fees, funding, equity history, and stable identifiers are observed.
 
 ## Liquid qualification required before the vertical slice
 
-In a fresh trusted Codex session, inspect the actual Liquid MCP connection and OAuth scopes, list tool names and schemas, establish the simulation account and mode using provider-returned evidence, and bind the exact simulated-order method and identity. Record source, exact tool, UTC observation and retrieval times, account/instrument identifiers, and schema digest. Stop if any part is unavailable or ambiguous. Do not modify research MCP allowlists to enable this.
+In a fresh trusted Codex session, establish whether Liquid exposes an order operation that can be programmatically and cryptographically bound to simulation mode. Inspect OAuth scopes, operation names and schemas, account identity, and instrument rules. Retain provider-returned evidence with UTC observation and retrieval times and schema digest. Stop if any part is unavailable or ambiguous. Do not use a review link that requires a separate UI confirmation. Do not modify research MCP allowlists to enable this.
 
 ## Run lifecycle
 
 1. Validate and freeze a signal; retain qualified and rejected decisions.
 2. Verify venue/account simulation mode and exact tool schema.
 3. Submit one simulated order once, persist request digest and acknowledgement.
-4. Reconcile stable order/fill IDs and account state. Preserve unavailable fields as `null` and set evaluation incomplete.
+4. Reconcile stable order/fill IDs and account state. Preserve unavailable fields as null and set evaluation incomplete.
 5. Only after accepted one-order evidence, start a separately recorded 30-day forward test. Do not combine its results with historical walk-forward evaluation.

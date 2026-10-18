@@ -36,6 +36,10 @@ def validate_signal(value):
     if order["side"] not in {"buy", "sell"} or order["order_type"] not in {"market", "limit"} or order["time_in_force"] not in {"IOC", "GTC", "DAY"}: fail("invalid order enum")
     if isinstance(order["quantity"], bool) or not isinstance(order["quantity"], (int, float)) or not math.isfinite(order["quantity"]) or order["quantity"] <= 0: fail("quantity must be finite and positive")
     if order["order_type"] == "limit" and (isinstance(order.get("limit_price"), bool) or not isinstance(order.get("limit_price"), (int, float)) or not math.isfinite(order["limit_price"]) or order["limit_price"] <= 0): fail("limit order requires positive limit_price")
+    if order["order_type"] == "market" and order.get("limit_price") is not None: fail("market order cannot include limit_price")
+    if value["direction"] == "flat" and value["gate_result"] == "QUALIFIED": fail("flat direction cannot be qualified for entry")
+    if value["direction"] == "long" and order["side"] != "buy": fail("long direction requires buy side")
+    if value["direction"] == "short" and order["side"] != "sell": fail("short direction requires sell side")
     return True
 
 
@@ -47,17 +51,48 @@ def validate_run(value):
     if not isinstance(value["run_id"], str) or not value["run_id"]: fail("run_id required")
     if value["status"] not in {"PREPARED", "MODE_VERIFIED", "SUBMISSION_UNKNOWN", "ACKNOWLEDGED", "RECONCILED", "REJECTED"}: fail("invalid run status")
     rec = value["reconciliation"]
-    rec_keys = {"order_id", "fills", "fees", "funding", "account_equity", "equity_history"}
+    rec_order = ("order_id", "fills", "fees", "funding", "account_equity", "equity_history")
+    rec_keys = set(rec_order)
     if not isinstance(rec, dict) or set(rec) != rec_keys: fail("reconciliation fields missing or unknown")
+    if rec["order_id"] is not None and (not isinstance(rec["order_id"], str) or not rec["order_id"]): fail("order_id must be a nonempty string or null")
+    if rec["fills"] is not None and not isinstance(rec["fills"], list): fail("fills must be an array or null")
+    if rec["equity_history"] is not None and not isinstance(rec["equity_history"], list): fail("equity_history must be an array or null")
+    for key in ("fees", "funding", "account_equity"):
+        if rec[key] is not None and (isinstance(rec[key], bool) or not isinstance(rec[key], (int, float)) or not math.isfinite(rec[key])): fail(f"{key} must be finite or null")
     ev = value["evaluation"]
     if not isinstance(ev, dict) or set(ev) != {"complete", "missing_fields", "metrics"}: fail("invalid evaluation shape")
-    missing = [key for key in rec_keys if rec[key] is None]
+    missing = [key for key in rec_order if rec[key] is None]
     if missing and (ev["complete"] is not False or ev["metrics"] is not None): fail("missing reconciliation inputs cannot yield complete metrics")
     if ev["complete"] is True and (missing or not isinstance(ev["metrics"], dict)): fail("complete evaluation requires all reconciliation inputs and metrics")
-    if not isinstance(ev["missing_fields"], list) or set(ev["missing_fields"]) != set(missing): fail("missing_fields does not match reconciliation")
+    if not isinstance(ev["complete"], bool): fail("evaluation.complete must be boolean")
+    if not isinstance(ev["missing_fields"], list) or ev["missing_fields"] != missing: fail("missing_fields does not match reconciliation")
     evidence = value["venue_evidence"]
-    if value["status"] in {"MODE_VERIFIED", "ACKNOWLEDGED", "RECONCILED"} and (not isinstance(evidence, dict) or evidence.get("mode") != "SIMULATED"): fail("status requires retained simulated mode evidence")
-    if value["status"] in {"ACKNOWLEDGED", "RECONCILED"} and not isinstance(value["submission"], dict): fail("acknowledged status requires submission receipt")
+    status = value["status"]
+    submission = value["submission"]
+    if status == "PREPARED" and (evidence is not None or submission is not None): fail("PREPARED cannot contain venue evidence or submission receipt")
+    if status in {"MODE_VERIFIED", "SUBMISSION_UNKNOWN", "ACKNOWLEDGED", "RECONCILED"}:
+        evidence_keys = {"mode", "account_id", "observed_at_utc", "retrieved_at_utc", "tool_schema_digest"}
+        if not isinstance(evidence, dict) or not evidence_keys <= evidence.keys() or evidence.get("mode") != "SIMULATED": fail("status requires complete retained simulated mode evidence")
+        if not isinstance(evidence["account_id"], str) or not evidence["account_id"]: fail("venue evidence requires account identity")
+        for key in ("observed_at_utc", "retrieved_at_utc"):
+            stamp = evidence[key]
+            if not isinstance(stamp, str) or not stamp.endswith("Z"): fail(f"venue evidence {key} must be UTC ending Z")
+            try: dt.datetime.fromisoformat(stamp[:-1] + "+00:00")
+            except ValueError: fail(f"venue evidence {key} is invalid")
+        if not isinstance(evidence["tool_schema_digest"], str) or len(evidence["tool_schema_digest"]) != 64 or any(c not in "0123456789abcdef" for c in evidence["tool_schema_digest"]): fail("invalid tool schema digest")
+    if status == "MODE_VERIFIED" and submission is not None: fail("MODE_VERIFIED cannot have a submission receipt")
+    if status == "REJECTED" and (value["signal"]["gate_result"] != "REJECTED" or evidence is not None or submission is not None): fail("REJECTED is reserved for a gate-rejected signal before venue interaction")
+    if status in {"SUBMISSION_UNKNOWN", "ACKNOWLEDGED", "RECONCILED"} and value["signal"]["gate_result"] != "QUALIFIED": fail("submission lifecycle requires a qualified signal")
+    if status == "SUBMISSION_UNKNOWN" and (not isinstance(submission, dict) or submission.get("outcome") != "UNKNOWN" or not submission.get("client_order_id") or not submission.get("request_digest") or any(key in submission for key in ("order_id", "acknowledged", "acknowledged_at_utc"))): fail("SUBMISSION_UNKNOWN requires an unacknowledged durable intent receipt")
+    if status in {"ACKNOWLEDGED", "RECONCILED"}:
+        if not isinstance(submission, dict) or submission.get("outcome") != "ACKNOWLEDGED" or submission.get("acknowledged") is not True or not submission.get("order_id") or not submission.get("client_order_id") or not submission.get("request_digest") or not submission.get("acknowledged_at_utc"): fail("acknowledged status requires a stable persisted receipt")
+    if isinstance(submission, dict):
+        if not isinstance(submission.get("client_order_id"), str) or not submission["client_order_id"].startswith("fdx-"): fail("invalid client order ID")
+        digest = submission.get("request_digest")
+        if not isinstance(digest, str) or len(digest) != 64 or any(c not in "0123456789abcdef" for c in digest): fail("invalid request digest")
+    if status == "RECONCILED" and rec["order_id"] != submission["order_id"]: fail("reconciled order ID must match the acknowledgement")
+    if status in {"PREPARED", "MODE_VERIFIED", "SUBMISSION_UNKNOWN", "ACKNOWLEDGED"} and rec["order_id"] is not None: fail("order ID is not allowed before successful reconciliation")
+    if status in {"PREPARED", "MODE_VERIFIED", "SUBMISSION_UNKNOWN", "ACKNOWLEDGED", "REJECTED"} and any(rec[key] is not None for key in ("fills", "fees", "funding", "account_equity", "equity_history")): fail("reconciliation data is not allowed before RECONCILED")
     return True
 
 
