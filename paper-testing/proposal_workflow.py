@@ -183,8 +183,9 @@ def validate_persisted_record(row: dict[str, Any]) -> dict[str, Any]:
         approved_at = _timestamp(approval["recorded_at_utc"], "approval recorded_at_utc")
         if approved_at < created or approved_at > updated:
             raise ProposalError("approval metadata timestamp is outside the proposal record interval")
-    if state == "VALIDATED":
-        validate_details(details)
+    # Exported proposal artifacts always satisfy the complete detail contract,
+    # including drafts that have not yet advanced through local validation.
+    validate_details(details)
     return {"schema_version": "proposal.v1", "proposal_id": proposal_id, "details": details,
             "details_digest": details_digest, "state": state, "external_attempt_status": attempt,
             "created_at_utc": row["created_at_utc"], "updated_at_utc": row["updated_at_utc"],

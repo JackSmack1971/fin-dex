@@ -51,6 +51,7 @@ class ProposalWorkflowTests(unittest.TestCase):
             self.store.create(proposal_id, item)
             with self.assertRaises(ProposalError):
                 self.store.validate(proposal_id)
+            self.assertEqual(export_proposals(self.db, self.root / (proposal_id + "-export")), 1)
 
     def test_approval_metadata_is_not_runtime_authorization(self):
         row = self.create_validated("p-approval")
