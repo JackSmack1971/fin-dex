@@ -1,5 +1,13 @@
 # Opt-in paper testing
 
+## Proposal-only workflow
+
+`proposal_workflow.py` provides a local proposal lifecycle in a separate SQLite database (`paper-testing/runs/proposals.sqlite3`) and `export_proposals.py` writes immutable JSON artifacts under `paper-testing/proposals/`. Proposal details preserve the account ID, exact instrument identity, side, quantity and explicit unit, requested order type, and research references. Missing account or instrument metadata prevents validation. A changed proposal uses a new proposal ID; details are canonically digested and are not edited in place.
+
+Explicit approval can be recorded against a proposal ID, details digest, operation, and approving authority. This does not enable an external call: `EXTERNAL_REVIEW_LINK_ENABLED` remains false because the current Liquid suggestion operations are unqualified in [the capability report](liquid-capability-report.json). No transition records a created review link or confirms an order. External confirmation, acceptance, execution, and fills are outside this workflow. This database and exporter do not access or mutate the paper-order journal or its idempotency registry.
+
+Run the fixture-only proposal checks with `python -m unittest discover -s paper-testing/tests -p test_proposal_workflow.py` and export with `python paper-testing/export_proposals.py`.
+
 This package is separate from the read-only crypto-mcp-research workflow. It accepts a frozen, versioned signal record; it does not generate signals. The Codex runtime exposes Liquid Co-Invest tools, but the inventory inspected on 2026-10-18 did not expose a direct order-submission tool. Its suggest_order operation creates a paper review link that must be confirmed in Liquid. Since the web app does not inherit the connector's paper mode, that operation cannot meet this adapter's simulated execution boundary. See [runtime discovery](liquid-runtime-discovery-2026-10-18.md).
 
 ## Safety boundary
