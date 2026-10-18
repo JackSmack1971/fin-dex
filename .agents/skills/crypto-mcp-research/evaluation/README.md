@@ -1,6 +1,14 @@
 # Fin-Dex empirical evaluation artifacts
 
-These files implement the targets in `../references/evaluation-plan.md` without claiming that they have been run:
+## Authority and evidence status
+
+`protocol-v1.json` is the controlling trial protocol and is digest-bound to each prepared result manifest. `references/evaluation-plan.md` states the value hypothesis and study intent; it does not override the protocol or establish that trials ran. `corpus-v1.json` and `fixtures-v1.json` define the frozen cases and synthetic evidence.
+
+The pilot files are setup/score artifacts, not a completed performance study. Revision 2 (`pilots/pilot-v2-manifest.json` and `pilots/pilot-v2-score.json`) contains 32 incomplete or unvalidated records and zero complete trials; full protocol coverage requires 450 completed slots. Its `STATIC_VALIDATION` status describes artifact validation only. It does not establish agent performance or permit a live-performance claim. The v1 files are retained as historical evidence and are superseded by v2 for the current pilot status. Keep trial records incomplete or unvalidated until native executions and required adjudications are recorded.
+
+Do not infer execution from an evaluation ID or a mode label alone. `LIVE_AGENT_EVALUATION` requires recorded native execution provenance for completed trials; the scorer checks provenance and coverage but does not launch agents or independently prove asserted native runs occurred.
+
+These files implement the targets in `../references/evaluation-plan.md` under the controlling `protocol-v1.json`. Their presence does not mean they have been run:
 
 - `corpus-v1.json`: frozen inputs, expected behavior, evidence requirements, scoring rules, failure criteria, and stable case IDs (20 positive routing, 20 negative routing, 10 neighbors, 10 research, 5 provider failure).
 - `fixtures-v1.json`: explicit synthetic provider/routing fixtures. Synthetic observations are test data, not live provider evidence.
