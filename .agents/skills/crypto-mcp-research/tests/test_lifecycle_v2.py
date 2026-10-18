@@ -53,6 +53,18 @@ class LifecycleV2(unittest.TestCase):
         extra = copy.deepcopy(self.docs[1]); extra["artifact_id"] = "extra"
         path = self.root / "extra.json"; path.write_bytes(life.canonical_json_bytes(extra))
         self.assertTrue(any("unexpected artifact receipts" in e for e in life.validate_lifecycle_v2(self.lifecycle, self.paths + [path])))
+    def test_declared_snapshot_must_be_present_even_if_not_expected(self):
+        lifecycle = copy.deepcopy(self.lifecycle)
+        lifecycle["expected_artifacts"] = [x for x in lifecycle["expected_artifacts"]
+                                           if x["artifact_id"] != "snapshot-1"]
+        errors = life.validate_lifecycle_v2(lifecycle, self.paths[1:])
+        self.assertTrue(any("missing frozen snapshot artifact: snapshot-1" in e for e in errors))
+    def test_declared_eligibility_must_be_present_even_if_not_expected(self):
+        lifecycle = copy.deepcopy(self.lifecycle)
+        lifecycle["expected_artifacts"] = [x for x in lifecycle["expected_artifacts"]
+                                           if x["artifact_id"] != "eligible-1"]
+        errors = life.validate_lifecycle_v2(lifecycle, self.paths[:2])
+        self.assertTrue(any("missing eligibility artifact: eligible-1" in e for e in errors))
     def test_task_lifecycle_role_status_and_snapshot_mismatch_rejected(self):
         for field, value in (("task_id", "wrong"), ("lifecycle_id", "wrong"), ("agent_id", "onchain_analyst"), ("status", "PARTIAL")):
             doc = copy.deepcopy(self.docs[1]); doc[field] = value; self.paths[1].write_bytes(life.canonical_json_bytes(doc))

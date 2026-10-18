@@ -288,18 +288,24 @@ def validate_lifecycle_v2(lifecycle, artifact_paths, retained_history=()):
     snapshot_digest = lifecycle.get("snapshot_sha256")
     if not isinstance(snapshot_id, str) or not snapshot_id: errors.append("snapshot_artifact_id required")
     if not isinstance(snapshot_digest, str) or not re.fullmatch(r"[a-f0-9]{64}", snapshot_digest): errors.append("snapshot_sha256 must be lowercase SHA-256")
-    elif snapshot_id in docs:
-        snapshot_doc, snapshot_raw, _ = docs[snapshot_id]
-        if sha256(snapshot_raw) != snapshot_digest and sha256(canonical_json_bytes(snapshot_doc)) != snapshot_digest:
-            errors.append("frozen snapshot digest mismatch")
+    elif isinstance(snapshot_id, str) and snapshot_id:
+        if snapshot_id not in docs:
+            errors.append(f"missing frozen snapshot artifact: {snapshot_id}")
+        else:
+            snapshot_doc, snapshot_raw, _ = docs[snapshot_id]
+            if sha256(snapshot_raw) != snapshot_digest and sha256(canonical_json_bytes(snapshot_doc)) != snapshot_digest:
+                errors.append("frozen snapshot digest mismatch")
     eligibility_id = lifecycle.get("eligibility_artifact_id")
     if not isinstance(eligibility_id, str) or not eligibility_id: errors.append("eligibility_artifact_id required")
-    if eligibility_id in docs:
-        eligibility = docs[eligibility_id][0]
-        if eligibility.get("result") == "REVIEW_ELIGIBLE":
-            if eligibility.get("lifecycle_id") != lifecycle_id: errors.append("eligibility lifecycle binding mismatch")
-            if eligibility.get("snapshot_sha256") != snapshot_digest: errors.append("eligibility snapshot binding mismatch")
-            if eligibility.get("schema_version") != 2: errors.append("v1 artifact cannot establish new REVIEW_ELIGIBLE result")
+    elif isinstance(eligibility_id, str) and eligibility_id:
+        if eligibility_id not in docs:
+            errors.append(f"missing eligibility artifact: {eligibility_id}")
+        else:
+            eligibility = docs[eligibility_id][0]
+            if eligibility.get("result") == "REVIEW_ELIGIBLE":
+                if eligibility.get("lifecycle_id") != lifecycle_id: errors.append("eligibility lifecycle binding mismatch")
+                if eligibility.get("snapshot_sha256") != snapshot_digest: errors.append("eligibility snapshot binding mismatch")
+                if eligibility.get("schema_version") != 2: errors.append("v1 artifact cannot establish new REVIEW_ELIGIBLE result")
     for ident, (doc, _, _) in docs.items():
         if doc.get("agent_id") in {"adversarial_reviewer", "evidence_verifier"}:
             binding = doc.get("review")
