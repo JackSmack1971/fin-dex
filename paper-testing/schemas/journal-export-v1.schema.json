@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fin-dex.local/paper-testing/journal-export-v1.schema.json",
+  "type": "object",
+  "required": ["export_version", "schema_version", "run_id", "status", "signal", "venue_evidence", "submission", "reconciliation", "evaluation", "provenance"],
+  "properties": {
+    "export_version": {"const": "paper-journal-export.v1"},
+    "schema_version": {"const": "paper-run.v1"},
+    "run_id": {"type": "string", "minLength": 1},
+    "status": {"enum": ["PREPARED", "SUBMISSION_UNKNOWN", "ACKNOWLEDGED", "RECONCILED"]},
+    "signal": {"type": "object"},
+    "venue_evidence": {"type": ["object", "null"]},
+    "submission": {"type": ["object", "null"]},
+    "reconciliation": {"type": "object"},
+    "evaluation": {"type": "object"},
+    "provenance": {"type": "object", "required": ["journal_created_at_utc", "signal", "request", "instrument_metadata", "account_identity", "tool_schema_snapshot", "dispatch_evidence", "receipt", "reconciliation"]}
+  },
+  "additionalProperties": false
+}

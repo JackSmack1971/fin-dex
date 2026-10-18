@@ -1,0 +1,34 @@
+{
+  "report_version": "liquid-capability.v1",
+  "as_of_utc": "2026-10-18T04:01:00Z",
+  "surface": {
+    "endpoint": "Liquid Co-Invest tools exposed to the inspected Codex runtime",
+    "configuration": "Runtime tool inventory and published declarations inspected; no Liquid tool called",
+    "authorization": "OAuth scopes and connected account authorization were unavailable"
+  },
+  "operations": [
+    {
+      "operation": "co_invest_suggest_order",
+      "status": "UNSUPPORTED_ON_INSPECTED_SURFACE",
+      "capability": "direct simulated order submission bound to simulation at dispatch",
+      "evidence": [{"source": "liquid-runtime-discovery-2026-10-18.md", "observation": "creates a prefilled review link; confirmation occurs in Liquid UI; web app does not inherit connector paper mode"}],
+      "scope": "Only the inspected Co-Invest runtime operation and declarations"
+    },
+    {
+      "operation": "direct order submission operation",
+      "status": "UNSUPPORTED_ON_INSPECTED_SURFACE",
+      "capability": "programmatic order submission",
+      "evidence": [{"source": "liquid-runtime-discovery-2026-10-18.md", "observation": "inspected inventory exposed no direct place_order or submit_order operation"}],
+      "scope": "Only the inspected Co-Invest tool inventory at 2026-10-18T04:01:00Z"
+    },
+    {
+      "operation": "simulation binding, OAuth scope, account identity, and instrument rules",
+      "status": "NO_VERIFIED_CONCLUSION",
+      "capability": "complete qualification of an automated simulated order path",
+      "evidence": [{"source": "liquid-runtime-discovery-2026-10-18.md", "observation": "no tool response, OAuth scope metadata, connected account identity, or instrument precision response was observed"}],
+      "scope": "Unverified for the inspected session"
+    }
+  ],
+  "one_order_acceptance_enabled": false,
+  "unlock_rule": "Only an operation marked QUALIFIED may unlock one-order acceptance after complete source-backed evidence."
+}

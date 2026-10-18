@@ -16,6 +16,7 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from adapter import AdapterRefusal, PaperAdapter, evaluation_completeness
 from validate_paper_record import validate_run, validate_signal
+from export_journal import export as export_journal
 
 OPS = {
     "get_paper_status": {"name": "get_paper_status", "input": {"type": "object"}},
@@ -228,6 +229,58 @@ class PaperTestingTests(unittest.TestCase):
         result = adapter.reconcile_order(receipt["client_order_id"])
         row = adapter.reservation_store.get_by_client_order_id(receipt["client_order_id"])
         self.assertEqual(json.loads(row["reconciliation_json"]), result)
+
+    def test_journal_export_is_deterministic_anchored_and_non_mutating(self):
+        import idempotency
+        receipt = self.adapter().submit_once(signal())
+        before = idempotency.ReservationStore(self.db).get("s-1")
+        out = pathlib.Path(self.temp.name) / "runs"
+        self.assertEqual(export_journal(self.db, out), 0)
+        artifact_path = out / "s-1.json"
+        first = artifact_path.read_bytes()
+        artifact = json.loads(first)
+        self.assertEqual(artifact["status"], "ACKNOWLEDGED")
+        self.assertEqual(artifact["provenance"]["journal_created_at_utc"]["value"], before["created_at_utc"])
+        self.assertEqual(artifact["provenance"]["receipt"]["digest_status"], "ANCHORED_IN_JOURNAL")
+        self.assertEqual(artifact["provenance"]["receipt"]["digest"], before["receipt_digest"])
+        self.assertEqual(export_journal(self.db, out), 0)
+        self.assertEqual(artifact_path.read_bytes(), first)
+        self.assertEqual(idempotency.ReservationStore(self.db).get("s-1"), before)
+        artifact_path.write_text("conflict", encoding="utf-8")
+        self.assertEqual(export_journal(self.db, out), 1)
+
+    def test_journal_export_rejects_tamper_and_marks_legacy_receipt(self):
+        self.adapter().submit_once(signal())
+        db = sqlite3.connect(self.db)
+        try: db.execute("UPDATE paper_intents SET receipt_digest=NULL WHERE signal_id='s-1'"); db.commit()
+        finally: db.close()
+        out = pathlib.Path(self.temp.name) / "runs"
+        self.assertEqual(export_journal(self.db, out), 0)
+        artifact = json.loads((out / "s-1.json").read_text(encoding="utf-8"))
+        self.assertEqual(artifact["provenance"]["receipt"]["digest_status"], "COMPUTED_AT_EXPORT_LEGACY")
+        db = sqlite3.connect(self.db)
+        try: db.execute("UPDATE paper_intents SET request_digest=? WHERE signal_id='s-1'", ("0" * 64,)); db.commit()
+        finally: db.close()
+        other = pathlib.Path(self.temp.name) / "tamper"
+        self.assertEqual(export_journal(self.db, other), 1)
+
+    def test_journal_export_reserved_intents_distinguish_dispatch(self):
+        import idempotency
+        store = idempotency.ReservationStore(self.db)
+        record = signal()
+        timestamp = now()
+        schema_digest = hashlib.sha256(json.dumps(OPS, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+        evidence = {"mode":"SIMULATED", "account_id":"paper-1", "observed_at_utc":timestamp, "retrieved_at_utc":timestamp, "tool_schema_digest":schema_digest}
+        metadata = self.venue.get_instrument_metadata("BTC-PERP")
+        request = {"account_id":"paper-1", "asset":record["asset"], "order":record["order"], "signal_id":record["signal_id"],
+                   "signal_digest":hashlib.sha256(json.dumps(record, sort_keys=True, separators=(",", ":")).encode()).hexdigest(),
+                   "instrument_metadata_digest":hashlib.sha256(json.dumps({k:v for k,v in metadata.items() if k not in {"observed_at_utc","retrieved_at_utc"}}, sort_keys=True, separators=(",", ":")).encode()).hexdigest(),
+                   "tool_schema_digest":schema_digest}
+        request_digest = hashlib.sha256(json.dumps(request, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+        intent = {"signal":record,"venue_evidence":evidence,"instrument_metadata":metadata,"tool_schemas":OPS,"request":request,"request_digest":request_digest}
+        store.reserve("s-1",request_digest,timestamp,json.dumps(intent,sort_keys=True,separators=(",", ":")))
+        out=pathlib.Path(self.temp.name)/"runs"; self.assertEqual(export_journal(self.db,out),0)
+        artifact=json.loads((out/"s-1.json").read_text(encoding="utf-8")); self.assertEqual(artifact["status"],"PREPARED")
 
     def test_lifecycle_receipt_invariants_and_incomplete_nonfill(self):
         result = evaluation_completeness({"order_id": None, "fills": [], "fees": None, "funding": None, "account_equity": 10000, "equity_history": None})

@@ -30,6 +30,7 @@ class ReservationStore:
                 state TEXT NOT NULL CHECK(state IN ('RESERVED','UNKNOWN','ACKNOWLEDGED')),
                 created_at_utc TEXT NOT NULL,
                 receipt_json TEXT,
+                receipt_digest TEXT,
                 intent_json TEXT NOT NULL DEFAULT '{}',
                 reconciliation_json TEXT
             )""")
@@ -38,6 +39,8 @@ class ReservationStore:
                 db.execute("ALTER TABLE paper_intents ADD COLUMN intent_json TEXT NOT NULL DEFAULT '{}' ")
             if "reconciliation_json" not in columns:
                 db.execute("ALTER TABLE paper_intents ADD COLUMN reconciliation_json TEXT")
+            if "receipt_digest" not in columns:
+                db.execute("ALTER TABLE paper_intents ADD COLUMN receipt_digest TEXT")
 
     @property
     def path(self) -> Path:
@@ -86,8 +89,9 @@ class ReservationStore:
             raise ValueError("invalid reservation state transition")
         with self._database() as db:
             db.execute("BEGIN IMMEDIATE")
-            cursor = db.execute("UPDATE paper_intents SET state=?, receipt_json=? WHERE signal_id=? AND state='RESERVED'",
-                                (state, receipt_json, signal_id))
+            digest = hashlib.sha256(receipt_json.encode("utf-8")).hexdigest() if state == "ACKNOWLEDGED" and receipt_json is not None else None
+            cursor = db.execute("UPDATE paper_intents SET state=?, receipt_json=?, receipt_digest=? WHERE signal_id=? AND state='RESERVED'",
+                                (state, receipt_json, digest, signal_id))
             if cursor.rowcount != 1:
                 db.execute("ROLLBACK")
                 raise DuplicateIntent("intent is not in RESERVED state; refusing state change")
@@ -106,17 +110,17 @@ class ReservationStore:
 
     def get(self, signal_id: str):
         with self._database() as db:
-            row = db.execute("SELECT signal_id, request_digest, client_order_id, state, created_at_utc, receipt_json, intent_json, reconciliation_json FROM paper_intents WHERE signal_id=?", (signal_id,)).fetchone()
+            row = db.execute("SELECT signal_id, request_digest, client_order_id, state, created_at_utc, receipt_json, intent_json, reconciliation_json, receipt_digest FROM paper_intents WHERE signal_id=?", (signal_id,)).fetchone()
         if row is None:
             return None
-        return dict(zip(("signal_id", "request_digest", "client_order_id", "state", "created_at_utc", "receipt_json", "intent_json", "reconciliation_json"), row))
+        return dict(zip(("signal_id", "request_digest", "client_order_id", "state", "created_at_utc", "receipt_json", "intent_json", "reconciliation_json", "receipt_digest"), row))
 
     def get_by_client_order_id(self, client_order_id: str):
         with self._database() as db:
-            row = db.execute("SELECT signal_id, request_digest, client_order_id, state, created_at_utc, receipt_json, intent_json, reconciliation_json FROM paper_intents WHERE client_order_id=?", (client_order_id,)).fetchone()
+            row = db.execute("SELECT signal_id, request_digest, client_order_id, state, created_at_utc, receipt_json, intent_json, reconciliation_json, receipt_digest FROM paper_intents WHERE client_order_id=?", (client_order_id,)).fetchone()
         if row is None:
             return None
-        return dict(zip(("signal_id", "request_digest", "client_order_id", "state", "created_at_utc", "receipt_json", "intent_json", "reconciliation_json"), row))
+        return dict(zip(("signal_id", "request_digest", "client_order_id", "state", "created_at_utc", "receipt_json", "intent_json", "reconciliation_json", "receipt_digest"), row))
 
     def record_reconciliation(self, client_order_id: str, reconciliation_json: str) -> None:
         with self._database() as db:
