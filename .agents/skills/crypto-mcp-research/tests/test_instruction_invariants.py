@@ -24,4 +24,3 @@ def test_overlay_disposition_summary_is_frozen():
     assert audit["entries"] == 193
     assert audit["dispositions"] == {"ADOPT": 4, "DEFER": 5, "EXCLUDE": 184}
     assert audit["hash_mismatches"] == 0
-
