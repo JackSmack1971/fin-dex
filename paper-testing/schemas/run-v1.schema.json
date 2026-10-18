@@ -2,6 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://fin-dex.local/paper-testing/run-v1.schema.json",
   "title": "Paper execution run v1",
+  "description": "Local shapes and lifecycle constraints are checked here. validate_paper_record.py is also required for cross-field equality and exact missing_fields derivation.",
   "type": "object",
   "additionalProperties": false,
   "required": ["schema_version", "run_id", "status", "signal", "venue_evidence", "submission", "reconciliation", "evaluation"],
@@ -9,11 +10,35 @@
     "schema_version": {"const": "paper-run.v1"},
     "run_id": {"type": "string", "minLength": 1},
     "status": {"enum": ["PREPARED", "MODE_VERIFIED", "SUBMISSION_UNKNOWN", "ACKNOWLEDGED", "RECONCILED", "REJECTED"]},
-    "signal": {"type": "object"},
-    "venue_evidence": {"type": ["object", "null"]},
-    "submission": {"type": ["object", "null"]},
+    "signal": {"$ref": "signal-v1.schema.json"},
+    "venue_evidence": {
+      "type": ["object", "null"],
+      "required": ["mode", "account_id", "observed_at_utc", "retrieved_at_utc", "tool_schema_digest"],
+      "additionalProperties": false,
+      "properties": {
+        "mode": {"const": "SIMULATED"},
+        "account_id": {"type": "string", "minLength": 1},
+        "observed_at_utc": {"type": "string", "format": "date-time", "pattern": "Z$"},
+        "retrieved_at_utc": {"type": "string", "format": "date-time", "pattern": "Z$"},
+        "tool_schema_digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+      }
+    },
+    "submission": {
+      "type": ["object", "null"],
+      "required": ["outcome", "client_order_id", "request_digest"],
+      "additionalProperties": false,
+      "properties": {
+        "outcome": {"enum": ["UNKNOWN", "ACKNOWLEDGED"]},
+        "client_order_id": {"type": "string", "pattern": "^fdx-[a-f0-9]{32}$"},
+        "request_digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "order_id": {"type": "string", "minLength": 1},
+        "acknowledged": {"type": "boolean"},
+        "acknowledged_at_utc": {"type": "string", "format": "date-time", "pattern": "Z$"}
+      }
+    },
     "reconciliation": {
-      "type": "object", "additionalProperties": false,
+      "type": "object",
+      "additionalProperties": false,
       "required": ["order_id", "fills", "fees", "funding", "account_equity", "equity_history"],
       "properties": {
         "order_id": {"type": ["string", "null"]},
@@ -25,13 +50,110 @@
       }
     },
     "evaluation": {
-      "type": "object", "additionalProperties": false,
+      "type": "object",
+      "additionalProperties": false,
       "required": ["complete", "missing_fields", "metrics"],
       "properties": {
         "complete": {"type": "boolean"},
-        "missing_fields": {"type": "array", "items": {"type": "string"}},
+        "missing_fields": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
         "metrics": {"type": ["object", "null"]}
       }
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"status": {"enum": ["PREPARED", "REJECTED"]}}},
+      "then": {
+        "properties": {
+          "venue_evidence": {"type": "null"},
+          "submission": {"type": "null"},
+          "reconciliation": {
+            "properties": {
+              "order_id": {"type": "null"}, "fills": {"type": "null"}, "fees": {"type": "null"},
+              "funding": {"type": "null"}, "account_equity": {"type": "null"}, "equity_history": {"type": "null"}
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {"properties": {"status": {"const": "MODE_VERIFIED"}}},
+      "then": {
+        "properties": {
+          "venue_evidence": {"type": "object"},
+          "submission": {"type": "null"},
+          "reconciliation": {
+            "properties": {
+              "order_id": {"type": "null"}, "fills": {"type": "null"}, "fees": {"type": "null"},
+              "funding": {"type": "null"}, "account_equity": {"type": "null"}, "equity_history": {"type": "null"}
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {"properties": {"status": {"const": "SUBMISSION_UNKNOWN"}}},
+      "then": {
+        "properties": {
+          "venue_evidence": {"type": "object"},
+          "signal": {"properties": {"gate_result": {"const": "QUALIFIED"}}},
+          "submission": {
+            "type": "object",
+            "properties": {"outcome": {"const": "UNKNOWN"}},
+            "not": {"anyOf": [{"required": ["order_id"]}, {"required": ["acknowledged"]}, {"required": ["acknowledged_at_utc"]}]}
+          },
+          "reconciliation": {
+            "properties": {
+              "order_id": {"type": "null"}, "fills": {"type": "null"}, "fees": {"type": "null"},
+              "funding": {"type": "null"}, "account_equity": {"type": "null"}, "equity_history": {"type": "null"}
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {"properties": {"status": {"const": "ACKNOWLEDGED"}}},
+      "then": {
+        "properties": {
+          "venue_evidence": {"type": "object"},
+          "signal": {"properties": {"gate_result": {"const": "QUALIFIED"}}},
+          "submission": {"type": "object", "required": ["order_id", "acknowledged", "acknowledged_at_utc"], "properties": {"outcome": {"const": "ACKNOWLEDGED"}, "acknowledged": {"const": true}}},
+          "reconciliation": {
+            "properties": {
+              "order_id": {"type": "null"}, "fills": {"type": "null"}, "fees": {"type": "null"},
+              "funding": {"type": "null"}, "account_equity": {"type": "null"}, "equity_history": {"type": "null"}
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {"properties": {"status": {"const": "RECONCILED"}}},
+      "then": {
+        "properties": {
+          "venue_evidence": {"type": "object"},
+          "signal": {"properties": {"gate_result": {"const": "QUALIFIED"}}},
+          "submission": {"type": "object", "required": ["order_id", "acknowledged", "acknowledged_at_utc"], "properties": {"outcome": {"const": "ACKNOWLEDGED"}, "acknowledged": {"const": true}}},
+          "reconciliation": {"properties": {"order_id": {"type": "string"}, "fills": {"type": ["array", "null"]}}}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"status": {"const": "REJECTED"}}},
+      "then": {"properties": {"signal": {"properties": {"gate_result": {"const": "REJECTED"}}}}}
+    },
+    {
+      "if": {"properties": {"evaluation": {"properties": {"complete": {"const": true}}}}},
+      "then": {
+        "properties": {
+          "evaluation": {"properties": {"missing_fields": {"maxItems": 0}, "metrics": {"type": "object"}}},
+          "reconciliation": {"properties": {"order_id": {"type": "string"}, "fills": {"type": "array"}, "fees": {"type": "number"}, "funding": {"type": "number"}, "account_equity": {"type": "number"}, "equity_history": {"type": "array"}}}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"evaluation": {"properties": {"complete": {"const": false}}}}},
+      "then": {"properties": {"evaluation": {"properties": {"metrics": {"type": "null"}}}}}
+    }
+  ]
 }

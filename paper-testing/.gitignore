@@ -1,0 +1,5 @@
+runs/*.sqlite3
+runs/*.sqlite3-*
+runs/*.db
+runs/*.db-*
+__pycache__/
