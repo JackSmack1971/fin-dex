@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fin-dex.local/paper-testing/signal-v1.schema.json",
+  "title": "Frozen paper signal v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "signal_id", "decision_time_utc", "asset", "direction", "horizon_days", "rationale", "evidence_refs", "gate_result", "order"],
+  "properties": {
+    "schema_version": {"const": "signal.v1"},
+    "signal_id": {"type": "string", "minLength": 1},
+    "decision_time_utc": {"type": "string", "format": "date-time", "pattern": "Z$"},
+    "asset": {
+      "type": "object", "additionalProperties": false,
+      "required": ["venue", "instrument_id", "base", "quote", "instrument_type"],
+      "properties": {
+        "venue": {"type": "string", "minLength": 1},
+        "instrument_id": {"type": "string", "minLength": 1},
+        "base": {"type": "string", "minLength": 1},
+        "quote": {"type": "string", "minLength": 1},
+        "instrument_type": {"enum": ["spot", "perpetual"]}
+      }
+    },
+    "direction": {"enum": ["long", "short", "flat"]},
+    "horizon_days": {"type": "integer", "minimum": 1, "maximum": 365},
+    "rationale": {"type": "string", "minLength": 1},
+    "evidence_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "gate_result": {"enum": ["QUALIFIED", "REJECTED"]},
+    "order": {
+      "type": "object", "additionalProperties": false,
+      "required": ["side", "order_type", "quantity", "time_in_force"],
+      "properties": {
+        "side": {"enum": ["buy", "sell"]},
+        "order_type": {"enum": ["market", "limit"]},
+        "quantity": {"type": "number", "exclusiveMinimum": 0},
+        "limit_price": {"type": ["number", "null"], "exclusiveMinimum": 0},
+        "time_in_force": {"enum": ["IOC", "GTC", "DAY"]}
+      }
+    }
+  }
+}
