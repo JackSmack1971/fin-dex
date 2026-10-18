@@ -28,6 +28,16 @@ class TestHandoffs(unittest.TestCase):
     def test_valid_partial_handoff(self):
         self.assertEqual(module.validate_handoff(specialist()), [])
 
+    def test_missing_source_observation_time_is_explicitly_unknown(self):
+        doc = specialist(); doc['observations'][0]['observed_at_utc'] = None
+        self.assertEqual(module.validate_handoff(doc), [])
+        doc['observations'][0]['retrieved_at_utc'] = None
+        self.assertTrue(any('retrieved_at_utc' in e for e in module.validate_handoff(doc)))
+
+    def test_source_observation_time_field_cannot_be_omitted(self):
+        doc = specialist(); del doc['observations'][0]['observed_at_utc']
+        self.assertTrue(any('observed_at_utc: required' in e for e in module.validate_handoff(doc)))
+
     def test_malformed_handoff(self):
         doc = specialist(); doc['status'] = 'DONE'; doc['observations'][0]['observed_at_utc'] = 'yesterday'
         self.assertTrue(module.validate_handoff(doc))

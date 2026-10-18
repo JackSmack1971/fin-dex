@@ -53,9 +53,13 @@ def validate_handoff(doc):
         for k in ("source", "tool", "asset_id", "metric", "unit"):
             if not isinstance(obs.get(k), str) or not obs[k].strip(): errors.append(f"{p}.{k}: nonempty string required")
         parsed = {}
-        for k in ("observed_at_utc", "retrieved_at_utc"):
-            try: parsed[k] = timestamp(obs[k])
-            except (KeyError, TypeError, ValueError) as e: errors.append(f"{p}.{k}: {e}")
+        if "observed_at_utc" not in obs:
+            errors.append(f"{p}.observed_at_utc: required; use null when the provider supplies no observation time")
+        elif obs["observed_at_utc"] is not None:
+            try: parsed["observed_at_utc"] = timestamp(obs["observed_at_utc"])
+            except (KeyError, TypeError, ValueError) as e: errors.append(f"{p}.observed_at_utc: {e}")
+        try: parsed["retrieved_at_utc"] = timestamp(obs["retrieved_at_utc"])
+        except (KeyError, TypeError, ValueError) as e: errors.append(f"{p}.retrieved_at_utc: {e}")
         if len(parsed) == 2 and parsed["observed_at_utc"] > parsed["retrieved_at_utc"]:
             errors.append(f"{p}: observed time after retrieval time")
     for collection in ("claims", "conflicts", "coverage_gaps"):

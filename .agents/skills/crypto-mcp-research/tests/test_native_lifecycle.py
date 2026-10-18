@@ -98,7 +98,7 @@ class TestNativeLifecycle(unittest.TestCase):
             "tool": "LOCAL REST: python .agents/skills/crypto-mcp-research/scripts/dexscreener_public.py token-pairs --chain base --token 0x1111111111111111111111111111111111111111",
             "asset_id": "base:0x1111111111111111111111111111111111111111",
             "metric": "token pairs", "value": {"pair_count": 0}, "unit": "pairs",
-            "observed_at_utc": "2026-10-18T05:00:00Z", "retrieved_at_utc": "2026-10-18T05:00:00Z",
+            "observed_at_utc": None, "retrieved_at_utc": "2026-10-18T05:00:00Z",
             "evidence_artifacts": [{"artifact": artifact.name,
                                     "sha256": hashlib.sha256(raw).hexdigest(),
                                     "source_url": response["source_url"]}],
