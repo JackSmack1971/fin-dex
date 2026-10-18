@@ -1,0 +1,107 @@
+{
+  "source_fixture": "../market-analyst/coinpaprika-daily-history.json",
+  "retrieved_at_utc": "2026-10-18T05:17:13Z snapshot time",
+  "calculation_method": "returns=(end/start-1)*100; simple moving averages; RSI(14) simple mean gains/losses; recursive EMA seeded with first observation for MACD 12/26 and signal 9; drawdown from running close high; no OHLC -> ATR unavailable",
+  "assets": {
+    "AERO": {
+      "n": 93,
+      "window": [
+        "2026-07-18T00:00:00Z",
+        "2026-10-18T00:00:00Z"
+      ],
+      "close_2026_10_18_usd": 0.841757,
+      "returns_pct": {
+        "7d": -11.82,
+        "30d": 33.25,
+        "90d": 89.18
+      },
+      "sma_usd": {
+        "7": 0.884458,
+        "20": 0.84947,
+        "50": 0.70474,
+        "90": 0.586478
+      },
+      "rsi14": 48.38,
+      "macd12_26_usd": 0.04824,
+      "macd_signal9_usd": 0.058235,
+      "macd_histogram_usd": -0.009995,
+      "max_drawdown_pct": -16.25,
+      "atr14": "UNAVAILABLE: point-in-time price snapshots are not OHLC candles"
+    },
+    "BTC": {
+      "n": 93,
+      "window": [
+        "2026-07-18T00:00:00Z",
+        "2026-10-18T00:00:00Z"
+      ],
+      "close_2026_10_18_usd": 81635.73,
+      "returns_pct": {
+        "7d": -1.91,
+        "30d": 3.43,
+        "90d": 26.12
+      },
+      "sma_usd": {
+        "7": 82201.912857,
+        "20": 83420.389,
+        "50": 81383.295,
+        "90": 75229.472111
+      },
+      "rsi14": 27.28,
+      "macd12_26_usd": 74.566438,
+      "macd_signal9_usd": 579.794789,
+      "macd_histogram_usd": -505.228351,
+      "max_drawdown_pct": -5.64,
+      "atr14": "UNAVAILABLE: point-in-time price snapshots are not OHLC candles"
+    },
+    "ETH": {
+      "n": 93,
+      "window": [
+        "2026-07-18T00:00:00Z",
+        "2026-10-18T00:00:00Z"
+      ],
+      "close_2026_10_18_usd": 2411.27,
+      "returns_pct": {
+        "7d": -4.12,
+        "30d": -4.89,
+        "90d": 28.31
+      },
+      "sma_usd": {
+        "7": 2453.605714,
+        "20": 2568.7865,
+        "50": 2553.4674,
+        "90": 2322.020667
+      },
+      "rsi14": 19.89,
+      "macd12_26_usd": -43.625884,
+      "macd_signal9_usd": -17.42467,
+      "macd_histogram_usd": -26.201214,
+      "max_drawdown_pct": -12.54,
+      "atr14": "UNAVAILABLE: point-in-time price snapshots are not OHLC candles"
+    },
+    "SOL": {
+      "n": 93,
+      "window": [
+        "2026-07-18T00:00:00Z",
+        "2026-10-18T00:00:00Z"
+      ],
+      "close_2026_10_18_usd": 103.75,
+      "returns_pct": {
+        "7d": -5.88,
+        "30d": -3.81,
+        "90d": 35.0
+      },
+      "sma_usd": {
+        "7": 105.721429,
+        "20": 112.9185,
+        "50": 109.4426,
+        "90": 96.657333
+      },
+      "rsi14": 8.04,
+      "macd12_26_usd": -1.90985,
+      "macd_signal9_usd": -0.149054,
+      "macd_histogram_usd": -1.760796,
+      "max_drawdown_pct": -15.17,
+      "atr14": "UNAVAILABLE: point-in-time price snapshots are not OHLC candles"
+    }
+  }
+}

@@ -1,0 +1,640 @@
+{
+  "status": "MATCH",
+  "history_path": "C:\\TEST-repos\\fin-dex\\research-runs\\20261018-aero-evidence-linked-r1\\coinpaprika-daily-history.json",
+  "calculations_path": "C:\\TEST-repos\\fin-dex\\research-runs\\20261018-aero-evidence-linked-r1\\historical-calculations.json",
+  "network_calls_made": false,
+  "assets": [
+    {
+      "asset": "AERO",
+      "observation_count": 93,
+      "status": "MATCH",
+      "replayed": {
+        "close_usd": 0.841757,
+        "returns_pct": {
+          "7d": -11.822265334470261,
+          "30d": 33.253284406922944,
+          "90d": 89.17673128699786
+        },
+        "sma_usd": {
+          "7": 0.8844580000000001,
+          "20": 0.8494699499999999,
+          "50": 0.7047399,
+          "90": 0.5864776555555555
+        },
+        "rsi14": 48.37845248778542,
+        "macd12_26_usd": 0.0482401500882671,
+        "macd_signal9_usd": 0.05823475255614251,
+        "macd_histogram_usd": -0.00999460246787541,
+        "max_drawdown_pct": -16.247288297461914,
+        "atr14": "UNAVAILABLE: point-price observations do not contain OHLC candles",
+        "methodology": {
+          "ema_seed": "first observed close; alpha=2/(period+1)",
+          "macd": "EMA(12)-EMA(26) over the full series; signal is EMA(9) of the MACD series, seeded with its first value",
+          "rsi": "RSI(14) uses the arithmetic mean of the last 14 close-to-close gains and losses (simple-average RSI, not Wilder smoothing)",
+          "sma": "arithmetic mean of the last N closes; reported only when N observations exist",
+          "atr": "unavailable because point-price observations do not supply open, high, and low"
+        }
+      },
+      "stored": {
+        "n": 93,
+        "window": [
+          "2026-07-18T00:00:00Z",
+          "2026-10-18T00:00:00Z"
+        ],
+        "close_2026_10_18_usd": 0.841757,
+        "returns_pct": {
+          "7d": -11.82,
+          "30d": 33.25,
+          "90d": 89.18
+        },
+        "sma_usd": {
+          "7": 0.884458,
+          "20": 0.84947,
+          "50": 0.70474,
+          "90": 0.586478
+        },
+        "rsi14": 48.38,
+        "macd12_26_usd": 0.04824,
+        "macd_signal9_usd": 0.058235,
+        "macd_histogram_usd": -0.009995,
+        "max_drawdown_pct": -16.25,
+        "atr14": "UNAVAILABLE: point-in-time price snapshots are not OHLC candles"
+      },
+      "field_results": [
+        {
+          "indicator": "close_2026_10_18_usd",
+          "status": "MATCH",
+          "replayed": 0.841757,
+          "stored": 0.841757,
+          "tolerance": 5.00001e-07
+        },
+        {
+          "indicator": "returns_pct.7d",
+          "status": "MATCH",
+          "replayed": -11.822265334470261,
+          "stored": -11.82,
+          "tolerance": 0.0050000000010000005
+        },
+        {
+          "indicator": "returns_pct.30d",
+          "status": "MATCH",
+          "replayed": 33.253284406922944,
+          "stored": 33.25,
+          "tolerance": 0.0050000000010000005
+        },
+        {
+          "indicator": "returns_pct.90d",
+          "status": "MATCH",
+          "replayed": 89.17673128699786,
+          "stored": 89.18,
+          "tolerance": 0.0050000000010000005
+        },
+        {
+          "indicator": "sma_usd.7",
+          "status": "MATCH",
+          "replayed": 0.8844580000000001,
+          "stored": 0.884458,
+          "tolerance": 5.00001e-07
+        },
+        {
+          "indicator": "sma_usd.20",
+          "status": "MATCH",
+          "replayed": 0.8494699499999999,
+          "stored": 0.84947,
+          "tolerance": 5.000001000000001e-06
+        },
+        {
+          "indicator": "sma_usd.50",
+          "status": "MATCH",
+          "replayed": 0.7047399,
+          "stored": 0.70474,
+          "tolerance": 5.000001000000001e-06
+        },
+        {
+          "indicator": "sma_usd.90",
+          "status": "MATCH",
+          "replayed": 0.5864776555555555,
+          "stored": 0.586478,
+          "tolerance": 5.00001e-07
+        },
+        {
+          "indicator": "rsi14",
+          "status": "MATCH",
+          "replayed": 48.37845248778542,
+          "stored": 48.38,
+          "tolerance": 0.0050000000010000005
+        },
+        {
+          "indicator": "macd12_26_usd",
+          "status": "MATCH",
+          "replayed": 0.0482401500882671,
+          "stored": 0.04824,
+          "tolerance": 5.000001000000001e-06
+        },
+        {
+          "indicator": "macd_signal9_usd",
+          "status": "MATCH",
+          "replayed": 0.05823475255614251,
+          "stored": 0.058235,
+          "tolerance": 5.00001e-07
+        },
+        {
+          "indicator": "macd_histogram_usd",
+          "status": "MATCH",
+          "replayed": -0.00999460246787541,
+          "stored": -0.009995,
+          "tolerance": 5.00001e-07
+        },
+        {
+          "indicator": "max_drawdown_pct",
+          "status": "MATCH",
+          "replayed": -16.247288297461914,
+          "stored": -16.25,
+          "tolerance": 0.0050000000010000005
+        },
+        {
+          "indicator": "atr14",
+          "status": "MATCH",
+          "replayed": "UNAVAILABLE: point-price observations do not contain OHLC candles",
+          "stored": "UNAVAILABLE: point-in-time price snapshots are not OHLC candles"
+        }
+      ],
+      "mismatches": [],
+      "not_reported": []
+    },
+    {
+      "asset": "BTC",
+      "observation_count": 93,
+      "status": "MATCH",
+      "replayed": {
+        "close_usd": 81635.73,
+        "returns_pct": {
+          "7d": -1.9057286854596067,
+          "30d": 3.4317075562562804,
+          "90d": 26.11823786117988
+        },
+        "sma_usd": {
+          "7": 82201.91285714286,
+          "20": 83420.389,
+          "50": 81383.295,
+          "90": 75229.47211111111
+        },
+        "rsi14": 27.27749503708739,
+        "macd12_26_usd": 74.56643771124072,
+        "macd_signal9_usd": 579.7947889445745,
+        "macd_histogram_usd": -505.2283512333338,
+        "max_drawdown_pct": -5.635105099320747,
+        "atr14": "UNAVAILABLE: point-price observations do not contain OHLC candles",
+        "methodology": {
+          "ema_seed": "first observed close; alpha=2/(period+1)",
+          "macd": "EMA(12)-EMA(26) over the full series; signal is EMA(9) of the MACD series, seeded with its first value",
+          "rsi": "RSI(14) uses the arithmetic mean of the last 14 close-to-close gains and losses (simple-average RSI, not Wilder smoothing)",
+          "sma": "arithmetic mean of the last N closes; reported only when N observations exist",
+          "atr": "unavailable because point-price observations do not supply open, high, and low"
+        }
+      },
+      "stored": {
+        "n": 93,
+        "window": [
+          "2026-07-18T00:00:00Z",
+          "2026-10-18T00:00:00Z"
+        ],
+        "close_2026_10_18_usd": 81635.73,
+        "returns_pct": {
+          "7d": -1.91,
+          "30d": 3.43,
+          "90d": 26.12
+        },
+        "sma_usd": {
+          "7": 82201.912857,
+          "20": 83420.389,
+          "50": 81383.295,
+          "90": 75229.472111
+        },
+        "rsi14": 27.28,
+        "macd12_26_usd": 74.566438,
+        "macd_signal9_usd": 579.794789,
+        "macd_histogram_usd": -505.228351,
+        "max_drawdown_pct": -5.64,
+        "atr14": "UNAVAILABLE: point-in-time price snapshots are not OHLC candles"
+      },
+      "field_results": [
+        {
+          "indicator": "close_2026_10_18_usd",
+          "status": "MATCH",
+          "replayed": 81635.73,
+          "stored": 81635.73,
+          "tolerance": 0.0050000000010000005
+        },
+        {
+          "indicator": "returns_pct.7d",
+          "status": "MATCH",
+          "replayed": -1.9057286854596067,
+          "stored": -1.91,
+          "tolerance": 0.0050000000010000005
+        },
+        {
+          "indicator": "returns_pct.30d",
+          "status": "MATCH",
+          "replayed": 3.4317075562562804,
+          "stored": 3.43,
+          "tolerance": 0.0050000000010000005
+        },
+        {
+          "indicator": "returns_pct.90d",
+          "status": "MATCH",
+          "replayed": 26.11823786117988,
+          "stored": 26.12,
+          "tolerance": 0.0050000000010000005
+        },
+        {
+          "indicator": "sma_usd.7",
+          "status": "MATCH",
+          "replayed": 82201.91285714286,
+          "stored": 82201.912857,
+          "tolerance": 5.00001e-07
+        },
+        {
+          "indicator": "sma_usd.20",
+          "status": "MATCH",
+          "replayed": 83420.389,
+          "stored": 83420.389,
+          "tolerance": 0.000500000001
+        },
+        {
+          "indicator": "sma_usd.50",
+          "status": "MATCH",
+          "replayed": 81383.295,
+          "stored": 81383.295,
+          "tolerance": 0.000500000001
+        },
+        {
+          "indicator": "sma_usd.90",
+          "status": "MATCH",
+          "replayed": 75229.47211111111,
+          "stored": 75229.472111,
+          "tolerance": 5.00001e-07
+        },
+        {
+          "indicator": "rsi14",
+          "status": "MATCH",
+          "replayed": 27.27749503708739,
+          "stored": 27.28,
+          "tolerance": 0.0050000000010000005
+        },
+        {
+          "indicator": "macd12_26_usd",
+          "status": "MATCH",
+          "replayed": 74.56643771124072,
+          "stored": 74.566438,
+          "tolerance": 5.00001e-07
+        },
+        {
+          "indicator": "macd_signal9_usd",
+          "status": "MATCH",
+          "replayed": 579.7947889445745,
+          "stored": 579.794789,
+          "tolerance": 5.00001e-07
+        },
+        {
+          "indicator": "macd_histogram_usd",
+          "status": "MATCH",
+          "replayed": -505.2283512333338,
+          "stored": -505.228351,
+          "tolerance": 5.00001e-07
+        },
+        {
+          "indicator": "max_drawdown_pct",
+          "status": "MATCH",
+          "replayed": -5.635105099320747,
+          "stored": -5.64,
+          "tolerance": 0.0050000000010000005
+        },
+        {
+          "indicator": "atr14",
+          "status": "MATCH",
+          "replayed": "UNAVAILABLE: point-price observations do not contain OHLC candles",
+          "stored": "UNAVAILABLE: point-in-time price snapshots are not OHLC candles"
+        }
+      ],
+      "mismatches": [],
+      "not_reported": []
+    },
+    {
+      "asset": "ETH",
+      "observation_count": 93,
+      "status": "MATCH",
+      "replayed": {
+        "close_usd": 2411.27,
+        "returns_pct": {
+          "7d": -4.1248344936998365,
+          "30d": -4.887621391774932,
+          "90d": 28.31091292224517
+        },
+        "sma_usd": {
+          "7": 2453.605714285714,
+          "20": 2568.7865,
+          "50": 2553.4674,
+          "90": 2322.020666666667
+        },
+        "rsi14": 19.891936824605068,
+        "macd12_26_usd": -43.6258838801532,
+        "macd_signal9_usd": -17.424669628895394,
+        "macd_histogram_usd": -26.201214251257802,
+        "max_drawdown_pct": -12.543688612715709,
+        "atr14": "UNAVAILABLE: point-price observations do not contain OHLC candles",
+        "methodology": {
+          "ema_seed": "first observed close; alpha=2/(period+1)",
+          "macd": "EMA(12)-EMA(26) over the full series; signal is EMA(9) of the MACD series, seeded with its first value",
+          "rsi": "RSI(14) uses the arithmetic mean of the last 14 close-to-close gains and losses (simple-average RSI, not Wilder smoothing)",
+          "sma": "arithmetic mean of the last N closes; reported only when N observations exist",
+          "atr": "unavailable because point-price observations do not supply open, high, and low"
+        }
+      },
+      "stored": {
+        "n": 93,
+        "window": [
+          "2026-07-18T00:00:00Z",
+          "2026-10-18T00:00:00Z"
+        ],
+        "close_2026_10_18_usd": 2411.27,
+        "returns_pct": {
+          "7d": -4.12,
+          "30d": -4.89,
+          "90d": 28.31
+        },
+        "sma_usd": {
+          "7": 2453.605714,
+          "20": 2568.7865,
+          "50": 2553.4674,
+          "90": 2322.020667
+        },
+        "rsi14": 19.89,
+        "macd12_26_usd": -43.625884,
+        "macd_signal9_usd": -17.42467,
+        "macd_histogram_usd": -26.201214,
+        "max_drawdown_pct": -12.54,
+        "atr14": "UNAVAILABLE: point-in-time price snapshots are not OHLC candles"
+      },
+      "field_results": [
+        {
+          "indicator": "close_2026_10_18_usd",
+          "status": "MATCH",
+          "replayed": 2411.27,
+          "stored": 2411.27,
+          "tolerance": 0.0050000000010000005
+        },
+        {
+          "indicator": "returns_pct.7d",
+          "status": "MATCH",
+          "replayed": -4.1248344936998365,
+          "stored": -4.12,
+          "tolerance": 0.0050000000010000005
+        },
+        {
+          "indicator": "returns_pct.30d",
+          "status": "MATCH",
+          "replayed": -4.887621391774932,
+          "stored": -4.89,
+          "tolerance": 0.0050000000010000005
+        },
+        {
+          "indicator": "returns_pct.90d",
+          "status": "MATCH",
+          "replayed": 28.31091292224517,
+          "stored": 28.31,
+          "tolerance": 0.0050000000010000005
+        },
+        {
+          "indicator": "sma_usd.7",
+          "status": "MATCH",
+          "replayed": 2453.605714285714,
+          "stored": 2453.605714,
+          "tolerance": 5.00001e-07
+        },
+        {
+          "indicator": "sma_usd.20",
+          "status": "MATCH",
+          "replayed": 2568.7865,
+          "stored": 2568.7865,
+          "tolerance": 5.0000001000000005e-05
+        },
+        {
+          "indicator": "sma_usd.50",
+          "status": "MATCH",
+          "replayed": 2553.4674,
+          "stored": 2553.4674,
+          "tolerance": 5.0000001000000005e-05
+        },
+        {
+          "indicator": "sma_usd.90",
+          "status": "MATCH",
+          "replayed": 2322.020666666667,
+          "stored": 2322.020667,
+          "tolerance": 5.00001e-07
+        },
+        {
+          "indicator": "rsi14",
+          "status": "MATCH",
+          "replayed": 19.891936824605068,
+          "stored": 19.89,
+          "tolerance": 0.0050000000010000005
+        },
+        {
+          "indicator": "macd12_26_usd",
+          "status": "MATCH",
+          "replayed": -43.6258838801532,
+          "stored": -43.625884,
+          "tolerance": 5.00001e-07
+        },
+        {
+          "indicator": "macd_signal9_usd",
+          "status": "MATCH",
+          "replayed": -17.424669628895394,
+          "stored": -17.42467,
+          "tolerance": 5.000001000000001e-06
+        },
+        {
+          "indicator": "macd_histogram_usd",
+          "status": "MATCH",
+          "replayed": -26.201214251257802,
+          "stored": -26.201214,
+          "tolerance": 5.00001e-07
+        },
+        {
+          "indicator": "max_drawdown_pct",
+          "status": "MATCH",
+          "replayed": -12.543688612715709,
+          "stored": -12.54,
+          "tolerance": 0.0050000000010000005
+        },
+        {
+          "indicator": "atr14",
+          "status": "MATCH",
+          "replayed": "UNAVAILABLE: point-price observations do not contain OHLC candles",
+          "stored": "UNAVAILABLE: point-in-time price snapshots are not OHLC candles"
+        }
+      ],
+      "mismatches": [],
+      "not_reported": []
+    },
+    {
+      "asset": "SOL",
+      "observation_count": 93,
+      "status": "MATCH",
+      "replayed": {
+        "close_usd": 103.75,
+        "returns_pct": {
+          "7d": -5.878617436269618,
+          "30d": -3.810495086222876,
+          "90d": 35.003253090435926
+        },
+        "sma_usd": {
+          "7": 105.72142857142856,
+          "20": 112.9185,
+          "50": 109.4426,
+          "90": 96.65733333333333
+        },
+        "rsi14": 8.044315992292951,
+        "macd12_26_usd": -1.9098500431072836,
+        "macd_signal9_usd": -0.14905383458408628,
+        "macd_histogram_usd": -1.7607962085231974,
+        "max_drawdown_pct": -15.167620605069498,
+        "atr14": "UNAVAILABLE: point-price observations do not contain OHLC candles",
+        "methodology": {
+          "ema_seed": "first observed close; alpha=2/(period+1)",
+          "macd": "EMA(12)-EMA(26) over the full series; signal is EMA(9) of the MACD series, seeded with its first value",
+          "rsi": "RSI(14) uses the arithmetic mean of the last 14 close-to-close gains and losses (simple-average RSI, not Wilder smoothing)",
+          "sma": "arithmetic mean of the last N closes; reported only when N observations exist",
+          "atr": "unavailable because point-price observations do not supply open, high, and low"
+        }
+      },
+      "stored": {
+        "n": 93,
+        "window": [
+          "2026-07-18T00:00:00Z",
+          "2026-10-18T00:00:00Z"
+        ],
+        "close_2026_10_18_usd": 103.75,
+        "returns_pct": {
+          "7d": -5.88,
+          "30d": -3.81,
+          "90d": 35.0
+        },
+        "sma_usd": {
+          "7": 105.721429,
+          "20": 112.9185,
+          "50": 109.4426,
+          "90": 96.657333
+        },
+        "rsi14": 8.04,
+        "macd12_26_usd": -1.90985,
+        "macd_signal9_usd": -0.149054,
+        "macd_histogram_usd": -1.760796,
+        "max_drawdown_pct": -15.17,
+        "atr14": "UNAVAILABLE: point-in-time price snapshots are not OHLC candles"
+      },
+      "field_results": [
+        {
+          "indicator": "close_2026_10_18_usd",
+          "status": "MATCH",
+          "replayed": 103.75,
+          "stored": 103.75,
+          "tolerance": 0.0050000000010000005
+        },
+        {
+          "indicator": "returns_pct.7d",
+          "status": "MATCH",
+          "replayed": -5.878617436269618,
+          "stored": -5.88,
+          "tolerance": 0.0050000000010000005
+        },
+        {
+          "indicator": "returns_pct.30d",
+          "status": "MATCH",
+          "replayed": -3.810495086222876,
+          "stored": -3.81,
+          "tolerance": 0.0050000000010000005
+        },
+        {
+          "indicator": "returns_pct.90d",
+          "status": "MATCH",
+          "replayed": 35.003253090435926,
+          "stored": 35.0,
+          "tolerance": 0.050000000001
+        },
+        {
+          "indicator": "sma_usd.7",
+          "status": "MATCH",
+          "replayed": 105.72142857142856,
+          "stored": 105.721429,
+          "tolerance": 5.00001e-07
+        },
+        {
+          "indicator": "sma_usd.20",
+          "status": "MATCH",
+          "replayed": 112.9185,
+          "stored": 112.9185,
+          "tolerance": 5.0000001000000005e-05
+        },
+        {
+          "indicator": "sma_usd.50",
+          "status": "MATCH",
+          "replayed": 109.4426,
+          "stored": 109.4426,
+          "tolerance": 5.0000001000000005e-05
+        },
+        {
+          "indicator": "sma_usd.90",
+          "status": "MATCH",
+          "replayed": 96.65733333333333,
+          "stored": 96.657333,
+          "tolerance": 5.00001e-07
+        },
+        {
+          "indicator": "rsi14",
+          "status": "MATCH",
+          "replayed": 8.044315992292951,
+          "stored": 8.04,
+          "tolerance": 0.0050000000010000005
+        },
+        {
+          "indicator": "macd12_26_usd",
+          "status": "MATCH",
+          "replayed": -1.9098500431072836,
+          "stored": -1.90985,
+          "tolerance": 5.000001000000001e-06
+        },
+        {
+          "indicator": "macd_signal9_usd",
+          "status": "MATCH",
+          "replayed": -0.14905383458408628,
+          "stored": -0.149054,
+          "tolerance": 5.00001e-07
+        },
+        {
+          "indicator": "macd_histogram_usd",
+          "status": "MATCH",
+          "replayed": -1.7607962085231974,
+          "stored": -1.760796,
+          "tolerance": 5.00001e-07
+        },
+        {
+          "indicator": "max_drawdown_pct",
+          "status": "MATCH",
+          "replayed": -15.167620605069498,
+          "stored": -15.17,
+          "tolerance": 0.0050000000010000005
+        },
+        {
+          "indicator": "atr14",
+          "status": "MATCH",
+          "replayed": "UNAVAILABLE: point-price observations do not contain OHLC candles",
+          "stored": "UNAVAILABLE: point-in-time price snapshots are not OHLC candles"
+        }
+      ],
+      "mismatches": [],
+      "not_reported": []
+    }
+  ]
+}

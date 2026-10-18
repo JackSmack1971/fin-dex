@@ -1,0 +1,156 @@
+{
+  "schema_version": 1,
+  "run_id": "20261018-aero-evidence-linked-r1",
+  "task_specification": "AERO integration regression: route local DEX Screener and DeFiLlama adapters through specialist evidence, replay retained indicators, and check review lifecycle.",
+  "timestamps": {
+    "started_at_utc": "2026-10-18T06:08:52Z",
+    "completed_at_utc": "2026-10-18T06:19:07Z"
+  },
+  "asset_identity": {
+    "canonical_id": "base:8453/0x940181a94A35A4569E4529A3CDfB74e38FD98631",
+    "identity_status": "RESOLVED",
+    "chain": "Base",
+    "contract": "0x940181a94A35A4569E4529A3CDfB74e38FD98631",
+    "instrument": null
+  },
+  "research_horizon": {
+    "start_utc": "2026-07-18T00:00:00Z",
+    "end_utc": "2026-10-18T00:00:00Z",
+    "decision_horizon": null
+  },
+  "repository": {
+    "status": "AVAILABLE",
+    "revision": "54bb31c"
+  },
+  "methodology_version": "crypto-mcp-research-v1+indicator_replay.py",
+  "configuration_references": [
+    ".codex/dexscreener-routing.json",
+    ".codex/data-provider-routing.json",
+    ".codex/agents/liquidity_analyst.toml",
+    ".codex/agents/onchain_analyst.toml"
+  ],
+  "specialists": [
+    {
+      "agent_id": "market_analyst",
+      "task_id": "aero-2026-10-18-retained-market-replay",
+      "execution_status": "PARTIAL",
+      "handoff": "market-handoff.json"
+    },
+    {
+      "agent_id": "liquidity_analyst",
+      "task_id": "aero-base-liquidity-20261018",
+      "execution_status": "PARTIAL",
+      "handoff": "liquidity-handoff.json"
+    },
+    {
+      "agent_id": "onchain_analyst",
+      "task_id": "aero-defillama-retained-context-r1",
+      "execution_status": "PARTIAL",
+      "handoff": "onchain-handoff.json"
+    }
+  ],
+  "lifecycle": {
+    "collection_state": "CLOSED",
+    "reconciliation_completed": true
+  },
+  "evidence_ledgers": [],
+  "synthesis": {
+    "artifact": "synthesis-snapshot.json",
+    "revision": "aero-evidence-linked-r1",
+    "sha256": "3d087f104132c4b00a94b4197c1e2abd96682a92d4b8b391e7e8aaaebbca2eb4"
+  },
+  "reviews": [],
+  "verdict": "NO_VERIFIED_CONCLUSION",
+  "artifacts": [
+    {
+      "path": "coinpaprika-daily-history.json",
+      "sha256": "b86b4cb319293fba082c8dddb7484a0a7b60fa1008dea21094c6e0a43f3efe05",
+      "kind": "market-history-fixture",
+      "logical_sha256": "9eb4004372fb7c546ec750417253c9f5a948046e82d940c44aec6ce8f51d78ed"
+    },
+    {
+      "path": "defillama-aerodrome-daily-revenue.json",
+      "sha256": "7d572d1888e21b3a38e52dde83239cd5e6c9f6d05233d55e371f21c75415d011",
+      "kind": "raw-provider-response",
+      "logical_sha256": "7e8bf21199dad91e44a7486c71774394cc0e393f6fdd10dca66cddb88685ba5c"
+    },
+    {
+      "path": "defillama-aerodrome-protocol-tvl.json",
+      "sha256": "2d21ca703863c3a60c244493e3de812804758f76da51f4c11c9f3eaf593a93f6",
+      "kind": "raw-provider-response",
+      "logical_sha256": "ddda498a602b1ff3141b60ebb447fb50f24944fb07615acbdc38436f5b22b3a9"
+    },
+    {
+      "path": "dexscreener-token-pairs.json",
+      "sha256": "f40388299e0bcdd345d89f7633b15ed0c0739500a4232f26c8323a6fb0d34129",
+      "kind": "raw-provider-response",
+      "logical_sha256": "6826cd18f8eb3d77b276c1267dc36a324310e0b4c8a42c7da10c9ec0ac55519b"
+    },
+    {
+      "path": "effective-capabilities.json",
+      "sha256": "f727d5e1fdc6646e47e6e5cc8a7295081773b282731b6a56ab961a471bc4471f",
+      "kind": "effective-capability-view",
+      "logical_sha256": "23d96e8516f43252dee397840b59d1ca2db0fdb1def80c01f26529362de6d99e"
+    },
+    {
+      "path": "execution.json",
+      "sha256": "c434e56fb7776c41c8996e85a491db01a0907c83b7b1f0f62b612ecab362d966",
+      "kind": "specialist-execution-receipt",
+      "logical_sha256": "01d41fe9b690d508ee005f6c2705a66bc70f261236c29d8effa20607041ab94e"
+    },
+    {
+      "path": "fresh-session-prompt.md",
+      "sha256": "136f9329749dab53223993adc48562d4f4b475f4f3c88cae07bf140adae217e5",
+      "kind": "fresh-session-prompt"
+    },
+    {
+      "path": "historical-calculations.json",
+      "sha256": "7ed4988ac9d1d08f6d1b85947548e6f57aa8acb121368d831d99ffe68517c354",
+      "kind": "retained-calculation-input",
+      "logical_sha256": "62abf2f17af6c58f17ce8b0f7a998130287b8920fc117990c6c1740f4ff82ba5"
+    },
+    {
+      "path": "indicator-replay.json",
+      "sha256": "d22233c54a1abfa9f24636f54b31e757bd108f3b8b920a270d245013fbdf4b4e",
+      "kind": "deterministic-indicator-replay",
+      "logical_sha256": "80ae1031d9d9f6985a0098225b2959847e98b86faa7c036c44e1637790aff711"
+    },
+    {
+      "path": "liquidity-handoff.json",
+      "sha256": "65f2ef402b982e1c13877a0fddfd40084b4cd833253e1e0b768b3c813b09e134",
+      "kind": "specialist-handoff",
+      "logical_sha256": "63587ca24a4fc42fe8c7071ff7bea0d0ed483f735f92177919befc26d4d997d6"
+    },
+    {
+      "path": "market-handoff.json",
+      "sha256": "b6b60b31d8bc0f2403dc7b5e41c7beafbca23a6b8ad1bdd17da194ff155c3e17",
+      "kind": "specialist-handoff",
+      "logical_sha256": "122c4fdf493ebb4bd0dc70196d8251816257d0a3b39037948a1992ea95891964"
+    },
+    {
+      "path": "onchain-handoff.json",
+      "sha256": "4bd7d3da0c509ade1ca4d4c12265fa4c94fa1a9e5a4e31095b54ad1e4d81269d",
+      "kind": "specialist-handoff",
+      "logical_sha256": "b0553b81d52d45268f51337d4291b948df5c0ea63259289a41558482bbab3abd"
+    },
+    {
+      "path": "prepare-review-result.json",
+      "sha256": "634dd3b8e6664410e30569c68022b5d02ea07f8fc603a2b012677e81cd83951f",
+      "kind": "lifecycle-checkpoint",
+      "logical_sha256": "6fa6c4379142ae30a17f0b2116cf738a89804de15cf32c87bceaac60426de24c"
+    },
+    {
+      "path": "synthesis-contract.json",
+      "sha256": "fb3a17041c545145ec804c6d5dd97ec1bb47e402036eef258f9ed61c4c6f2d49",
+      "kind": "synthesis-contract",
+      "logical_sha256": "09b6a15f759edf22b869c0ed03b52652dd81bf7baf1ef83789cf8f2e9b382110"
+    },
+    {
+      "path": "synthesis-snapshot.json",
+      "sha256": "e8ba92b5eac358a33bfb3acf45050fdccde18d051b9b8726a519d82f2b1592cf",
+      "kind": "frozen-synthesis-snapshot",
+      "logical_sha256": "3d087f104132c4b00a94b4197c1e2abd96682a92d4b8b391e7e8aaaebbca2eb4"
+    }
+  ],
+  "calculations": []
+}
