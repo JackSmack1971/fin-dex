@@ -1,0 +1,1787 @@
+{
+ "version": 1,
+ "cases": [
+  {
+   "id": "s01-pos-engineering-complete-no-permit",
+   "scenario": 1,
+   "clause": "ENG-REQ",
+   "records": [
+    {
+     "base": "engineering"
+    }
+   ],
+   "expect": [
+    0
+   ],
+   "errors": []
+  },
+  {
+   "id": "s01-neg-engineering-claims-prepare-review",
+   "scenario": 1,
+   "clause": "ENG-NOAPPROVE",
+   "records": [
+    {
+     "base": "engineering",
+     "set": {
+      "class_fields.representations.satisfies_prepare_review": true
+     }
+    }
+   ],
+   "expect": [
+    1
+   ],
+   "errors": [
+    [
+     0,
+     "satisfies_prepare_review"
+    ]
+   ]
+  },
+  {
+   "id": "s01-neg-engineering-carries-permit-block",
+   "scenario": 1,
+   "clause": "RRG-PERMIT",
+   "records": [
+    {
+     "base": "engineering",
+     "set": {
+      "class_fields.prepare_review": {
+       "gate_result": "PASSED"
+      }
+     }
+    }
+   ],
+   "expect": [
+    1
+   ],
+   "errors": [
+    [
+     0,
+     "class_fields.prepare_review: unknown field"
+    ]
+   ]
+  },
+  {
+   "id": "s02-pos-research-with-permit",
+   "scenario": 2,
+   "clause": "RRG-PERMIT",
+   "records": [
+    {
+     "base": "research"
+    }
+   ],
+   "expect": [
+    0
+   ],
+   "errors": []
+  },
+  {
+   "id": "s02-neg-passed-without-permit",
+   "scenario": 2,
+   "clause": "RRG-PERMIT",
+   "records": [
+    {
+     "base": "research",
+     "set": {
+      "class_fields.prepare_review.permit": null
+     }
+    }
+   ],
+   "expect": [
+    1
+   ],
+   "errors": [
+    [
+     0,
+     "permit"
+    ]
+   ]
+  },
+  {
+   "id": "s02-neg-permit-state-wrong",
+   "scenario": 2,
+   "clause": "RRG-PERMIT",
+   "records": [
+    {
+     "base": "research",
+     "set": {
+      "class_fields.prepare_review.permit.state": "BLOCKED"
+     }
+    }
+   ],
+   "expect": [
+    1
+   ],
+   "errors": [
+    [
+     0,
+     "REVIEW_DISPATCH_ALLOWED"
+    ]
+   ]
+  },
+  {
+   "id": "s02-neg-permit-digest-malformed",
+   "scenario": 2,
+   "clause": "RRG-PERMIT",
+   "records": [
+    {
+     "base": "research",
+     "set": {
+      "class_fields.prepare_review.permit.permit_payload_sha256": "abc"
+     }
+    }
+   ],
+   "expect": [
+    1
+   ],
+   "errors": [
+    [
+     0,
+     "permit_payload_sha256"
+    ]
+   ]
+  },
+  {
+   "id": "s02-neg-blocked-gate-declared-permitted",
+   "scenario": 2,
+   "clause": "RRG-PERMIT",
+   "records": [
+    {
+     "base": "research",
+     "set": {
+      "class_fields.prepare_review.gate_result": "BLOCKED",
+      "class_fields.prepare_review.permit": null
+     }
+    }
+   ],
+   "expect": [
+    1
+   ],
+   "errors": [
+    [
+     0,
+     "PREPARE_REVIEW_PERMIT"
+    ]
+   ]
+  },
+  {
+   "id": "s02-neg-permit-is-a-classification-record",
+   "scenario": 2,
+   "clause": "RRG-PERMIT",
+   "records": [
+    {
+     "base": "research",
+     "set": {
+      "class_fields.prepare_review.permit.path": "somewhere/rec-engineering.json"
+     }
+    },
+    {
+     "base": "engineering"
+    }
+   ],
+   "expect": [
+    1,
+    0
+   ],
+   "errors": [
+    [
+     0,
+     "cannot satisfy prepare-review"
+    ]
+   ]
+  },
+  {
+   "id": "s03-pos-split-research-and-engineering",
+   "scenario": 3,
+   "clause": "TRC-SPLIT",
+   "records": [
+    {
+     "base": "engineering",
+     "set": {
+      "record_id": "rec-eng",
+      "request.request_id": "req-split",
+      "request.sibling_record_ids": [
+       "rec-res"
+      ]
+     }
+    },
+    {
+     "base": "research",
+     "set": {
+      "record_id": "rec-res",
+      "request.request_id": "req-split",
+      "request.sibling_record_ids": [
+       "rec-eng"
+      ]
+     }
+    }
+   ],
+   "expect": [
+    0,
+    0
+   ],
+   "errors": []
+  },
+  {
+   "id": "s03-neg-single-record-mixes-aspects",
+   "scenario": 3,
+   "clause": "TRC-SPLIT",
+   "records": [
+    {
+     "base": "engineering",
+     "set": {
+      "decision_aspects": [
+       "IMPLEMENTATION_PROPERTIES",
+       "RESEARCH_CONCLUSIONS"
+      ]
+     }
+    }
+   ],
+   "expect": [
+    1
+   ],
+   "errors": [
+    [
+     0,
+     "split into separately recorded"
+    ]
+   ]
+  },
+  {
+   "id": "s03-neg-sibling-not-supplied",
+   "scenario": 3,
+   "clause": "TRC-SPLIT",
+   "records": [
+    {
+     "base": "engineering",
+     "set": {
+      "record_id": "rec-eng",
+      "request.request_id": "req-split",
+      "request.sibling_record_ids": [
+       "rec-res"
+      ]
+     }
+    }
+   ],
+   "expect": [
+    1
+   ],
+   "errors": [
+    [
+     0,
+     "not supplied"
+    ]
+   ]
+  },
+  {
+   "id": "s03-neg-shared-request-not-declared-split",
+   "scenario": 3,
+   "clause": "TRC-SPLIT",
+   "records": [
+    {
+     "base": "engineering",
+     "set": {
+      "record_id": "rec-eng",
+      "request.request_id": "req-split"
+     }
+    },
+    {
+     "base": "research",
+     "set": {
+      "record_id": "rec-res",
+      "request.request_id": "req-split"
+     }
+    }
+   ],
+   "expect": [
+    1,
+    1
+   ],
+   "errors": [
+    [
+     0,
+     "not declared as a split sibling"
+    ]
+   ]
+  },
+  {
+   "id": "s03-neg-split-same-target-and-decision",
+   "scenario": 3,
+   "clause": "TRC-SPLIT",
+   "records": [
+    {
+     "base": "engineering",
+     "set": {
+      "record_id": "rec-eng",
+      "request.request_id": "req-split",
+      "request.sibling_record_ids": [
+       "rec-res"
+      ]
+     }
+    },
+    {
+     "base": "research",
+     "set": {
+      "record_id": "rec-res",
+      "request.request_id": "req-split",
+      "request.sibling_record_ids": [
+       "rec-eng"
+      ],
+      "target.identifiers": [
+       "scripts/example_control.py"
+      ],
+      "requested_decision": "Decide whether the script implementation meets the stated technical requirements"
+     }
+    }
+   ],
+   "expect": [
+    1,
+    1
+   ],
+   "errors": [
+    [
+     0,
+     "same target and decision"
+    ]
+   ]
+  },
+  {
+   "id": "s04-pos-blocked-gate-no-dispatch",
+   "scenario": 4,
+   "clause": "RRG-RELABEL",
+   "records": [
+    {
+     "base": "research",
+     "set": {
+      "record_id": "rec-blocked",
+      "class_fields.prepare_review.gate_result": "BLOCKED",
+      "class_fields.prepare_review.permit": null,
+      "prerequisites.0.status": "UNMET",
+      "dispatch_disposition": "NO_DISPATCH"
+     }
+    }
+   ],
+   "expect": [
+    3
+   ],
+   "errors": []
+  },
+  {
+   "id": "s04-neg-blocked-declared-permitted",
+   "scenario": 4,
+   "clause": "RRG-RELABEL",
+   "records": [
+    {
+     "base": "research",
+     "set": {
+      "class_fields.prepare_review.gate_result": "BLOCKED",
+      "class_fields.prepare_review.permit": null,
+      "prerequisites.0.status": "UNMET"
+     }
+    }
+   ],
+   "expect": [
+    1
+   ],
+   "errors": [
+    [
+     0,
+     "DISPATCH_PERMITTED contradicts"
+    ]
+   ]
+  },
+  {
+   "id": "s04-neg-blocked-with-permit-present",
+   "scenario": 4,
+   "clause": "RRG-RELABEL",
+   "records": [
+    {
+     "base": "research",
+     "set": {
+      "class_fields.prepare_review.gate_result": "BLOCKED",
+      "prerequisites.0.status": "UNMET",
+      "dispatch_disposition": "NO_DISPATCH"
+     }
+    }
+   ],
+   "expect": [
+    1
+   ],
+   "errors": [
+    [
+     0,
+     "permit: must be null"
+    ]
+   ]
+  },
+  {
+   "id": "s04-neg-relabel-same-target-and-decision-as-engineering",
+   "scenario": 4,
+   "clause": "RRG-RELABEL",
+   "records": [
+    {
+     "base": "research",
+     "set": {
+      "record_id": "rec-blocked",
+      "class_fields.prepare_review.gate_result": "BLOCKED",
+      "class_fields.prepare_review.permit": null,
+      "prerequisites.0.status": "UNMET",
+      "dispatch_disposition": "NO_DISPATCH"
+     }
+    },
+    {
+     "base": "engineering",
+     "set": {
+      "record_id": "rec-relabel",
+      "target.identifiers": [
+       "research-runs/example/synthesis-snapshot.json"
+      ],
+      "requested_decision": "Decide whether the cited evidence supports the synthesized market claims",
+      "request.request_id": "req-9"
+     }
+    }
+   ],
+   "expect": [
+    3,
+    1
+   ],
+   "errors": [
+    [
+     1,
+     "relabeling a blocked research decision is rejected"
+    ]
+   ]
+  },
+  {
+   "id": "s04-neg-engineering-carves-overlapping-subtarget",
+   "scenario": 4,
+   "clause": "RRG-RELABEL",
+   "records": [
+    {
+     "base": "research",
+     "set": {
+      "record_id": "rec-blocked",
+      "class_fields.prepare_review.gate_result": "BLOCKED",
+      "class_fields.prepare_review.permit": null,
+      "prerequisites.0.status": "UNMET",
+      "dispatch_disposition": "NO_DISPATCH"
+     }
+    },
+    {
+     "base": "engineering",
+     "set": {
+      "record_id": "rec-carve",
+      "target.identifiers": [
+       "research-runs/example/synthesis-snapshot.json",
+       "scripts/example_control.py"
+      ],
+      "request.request_id": "req-9"
+     }
+    }
+   ],
+   "expect": [
+    3,
+    1
+   ],
+   "errors": [
+    [
+     1,
+     "blocked_research_separation"
+    ]
+   ]
+  },
+  {
+   "id": "s04-pos-separable-engineering-after-failed-gate",
+   "scenario": 4,
+   "clause": "RRG-RELABEL",
+   "records": [
+    {
+     "base": "research",
+     "set": {
+      "record_id": "rec-blocked",
+      "class_fields.prepare_review.gate_result": "BLOCKED",
+      "class_fields.prepare_review.permit": null,
+      "prerequisites.0.status": "UNMET",
+      "dispatch_disposition": "NO_DISPATCH"
+     }
+    },
+    {
+     "base": "engineering",
+     "set": {
+      "record_id": "rec-sep",
+      "target.identifiers": [
+       "research-runs/example/synthesis-snapshot.json",
+       "scripts/example_control.py"
+      ],
+      "request.request_id": "req-9",
+      "class_fields.blocked_research_separation": {
+       "blocked_research_record_id": "rec-blocked",
+       "independently_meaningful": true,
+       "separable": true,
+       "excludes_research_evidence_methodology_conclusions": true,
+       "not_substitute_for_blocked_decision": true,
+       "rationale": "Script behaviour is meaningful without judging the blocked research claims"
+      }
+     }
+    }
+   ],
+   "expect": [
+    3,
+    0
+   ],
+   "errors": []
+  },
+  {
+   "id": "s04-neg-separation-flag-false",
+   "scenario": 4,
+   "clause": "RRG-RELABEL",
+   "records": [
+    {
+     "base": "research",
+     "set": {
+      "record_id": "rec-blocked",
+      "class_fields.prepare_review.gate_result": "BLOCKED",
+      "class_fields.prepare_review.permit": null,
+      "prerequisites.0.status": "UNMET",
+      "dispatch_disposition": "NO_DISPATCH"
+     }
+    },
+    {
+     "base": "engineering",
+     "set": {
+      "record_id": "rec-sep",
+      "target.identifiers": [
+       "research-runs/example/synthesis-snapshot.json",
+       "scripts/example_control.py"
+      ],
+      "request.request_id": "req-9",
+      "class_fields.blocked_research_separation": {
+       "blocked_research_record_id": "rec-blocked",
+       "independently_meaningful": true,
+       "separable": true,
+       "excludes_research_evidence_methodology_conclusions": true,
+       "not_substitute_for_blocked_decision": false,
+       "rationale": "Script behaviour is meaningful without judging the blocked research claims"
+      }
+     }
+    }
+   ],
+   "expect": [
+    3,
+    1
+   ],
+   "errors": [
+    [
+     1,
+     "must be true"
+    ]
+   ]
+  },
+  {
+   "id": "s04-neg-engineering-supersedes-blocked-research",
+   "scenario": 4,
+   "clause": "RRG-RELABEL",
+   "records": [
+    {
+     "base": "research",
+     "set": {
+      "record_id": "rec-blocked",
+      "class_fields.prepare_review.gate_result": "BLOCKED",
+      "class_fields.prepare_review.permit": null,
+      "prerequisites.0.status": "UNMET",
+      "dispatch_disposition": "NO_DISPATCH"
+     }
+    },
+    {
+     "base": "engineering",
+     "set": {
+      "record_id": "rec-sup",
+      "request.request_id": "req-9",
+      "supersedes_record_id": "rec-blocked",
+      "class_fields.blocked_research_separation": {
+       "blocked_research_record_id": "rec-blocked",
+       "independently_meaningful": true,
+       "separable": true,
+       "excludes_research_evidence_methodology_conclusions": true,
+       "not_substitute_for_blocked_decision": true,
+       "rationale": "Script behaviour is meaningful without judging the blocked research claims"
+      }
+     }
+    }
+   ],
+   "expect": [
+    3,
+    1
+   ],
+   "errors": [
+    [
+     1,
+     "superseded only by a RESEARCH_REVIEW"
+    ]
+   ]
+  },
+  {
+   "id": "s04-neg-research-subtarget-redispatch-without-gate-retry",
+   "scenario": 4,
+   "clause": "RRG-RELABEL",
+   "records": [
+    {
+     "base": "research",
+     "set": {
+      "record_id": "rec-blocked",
+      "class_fields.prepare_review.gate_result": "BLOCKED",
+      "class_fields.prepare_review.permit": null,
+      "prerequisites.0.status": "UNMET",
+      "dispatch_disposition": "NO_DISPATCH"
+     }
+    },
+    {
+     "base": "research",
+     "set": {
+      "record_id": "rec-sub",
+      "request.request_id": "req-9"
+     }
+    }
+   ],
+   "expect": [
+    3,
+    1
+   ],
+   "errors": [
+    [
+     1,
+     "carving or re-dispatching"
+    ]
+   ]
+  },
+  {
+   "id": "s04-pos-research-retry-supersedes-blocked-with-passed-gate",
+   "scenario": 4,
+   "clause": "RRG-RELABEL",
+   "records": [
+    {
+     "base": "research",
+     "set": {
+      "record_id": "rec-blocked",
+      "class_fields.prepare_review.gate_result": "BLOCKED",
+      "class_fields.prepare_review.permit": null,
+      "prerequisites.0.status": "UNMET",
+      "dispatch_disposition": "NO_DISPATCH"
+     }
+    },
+    {
+     "base": "research",
+     "set": {
+      "record_id": "rec-retry",
+      "request.request_id": "req-9",
+      "supersedes_record_id": "rec-blocked"
+     }
+    }
+   ],
+   "expect": [
+    3,
+    0
+   ],
+   "errors": []
+  },
+  {
+   "id": "s05-pos-research-produced-source-implementation-only",
+   "scenario": 5,
+   "clause": "TRC-OBJECT",
+   "records": [
+    {
+     "base": "engineering",
+     "set": {
+      "target.kind": "RESEARCH_PRODUCED_SOURCE"
+     }
+    }
+   ],
+   "expect": [
+    0
+   ],
+   "errors": []
+  },
+  {
+   "id": "s05-neg-implementation-record-asks-research-aspect",
+   "scenario": 5,
+   "clause": "TRC-OBJECT",
+   "records": [
+    {
+     "base": "engineering",
+     "set": {
+      "target.kind": "RESEARCH_PRODUCED_SOURCE",
+      "decision_aspects": [
+       "RESEARCH_METHODOLOGY"
+      ]
+     }
+    }
+   ],
+   "expect": [
+    1
+   ],
+   "errors": [
+    [
+     0,
+     "do not match classification"
+    ]
+   ]
+  },
+  {
+   "id": "s05-neg-missing-research-exclusions",
+   "scenario": 5,
+   "clause": "ENG-NOAPPROVE",
+   "records": [
+    {
+     "base": "engineering",
+     "delete": [
+      "class_fields.research_exclusions"
+     ]
+    }
+   ],
+   "expect": [
+    1
+   ],
+   "errors": [
+    [
+     0,
+     "research_exclusions"
+    ]
+   ]
+  },
+  {
+   "id": "s05-neg-partial-research-exclusions",
+   "scenario": 5,
+   "clause": "ENG-NOAPPROVE",
+   "records": [
+    {
+     "base": "engineering",
+     "set": {
+      "class_fields.research_exclusions": [
+       "RESEARCH_EVIDENCE"
+      ]
+     }
+    }
+   ],
+   "expect": [
+    1
+   ],
+   "errors": [
+    [
+     0,
+     "RESEARCH_CONCLUSIONS"
+    ]
+   ]
+  },
+  {
+   "id": "s05-neg-empty-scope-excluded",
+   "scenario": 5,
+   "clause": "ENG-NOAPPROVE",
+   "records": [
+    {
+     "base": "engineering",
+     "set": {
+      "scope.excluded": []
+     }
+    }
+   ],
+   "expect": [
+    1
+   ],
+   "errors": [
+    [
+     0,
+     "scope.excluded"
+    ]
+   ]
+  },
+  {
+   "id": "s06-pos-split-code-and-market-judgments",
+   "scenario": 6,
+   "clause": "TRC-SPLIT",
+   "records": [
+    {
+     "base": "engineering",
+     "set": {
+      "record_id": "rec-eng",
+      "request.request_id": "req-split",
+      "request.sibling_record_ids": [
+       "rec-res"
+      ]
+     }
+    },
+    {
+     "base": "research",
+     "set": {
+      "record_id": "rec-res",
+      "request.request_id": "req-split",
+      "request.sibling_record_ids": [
+       "rec-eng"
+      ]
+     }
+    }
+   ],
+   "expect": [
+    0,
+    0
+   ],
+   "errors": []
+  },
+  {
+   "id": "s06-neg-engineering-approves-research-conclusions",
+   "scenario": 6,
+   "clause": "ENG-NOAPPROVE",
+   "records": [
+    {
+     "base": "engineering",
+     "set": {
+      "class_fields.representations.approves_research_conclusions": true
+     }
+    }
+   ],
+   "expect": [
+    1
+   ],
+   "errors": [
+    [
+     0,
+     "approves_research_conclusions"
+    ]
+   ]
+  },
+  {
+   "id": "s06-neg-engineering-substitutes-research-permit",
+   "scenario": 6,
+   "clause": "ENG-NOAPPROVE",
+   "records": [
+    {
+     "base": "engineering",
+     "set": {
+      "class_fields.representations.issues_or_substitutes_research_permit": true
+     }
+    }
+   ],
+   "expect": [
+    1
+   ],
+   "errors": [
+    [
+     0,
+     "issues_or_substitutes_research_permit"
+    ]
+   ]
+  },
+  {
+   "id": "s06-neg-combined-record-for-both-decisions",
+   "scenario": 6,
+   "clause": "TRC-SPLIT",
+   "records": [
+    {
+     "base": "research",
+     "set": {
+      "decision_aspects": [
+       "RESEARCH_CONCLUSIONS",
+       "IMPLEMENTATION_PROPERTIES"
+      ]
+     }
+    }
+   ],
+   "expect": [
+    1
+   ],
+   "errors": [
+    [
+     0,
+     "split into separately recorded"
+    ]
+   ]
+  },
+  {
+   "id": "s07-neg-baseline-missing",
+   "scenario": 7,
+   "clause": "ENG-REQ",
+   "records": [
+    {
+     "base": "engineering",
+     "delete": [
+      "class_fields.git_baseline"
+     ]
+    }
+   ],
+   "expect": [
+    1
+   ],
+   "errors": [
+    [
+     0,
+     "git_baseline"
+    ]
+   ]
+  },
+  {
+   "id": "s07-neg-baseline-null-commit",
+   "scenario": 7,
+   "clause": "ENG-REQ",
+   "records": [
+    {
+     "base": "engineering",
+     "set": {
+      "class_fields.git_baseline.commit": "0000000000000000000000000000000000000000"
+     }
+    }
+   ],
+   "expect": [
+    1
+   ],
+   "errors": [
+    [
+     0,
+     "git_baseline.commit"
+    ]
+   ]
+  },
+  {
+   "id": "s07-neg-baseline-not-a-commit-id",
+   "scenario": 7,
+   "clause": "ENG-REQ",
+   "records": [
+    {
+     "base": "engineering",
+     "set": {
+      "class_fields.git_baseline.commit": "main"
+     }
+    }
+   ],
+   "expect": [
+    1
+   ],
+   "errors": [
+    [
+     0,
+     "git_baseline.commit"
+    ]
+   ]
+  },
+  {
+   "id": "s07-neg-baseline-prerequisite-unmet-but-permitted",
+   "scenario": 7,
+   "clause": "ENG-REQ",
+   "records": [
+    {
+     "base": "engineering",
+     "set": {
+      "prerequisites.0.status": "UNMET"
+     }
+    }
+   ],
+   "expect": [
+    1
+   ],
+   "errors": [
+    [
+     0,
+     "unmet prerequisite"
+    ]
+   ]
+  },
+  {
+   "id": "s08-neg-scoped-changes-missing",
+   "scenario": 8,
+   "clause": "ENG-REQ",
+   "records": [
+    {
+     "base": "engineering",
+     "delete": [
+      "class_fields.scoped_changes"
+     ]
+    }
+   ],
+   "expect": [
+    1
+   ],
+   "errors": [
+    [
+     0,
+     "scoped_changes"
+    ]
+   ]
+  },
+  {
+   "id": "s08-neg-scoped-changes-empty",
+   "scenario": 8,
+   "clause": "ENG-REQ",
+   "records": [
+    {
+     "base": "engineering",
+     "set": {
+      "class_fields.scoped_changes": []
+     }
+    }
+   ],
+   "expect": [
+    1
+   ],
+   "errors": [
+    [
+     0,
+     "scoped_changes"
+    ]
+   ]
+  },
+  {
+   "id": "s08-neg-target-identifiers-empty",
+   "scenario": 8,
+   "clause": "TRC-OBJECT",
+   "records": [
+    {
+     "base": "engineering",
+     "set": {
+      "target.identifiers": []
+     }
+    }
+   ],
+   "expect": [
+    1
+   ],
+   "errors": [
+    [
+     0,
+     "target.identifiers"
+    ]
+   ]
+  },
+  {
+   "id": "s08-neg-no-verification-recorded",
+   "scenario": 8,
+   "clause": "ENG-REQ",
+   "records": [
+    {
+     "base": "engineering",
+     "set": {
+      "class_fields.verification.checks_run": [],
+      "class_fields.verification.checks_not_run": []
+     }
+    }
+   ],
+   "expect": [
+    1
+   ],
+   "errors": [
+    [
+     0,
+     "checks not run"
+    ]
+   ]
+  },
+  {
+   "id": "s08-pos-only-checks-not-run-with-reasons",
+   "scenario": 8,
+   "clause": "ENG-REQ",
+   "records": [
+    {
+     "base": "engineering",
+     "set": {
+      "class_fields.verification.checks_run": []
+     }
+    }
+   ],
+   "expect": [
+    0
+   ],
+   "errors": []
+  },
+  {
+   "id": "s08-neg-check-not-run-without-reason",
+   "scenario": 8,
+   "clause": "ENG-REQ",
+   "records": [
+    {
+     "base": "engineering",
+     "set": {
+      "class_fields.verification.checks_not_run": [
+       {
+        "check": "x"
+       }
+      ]
+     }
+    }
+   ],
+   "expect": [
+    1
+   ],
+   "errors": [
+    [
+     0,
+     "reason"
+    ]
+   ]
+  },
+  {
+   "id": "s09-pos-ineligible-reviewer-recorded-no-dispatch",
+   "scenario": 9,
+   "clause": "ENG-INDEP",
+   "records": [
+    {
+     "base": "engineering",
+     "set": {
+      "class_fields.reviewer.authorship_disclosure.implemented_target": true,
+      "class_fields.reviewer.implementation_role": "IMPLEMENTER",
+      "class_fields.reviewer.independence.disposition": "INELIGIBLE",
+      "prerequisites.3.status": "UNMET",
+      "dispatch_disposition": "NO_DISPATCH"
+     }
+    }
+   ],
+   "expect": [
+    3
+   ],
+   "errors": []
+  },
+  {
+   "id": "s09-neg-implementer-declared-independent",
+   "scenario": 9,
+   "clause": "ENG-INDEP",
+   "records": [
+    {
+     "base": "engineering",
+     "set": {
+      "class_fields.reviewer.authorship_disclosure.implemented_target": true
+     }
+    }
+   ],
+   "expect": [
+    1
+   ],
+   "errors": [
+    [
+     0,
+     "contradicts disclosures"
+    ]
+   ]
+  },
+  {
+   "id": "s09-neg-ineligible-reviewer-declared-permitted",
+   "scenario": 9,
+   "clause": "ENG-INDEP",
+   "records": [
+    {
+     "base": "engineering",
+     "set": {
+      "class_fields.reviewer.authorship_disclosure.implemented_target": true,
+      "class_fields.reviewer.implementation_role": "IMPLEMENTER",
+      "class_fields.reviewer.independence.disposition": "INELIGIBLE",
+      "prerequisites.3.status": "UNMET",
+      "dispatch_disposition": "DISPATCH_PERMITTED"
+     }
+    }
+   ],
+   "expect": [
+    1
+   ],
+   "errors": [
+    [
+     0,
+     "INELIGIBLE"
+    ]
+   ]
+  },
+  {
+   "id": "s09-neg-material-contributor-declared-independent",
+   "scenario": 9,
+   "clause": "ENG-INDEP",
+   "records": [
+    {
+     "base": "engineering",
+     "set": {
+      "class_fields.reviewer.authorship_disclosure.materially_contributed": true
+     }
+    }
+   ],
+   "expect": [
+    1
+   ],
+   "errors": [
+    [
+     0,
+     "contradicts disclosures"
+    ]
+   ]
+  },
+  {
+   "id": "s09-neg-author-role-declared-independent",
+   "scenario": 9,
+   "clause": "ENG-INDEP",
+   "records": [
+    {
+     "base": "engineering",
+     "set": {
+      "class_fields.reviewer.implementation_role": "AUTHOR"
+     }
+    }
+   ],
+   "expect": [
+    1
+   ],
+   "errors": [
+    [
+     0,
+     "contradicts disclosures"
+    ]
+   ]
+  },
+  {
+   "id": "s09-neg-unknown-role-declared-independent",
+   "scenario": 9,
+   "clause": "ENG-INDEP",
+   "records": [
+    {
+     "base": "engineering",
+     "set": {
+      "class_fields.reviewer.implementation_role": "UNKNOWN"
+     }
+    }
+   ],
+   "expect": [
+    1
+   ],
+   "errors": [
+    [
+     0,
+     "contradicts disclosures"
+    ]
+   ]
+  },
+  {
+   "id": "s09-neg-reviewer-listed-as-target-contributor",
+   "scenario": 9,
+   "clause": "ENG-INDEP",
+   "records": [
+    {
+     "base": "engineering",
+     "set": {
+      "class_fields.target_contributors": [
+       "Reviewer-Agent"
+      ]
+     }
+    }
+   ],
+   "expect": [
+    1
+   ],
+   "errors": [
+    [
+     0,
+     "target_contributors"
+    ]
+   ]
+  },
+  {
+   "id": "s09-neg-impartiality-conflict-declared-independent",
+   "scenario": 9,
+   "clause": "ENG-INDEP",
+   "records": [
+    {
+     "base": "engineering",
+     "set": {
+      "class_fields.reviewer.conflicts": [
+       {
+        "description": "owns the outcome",
+        "could_reasonably_affect_impartiality": true
+       }
+      ]
+     }
+    }
+   ],
+   "expect": [
+    1
+   ],
+   "errors": [
+    [
+     0,
+     "impartiality"
+    ]
+   ]
+  },
+  {
+   "id": "s09-pos-benign-disclosed-conflict-stays-independent",
+   "scenario": 9,
+   "clause": "ENG-INDEP",
+   "records": [
+    {
+     "base": "engineering",
+     "set": {
+      "class_fields.reviewer.conflicts": [
+       {
+        "description": "same organisation",
+        "could_reasonably_affect_impartiality": false
+       }
+      ]
+     }
+    }
+   ],
+   "expect": [
+    0
+   ],
+   "errors": []
+  },
+  {
+   "id": "s10-pos-unresolved-blocks-dispatch",
+   "scenario": 10,
+   "clause": "TRC-UNRESOLVED",
+   "records": [
+    {
+     "base": "unresolved"
+    }
+   ],
+   "expect": [
+    3
+   ],
+   "errors": []
+  },
+  {
+   "id": "s10-neg-unresolved-declared-permitted",
+   "scenario": 10,
+   "clause": "TRC-UNRESOLVED",
+   "records": [
+    {
+     "base": "unresolved",
+     "set": {
+      "dispatch_disposition": "DISPATCH_PERMITTED"
+     }
+    }
+   ],
+   "expect": [
+    1
+   ],
+   "errors": [
+    [
+     0,
+     "never dispatchable"
+    ]
+   ]
+  },
+  {
+   "id": "s10-neg-unresolved-without-clarification",
+   "scenario": 10,
+   "clause": "TRC-UNRESOLVED",
+   "records": [
+    {
+     "base": "unresolved",
+     "delete": [
+      "class_fields.clarification_needed"
+     ]
+    }
+   ],
+   "expect": [
+    1
+   ],
+   "errors": [
+    [
+     0,
+     "clarification_needed"
+    ]
+   ]
+  },
+  {
+   "id": "s10-neg-unresolved-with-concrete-aspect",
+   "scenario": 10,
+   "clause": "TRC-OBJECT",
+   "records": [
+    {
+     "base": "unresolved",
+     "set": {
+      "decision_aspects": [
+       "RESEARCH_EVIDENCE"
+      ]
+     }
+    }
+   ],
+   "expect": [
+    1
+   ],
+   "errors": [
+    [
+     0,
+     "do not match classification"
+    ]
+   ]
+  },
+  {
+   "id": "s10-pos-clarified-record-supersedes-unresolved",
+   "scenario": 10,
+   "clause": "TRC-UNRESOLVED",
+   "records": [
+    {
+     "base": "unresolved"
+    },
+    {
+     "base": "engineering",
+     "set": {
+      "record_id": "rec-clarified",
+      "request.request_id": "req-5",
+      "supersedes_record_id": "rec-unresolved"
+     }
+    }
+   ],
+   "expect": [
+    3,
+    0
+   ],
+   "errors": []
+  },
+  {
+   "id": "s10-neg-supersedes-record-not-supplied",
+   "scenario": 10,
+   "clause": "TRC-RECORD",
+   "records": [
+    {
+     "base": "engineering",
+     "set": {
+      "supersedes_record_id": "rec-unresolved"
+     }
+    }
+   ],
+   "expect": [
+    1
+   ],
+   "errors": [
+    [
+     0,
+     "not supplied"
+    ]
+   ]
+  },
+  {
+   "id": "s11-pos-policy-pending-not-dispatchable",
+   "scenario": 11,
+   "clause": "TRC-POLICY",
+   "records": [
+    {
+     "base": "policy"
+    }
+   ],
+   "expect": [
+    3
+   ],
+   "errors": []
+  },
+  {
+   "id": "s11-neg-policy-declared-permitted",
+   "scenario": 11,
+   "clause": "TRC-POLICY",
+   "records": [
+    {
+     "base": "policy",
+     "set": {
+      "dispatch_disposition": "DISPATCH_PERMITTED"
+     }
+    }
+   ],
+   "expect": [
+    1
+   ],
+   "errors": [
+    [
+     0,
+     "never dispatchable"
+    ]
+   ]
+  },
+  {
+   "id": "s11-pos-accepted-by-separate-maintainer-record-still-not-dispatchable",
+   "scenario": 11,
+   "clause": "TRC-POLICY",
+   "records": [
+    {
+     "base": "policy",
+     "set": {
+      "class_fields.acceptance": {
+       "state": "ACCEPTED",
+       "record_ref": "acceptance/maintainer-2026-10-21.md",
+       "accepted_at_utc": "2026-10-21T01:00:00Z",
+       "accepted_by": {
+        "identity": "maintainer",
+        "role": "AUTHORIZED_MAINTAINER",
+        "authority_basis": "repository owner"
+       }
+      }
+     }
+    }
+   ],
+   "expect": [
+    3
+   ],
+   "errors": []
+  },
+  {
+   "id": "s11-neg-self-acceptance-by-classification",
+   "scenario": 11,
+   "clause": "TRC-POLICY",
+   "records": [
+    {
+     "base": "policy",
+     "set": {
+      "class_fields.acceptance": {
+       "state": "ACCEPTED",
+       "record_ref": "rec-policy",
+       "accepted_at_utc": "2026-10-21T01:00:00Z",
+       "accepted_by": {
+        "identity": "maintainer",
+        "role": "AUTHORIZED_MAINTAINER",
+        "authority_basis": "repository owner"
+       }
+      }
+     }
+    }
+   ],
+   "expect": [
+    1
+   ],
+   "errors": [
+    [
+     0,
+     "separate maintainer record"
+    ]
+   ]
+  },
+  {
+   "id": "s11-neg-acceptance-by-cited-review-finding",
+   "scenario": 11,
+   "clause": "TRC-POLICY",
+   "records": [
+    {
+     "base": "policy",
+     "set": {
+      "class_fields.acceptance": {
+       "state": "ACCEPTED",
+       "record_ref": "pr-drafts/example-amendment.md",
+       "accepted_at_utc": "2026-10-21T01:00:00Z",
+       "accepted_by": {
+        "identity": "maintainer",
+        "role": "AUTHORIZED_MAINTAINER",
+        "authority_basis": "repository owner"
+       }
+      }
+     }
+    }
+   ],
+   "expect": [
+    1
+   ],
+   "errors": [
+    [
+     0,
+     "separate maintainer record"
+    ]
+   ]
+  },
+  {
+   "id": "s11-neg-acceptance-by-non-maintainer",
+   "scenario": 11,
+   "clause": "TRC-POLICY",
+   "records": [
+    {
+     "base": "policy",
+     "set": {
+      "class_fields.acceptance": {
+       "state": "ACCEPTED",
+       "record_ref": "acceptance/maintainer-2026-10-21.md",
+       "accepted_at_utc": "2026-10-21T01:00:00Z",
+       "accepted_by": {
+        "identity": "maintainer",
+        "role": "REVIEWER",
+        "authority_basis": "repository owner"
+       }
+      }
+     }
+    }
+   ],
+   "expect": [
+    1
+   ],
+   "errors": [
+    [
+     0,
+     "AUTHORIZED_MAINTAINER"
+    ]
+   ]
+  },
+  {
+   "id": "s11-neg-pending-with-acceptance-details",
+   "scenario": 11,
+   "clause": "TRC-POLICY",
+   "records": [
+    {
+     "base": "policy",
+     "set": {
+      "class_fields.acceptance": {
+       "state": "PENDING",
+       "record_ref": "acceptance/maintainer-2026-10-21.md",
+       "accepted_at_utc": "2026-10-21T01:00:00Z",
+       "accepted_by": {
+        "identity": "maintainer",
+        "role": "AUTHORIZED_MAINTAINER",
+        "authority_basis": "repository owner"
+       }
+      }
+     }
+    }
+   ],
+   "expect": [
+    1
+   ],
+   "errors": [
+    [
+     0,
+     "unknown field"
+    ]
+   ]
+  },
+  {
+   "id": "s11-neg-unknown-policy-change-kind",
+   "scenario": 11,
+   "clause": "TRC-POLICY",
+   "records": [
+    {
+     "base": "policy",
+     "set": {
+      "class_fields.policy_change_kind": "TWEAK"
+     }
+    }
+   ],
+   "expect": [
+    1
+   ],
+   "errors": [
+    [
+     0,
+     "policy_change_kind"
+    ]
+   ]
+  },
+  {
+   "id": "s12-pos-split-implementation-review-and-authority-change",
+   "scenario": 12,
+   "clause": "TRC-POLICY",
+   "records": [
+    {
+     "base": "engineering",
+     "set": {
+      "record_id": "rec-eng",
+      "request.request_id": "req-split",
+      "request.sibling_record_ids": [
+       "rec-pol"
+      ]
+     }
+    },
+    {
+     "base": "policy",
+     "set": {
+      "record_id": "rec-pol",
+      "request.request_id": "req-split",
+      "request.sibling_record_ids": [
+       "rec-eng"
+      ]
+     }
+    }
+   ],
+   "expect": [
+    0,
+    3
+   ],
+   "errors": []
+  },
+  {
+   "id": "s12-neg-engineering-waives-gate",
+   "scenario": 12,
+   "clause": "ENG-NOAPPROVE",
+   "records": [
+    {
+     "base": "engineering",
+     "set": {
+      "class_fields.representations.waives_gate_or_authorizes_policy_change": true
+     }
+    }
+   ],
+   "expect": [
+    1
+   ],
+   "errors": [
+    [
+     0,
+     "waives_gate_or_authorizes_policy_change"
+    ]
+   ]
+  },
+  {
+   "id": "s12-neg-engineering-record-carries-authority-change",
+   "scenario": 12,
+   "clause": "TRC-SPLIT",
+   "records": [
+    {
+     "base": "engineering",
+     "set": {
+      "decision_aspects": [
+       "IMPLEMENTATION_PROPERTIES",
+       "REVIEW_AUTHORITY_CHANGE"
+      ]
+     }
+    }
+   ],
+   "expect": [
+    1
+   ],
+   "errors": [
+    [
+     0,
+     "split into separately recorded"
+    ]
+   ]
+  },
+  {
+   "id": "s12-neg-authority-change-labeled-engineering",
+   "scenario": 12,
+   "clause": "TRC-OBJECT",
+   "records": [
+    {
+     "base": "engineering",
+     "set": {
+      "decision_aspects": [
+       "REVIEW_AUTHORITY_CHANGE"
+      ]
+     }
+    }
+   ],
+   "expect": [
+    1
+   ],
+   "errors": [
+    [
+     0,
+     "do not match classification"
+    ]
+   ]
+  },
+  {
+   "id": "s12-neg-engineering-authorizes-liquid-execution",
+   "scenario": 12,
+   "clause": "ENG-NOAPPROVE",
+   "records": [
+    {
+     "base": "engineering",
+     "set": {
+      "class_fields.representations.authorizes_liquid_execution": true
+     }
+    }
+   ],
+   "expect": [
+    1
+   ],
+   "errors": [
+    [
+     0,
+     "authorizes_liquid_execution"
+    ]
+   ]
+  }
+ ]
+}

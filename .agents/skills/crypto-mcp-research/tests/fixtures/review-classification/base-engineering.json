@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "record_id": "rec-engineering",
+  "recorded_at_utc": "2026-10-21T00:00:00Z",
+  "request": {"request_id": "req-2", "sibling_record_ids": []},
+  "classification": "ENGINEERING_REVIEW",
+  "target": {"kind": "SOURCE_CODE", "identifiers": ["scripts/example_control.py"], "description": "Control-plane script change"},
+  "requested_decision": "Decide whether the script implementation meets the stated technical requirements",
+  "decision_aspects": ["IMPLEMENTATION_PROPERTIES"],
+  "scope": {"included": ["implementation of scripts/example_control.py"], "excluded": ["research evidence", "research methodology", "research conclusions"]},
+  "evidence_references": [{"kind": "DIFF", "ref": "git diff 39e8e88..HEAD -- scripts/example_control.py"}],
+  "prerequisites": [
+    {"id": "GIT_BASELINE", "description": "known Git baseline recorded", "status": "MET"},
+    {"id": "EXACT_TARGET", "description": "exact target and scoped changes recorded", "status": "MET"},
+    {"id": "VERIFICATION_EVIDENCE", "description": "checks run and not run recorded", "status": "MET"},
+    {"id": "REVIEWER_INDEPENDENCE", "description": "independence disposition recorded", "status": "MET"}
+  ],
+  "dispatch_disposition": "DISPATCH_PERMITTED",
+  "class_fields": {
+    "git_baseline": {"commit": "39e8e88a1b2c3d4e5f60718293a4b5c6d7e8f901", "ref": "origin/main"},
+    "scoped_changes": [{"path": "scripts/example_control.py", "change": "MODIFIED"}],
+    "source_artifacts": [],
+    "verification": {
+      "checks_run": [{"check": "python -m pytest tests -q", "result": "PASS", "evidence_ref": "logs/pytest.out"}],
+      "checks_not_run": [{"check": "live provider connectivity", "reason": "offline review"}]
+    },
+    "technical_requirements": ["exits nonzero on malformed input"],
+    "target_contributors": ["implementer-agent"],
+    "reviewer": {
+      "identity": "reviewer-agent",
+      "role": "independent engineering reviewer",
+      "implementation_role": "NONE",
+      "authorship_disclosure": {"authored_target": false, "implemented_target": false, "materially_contributed": false, "statement": "No contribution to the target"},
+      "conflicts": [],
+      "independence": {"disposition": "INDEPENDENT", "basis": "Separate session; no authorship or implementation contribution"}
+    },
+    "research_exclusions": ["RESEARCH_EVIDENCE", "RESEARCH_METHODOLOGY", "RESEARCH_CONCLUSIONS"],
+    "representations": {
+      "approves_research_conclusions": false,
+      "issues_or_substitutes_research_permit": false,
+      "satisfies_prepare_review": false,
+      "waives_gate_or_authorizes_policy_change": false,
+      "authorizes_liquid_execution": false
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "record_id": "rec-unresolved",
+  "recorded_at_utc": "2026-10-21T00:00:00Z",
+  "request": {"request_id": "req-3", "sibling_record_ids": []},
+  "classification": "UNRESOLVED",
+  "target": {"kind": "UNSPECIFIED", "identifiers": [], "description": "Request says only 'review this'"},
+  "requested_decision": "Unspecified review of an unspecified target",
+  "decision_aspects": ["UNDETERMINED"],
+  "scope": {"included": [], "excluded": []},
+  "evidence_references": [],
+  "prerequisites": [],
+  "dispatch_disposition": "NO_DISPATCH",
+  "class_fields": {"clarification_needed": ["exact target", "requested decision"]}
+}
