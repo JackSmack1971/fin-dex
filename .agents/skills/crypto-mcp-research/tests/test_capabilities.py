@@ -44,6 +44,18 @@ class TestCapabilities(unittest.TestCase):
         self.assertIn('getTickersById', self.provider('coinpaprika')['automatic_research_allowlist'])
         self.assertNotIn('execute', self.provider('coingecko')['automatic_research_allowlist'])
 
+    def test_hive_generic_dispatcher_is_unknown_and_not_exposed(self):
+        tool = self.tool('hive', 'invoke_api_endpoint')
+        self.assertEqual(tool['effect'], 'UNKNOWN')
+        self.assertFalse(tool['automatic_research'])
+        self.assertNotIn('invoke_api_endpoint', self.provider('hive')['automatic_research_allowlist'])
+        self.assertNotIn('"invoke_api_endpoint"', self.config)
+        self.provider('hive')['automatic_research_allowlist'].append('invoke_api_endpoint')
+        self.config = self.config.replace(
+            '"validate_task_result"]', '"validate_task_result", "invoke_api_endpoint"]')
+        self.write()
+        self.assertTrue(any('invoke_api_endpoint' in e for e in self.errors()))
+
     def test_stateful_wallet_unknown_and_feedback_methods_are_prohibited(self):
         self.assertEqual(self.tool('coingecko', 'execute')['effect'], 'UNKNOWN')
         self.assertFalse(self.tool('coingecko', 'execute')['automatic_research'])
