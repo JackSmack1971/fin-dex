@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "record_id": "rec-policy",
+  "recorded_at_utc": "2026-10-21T00:00:00Z",
+  "request": {"request_id": "req-4", "sibling_record_ids": []},
+  "classification": "POLICY_DECISION",
+  "target": {"kind": "POLICY_TEXT", "identifiers": ["AGENTS.md"], "description": "Proposed amendment to reviewer dispatch authority"},
+  "requested_decision": "Adopt the proposed amendment to who may dispatch reviewers",
+  "decision_aspects": ["REVIEW_AUTHORITY_CHANGE"],
+  "scope": {"included": ["reviewer dispatch authority"], "excluded": []},
+  "evidence_references": [{"kind": "AMENDMENT", "ref": "pr-drafts/example-amendment.md"}],
+  "prerequisites": [],
+  "dispatch_disposition": "NO_DISPATCH",
+  "class_fields": {"policy_change_kind": "ACCEPT_POLICY_AMENDMENT", "acceptance": {"state": "PENDING"}}
+}

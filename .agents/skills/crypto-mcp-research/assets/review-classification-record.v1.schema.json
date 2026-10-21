@@ -1,0 +1,204 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fin-dex.local/schemas/review-classification-record-v1.json",
+  "title": "Fin-Dex Typed Review Classification Record",
+  "description": "Declared structure of a recorded review classification (AGENTS.md, Typed review classification). Structure only: cross-field consistency, cross-record rules (split siblings, blocked research lineage, permit/acceptance separation, consumed one-time exception) and fail-closed JSON loading are enforced by scripts/validate_review_classification.py. This schema and that validator check declared structure and policy consistency, not review quality or truth, and are not a runtime security boundary.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "record_id", "recorded_at_utc", "request", "classification", "target", "requested_decision", "decision_aspects", "scope", "evidence_references", "prerequisites", "dispatch_disposition", "class_fields"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "record_id": {"$ref": "#/$defs/id"},
+    "recorded_at_utc": {"$ref": "#/$defs/utc"},
+    "request": {
+      "type": "object", "additionalProperties": false,
+      "required": ["request_id", "sibling_record_ids"],
+      "properties": {
+        "request_id": {"$ref": "#/$defs/id"},
+        "sibling_record_ids": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/id"}}
+      }
+    },
+    "classification": {"enum": ["RESEARCH_REVIEW", "ENGINEERING_REVIEW", "UNRESOLVED", "POLICY_DECISION"]},
+    "target": {
+      "type": "object", "additionalProperties": false,
+      "required": ["kind", "identifiers", "description"],
+      "properties": {
+        "kind": {"$ref": "#/$defs/text"},
+        "identifiers": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/text"}},
+        "description": {"$ref": "#/$defs/text"}
+      }
+    },
+    "requested_decision": {"$ref": "#/$defs/text"},
+    "decision_aspects": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"enum": ["RESEARCH_EVIDENCE", "RESEARCH_METHODOLOGY", "RESEARCH_CONCLUSIONS", "IMPLEMENTATION_PROPERTIES", "REVIEW_AUTHORITY_CHANGE", "UNDETERMINED"]}},
+    "scope": {
+      "type": "object", "additionalProperties": false,
+      "required": ["included", "excluded"],
+      "properties": {
+        "included": {"$ref": "#/$defs/texts"},
+        "excluded": {"$ref": "#/$defs/texts"}
+      }
+    },
+    "evidence_references": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["kind", "ref"],
+        "properties": {"kind": {"$ref": "#/$defs/text"}, "ref": {"$ref": "#/$defs/text"}, "sha256": {"$ref": "#/$defs/sha256"}}
+      }
+    },
+    "prerequisites": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["id", "description", "status"],
+        "properties": {"id": {"$ref": "#/$defs/text"}, "description": {"$ref": "#/$defs/text"}, "status": {"enum": ["MET", "UNMET"]}}
+      }
+    },
+    "dispatch_disposition": {"enum": ["DISPATCH_PERMITTED", "NO_DISPATCH"]},
+    "class_fields": {"type": "object"},
+    "exception_ref": {"type": "object", "additionalProperties": false, "required": ["id"], "properties": {"id": {"$ref": "#/$defs/text"}}},
+    "supersedes_record_id": {"$ref": "#/$defs/id"}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"classification": {"const": "RESEARCH_REVIEW"}}, "required": ["classification"]},
+      "then": {"properties": {
+        "class_fields": {"$ref": "#/$defs/research_fields"},
+        "decision_aspects": {"items": {"enum": ["RESEARCH_EVIDENCE", "RESEARCH_METHODOLOGY", "RESEARCH_CONCLUSIONS"]}},
+        "target": {"properties": {"identifiers": {"minItems": 1}}},
+        "scope": {"properties": {"included": {"minItems": 1}}},
+        "evidence_references": {"minItems": 1}
+      }}
+    },
+    {
+      "if": {"properties": {"classification": {"const": "ENGINEERING_REVIEW"}}, "required": ["classification"]},
+      "then": {"properties": {
+        "class_fields": {"$ref": "#/$defs/engineering_fields"},
+        "decision_aspects": {"items": {"const": "IMPLEMENTATION_PROPERTIES"}},
+        "target": {"properties": {"identifiers": {"minItems": 1}}},
+        "scope": {"properties": {"included": {"minItems": 1}, "excluded": {"minItems": 1}}},
+        "evidence_references": {"minItems": 1}
+      }}
+    },
+    {
+      "if": {"properties": {"classification": {"const": "UNRESOLVED"}}, "required": ["classification"]},
+      "then": {"properties": {
+        "class_fields": {"$ref": "#/$defs/unresolved_fields"},
+        "decision_aspects": {"items": {"const": "UNDETERMINED"}},
+        "dispatch_disposition": {"const": "NO_DISPATCH"}
+      }}
+    },
+    {
+      "if": {"properties": {"classification": {"const": "POLICY_DECISION"}}, "required": ["classification"]},
+      "then": {"properties": {
+        "class_fields": {"$ref": "#/$defs/policy_fields"},
+        "decision_aspects": {"items": {"const": "REVIEW_AUTHORITY_CHANGE"}},
+        "dispatch_disposition": {"const": "NO_DISPATCH"}
+      }}
+    }
+  ],
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"},
+    "text": {"type": "string", "pattern": "\\S"},
+    "texts": {"type": "array", "items": {"$ref": "#/$defs/text"}},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "utc": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?Z$"},
+    "research_fields": {
+      "type": "object", "additionalProperties": false,
+      "required": ["prepare_review"],
+      "properties": {"prepare_review": {
+        "type": "object", "additionalProperties": false,
+        "required": ["gate_result", "permit", "checkpoint_output_ref"],
+        "properties": {
+          "gate_result": {"enum": ["PASSED", "BLOCKED"]},
+          "permit": {"oneOf": [
+            {"type": "null"},
+            {"type": "object", "additionalProperties": false, "required": ["path", "permit_payload_sha256", "state"],
+             "properties": {"path": {"$ref": "#/$defs/text"}, "permit_payload_sha256": {"$ref": "#/$defs/sha256"}, "state": {"const": "REVIEW_DISPATCH_ALLOWED"}}}
+          ]},
+          "checkpoint_output_ref": {"$ref": "#/$defs/text"}
+        }
+      }}
+    },
+    "engineering_fields": {
+      "type": "object", "additionalProperties": false,
+      "required": ["git_baseline", "scoped_changes", "source_artifacts", "verification", "technical_requirements", "target_contributors", "reviewer", "research_exclusions", "representations"],
+      "properties": {
+        "git_baseline": {"type": "object", "additionalProperties": false, "required": ["commit", "ref"],
+          "properties": {"commit": {"type": "string", "pattern": "^([0-9a-f]{40}|[0-9a-f]{64})$", "not": {"pattern": "^0+$"}}, "ref": {"$ref": "#/$defs/text"}}},
+        "scoped_changes": {"type": "array", "minItems": 1, "items": {"type": "object", "additionalProperties": false, "required": ["path", "change"],
+          "properties": {"path": {"$ref": "#/$defs/text"}, "change": {"enum": ["ADDED", "MODIFIED", "DELETED", "RENAMED"]}}}},
+        "source_artifacts": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["path"],
+          "properties": {"path": {"$ref": "#/$defs/text"}, "sha256": {"$ref": "#/$defs/sha256"}}}},
+        "verification": {"type": "object", "additionalProperties": false, "required": ["checks_run", "checks_not_run"],
+          "properties": {
+            "checks_run": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["check", "result", "evidence_ref"],
+              "properties": {"check": {"$ref": "#/$defs/text"}, "result": {"enum": ["PASS", "FAIL", "ERROR"]}, "evidence_ref": {"$ref": "#/$defs/text"}}}},
+            "checks_not_run": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["check", "reason"],
+              "properties": {"check": {"$ref": "#/$defs/text"}, "reason": {"$ref": "#/$defs/text"}}}}
+          },
+          "anyOf": [{"properties": {"checks_run": {"minItems": 1}}}, {"properties": {"checks_not_run": {"minItems": 1}}}]},
+        "technical_requirements": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/text"}},
+        "target_contributors": {"$ref": "#/$defs/texts"},
+        "reviewer": {"type": "object", "additionalProperties": false,
+          "required": ["identity", "role", "implementation_role", "authorship_disclosure", "conflicts", "independence"],
+          "properties": {
+            "identity": {"$ref": "#/$defs/text"},
+            "role": {"$ref": "#/$defs/text"},
+            "implementation_role": {"enum": ["NONE", "AUTHOR", "IMPLEMENTER", "CONTRIBUTOR", "UNKNOWN"]},
+            "authorship_disclosure": {"type": "object", "additionalProperties": false,
+              "required": ["authored_target", "implemented_target", "materially_contributed", "statement"],
+              "properties": {"authored_target": {"type": "boolean"}, "implemented_target": {"type": "boolean"}, "materially_contributed": {"type": "boolean"}, "statement": {"$ref": "#/$defs/text"}}},
+            "conflicts": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["description", "could_reasonably_affect_impartiality"],
+              "properties": {"description": {"$ref": "#/$defs/text"}, "could_reasonably_affect_impartiality": {"type": "boolean"}}}},
+            "independence": {"type": "object", "additionalProperties": false, "required": ["disposition", "basis"],
+              "properties": {"disposition": {"enum": ["INDEPENDENT", "INELIGIBLE"]}, "basis": {"$ref": "#/$defs/text"}}}
+          }},
+        "research_exclusions": {"type": "array", "uniqueItems": true, "items": {"enum": ["RESEARCH_EVIDENCE", "RESEARCH_METHODOLOGY", "RESEARCH_CONCLUSIONS"]},
+          "allOf": [{"contains": {"const": "RESEARCH_EVIDENCE"}}, {"contains": {"const": "RESEARCH_METHODOLOGY"}}, {"contains": {"const": "RESEARCH_CONCLUSIONS"}}]},
+        "representations": {"type": "object", "additionalProperties": false,
+          "required": ["approves_research_conclusions", "issues_or_substitutes_research_permit", "satisfies_prepare_review", "waives_gate_or_authorizes_policy_change", "authorizes_liquid_execution"],
+          "properties": {
+            "approves_research_conclusions": {"const": false},
+            "issues_or_substitutes_research_permit": {"const": false},
+            "satisfies_prepare_review": {"const": false},
+            "waives_gate_or_authorizes_policy_change": {"const": false},
+            "authorizes_liquid_execution": {"const": false}
+          }},
+        "blocked_research_separation": {"type": "object", "additionalProperties": false,
+          "required": ["blocked_research_record_id", "independently_meaningful", "separable", "excludes_research_evidence_methodology_conclusions", "not_substitute_for_blocked_decision", "rationale"],
+          "properties": {
+            "blocked_research_record_id": {"$ref": "#/$defs/id"},
+            "independently_meaningful": {"const": true},
+            "separable": {"const": true},
+            "excludes_research_evidence_methodology_conclusions": {"const": true},
+            "not_substitute_for_blocked_decision": {"const": true},
+            "rationale": {"$ref": "#/$defs/text"}
+          }}
+      }
+    },
+    "unresolved_fields": {
+      "type": "object", "additionalProperties": false,
+      "required": ["clarification_needed"],
+      "properties": {"clarification_needed": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/text"}}}
+    },
+    "policy_fields": {
+      "type": "object", "additionalProperties": false,
+      "required": ["policy_change_kind", "acceptance"],
+      "properties": {
+        "policy_change_kind": {"enum": ["CHANGE_DISPATCH_AUTHORITY", "ALTER_OR_REMOVE_GATE", "REDEFINE_REVIEW_AUTHORITY", "ACCEPT_POLICY_AMENDMENT"]},
+        "acceptance": {"oneOf": [
+          {"type": "object", "additionalProperties": false, "required": ["state"], "properties": {"state": {"const": "PENDING"}}},
+          {"type": "object", "additionalProperties": false, "required": ["state", "record_ref", "accepted_by", "accepted_at_utc"],
+           "properties": {
+             "state": {"const": "ACCEPTED"},
+             "record_ref": {"$ref": "#/$defs/text"},
+             "accepted_at_utc": {"$ref": "#/$defs/utc"},
+             "accepted_by": {"type": "object", "additionalProperties": false, "required": ["identity", "role", "authority_basis"],
+               "properties": {"identity": {"$ref": "#/$defs/text"}, "role": {"const": "AUTHORIZED_MAINTAINER"}, "authority_basis": {"$ref": "#/$defs/text"}}}
+           }}
+        ]}
+      }
+    }
+  }
+}
