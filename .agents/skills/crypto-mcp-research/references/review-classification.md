@@ -65,3 +65,12 @@ Hostile cases (relabeling variants, extension/location independence, consumed-ex
 - Relabeling against a blocked decision that was never supplied in the same invocation.
 - Whether findings, once returned, stay inside the recorded scope or claim research approval in prose.
 - Runtime enforcement of any of the above.
+
+## Interpretations and open limits
+
+**Status: interpretations recorded for maintainer acceptance; not policy until accepted.** None of the items below is part of `AGENTS.md`, and none has been accepted by an authorized maintainer. They record how the validator currently reads gaps in the policy.
+
+1. **Retry after a failed research gate.** `AGENTS.md` does not describe a retry path. The validator treats a new `RESEARCH_REVIEW` record whose `prepare-review` gate passed and which supersedes the blocked record as the only accepted retry. This is a validator interpretation, not `AGENTS.md` policy.
+2. **Rules in `pr-drafts/08` that are deliberately not encoded.** "Fixed record per dispatch" is not deterministically enforceable offline. "The amendment's author cannot verify it" is already covered by the existing reviewer independence rule. If the maintainer wants either as policy, that is a separate `POLICY_DECISION`.
+3. **Self-declared claims.** "Authorized maintainer" is a self-declared claim; the validator does not authenticate it. "Known Git baseline" means a well-formed, non-zero commit id; the validator does not check that the commit exists.
+4. **One-time exception.** The 2026-10-18 exception is encoded as consumed, and any citation of it, or of an unknown exception, is rejected.
