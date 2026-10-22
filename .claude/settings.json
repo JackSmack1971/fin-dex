@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -m pytest .agents/skills/crypto-mcp-research/tests paper-testing/tests -q)",
+      "Bash(python .agents/skills/crypto-mcp-research/scripts/check_config.py .codex/config.toml)",
+      "Bash(git status *)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "mcp__openaiDeveloperDocs__*"
+    ],
+    "deny": [
+      "Read(~/.codex/**)",
+      "Edit(~/.codex/**)",
+      "Edit(pr-drafts/**)",
+      "Edit(research-runs/**)",
+      "Edit(.agents/research-runs/**)",
+      "Edit(.tmp/**)",
+      "Edit(.agents/skills/crypto-mcp-research/evaluation/pilots/**)"
+    ]
+  }
+}
