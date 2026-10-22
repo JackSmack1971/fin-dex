@@ -11,3 +11,8 @@ def test_skill_frontmatter_has_delimiters_name_and_description():
     fields = dict(line.split(":", 1) for line in block if ":" in line)
     for key in ("name", "description"):
         assert fields.get(key, "").strip(), f"frontmatter is missing {key}"
+
+def test_skill_keeps_evidence_validator_and_research_runs_reference():
+    text = SKILL.read_text(encoding="utf-8")
+    for needle in ("scripts/validate_evidence.py", "references/research-runs.md"):
+        assert needle in text, f"SKILL.md no longer mentions {needle}"
