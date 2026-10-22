@@ -688,7 +688,6 @@
         "check_token_safety",
         "get_api_endpoint_schema",
         "get_token_price",
-        "invoke_api_endpoint",
         "search_tools",
         "validate_task_result"
       ],
@@ -727,10 +726,10 @@
         },
         {
           "name": "invoke_api_endpoint",
-          "effect": "READ_ONLY",
-          "automatic_research": true,
-          "evidence": "Runtime tool metadata describes retrieval, search, validation, or schema inspection and declares no mutation.",
-          "category": "research_data",
+          "effect": "UNKNOWN",
+          "automatic_research": false,
+          "evidence": "Runtime tool metadata (hive-mcp-server 1.12.0, tools/list 2026-10-21) shows a generic dispatcher: the caller supplies endpoint_name and free-form args for any of a 432-tool catalog, so effects depend on the caller-chosen endpoint and cannot be bounded from tool metadata; the read-only claim is the server's own unverified description.",
+          "category": "unknown_effect",
           "identity": "mcp__hive__invoke_api_endpoint"
         },
         {

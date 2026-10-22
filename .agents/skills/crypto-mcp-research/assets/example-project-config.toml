@@ -32,7 +32,7 @@ enabled_tools = ["get_book", "get_candlestick", "get_index_price", "get_instrume
 url = "https://mcp.hiveintelligence.xyz/mcp"
 enabled = true
 startup_timeout_sec = 30
-enabled_tools = ["check_token_safety", "get_api_endpoint_schema", "get_token_price", "invoke_api_endpoint", "search_tools", "validate_task_result"]
+enabled_tools = ["check_token_safety", "get_api_endpoint_schema", "get_token_price", "search_tools", "validate_task_result"]
 
 [mcp_servers.gdelt]
 url = "https://gdelt.caseyjhand.com/mcp"
