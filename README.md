@@ -29,7 +29,7 @@ fin-dex does not trade, sign, pay, or write to any external service. It gathers 
 
 Requirements:
 
-- Python 3.x with `pytest` and `jsonschema`. There is no requirements file in the repo. The suite was last run on Python 3.14.3 with pytest 8.4.2.
+- Python 3.x with `pytest` and `jsonschema`. There is no requirements file in the repo.
 - The Codex CLI, if you want to run the agent workflow. This README does not restate how Codex loads these files; see `docs/codex-alignment.md` for what was verified against the official docs.
 
 First checks, all offline (run from the repo root):
@@ -45,7 +45,7 @@ python -m pytest .agents/skills/crypto-mcp-research/tests paper-testing/tests -q
 python .agents/skills/crypto-mcp-research/scripts/effective_capabilities.py
 ```
 
-Expected: every provider shows `CONFIGURED (connectivity untested)`, and the tests pass (286 at the time of writing).
+Expected: every provider shows `CONFIGURED (connectivity untested)`, and the tests pass.
 
 ## Running a research task
 
@@ -69,6 +69,7 @@ All live in `.agents/skills/crypto-mcp-research/scripts/`.
 | `validate_handoffs.py`, `validate_handoff_artifact.py` | Validate specialist and reviewer JSON returns |
 | `validate_research_run.py` | Validate a run manifest; `--replay` replays retained calculations |
 | `native_lifecycle.py` | Supervisor checkpoints: `prepare-review`, `validate-review` |
+| `validate_review_classification.py` | Validate recorded typed-review classifications; a pass is a checkpoint aid, not authorization to dispatch |
 | `evaluate_workflow.py` | Static validation and preparation of the evaluation corpus |
 | `dexscreener_public.py`, `dexpaprika_public.py`, `defillama_public.py`, `dex_pair_router.py` | Local REST adapters and routing |
 | `indicator_replay.py` | Replay indicator calculations over retained data |
@@ -81,7 +82,7 @@ The evaluation harness under `.agents/skills/crypto-mcp-research/evaluation/` de
 
 ## Contributing
 
-- Do not edit `pr-drafts/`, `research-runs/`, `.tmp/`, or `evaluation/pilots/`. They are retained evidence.
+- Do not edit `pr-drafts/`, `research-runs/`, `.tmp/`, or `.agents/skills/crypto-mcp-research/evaluation/pilots/`. They are retained evidence.
 - `AGENTS.md` contains text that is bound by SHA-256 (baselines, the exception record). Any edit changes those hashes, so raise it with a maintainer first.
 - Do not add, remove, or broaden MCP servers or `enabled_tools` entries without updating `provider-capabilities.json` and getting maintainer approval.
 - Whoever implements a change cannot be its independent engineering reviewer.
