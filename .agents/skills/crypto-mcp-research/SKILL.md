@@ -1,6 +1,7 @@
 ---
 name: crypto-mcp-research
 description: Triangulate crypto market, DEX liquidity, on-chain context, and event/news claims using the configured CoinGecko, CoinPaprika, DexPaprika, Crypto.com Market Data, Hive, and GDELT MCP servers. Use for evidence-backed crypto asset research, market snapshots, discrepancies, and catalyst assessments involving these providers. Do not use for order execution, portfolio mutations, MCP installation/repair, or generic coding tasks.
+---
 # Crypto MCP Research
 
 Use this skill for evidence-backed crypto research that needs synthesis across configured research providers. It does not authorize trading, portfolio changes, wallet use, MCP setup, or generic coding.
