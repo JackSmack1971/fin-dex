@@ -28,6 +28,8 @@ Tool effects are `READ_ONLY`, `STATEFUL`, or `UNKNOWN`, based on advertised oper
 
 The currently discovered CoinGecko `execute` method runs caller-supplied TypeScript through an authenticated SDK client, so its effects are `UNKNOWN`; it is intentionally not exposed. Only CoinGecko `search_docs` is allowlisted, which means this configuration currently has no automatic CoinGecko market-data method. Do not substitute a guessed SDK call. Restore that research surface only after a bounded, exact read-only method is advertised and verified.
 
+Hive `invoke_api_endpoint` is a generic dispatcher that executes any caller-named endpoint from a large catalog, so its effects are likewise `UNKNOWN` and it is not exposed. Hive's fixed-purpose tools remain allowlisted.
+
 ## Routing rules
 
 - For a price/distribution claim use a price source and, if consequential, a different upstream price construction or venue; do not call two wrappers on the same upstream feed independent corroboration.
